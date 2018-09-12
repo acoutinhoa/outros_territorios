@@ -1,0 +1,7 @@
+h1 {
+	font-family:'Anton', sans-serif;
+}
+
+a:link, a:visited, a:active, a:hover {
+	color: #000;
+}
