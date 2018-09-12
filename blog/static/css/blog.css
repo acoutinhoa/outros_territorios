@@ -2,6 +2,24 @@ h1 {
 	font-family:'Anton', sans-serif;
 }
 
+button {
+	font-family:'Anton', sans-serif;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
 a:link, a:visited, a:active, a:hover {
 	color: #000;
 }
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #ffffff;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
+}
+
