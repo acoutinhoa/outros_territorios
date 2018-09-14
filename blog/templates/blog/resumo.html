@@ -6,13 +6,12 @@
 	<div class="linha"><img src="{{ img.img.url }}" alt="{{ img }}"></div>
 
 <div class="coluna" style="width: 60vw; height: 100%; float: left;">
-	<div class="linha" style="height: 20vh;"></div>
 	<p class="post linha texto">{{ resumo.resumo|linebreaksbr }}</p>
+	<div class="linha" style="height: 60vh;"></div>
 </div>
-<div class="coluna" style="width: 40vw; height: 100%; float: left;">
+<div style="width: 40vw; height: 100%; float: left;">
 	<p class="post titulo linha">{{ resumo.subtitulo|linebreaksbr }}</p>
 	<div class="linha"></div>
-	<div class="linha" style="height: 20vh;"></div>
 </div>
 
 {% endblock %}
