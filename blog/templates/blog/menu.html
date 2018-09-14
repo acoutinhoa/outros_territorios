@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="linha">
+	<p class="menu">
+	<a href="/">pt</a> / <a href="">en</a>
+	</p>
+</div>
+<div class="linha">
+	<ul class="menu">
+		{% for item, info in itens_menu %}
+		<li><a href="">{{ item }}</a></li>
+			{% if info %}
+			<ul class="menu coluna">
+				{% for subitem in info %}
+				<li>{{ subitem }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+ 	{% endfor %}
+	</ul>
+</div>
+
+<div class="linha">
+{% include 'blog/logos.html' with lista=logo %}
+</div>
+
+{% endblock %}

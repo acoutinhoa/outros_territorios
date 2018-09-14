@@ -1,18 +1,15 @@
 {% load static %}
 
+<!DOCTYPE html>
 <html>
     <head>
-        <title>vai rolar</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>outro territórios{{ tt }}</title>
         <link href="https://fonts.googleapis.com/css?family=Anton|Roboto+Mono" rel="stylesheet"> 
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
     </head>
     <body>
-        <div>
-            <h1><a href="/">outros territórios</a></h1>
-            {% if user.is_authenticated %}
-                <a href="{% url 'post_new' %}" class="top-menu"><button type="button">+</button></a>
-            {% endif %}
-        </div>
         {% block content %}
         {% endblock %}
     </body>
