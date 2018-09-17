@@ -11,8 +11,8 @@ def home(request):
 	frames = def_randomiza([
 		[100, 20, reverse('menu')],
 		# [100, 45, reverse('post_detail', args=(str(pk)))],
-		[100, 45, reverse('resumo', args=('1'))],
-		[100, 35, reverse('post_list')],
+		[100, 50, reverse('resumo', args=('1'))],
+		[100, 30, reverse('post_list')],
 	])
 	return render(request, 'blog/iframe.html', {'frames': frames, 'tipo': 'coluna'})
 

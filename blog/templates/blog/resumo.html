@@ -1,17 +1,25 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-
-	<p class="post resumo linha">{{ resumo.titulo|linebreaksbr }}</p>
-	<div class="linha"><img src="{{ img.img.url }}" alt="{{ img }}"></div>
-
-<div class="coluna" style="width: 60vw; height: 100%; float: left;">
-	<p class="post linha texto">{{ resumo.resumo|linebreaksbr }}</p>
-	<div class="linha" style="height: 60vh;"></div>
+<div class="home linha">
+	<div class="coluna"  style="width: 30vw; height: 5vh;"></div>
 </div>
-<div style="width: 40vw; height: 100%; float: left;">
-	<p class="post titulo linha">{{ resumo.subtitulo|linebreaksbr }}</p>
-	<div class="linha"></div>
+<div class="home linha">
+	<p class="home_titulo">{{ resumo.titulo|linebreaksbr }}</p>
 </div>
-
+<div class="home linha">
+	<div class="coluna_" style="width: 95vw; float: right;"><img src="{{ img.img.url }}" alt="{{ img }}"></div>
+</div>
+<div class="home linha">
+	<div class="coluna" style="width: 60vw; height: 100vh; float: left;">
+		<div class="linha" style="height: 10vh;"></div>
+		<p class="linha home_texto">{{ resumo.resumo|linebreaksbr }}</p>
+	</div>
+	<div style="width: 40vw; float: left;">
+		<p class="home_data linha">{{ resumo.subtitulo|linebreaksbr }}</p>
+	</div>
+</div>
+<div class="home linha">
+	<p class="home_data">logos</p>
+</div>
 {% endblock %}

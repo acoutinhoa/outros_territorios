@@ -1,16 +1,17 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <div>
+    <div class="linha">
+        <p class="titulo menu"><a href="{% url 'post_list' %}">< blog</a></p>
+    </div>
+    <div class="post linha">
         {% if user.is_authenticated %}
 			<a href="{% url 'post_edit' pk=post.pk %}" class="top-menu"><button type="button">editar</button></a>
 		{% endif %}
-        <h1>{{ post.title }}</h1>
+        <p class="titulo">{{ post.title }}</p>
         {% if post.published_date %}
-            <div>
-                {{ post.published_date }}
-            </div>
+            <p class="data">{{ post.published_date }}</p>
         {% endif %}
-        <p>{{ post.text|linebreaksbr }}</p>
+        <p class="texto">{{ post.text|linebreaksbr }}</p>
     </div>
 {% endblock %}
