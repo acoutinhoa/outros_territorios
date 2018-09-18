@@ -1,7 +1,3 @@
-html {
-overflow: auto;
-}
-
 body, * {
 	margin: 0;
 	border: none;
@@ -39,8 +35,10 @@ button:hover {
 }
 
 /* iframe */
-.tudo {
+#tudo {
 	position: fixed;
+	width: 100vw;
+	height: 100vh;
 }
 .frame {
 	float: left;
@@ -148,7 +146,6 @@ ul {
 }
 
 
-
 .top-menu, .top-menu:link, .top-menu:active, .top-menu:hover, .top-menu:visited {
     float: right;
     margin-right: 20px;
@@ -158,4 +155,29 @@ ul {
 .post-form textarea, .post-form input {
     width: 100%;
 }
+
+/* scrollbar */
+
+::-webkit-scrollbar { 
+    display: none !important; 
+}
+
+/*@-moz-document url-prefix() {
+	#tudo {
+		overflow: hidden;
+	}
+	.barra{
+		box-sizing: content-box;
+	    max-height: auto;
+	    /* 100vw +15px : trick to set the scroll bar out the screen */
+	    width: calc(100vw + 15px);
+	    min-width: calc(100vw + 15px);
+	    max-width: calc(100vw + 15px);
+	    /* set back the content inside the screen */
+	    padding-right: 15px;
+		overflow: auto;
+	}
+}
+*/
+
 
