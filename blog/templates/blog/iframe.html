@@ -2,9 +2,9 @@
 
 {% block content %}
 <div class="tudo">
-	{% for h, w, url in frames %}
+	{% for h, w, u in frames %}
 	<div class="frame" style="height:{{ h }}vh; width:{{ w }}vw">
-		<iframe src="{{ url }}" target="_self" class="{{ tipo }}"></iframe>
+		<iframe src="{{ u }}" target="_self" class="{{ tipo }}"></iframe>
 	</div>
 	{% endfor %}
 </div>

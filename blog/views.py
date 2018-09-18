@@ -3,18 +3,18 @@ from django.utils import timezone
 from django.urls import reverse
 from .forms import PostForm
 from .models import *
-import random
+from random import *
 
 def home(request):
 	posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('?')
 	pk = posts[0].pk
 	frames = def_randomiza([
 		[100, 20, reverse('menu')],
-		# [100, 45, reverse('post_detail', args=(str(pk)))],
-		[100, 50, reverse('resumo', args=('1'))],
+		[100, 50, reverse('resumo', args=('1',))],
 		[100, 30, reverse('post_list')],
 	])
-	return render(request, 'blog/iframe.html', {'frames': frames, 'tipo': 'coluna'})
+	borda = def_borda()
+	return render(request, 'blog/iframe.html', {'frames': frames, 'tipo': 'coluna', 'borda': borda,})
 
 
 def menu(request):
@@ -24,23 +24,24 @@ def menu(request):
 		('blog', []),
 		('faq', []),
 	]
-	logo = []
-	for i in range(random.randint(3,10)):
-		logo.append('logo')
-	return render(request, 'blog/menu.html', {'itens_menu': itens_menu, 'logo': logo})
+	borda = def_borda()
+	return render(request, 'blog/menu.html', {'itens_menu': itens_menu, 'borda': borda,})
 
 def resumo(request, pk):
 	resumo = get_object_or_404(Resumo, pk=pk)
 	img = resumo.imgs.all().order_by('?')[0]
-	return render(request, 'blog/resumo.html', {'resumo':resumo, 'img':img})
+	borda = def_borda()
+	return render(request, 'blog/resumo.html', {'resumo':resumo, 'img':img, 'borda': borda,})
 
 def post_list(request):
 	posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('?')
-	return render(request, 'blog/post_list.html', {'posts': posts})
+	borda = def_borda()
+	return render(request, 'blog/post_list.html', {'posts': posts, 'borda': borda,})
 
 def post_detail(request, pk):
 	post = get_object_or_404(Post, pk=pk)
-	return render(request, 'blog/post_detail.html', {'post': post})
+	borda = def_borda()
+	return render(request, 'blog/post_detail.html', {'post': post, 'borda': borda,})
 
 def post_new(request):
 	if request.method == 'POST':
@@ -53,7 +54,8 @@ def post_new(request):
 			return redirect('post_detail', pk=post.pk)
 	else:
 		form = PostForm()
-	return render(request, 'blog/post_edit.html', {'form': form})
+	borda = def_borda()
+	return render(request, 'blog/post_edit.html', {'form': form, 'borda': borda,})
 
 def post_edit(request, pk):
 	post = get_object_or_404(Post, pk=pk)
@@ -67,7 +69,8 @@ def post_edit(request, pk):
 			return redirect('post_detail', pk=post.pk)
 	else:
 		form = PostForm(instance=post)
-	return render(request, 'blog/post_edit.html', {'form': form})
+	borda = def_borda()
+	return render(request, 'blog/post_edit.html', {'form': form, 'borda': borda,})
 
 
 # defs
@@ -75,6 +78,8 @@ def post_edit(request, pk):
 def def_randomiza(lista):
 	l = []
 	for i in range(len(lista)):
-		l.append(lista.pop(random.randrange(len(lista))))
+		l.append(lista.pop(randrange(len(lista))))
 	return l
 
+def def_borda(x=5, y=25):
+	return str(randint(x, y)) + 'px'

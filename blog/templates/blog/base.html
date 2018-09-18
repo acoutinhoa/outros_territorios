@@ -5,8 +5,19 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>outro territórios{{ tt }}</title>
+        <title>outros territórios{{ tt }}</title>
         <link href="https://fonts.googleapis.com/css?family=Anton|Roboto+Mono" rel="stylesheet"> 
+        <style type="text/css">
+            :root {
+                --fonte: {{ fonte|default:"'Anton', sans-serif" }};
+                --fonte-txt: {{ fonte_|default:'sans-serif' }};
+                --cor: {{ cor|default:'black' }};
+                --cor-borda: {{ cor|default:'black' }};
+                --cor-hover: {{ cor_|default:'blue' }};
+                --borda: {{ borda|default:'10px' }};
+                --borda-link: {{ borda_|default:'4px' }};
+            }
+        </style>
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
     </head>
     <body>

@@ -4,13 +4,22 @@
     <div class="linha">
         <p class="titulo menu"><a href="{% url 'post_list' %}">< blog</a></p>
     </div>
+    {% if post.img %}
+    <div class="post ">
+    {% else %}
     <div class="post linha">
+    {% endif %}
         {% if user.is_authenticated %}
-			<a href="{% url 'post_edit' pk=post.pk %}" class="top-menu"><button type="button">editar</button></a>
-		{% endif %}
+            <a href="{% url 'post_edit' pk=post.pk %}" class="top-menu"><button type="button">editar</button></a>
+        {% endif %}
         <p class="titulo">{{ post.title }}</p>
         {% if post.published_date %}
-            <p class="data">{{ post.published_date }}</p>
+            <p class="data">{{ post.published_date|date:"d/m/Y, H:i" }}</p>
+        {% endif %}
+        {% if post.img %}
+        </div>
+            <img src="{{ post.img.url }}" alt="{{ img }}" style="margin-top: -30px;">
+        <div class="post linha">
         {% endif %}
         <p class="texto">{{ post.text|linebreaksbr }}</p>
     </div>

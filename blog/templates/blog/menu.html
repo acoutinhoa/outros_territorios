@@ -4,16 +4,22 @@
 <div class="linha fixo">
 	<p class="linha menu"><a href="/">pt</a> / <a href="">en</a></p>
 	<ul class="menu">
-		{% for item, info in itens_menu %}
-		<li><a href="">{{ item }}</a></li>
-			{% if info %}
-			<ul class="coluna submenu">
+	{% for item, info in itens_menu %}
+		{% if info %}
+			<div class="submenu">
+				<li><a href="">{{ item }}</a></li>
+			</div>
+			<div class="submenu_">
+				<ul>
 				{% for subitem in info %}
-				<li>{{ subitem }}</li>
+					<li>{{ subitem }}</li>
 				{% endfor %}
-			</ul>
-			{% endif %}
- 		{% endfor %}
+				</ul>
+			</div>
+			{% else %}
+			<li><a href="">{{ item }}</a></li>
+		{% endif %}
+	{% endfor %}
 	</ul>
 </div>
 {% endblock %}
