@@ -1,0 +1,15 @@
+{% if user.is_authenticated %}
+	<table class="linha">
+	{% include 'o_t/botoes.html' %}
+	</table>
+{% endif %}
+<p class="titulo">{{ nota.titulo }}</p>
+{% if nota.imagem %}
+    <img src="{{ nota.imagem.url }}" alt="{{ imagem }}">
+{% endif %}
+<div class="post linha">
+    {% if nota.data1 %}
+        <p class="data_">{{ nota.data1|date:'d-m-Y' }}</p>
+    {% endif %}
+<p class="texto_">{{ nota.texto|linebreaksbr }}</p>
+</div>

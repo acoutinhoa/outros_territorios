@@ -1,0 +1,12 @@
+{% for nota in notas %}
+	<div class="post linha_">
+		<p class="titulo_"><a href="{% url 'blog' pk=nota.pk %}">{{ nota.titulo }}</a></p>
+		<p class="data_">{{ nota.data1|date:"d/m/Y" }}</p>
+		{% if nota.imagem %}
+			</div>
+				<img src="{{ nota.imagem.url }}" alt="{{ img }}" style="margin-top: -30px;">
+			<div class="post">
+		{% endif %}
+		<p class="texto_">{{ nota.texto|linebreaksbr }}</p>
+	</div>
+{% endfor %}

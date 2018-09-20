@@ -1,0 +1,18 @@
+<p class="titulo titulo_ linha">blog/{{ titulo_|default:'arquivo'}}</p>
+
+<table>
+{% for nota in notas %}
+{% ifchanged nota.data1.year %}
+<tr>
+	<td>{{ nota.data1.year }}</td>
+</tr>
+{% endifchanged %}
+<tr>
+	<td class="data_">{{ nota.data1|date:"d/m" }}</td>
+	<td class="titulo_lista" colspan="3"><a href="{% url 'blog' pk=nota.pk %}">{{ nota.titulo }}</a></td>
+</tr>
+{% if user.is_authenticated %}
+	{% include 'o_t/botoes.html' %}
+{% endif %}
+{% endfor %}
+</table>

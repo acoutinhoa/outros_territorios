@@ -1,0 +1,28 @@
+
+<div class="linha">
+
+<p class="linha menu"><a href="">pt</a> / <a href="">en</a></p>
+
+<ul class="menu">
+{% for item, item_url, info in menu %}
+	{% if info %}
+		<li class="submenu_hover"><a href="{{ item_url }}">{{ item }}</a></li>
+		<ul class="submenu">
+		{% for subitem in info %}
+			<li>{{ subitem }}</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<li><a href="{{ item_url }}">{{ item }}</a></li>
+	{% endif %}
+{% endfor %}
+</ul>
+
+</div>
+
+{% if user.is_authenticated %}
+<div class="linha menu">
+<p>conectado: {{ user.username }}</p>
+<a href="{% url 'logout' %}" class="botao"><button type="button">sair</button></a>
+</div>
+{% endif %}

@@ -1,0 +1,31 @@
+{% extends 'o_t/base.html' %}
+
+{% block menu %}
+{% if user.is_authenticated %}
+	<div class="linha menu">
+	<a href="{% url 'cartaz_edit' %}" class="botao"><button type="button">editar cartaz</button></a>
+	</div>
+{% endif %}
+{% endblock %}
+
+
+<!-- cartaz -->
+{% block c0 %}
+{% if form %}
+	{% include 'o_t/cartaz_edit.html' %}
+{% else %}
+	{% include 'o_t/cartaz.html' %}
+{% endif %}
+{% endblock %}
+
+
+{% block c1 %}
+<!-- posts -->
+<div class="frame linha" style="height: 90%;">
+{% include 'o_t/notas.html' %}
+</div>
+<!-- midias -->
+<div class="frame linha" style="height: 10%;">
+{% include 'o_t/midias.html' %}
+</div>
+{% endblock %}

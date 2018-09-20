@@ -1,9 +1,19 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-	<h1>novo post</h1>
-	<form method="POST" class="post-form">{% csrf_token %}
-		{{ form.as_p }}
+<div class="post">	
+	<h1>post</h1>
+	<form method="POST" enctype="multipart/form-data" class="post-form">{% csrf_token %}
+<!-- 		{{ form.as_p }} -->
+	    {% for field in form %}
+			{{ field.errors }}
+			{% if field.name == 'img' and field.value %}
+				<img src="{{ form.instance.img.url }}" />
+			{% endif %}
+			{{ field.label_tag }}{{ field }}
+		{% endfor %}
+
 		<button type="submit">salvar</button>
 	</form>
+</div>
 {% endblock %}

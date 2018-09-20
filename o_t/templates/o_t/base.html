@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>outros territórios | {{ titulo }}</title>
+<link href="https://fonts.googleapis.com/css?family=Anton|Roboto+Mono" rel="stylesheet"> 
+<style type="text/css">
+:root {
+    --fonte: {{ fonte|default:"'Anton', sans-serif" }};
+    --fonte-txt: {{ fonte_|default:'sans-serif' }};
+    --fonte-form-size: {{ fonte_form_s|default:'14px' }};
+    --cor: {{ cor|default:'black' }};
+    --cor-borda: {{ cor|default:'black' }};
+    --cor-hover: {{ cor_|default:'blue' }};
+    --borda: {{ borda|default:'10px' }};
+    --borda-link: {{ borda_|default:'4px' }};
+}
+</style>
+<link rel="stylesheet" href="{% static 'css/o_t.css' %}">
+</head>
+
+<body>
+{% block content %}
+
+<div id="tudo">
+{% for w, frame in frames %}
+    <div class="frame coluna" style="width: {{ w }}%;">
+    {% if frame == 'menu' %}
+        {% include 'o_t/menu.html' %}
+        {% block menu %}
+        {% endblock %}
+    {% elif frame == 'c0' %}
+        {% block c0 %}
+        {% endblock %}
+    {% elif frame == 'c1' %}
+        {% block c1 %}
+        {% endblock %}
+    {% endif %}
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
+</body>
+
+</html>

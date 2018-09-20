@@ -21,5 +21,10 @@
 		{% endif %}
 	{% endfor %}
 	</ul>
+    {% if user.is_authenticated %}
+    <div class="linha_">
+        <p class="menu">conectado: {{ user.username }} <small>(<a href="{% url 'logout' %}">sair</a>)</small></p>
+    </div>
+	{% endif %}
 </div>
 {% endblock %}

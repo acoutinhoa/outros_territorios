@@ -17,10 +17,10 @@ class Post(models.Model):
         return self.title
 
 class Resumo(models.Model):
-	titulo = models.CharField('título', max_length=200)
-	subtitulo = models.TextField('datas', blank=True)
+	titulo = models.CharField('título', max_length=200,)
+	datas = models.TextField('datas', blank=True)
 	resumo = models.TextField('resumo', blank=True)
-	imgs = models.ManyToManyField('Imagem', blank=True)
+	imgs = models.ManyToManyField('Imagem', verbose_name="imagens", blank=True)
 	def __str__(self):
 		return self.titulo
 

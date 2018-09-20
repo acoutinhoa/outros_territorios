@@ -1,0 +1,27 @@
+{% extends "o_t/base.html" %}
+
+{% block content %}
+    <p class="linha titulo">outros_territorios/login</p>
+    <table class="form linha" style="padding-right: 50%;">
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+        <tr>
+            <th>nome:</th>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <th>senha:</th>
+            <td>{{ form.password }}</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><button type="submit">entrar</button></td>
+        </tr>
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    </table>
+    {% if form.errors %}
+        <p class="linha titulo titulo_">senha e/ou usuário incorretos</p>
+    {% endif %}
+{% endblock %}
