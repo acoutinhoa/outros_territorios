@@ -1,10 +1,14 @@
-<p class="titulo titulo_ linha"> cartaz/edit</p>
+<p class="titulo titulo_ linha"> {{ form.instance.pagina }}/edit</p>
 
 {% if user.is_authenticated %}
 <table class="form">
-<form method="POST">
+<form method="POST" enctype="multipart/form-data" >
 	{% csrf_token %}
-	{{ form.as_table }}
+	{{ form }}
+	{{ formset }}
+	{% if formset_ %}
+		{{ formset_ }}
+	{% endif %}
 <tr>
 	<td><button type="submit">salvar</button></td>
 </tr>

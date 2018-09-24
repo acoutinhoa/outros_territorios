@@ -12,9 +12,11 @@ blog_patterns = [
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('cartaz/', views.home, {'edit':True,}, name='cartaz_edit'),
+    path('edit/', views.home, {'edit':True,}, name='home_edit'),
 
     path('concurso/', views.concurso, name='concurso'),
+    path('concurso/edit/', views.concurso, {'edit':True,}, name='concurso_edit'),
+
     path('galeria/', views.galeria, name='galeria'),
     path('faq/', views.faq, name='faq'),
     path('blog/', include(blog_patterns)),

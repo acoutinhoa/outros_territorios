@@ -1,0 +1,27 @@
+<p class="titulo linha">{{ cartaz.titulo|linebreaksbr }}</p>
+
+<div class="cartaz linha"">
+	<div class="cartaz linha" style="width: 60%;">
+		<div class="texto">{{ cartaz.texto|linebreaksbr }}</div>
+	</div>
+	<div class="coluna_ cartaz" style="width: 40%;">
+		<p class="data">bases do concurso</p>
+		<ul style="margin-bottom: 30px;">
+		{% for arquivo in arquivos %}
+		<li><a href="{{ arquivo.arquivo.url }}" download>{{ arquivo }}</a></li>
+		{% endfor %}
+		</ul>
+
+		<p class="data linha_">cronograma</p>
+		<p class="texto">{{ cartaz.datas|linebreaksbr }}</p>
+
+	</div>
+</div>
+
+<div class="linha">
+	<p class="titulo">juri</p>
+	{% for juri in jurados %}
+	<p class="data"><a href="{{ juri.site }}">{{ juri }}</a></p>
+	<p class="texto">{{ juri.bio }}</p>
+	{% endfor %}
+</div>
