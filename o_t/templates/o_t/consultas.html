@@ -1,0 +1,31 @@
+
+<p class="linha titulo titulo_">novas consultas</p>
+<table class="form linha">
+<form method="POST">
+	{% csrf_token %}
+		{{ consultas.management_form }}
+		{% for form in consultas %}
+			<tr>
+				<th>data:</th>
+				<td>{{ form.instance.data|date:'d/m/Y' }}</td>
+			</tr>
+			<tr>
+				<th>nome:</th>
+				<td>{{ form.instance.nome }}</td>
+			</tr>
+			<tr>
+				<th>email:</th>
+				<td>{{ form.instance.email }}</td>
+			</tr>
+			<tr>
+				<th>consulta:</th>
+				<td>{{ form.instance.consulta }}</td>
+			</tr>
+			{{ form }}
+			<tr><td class="linha" colspan="2"></td></tr>
+		{% endfor %}
+	<tr>
+		<td><button type="submit" name="consultas_submit">salvar</button></td>
+	</tr>
+</form>
+</table>

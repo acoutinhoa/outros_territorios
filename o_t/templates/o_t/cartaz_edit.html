@@ -6,11 +6,8 @@
 	{% csrf_token %}
 	{{ form }}
 	{{ formset }}
-	{% if formset_ %}
-		{{ formset_ }}
-	{% endif %}
 <tr>
-	<td><button type="submit">salvar</button></td>
+	<td><button type="submit" name="cartaz_submit">salvar</button></td>
 </tr>
 </form>
 </table>

@@ -9,7 +9,7 @@
 {% endblock %}
 
 
-{% block c0 %}
+{% block c1 %}
 {% if form %}
 	{% include 'o_t/nota_edit.html' %}
 	{% else %}
@@ -21,9 +21,9 @@
 	{% endif %}
 {% endblock %}
 
-{% block c1 %}
+{% block c2 %}
 {% if user.is_authenticated %}
-<!-- lista posts -->
+	<!-- lista posts -->
 	<div class="frame linha" style="height: 50%;">
 	{% include 'o_t/notas_lista.html' %}
 	</div>

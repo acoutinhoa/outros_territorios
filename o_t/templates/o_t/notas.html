@@ -1,4 +1,4 @@
-<p class="titulo">blog</p>
+<p class="titulo">{{ titulo }}</p>
 {% for nota in notas %}
 	<div class="post linha_">
 		<p class="titulo_"><a href="{% url 'blog' pk=nota.pk %}">{{ nota.titulo }}</a></p>

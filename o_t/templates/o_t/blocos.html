@@ -1,0 +1,33 @@
+<p class="linha titulo titulo_">blocos</p>
+<table class="form">
+	<tr>
+		<th><a href="{% url 'faq_edit' %}">faq</a></th>
+	</tr>
+{% for bloco in blocos %}
+	<tr>
+		{% if bloco.nome != 'rascunho' %}
+			<th><a href="{% url 'faq_edit' pk=bloco.pk %}">{{ bloco }}</a></th>
+			<td>
+			{% if bloco.data1 %}
+				{{ bloco.data1|date:'d/m/Y' }}
+			{% else %}
+				<a href="{% url 'bloco_publish' pk=bloco.pk %}" class="botao"><button type="button">publicar</button></a>
+			{% endif %}
+			</td>
+			<td>
+			<a href="{% url 'bloco_remove' pk=bloco.pk %}" class="botao"><button type="button">deletar</button></a>
+			</td>
+		{% endif %}
+	</tr>
+{% endfor %}
+</table>
+
+<table class="form">
+<form method="POST">
+	{% csrf_token %}
+	{{ novo_bloco }}
+<tr>
+	<td><button type="submit" name='bloco_submit'>criar bloco</button></td>
+</tr>
+</form>
+</table>

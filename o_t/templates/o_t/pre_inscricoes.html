@@ -1,0 +1,34 @@
+<p class="titulo titulo_ linha" id="inscricoes">inscrições</p>
+
+<p class="texto linha">texto com instruçoes pras inscrições</p>
+
+<table class="form">
+<form method="POST" >
+	{% csrf_token %}
+	{% for field in inscricao_form %}
+		{% if field.name != 'termos' %}
+			<tr>
+				<th>{{ field.label_tag }}</th>
+				<td>{{ field }}</td>
+			</tr>
+		{% else %}
+			<tr><td></td></tr>
+			{{ dados_form }}
+			<tr><td></td></tr>
+			<tr>
+				<td>{{ field }}</td>
+				<td>{{ field.label_tag }}</td>
+			</tr>
+
+		{% endif %}
+
+	{% endfor %}
+
+
+
+
+<tr>
+	<td><button type="submit" name='inscricao_submit'>inscrever</button></td>
+</tr>
+</form>
+</table>

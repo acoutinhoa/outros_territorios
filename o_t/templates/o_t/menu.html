@@ -8,8 +8,8 @@
 	{% if info %}
 		<li class="submenu_hover"><a href="{{ item_url }}">{{ item }}</a></li>
 		<ul class="submenu">
-		{% for subitem in info %}
-			<li>{{ subitem }}</li>
+		{% for subitem, anchor in info %}
+			<li><a href="{{ item_url }}#{{ anchor }}">{{ subitem }}</li>
 		{% endfor %}
 		</ul>
 	{% else %}

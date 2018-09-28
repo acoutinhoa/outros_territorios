@@ -9,15 +9,25 @@
 {% endblock %}
 
 <!-- cartaz -->
-{% block c0 %}
-{% if form %}
-	{% include 'o_t/cartaz_edit.html' %}
-{% else %}
-	{% include 'o_t/documentacao.html' %}
-{% endif %}
+{% block c1 %}
+	{% if cartaz_form %}
+		{% include 'o_t/cartaz_edit.html' with form=cartaz_form formset=arquivos_form %}
+	{% else %}
+		{% include 'o_t/documentacao.html' %}
+	{% endif %}
 {% endblock %}
 
 
-{% block c1 %}
-<p>inscricoes</p>
+{% block c2 %}
+	{% if juri_form %}
+		{% include 'o_t/juri_edit.html' %}
+	{% else %}
+		<div class="frame linha" style="height: 80%;">
+		{% include 'o_t/pre_inscricoes.html' %}
+		</div>
+		<!-- midias -->
+		<div class="frame linha" style="height: 20%;">
+		{% include 'o_t/email.html' %}
+		</div>
+	{% endif %}
 {% endblock %}

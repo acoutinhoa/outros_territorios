@@ -76,6 +76,7 @@ img {
 .cartaz {
 	float: left;
 	height: auto;
+	width: 100%;
 }
 .titulo {
 	font-weight: bold;
@@ -113,6 +114,7 @@ img {
 }
 .texto_ {
 	font-family: var(--fonte-txt);
+	font-weight: normal;
 	font-size: 14px;
 }
 table {

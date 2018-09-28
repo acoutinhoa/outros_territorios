@@ -1,0 +1,38 @@
+<!-- lista respostas -->
+<p class="titulo linha">{{ titulo }}</p>
+
+<table>
+{% for resp in respostas %}
+<tr>
+	<td class="titulo_lista">
+
+		{% if resp.bloco %}
+			<a href="{% url 'faq' pk=resp.bloco.pk %}#{{ resp.id }}">
+		{% else %}
+			<a href="{% url 'faq' %}#{{ resp.id }}">
+		{% endif %}
+
+		{% if resp.pergunta %}
+			{{ resp.pergunta }}
+		{% else %}
+			{{ resp.consulta }}
+		{% endif %}
+
+	</a></td>
+</tr>
+{% endfor %}
+</table>
+
+
+{% for resp in respostas %}
+	<div class="post linha_" id="{{ resp.pk }}">
+		<p class="titulo_">
+			{% if resp.pergunta %}
+				{{ resp.pergunta }}
+			{% else %}
+				{{ resp.consulta }}
+			{% endif %}
+		</a></p>
+		<p class="texto_">{{ resp.resposta|linebreaksbr }}</p>
+	</div>
+{% endfor %}

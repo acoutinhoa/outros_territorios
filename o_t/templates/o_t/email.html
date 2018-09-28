@@ -1,0 +1,18 @@
+
+<table class="form">
+{% if confirmacao %}
+<tr>
+	<th colspan="2">email enviado</th>
+</tr>
+{% endif %}
+<tr>
+	<th colspan="2">reenviar link para inscricoes</th>
+</tr>
+<form method="POST" >
+	{% csrf_token %}
+	{{ email_form }}
+<tr>
+	<td><button type="submit" name='email_submit'>enviar email</button></td>
+</tr>
+</form>
+</table>

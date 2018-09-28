@@ -1,0 +1,59 @@
+{% extends 'o_t/base.html' %}
+
+{% block c0 %}
+<p class="linha titulo titulo_">inscrições</p>
+<div class="linha">
+<table class="form">
+    {% for field in inscricao_form %}
+    	{% if field.name != 'termos' %}
+        <tr>
+            <th>{{ field.label }}:</th>
+            <td>{{ field.value }}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+</div>
+
+<div class="linha">
+<table class="form">
+    {% for field in dados_form %}
+        <tr>
+            <th>{{ field.label }}:</th>
+            <td>{{ field.value }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% endblock %}
+
+{% block c1 %}
+<p class="titulo titulo_ linha">projeto</p>
+
+<table class="form">
+<form method="POST" enctype="multipart/form-data" >
+	{% csrf_token %}
+	{{ projeto_form }}
+	{{ prancha_form }}
+<tr>
+	<td><button type="submit" name="projeto_submit">salvar projeto</button></td>
+</tr>
+</form>
+</table>
+{% endblock %}
+
+
+{% block c2 %}
+<p class="titulo titulo_ linha">equipe</p>
+
+<table class="form">
+<form method="POST" enctype="multipart/form-data" >
+	{% csrf_token %}
+	{{ equipe_form }}
+<tr>
+	<td><button type="submit" name="equipe_submit">salvar equipe e adicionar novo integrante</button></td>
+</tr>
+</form>
+</table>
+{% endblock %}

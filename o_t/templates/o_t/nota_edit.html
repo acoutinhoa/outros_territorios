@@ -4,7 +4,7 @@
 <table class="form">
 <form method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
-	{{ form.as_table }}
+	{{ form }}
 <tr>
 	<td><button type="submit">salvar</button></td>
 </tr>

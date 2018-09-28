@@ -1,0 +1,13 @@
+<p class="titulo titulo_ linha">juri/edit</p>
+
+{% if user.is_authenticated %}
+<table class="form">
+<form method="POST">
+	{% csrf_token %}
+	{{ juri_form }}
+<tr>
+	<td><button type="submit" name="juri_submit">salvar</button></td>
+</tr>
+</form>
+</table>
+{% endif %}

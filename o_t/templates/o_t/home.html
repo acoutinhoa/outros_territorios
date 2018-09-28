@@ -10,7 +10,7 @@
 
 
 <!-- cartaz -->
-{% block c0 %}
+{% block c1 %}
 {% if form %}
 	{% include 'o_t/cartaz_edit.html' %}
 {% else %}
@@ -19,10 +19,10 @@
 {% endblock %}
 
 
-{% block c1 %}
+{% block c2 %}
 <!-- posts -->
 <div class="frame linha" style="height: 90%;">
-{% include 'o_t/notas.html' %}
+{% include 'o_t/notas.html' with titulo='blog' %}
 </div>
 <!-- midias -->
 <div class="frame linha" style="height: 10%;">

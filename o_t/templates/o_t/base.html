@@ -26,25 +26,28 @@
 
 <body>
 {% block content %}
-
 <div id="tudo">
-{% for w, frame in frames %}
-    <div class="frame coluna" style="width: {{ w }}%;">
-    {% if frame == 'menu' %}
-        {% include 'o_t/menu.html' %}
-        {% block menu %}
-        {% endblock %}
-    {% elif frame == 'c0' %}
-        {% block c0 %}
-        {% endblock %}
-    {% elif frame == 'c1' %}
-        {% block c1 %}
-        {% endblock %}
-    {% endif %}
-    </div>
-{% endfor %}
+
+<div class="frame coluna" style="width: 20%;">
+{% block c0 %}
+    {% include 'o_t/menu.html' %}
+    {% block menu %}
+    {% endblock %}
+{% endblock %}
 </div>
 
+<div class="frame coluna" style="width: 50%;">
+{% block c1 %}
+{% endblock %}
+</div>
+
+<div class="frame coluna" style="width: 30%;">
+{% block c2 %}
+{% endblock %}
+</div>
+
+
+</div>
 {% endblock %}
 </body>
 

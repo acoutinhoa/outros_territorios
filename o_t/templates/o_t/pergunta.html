@@ -1,0 +1,29 @@
+{% if blocos %}
+<p class="titulo titulo_ linha">blocos de respostas</p>
+<table class="form linha">
+{% for bloco in blocos %}
+	<tr>
+		<td>{{ bloco.data1|date:'d/m/Y'}}</td>
+		<th><a href="{% url 'faq' pk=bloco.pk %}">{{ bloco }}</a></th>
+	</tr>
+{% endfor %}
+</table>
+
+
+{% endif %}
+
+{% if confirmacao %}
+	<p class="data linha">mensagem de confirmacao de recebimento de consulta.</p>
+{% endif %}
+
+<p class="texto linha">Outras consultas podem ser realizadas por meio do formulário a seguir e serão respondidas semanalmente neste espaço:</p>
+
+<table class="form linha">
+<form method="POST">
+	{% csrf_token %}
+	{{ form }}
+<tr>
+	<td><button type="submit">enviar</button></td>
+</tr>
+</form>
+</table>
