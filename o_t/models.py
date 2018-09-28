@@ -51,8 +51,8 @@ class BlocoRespostas(models.Model):
 	def __str__(self):
 		return self.nome
 
-def set_rascunho():
-	return str(BlocoRespostas.objects.get(nome='rascunho').pk)
+# def set_rascunho():
+# 	return str(BlocoRespostas.objects.get(nome='rascunho').pk)
 
 class Pergunta(models.Model):
 	# bloco = models.ForeignKey(BlocoRespostas, on_delete=models.SET(set_rascunho), blank=True, default=set_rascunho)
