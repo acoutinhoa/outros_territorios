@@ -55,7 +55,8 @@ def set_rascunho():
 	return str(BlocoRespostas.objects.get(nome='rascunho').pk)
 
 class Pergunta(models.Model):
-	bloco = models.ForeignKey(BlocoRespostas, on_delete=models.SET(set_rascunho), blank=True, default=set_rascunho)
+	# bloco = models.ForeignKey(BlocoRespostas, on_delete=models.SET(set_rascunho), blank=True, default=set_rascunho)
+	bloco = models.ForeignKey(BlocoRespostas, on_delete=models.CASCADE, blank=True, null=True)
 	nome = models.CharField(max_length=100)
 	email = models.EmailField()
 	consulta = models.TextField()
