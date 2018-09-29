@@ -8,7 +8,6 @@ from random import *
 
 def home(request):
 	posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('?')
-	pk = posts[0].pk
 	frames = def_randomiza([
 		[100, 20, reverse('menu')],
 		[100, 50, reverse('resumo', args=('1',))],

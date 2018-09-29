@@ -14,7 +14,7 @@ class Cartaz(models.Model):
 
 class Arquivo(models.Model):
 	pagina = models.ForeignKey(Cartaz, on_delete=models.CASCADE, blank=True)
-	nome = models.CharField(max_length=200)
+	nome = models.CharField(max_length=200, blank=True)
 	arquivo = models.FileField(upload_to = 'o_t/arquivos/')
 	def __str__(self):
 		return self.nome

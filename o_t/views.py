@@ -42,16 +42,14 @@ consulta:
 
 
 
-def home(
-	request, 
-	edit = False, 
-	pk = 1,
-	titulo = 'home',
-	form = None,
-	formset = None,
-	):
-	cartaz = get_object_or_404(Cartaz, pk=pk)
-	img = cartaz.arquivo_set.all().order_by('?')[0]
+def home(request, edit=False,):
+	titulo = 'home'
+	form = None
+	formset = None
+	cartaz = Cartaz.objects.get_or_create(pagina='home')[0]
+	img = None
+	if cartaz.arquivo_set.all():
+		img = cartaz.arquivo_set.all().order_by('?')[0]
 	notas = Nota.objects.filter(data1__lte=timezone.now()).order_by('-data1')
 
 	if edit:
@@ -78,12 +76,7 @@ def home(
 		})
 
 
-def concurso(
-	request, 
-	edit = False, 
-	pk = 2,
-	confirmacao = False,
-	):
+def concurso(request, edit=False, confirmacao=False,):
 	titulo = 'concurso'
 	cartaz_form = None
 	arquivos_form = None
@@ -91,8 +84,10 @@ def concurso(
 	inscricao_form = None
 	dados_form = None
 	email_form = None
-	cartaz = get_object_or_404(Cartaz, pk=pk)
-	arquivos = cartaz.arquivo_set.all()
+	cartaz = Cartaz.objects.get_or_create(pagina='concurso')[0]
+	arquivos = None
+	if cartaz.arquivo_set.all():
+		arquivos = cartaz.arquivo_set.all()
 	jurados = Juri.objects.all()
 
 	if edit:
@@ -160,11 +155,8 @@ def concurso(
 		'confirmacao': confirmacao,
 		})
 
-def inscricoes(
-	request,
-	pk,
-	titulo = 'inscricoes',
-	):
+def inscricoes(request, pk,):
+	titulo = 'inscricoes'
 	inscricao = get_object_or_404(Inscricao, pk=pk)
 	dados = Dados.objects.get(inscricao=inscricao)
 	inscricao_form = InscricaoForm(instance=inscricao, prefix='inscricao')
@@ -197,24 +189,18 @@ def inscricoes(
 		'prancha_form': prancha_form,
 		})
 
-def galeria(
-	request,
-	titulo = 'galeria',
-	):
+def galeria(request,):
+	titulo = 'galeria'
 	return render(request, 'o_t/galeria.html', {
 		'titulo': titulo, 
 		'menu': menu, 
 		'borda': def_borda(),
 		})
 
-def blog(
-	request, 
-	pk = None, 
-	edit = False,
-	titulo = 'blog',
-	nota = None,
-	form = None,
-	):
+def blog(request, pk=None, edit=False,):
+	titulo = 'blog'
+	nota = None
+	form = None
 	notas = Nota.objects.filter(data1__lte=timezone.now()).order_by('-data1')
 	notas_ = Nota.objects.exclude(data1__lte=timezone.now()).order_by('-data0')
 	if pk:
@@ -254,13 +240,9 @@ def nota_remove(request, pk):
     return redirect('blog')
 
 
-def faq(
-	request, 
-	confirmacao = False,
-	titulo = 'faq',
-	form = None,
-	pk = None,
-	):
+def faq(request, confirmacao=False, pk=None,):
+	titulo = 'faq'
+	form = None
 	if pk:
 		bloco = get_object_or_404(BlocoRespostas, pk=pk)
 		respostas = Pergunta.objects.filter(bloco=bloco)
