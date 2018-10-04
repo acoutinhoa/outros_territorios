@@ -1,0 +1,20 @@
+<p class="titulo titulo_ linha"> {{ logos_form.instance.pagina }}/edit</p>
+
+{% if user.is_authenticated %}
+<table class="form">
+<form method="POST" enctype="multipart/form-data" >
+	{% csrf_token %}
+	{{ logos_form.management_form }}
+	{% for form in logos_form %}
+		{{ form }}
+		<tr><td class="espaco"></td></tr>
+	{% endfor %}
+<tr>
+	<td></td><td>
+		<button type="submit" name="logos_submit">+ logo</button>
+		<button type="submit" name="logos_submit_home">salvar</button>
+	</td>
+</tr>
+</form>
+</table>
+{% endif %}

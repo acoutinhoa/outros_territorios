@@ -19,7 +19,14 @@ ArquivoFormSet = forms.inlineformset_factory(
 	Cartaz, 
 	Arquivo, 
 	extra=1,
-	fields=('nome', 'arquivo'), 
+	fields=('arquivo',), 
+	)
+
+LogosFormSet = forms.inlineformset_factory(
+	Cartaz, 
+	Arquivo, 
+	extra=1,
+	fields=('tipo', 'arquivo',), 
 	)
 
 JuriFormSet = forms.modelformset_factory(
@@ -59,7 +66,7 @@ RespostasFormSet = forms.modelformset_factory(
 	fields=('bloco', 'pergunta', 'resposta',), 
 	widgets = {
 		'pergunta': forms.Textarea(attrs={'rows': 2}),
-		'resposta': forms.Textarea(attrs={'rows': 5}),
+		'resposta': forms.Textarea(attrs={'rows': 6}),
 		},
 	can_delete=False,
 	)
@@ -92,11 +99,11 @@ DadosForm = forms.modelform_factory(
 	exclude = ('inscricao',), 
 	widgets = {
 	'nascimento': forms.SelectDateWidget(
-		years = range(1920, 2000),
+		years = range(1900, 2001),
 		months = {
-		    1:('jan'), 2:('fev'), 3:('mar'), 4:('abr'),
-		    5:('mai'), 6:('jun'), 7:('jul'), 8:('ago'),
-		    9:('set'), 10:('out'), 11:('nov'), 12:('dez')
+		    1:('01'), 2:('02'), 3:('03'), 4:('04'),
+		    5:('05'), 6:('06'), 7:('07'), 8:('08'),
+		    9:('09'), 10:('10'), 11:('11'), 12:('12')
 			},
 		)
 	}, 

@@ -1,11 +1,13 @@
-<!-- lista respostas -->
-<p class="titulo linha">{{ titulo }}</p>
+{% load outras_tags %}
 
-<table>
-{% for resp in respostas %}
-<tr>
-	<td class="titulo_lista">
+<div class="cartaz linha">
+	<p class="titulo">{{ titulo }}</p>
+</div>
 
+<div class="post linha titulo_lista">
+	<ul>
+	{% for resp in respostas %}
+		<li>
 		{% if resp.bloco %}
 			<a href="{% url 'faq' pk=resp.bloco.pk %}#{{ resp.id }}">
 		{% else %}
@@ -17,22 +19,20 @@
 		{% else %}
 			{{ resp.consulta }}
 		{% endif %}
-
-	</a></td>
-</tr>
-{% endfor %}
-</table>
-
+		</a></li>
+	{% endfor %}
+	</ul>
+</div>
 
 {% for resp in respostas %}
-	<div class="post linha_" id="{{ resp.pk }}">
-		<p class="titulo_">
+	<div class="post linha" id="{{ resp.pk }}">
+		<p class="titulo_lista">
 			{% if resp.pergunta %}
 				{{ resp.pergunta }}
 			{% else %}
 				{{ resp.consulta }}
 			{% endif %}
 		</a></p>
-		<p class="texto_">{{ resp.resposta|linebreaksbr }}</p>
+		<p class="texto_">{{ resp.resposta|paragrafo }}</p>
 	</div>
 {% endfor %}

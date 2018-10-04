@@ -8,17 +8,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>outros territórios | {{ titulo }}</title>
-<link href="https://fonts.googleapis.com/css?family=Anton|Roboto+Mono" rel="stylesheet"> 
 <style type="text/css">
+
+@font-face {
+    font-family: lehigh;
+    src: url({% static 'fonts/Lehigh-Commercial-Regular.otf' %});
+    font-weight: normal;
+}
+@font-face {
+    font-family: lehigh;
+    src: url({% static 'fonts/Lehigh-Commercial-Bold.otf' %});
+    font-weight: bold;
+}
+@font-face {
+    font-family: lehigh;
+    src: url({% static 'fonts/Lehigh-Commercial-Thin.otf' %});
+    font-weight: thin;
+}
+@font-face {
+    font-family: frutiger;
+    src: url({% static 'fonts/Frutiger LT Std 55 Roman Regular.otf' %});
+    font-weight: normal;
+}
+@font-face {
+    font-family: frutiger;
+    src: url({% static 'fonts/Frutiger LT Std 45 Light Italic.otf' %});
+    font-style: italic;
+}
+@font-face {
+    font-family: frutiger;
+    src: url({% static 'fonts/Frutiger LT Std 55 Roman Bold.otf' %});
+    font-weight: bold;
+}
 :root {
-    --fonte: {{ fonte|default:"'Anton', sans-serif" }};
-    --fonte-txt: {{ fonte_|default:'sans-serif' }};
-    --fonte-form-size: {{ fonte_form_s|default:'14px' }};
-    --cor: {{ cor|default:'black' }};
-    --cor-borda: {{ cor|default:'black' }};
-    --cor-hover: {{ cor_|default:'blue' }};
+    --fonte: {{ fonte|default:"lehigh, sans-serif" }};
+    --fonte_: {{ fonte_|default:'frutiger, sans-serif' }};
+
+    --fonte-menu: {{ fonte_menu|default:'16px' }};
+    --fonte-form: {{ fonte_form|default:'13px' }};
+    --fonte-texto: {{ fonte_form|default:'14px' }};
+
+    --azul: #B1E4E3;
+    --cinza: #63666A;
+    --preto: black;
+
+    --cor: var(--{{ cor|default:'preto' }});
+    --cor-borda: var(--{{ cor_borda|default:'cinza' }});
+    --cor-link: var(--{{ cor_link|default:'cinza' }});
+    --cor-hover: var(--{{ cor_hover|default:'azul' }});
+
     --borda: {{ borda|default:'10px' }};
-    --borda-link: {{ borda_|default:'4px' }};
+    --borda-link: {{ borda_|default:'2px' }};
 }
 </style>
 <link rel="stylesheet" href="{% static 'css/o_t.css' %}">
@@ -28,7 +68,7 @@
 {% block content %}
 <div id="tudo">
 
-<div class="frame coluna" style="width: 20%;">
+<div class="frame coluna" style="width: 19%;">
 {% block c0 %}
     {% include 'o_t/menu.html' %}
     {% block menu %}
@@ -36,7 +76,7 @@
 {% endblock %}
 </div>
 
-<div class="frame coluna" style="width: 50%;">
+<div class="frame coluna" style="width: 51%;">
 {% block c1 %}
 {% endblock %}
 </div>

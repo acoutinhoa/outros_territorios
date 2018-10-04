@@ -1,21 +1,28 @@
+
 body, * {
 	margin: 0;
 	border: none;
 	box-sizing: border-box;
-	font-family: var(--fonte);
 	color: var(--cor);
 }
 a:link, a:visited, a:active, a:hover {
-	color: var(--cor);
+	color: var(--cor-link);
+	font-family: var(--fonte);
 	text-decoration: none;
-	border-bottom: var(--cor) solid var(--borda-link);
-	font-weight: normal;
+	border-bottom: var(--cor-link) solid var(--borda-link);
+	font-weight: bold;
 }
 a:hover {
 	color: var(--cor-hover);
 	border-bottom: var(--cor-hover) solid var(--borda-link);
 }
-
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+	margin-bottom: 10px;
+}
 #tudo {
 	position: fixed;
 	width: 100vw;
@@ -42,30 +49,36 @@ a:hover {
 }
 
 /* menu */
-ul {
-    list-style-type: none;
-}
 .menu {
 	text-align: right;
-	font-size: 16px;
-	padding: 20px 20px 30px 0px;
+	padding: 3vh 1.5vw 4vh 0;
+	font-size: var(--fonte-menu);
 }
-.menu li {
-	line-height: 30px;
+.menu p {
+	padding-top: calc(0.5*var(--fonte-menu));
 }
 .submenu {
-	border-right: solid var(--cor-borda) var(--borda);
-	padding: 10px 10px 0px 0px;
+	border-right: solid var(--cor-link) var(--borda-link);
+	padding: 1vh 0.8vw 0 0;
 }
-.submenu li {
-	line-height: 25px;
+.submenu a:link, .submenu a:hover {
+	border-bottom: none;
+}
+.submenu p {
+	padding-top: calc(0.4*var(--fonte-menu));
+	line-height: calc(0.9*var(--fonte-menu));
 }
 .submenu_hover:hover ~ .submenu {
 	border-right: solid var(--cor-hover) var(--borda);
 }
-.submenu_hover:hover ~ .submenu li {
-	color: var(--cor-hover);
+
+/* midias */
+.midias {
+	text-align: center;
+	padding-top: 2.5vh;
+	font-size: 2vh;
 }
+
 
 /* cartaz */
 img {
@@ -79,75 +92,83 @@ img {
 	width: 100%;
 }
 .titulo {
+	font-family: var(--fonte);
 	font-weight: bold;
-	font-size: 5vw;
+	font-size: 4vw;
 	text-align: center;	
-	padding: 30px 10px 15px;
-}
-.texto {
-	font-family: var(--fonte-txt);
-	font-weight: bold;
-	letter-spacing: -1px;
-	font-size: 16px;
-	padding: 40px 30px 50px 40px;	
+	padding: 40px 0;
 }
 .data {
-	font-size: 2vw;
-	padding: 40px 20px 50px 30px;	
+	font-family: var(--fonte);
+	font-size: 22px;
+	padding: 7vh 3vw;	
 }
 
 /* blog */
 .post {
 	float: left;
 	width: 100%;
-	padding: 40px 25px 40px 30px;
+	padding: 60px 40px;
 }
 .titulo_ {
-	font-size: 3vw;
-	margin-bottom: 16px;
+	font-family: var(--fonte);
+	font-size: 2.5vw;
+	margin-bottom: 50px;
+	font-weight: bold;
 }
 .data_ {
-	font-family: var(--fonte-txt);
+	font-family: var(--fonte_);
 	font-size: 12px;
 	text-align: right;
 	margin-bottom: 20px;
 }
-.texto_ {
-	font-family: var(--fonte-txt);
-	font-weight: normal;
-	font-size: 14px;
+.texto {
+	font-family: var(--fonte_);
+	font-size: var(--fonte-texto);
 }
-table {
-	width: 100%;
-	padding: 30px 20px 30px 20px;	
-}
-th, td {
-	padding: 3px;
-	padding-bottom: 5px;
-	line-height: calc(16px *1.6);
-}
-.titulo_lista {
+.titulo_lista, .titulo_lista a:link {
+	font-family: var(--fonte_);
 	font-size: 16px;
-}
-.midias {
-	text-align: center;
-	padding-top: 2.5vh;
-	font-size: 2vh;
+	font-weight: bold;
+	margin-bottom: 15px;
 }
 
 /* form */
+.termos {
+	font-size: 10px;
+}
+table {
+	width: 100%;
+	padding: 50px 20px;
+}
+.espaco {
+	height: 40px;
+}
 .form, .form * {
-	font-family: var(--fonte-txt);
-	font-size: var(--fonte-form-size);
-	line-height: calc(var(--fonte-form-size)*1.5);
+	font-family: var(--fonte_);
+	font-size: var(--fonte-form);
+	line-height: calc(var(--fonte-form)*1.5);
 }
-.form textarea, .form input {
+.form a:link {
+	font-family: var(--fonte_);
+}
+.form textarea, .form input{
     width: 100%;
-	border: var(--cor) solid 1px;
-	padding: 5px;	
+	border-bottom: var(--cor) solid var(--borda-link);
+	padding: 1px 10px;
+	margin-bottom: 5px;
 }
-.form input {
-	height: calc(var(--fonte-form-size)*2);
+.form textarea {
+	border-left: var(--cor) solid var(--borda-link);
+}
+.form select {
+	border-top: var(--cor) solid var(--borda-link);
+	border-right: var(--cor) solid var(--borda-link);
+}
+.form label {
+}
+.form input[type=checkbox] {
+	width: 20px;
 }
 .form th {
 	text-align: right;
@@ -157,8 +178,21 @@ th, td {
 }
 button {
     cursor: pointer;
+    background: none;
+    color: var(--cor);
+    font-family: var(--fonte_);
+    font-size: var(--fonte-form);
+    font-weight: bold;
+    vertical-align: center;
+    padding: 3px 10px;
+	border-bottom: var(--cor) solid var(--borda-link);
+	border-right: var(--cor) solid var(--borda-link);
+	margin-right: 10px;
 }
 button:hover {
-	background: var(--cor-hover);
+    color: var(--cor-hover);
+    border:0;
+	border-top: var(--cor-hover) solid var(--borda-link);
+	border-left: var(--cor-hover) solid var(--borda-link);
 }
 

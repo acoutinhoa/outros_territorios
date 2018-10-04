@@ -1,14 +1,20 @@
-<p class="titulo linha">{{ cartaz.titulo|linebreaksbr }}</p>
-<div class="linha">
-	<img src="{{ img.arquivo.url }}" alt="{{ img }}">
-</div>
-<div class="cartaz linha"">
-	<div class="cartaz linha" style="width: 60%;">
-		<p class="texto">{{ cartaz.texto|linebreaksbr }}</p>
-	</div>
-	<div class="coluna_ cartaz" style="width: 40%;">
-		<p class="data">{{ cartaz.datas|linebreaksbr }}</p>
-	</div>
-</div>
+{% load outras_tags %}
 
-<p class="titulo linha">logos</p>
+<div class="cartaz linha">
+	{% if logo_o_t %}
+		<img src="{{ logo_o_t.arquivo.url }}" alt="{{ logo_o_t.nome }}" style="padding: 5vh 5vw;">
+	{% else %}
+		<p class="titulo">{{ cartaz.titulo|linebreaksbr }}</p>
+	{% endif %}
+</div>
+<div class="cartaz linha">
+	<img src="{{ img.arquivo.url }}" alt="{{ img.nome }}">
+</div>
+<div class="cartaz" style="height: auto;">
+	<div class="post coluna" style="width: 60%;">
+		<p class="texto">{{ cartaz.texto|paragrafo }}</p>
+	</div>
+	<div class="cartaz linha" style="width: 40%;">
+		<p class="data">{{ cartaz.datas|formatadata }}</p>
+	</div>
+</div>

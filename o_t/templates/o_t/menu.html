@@ -1,23 +1,26 @@
 
-<div class="linha">
 
-<p class="linha menu"><a href="">pt</a> / <a href="">en</a></p>
+<div class="linha menu">
+	<a href="">pt</a> / <a href="">en</a>
+</div>
 
-<ul class="menu">
+<div class="linha menu">
 {% for item, item_url, info in menu %}
 	{% if info %}
-		<li class="submenu_hover"><a href="{{ item_url }}">{{ item }}</a></li>
-		<ul class="submenu">
+		<p class="submenu_hover"><a href="{{ item_url }}">{{ item }}</a></p>
+		<div class="submenu">
 		{% for subitem, anchor in info %}
-			<li><a href="{{ item_url }}#{{ anchor }}">{{ subitem }}</li>
+			<p><a href="{{ item_url }}#{{ anchor }}">{{ subitem }}</a></p>
 		{% endfor %}
-		</ul>
+		</div>
 	{% else %}
-		<li><a href="{{ item_url }}">{{ item }}</a></li>
+		<p><a href="{{ item_url }}">{{ item }}</a></p>
 	{% endif %}
 {% endfor %}
-</ul>
+</div>
 
+<div class="linha menu">
+	<p><a href="">facebook</a> / <a href="">instagram</a></p>
 </div>
 
 {% if user.is_authenticated %}

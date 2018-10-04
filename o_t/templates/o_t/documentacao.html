@@ -1,25 +1,39 @@
-<p class="titulo linha" id="chamada">{{ cartaz.titulo|linebreaksbr }}</p>
+{% load outras_tags %}
 
-<div class="cartaz linha">
-	<div class="cartaz linha" style="width: 60%;">
-		<div class="texto">{{ cartaz.texto|linebreaksbr }}</div>
+<div class="cartaz linha" id="chamada">
+	<p class="titulo">{{ cartaz.titulo|linebreaksbr }}</p>
+</div>
+
+<div class="cartaz coluna" style="width: 60%;">
+	<div class="post linha">
+		<p class="texto">{{ cartaz.texto|paragrafo }}</p>
 	</div>
-	<div class="coluna_ cartaz" style="width: 40%;">
-		<p class="data" id="bases">bases do concurso</p>
-		<ul style="margin-bottom: 30px;">
-		{% for arquivo in arquivos %}
-			<li><a href="{{ arquivo.arquivo.url }}" download>{{ arquivo }}</a></li>
+	<div class="post linha">
+		<p class="titulo_" id="juri">comissão julgadora</p>
+		{% for juri in jurados %}
+			<p class="titulo_lista">
+			{% if juri.site %}
+				<a href="{{ juri.site }}" target="_blank">{{ juri }}</a>
+			{% else %}
+				{{ juri }}
+			{% endif %}
+			</p>
+			<p class="texto" style="margin-bottom: 40px;">{{ juri.bio }}</p>
 		{% endfor %}
-		</ul>
-
-		<p class="data linha_" id="cronograma">cronograma</p>
-		<p class="texto">{{ cartaz.datas|linebreaksbr }}</p>
 	</div>
 </div>
-<div class="cartaz linha">
-	<p class="titulo" id="juri">juri</p>
-	{% for juri in jurados %}
-		<p class="data linha_"><a href="{{ juri.site }}">{{ juri }}</a></p>
-		<p class="texto">{{ juri.bio }}</p>
-	{% endfor %}
+
+<div class="cartaz" style="width: 40%;">
+	<div class="linha post" id="bases">
+		<p class="titulo_">bases do concurso</p>
+		<ul>
+		{% for arquivo in arquivos %}
+			<li><a href="{{ arquivo.arquivo.url }}" target="_blank">{{ arquivo.arquivo|filename }}</a></li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div class="post linha" id="cronograma">
+		<p class="titulo_">cronograma</p>
+		<p class="texto">{{ cartaz.datas|formatadata }}</p>
+	</div>
 </div>

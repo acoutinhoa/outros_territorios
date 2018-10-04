@@ -1,33 +1,37 @@
-<p class="linha titulo titulo_">blocos</p>
-<table class="form">
+<div class="post">
+<p class="titulo_">blocos</p>
+
+<table class="form" style="padding: 0;">
 	<tr>
-		<th><a href="{% url 'faq_edit' %}">faq</a></th>
+		<td><a href="{% url 'faq_edit' %}">faq</a></td>
 	</tr>
 {% for bloco in blocos %}
 	<tr>
 		{% if bloco.nome != 'rascunho' %}
-			<th><a href="{% url 'faq_edit' pk=bloco.pk %}">{{ bloco }}</a></th>
-			<td>
+			<td><a href="{% url 'faq_edit' pk=bloco.pk %}">{{ bloco }}</a></td>
+			
 			{% if bloco.data1 %}
-				{{ bloco.data1|date:'d/m/Y' }}
+				<th style="font-weight: normal; padding-right: 10px;">{{ bloco.data1|date:'d/m/Y' }}</th>
 			{% else %}
-				<a href="{% url 'bloco_publish' pk=bloco.pk %}" class="botao"><button type="button">publicar</button></a>
+				<th><a href="{% url 'bloco_publish' pk=bloco.pk %}" class="botao"><button type="button">publicar</button></a></th>
 			{% endif %}
-			</td>
 			<td>
 			<a href="{% url 'bloco_remove' pk=bloco.pk %}" class="botao"><button type="button">deletar</button></a>
 			</td>
 		{% endif %}
 	</tr>
 {% endfor %}
-</table>
+<tr><td class="espaco"></td></tr>
 
-<table class="form">
 <form method="POST">
 	{% csrf_token %}
-	{{ novo_bloco }}
-<tr>
-	<td><button type="submit" name='bloco_submit'>criar bloco</button></td>
-</tr>
+	{% for field in novo_bloco %}
+	<tr>
+		<th style="width: 90px;">{{ field.label }}</th>
+		<td>{{ field }}</td>
+		<td><button type="submit" name='bloco_submit'>criar</button></td>
+	</tr>
+	{% endfor %}
 </form>
 </table>
+</div>

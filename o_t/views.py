@@ -2,9 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.urls import reverse, reverse_lazy
-from django.core.mail import BadHeaderError, send_mail
+from django.core.mail import BadHeaderError, send_mail, send_mass_mail
 from django.conf import settings
-from random import randint, randrange
+from random import randint, randrange, choice
 from .forms import *
 from .models import *
 
@@ -40,13 +40,33 @@ _
 consulta:
 %s'''
 
+msg_publicacao_consulta = '''olá %s,
+sua consulta foi respondida.
+
+_
+consulta:
+%s
+
+resposta:
+%s
+
+_
+link para bloco de respostas:
+%s'''
 
 
 def home(request, edit=False,):
 	titulo = 'home'
-	form = None
-	formset = None
+	cartaz_form = None
+	arquivos_form = None
+	logos_form = None
+	logo_o_t = None
 	cartaz = Cartaz.objects.get_or_create(pagina='home')[0]
+	# logos
+	logos = Cartaz.objects.get_or_create(pagina='logos')[0]
+	if Arquivo.objects.filter(tipo='o_t'):
+		logo_o_t = Arquivo.objects.filter(tipo='o_t')[0]
+
 	img = None
 	if cartaz.arquivo_set.all():
 		img = cartaz.arquivo_set.all().order_by('?')[0]
@@ -54,25 +74,41 @@ def home(request, edit=False,):
 
 	if edit:
 		if request.method == 'POST':
-			form = CartazForm(request.POST, request.FILES, instance=cartaz)
-			formset = ArquivoFormSet(request.POST, request.FILES, instance=cartaz)
-			if formset.is_valid() and form.is_valid():
-				cartaz = form.save()
-				formset.save()
+			if 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
+				cartaz_form = CartazForm(request.POST, request.FILES, instance=cartaz)
+				arquivos_form = ArquivoFormSet(request.POST, request.FILES, instance=cartaz)
+				if arquivos_form.is_valid() and cartaz_form.is_valid():
+					cartaz_form.save()
+					arquivos_form.save()
+			elif 'logos_submit' in request.POST or 'logos_submit_home' in request.POST:
+				logos_form = LogosFormSet(request.POST, request.FILES, instance=logos)
+				if logos_form.is_valid():
+					logos_form.save()
+			if 'logos_submit_home' in request.POST or 'cartaz_submit_home' in request.POST:
 				return redirect('home')
+			elif 'logos_submit' in request.POST or 'cartaz_submit' in request.POST:
+				return redirect('home_edit')
 		else:
-			form = CartazForm(instance=cartaz)
-			formset = ArquivoFormSet(instance=cartaz)
+			cartaz_form = CartazForm(instance=cartaz)
+			arquivos_form = ArquivoFormSet(instance=cartaz)
+			logos_form = LogosFormSet(instance=logos)
 
 	return render(request, 'o_t/home.html', {
 		'titulo': titulo, 
 		'menu': menu, 
+		'logo_o_t': logo_o_t,
+		'edit': edit,
 		'borda': def_borda(),
 		'cartaz': cartaz,
 		'img': img,
 		'notas': notas,
-		'form': form,
-		'formset': formset,
+		'cartaz_form': cartaz_form,
+		'arquivos_form': arquivos_form,
+		'logos_form': logos_form,
+		'cor': def_cor('pc'),
+		'cor_link': def_cor(),
+		'cor_hover': def_cor(),
+		'cor_borda': def_cor(),
 		})
 
 
@@ -92,17 +128,20 @@ def concurso(request, edit=False, confirmacao=False,):
 
 	if edit:
 		if request.method == 'POST':
-			if 'juri_submit' in request.POST:
+			if 'juri_submit' in request.POST or 'juri_submit_home' in request.POST:
 				juri_form = JuriFormSet(request.POST, prefix='juri')
 				if juri_form.is_valid():
 					juri_form.save()
-			elif 'cartaz_submit' in request.POST:
+			elif 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
 				cartaz_form = CartazForm(request.POST, instance=cartaz, prefix='cartaz')
 				arquivos_form = ArquivoFormSet(request.POST, request.FILES, instance=cartaz, prefix='arquivo')
 				if arquivos_form.is_valid() and cartaz_form.is_valid():
 					cartaz = cartaz_form.save()
 					arquivos_form.save()
-			return redirect('concurso_edit')
+			if 'juri_submit_home' in request.POST or 'cartaz_submit_home' in request.POST:
+				return redirect('concurso')
+			elif 'juri_submit' in request.POST or 'cartaz_submit' in request.POST:
+				return redirect('concurso_edit')
 		else:
 			cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
 			arquivos_form = ArquivoFormSet(instance=cartaz, prefix='arquivo')
@@ -143,6 +182,7 @@ def concurso(request, edit=False, confirmacao=False,):
 		'titulo': titulo, 
 		'menu': menu, 
 		'borda': def_borda(),
+		'edit': edit,
 		'cartaz': cartaz,
 		'arquivos': arquivos,
 		'cartaz_form': cartaz_form,
@@ -153,6 +193,10 @@ def concurso(request, edit=False, confirmacao=False,):
 		'dados_form': dados_form,
 		'email_form': email_form,
 		'confirmacao': confirmacao,
+		'cor': def_cor(),
+		'cor_link': def_cor(),
+		'cor_hover': def_cor(),
+		'cor_borda': def_cor(),
 		})
 
 def inscricoes(request, pk,):
@@ -187,6 +231,10 @@ def inscricoes(request, pk,):
 		'equipe_form': equipe_form,
 		'projeto_form': projeto_form,
 		'prancha_form': prancha_form,
+		'cor': def_cor(),
+		'cor_link': def_cor(),
+		'cor_hover': def_cor(),
+		'cor_borda': def_cor(),
 		})
 
 def galeria(request,):
@@ -195,6 +243,10 @@ def galeria(request,):
 		'titulo': titulo, 
 		'menu': menu, 
 		'borda': def_borda(),
+		'cor': def_cor(),
+		'cor_link': def_cor(),
+		'cor_hover': def_cor(),
+		'cor_borda': def_cor(),
 		})
 
 def blog(request, pk=None, edit=False,):
@@ -225,6 +277,10 @@ def blog(request, pk=None, edit=False,):
 		'notas_': notas_,
 		'nota': nota,
 		'form': form,
+		'cor': def_cor(),
+		'cor_link': def_cor(),
+		'cor_hover': def_cor(),
+		'cor_borda': def_cor(),
 		})
 
 @login_required
@@ -272,6 +328,10 @@ def faq(request, confirmacao=False, pk=None,):
 		'confirmacao': confirmacao,
 		'respostas': respostas,
 		'blocos': blocos,
+		'cor': def_cor(),
+		'cor_link': def_cor(),
+		'cor_hover': def_cor(),
+		'cor_borda': def_cor(),
 		})
 
 @login_required
@@ -292,10 +352,12 @@ def faq_edit(request, pk=None,):
 			respostas = RespostasFormSet(request.POST, queryset=Pergunta.objects.filter(bloco=bloco), prefix='respostas')
 			if respostas.is_valid():
 				respostas.save()
-		elif 'faq_submit' in request.POST:
+		elif 'faq_submit' in request.POST or 'faq_submit_home' in request.POST:
 			faq = FaqFormSet(request.POST, prefix='faq')
 			if faq.is_valid():
 				faq.save()
+			if 'faq_submit_home' in request.POST:
+				return redirect('faq')
 		elif 'consultas_submit' in request.POST:
 			consultas = ConsultasFormSet(request.POST, prefix='consultas')
 			if consultas.is_valid():
@@ -316,13 +378,27 @@ def faq_edit(request, pk=None,):
 		'novo_bloco':novo_bloco,
 		'respostas': respostas,
 		'faq': faq,
+		'cor': def_cor(),
+		'cor_link': def_cor(),
+		'cor_hover': def_cor(),
+		'cor_borda': def_cor(),
 		})
 
 @login_required
 def bloco_publish(request, pk):
-    bloco = get_object_or_404(BlocoRespostas, pk=pk)
-    bloco.publish()
-    return redirect('faq_edit')
+	bloco = get_object_or_404(BlocoRespostas, pk=pk)
+	consultas = Pergunta.objects.filter(bloco=bloco)
+	# enviar email
+	assunto = 'outros_territorios/publicação de bloco de respostas'
+	link = request.build_absolute_uri(reverse('faq', kwargs={'pk': pk}))
+	msgs = ()
+	for pergunta in consultas:
+		msg = msg_publicacao_consulta % (pergunta.nome, pergunta.consulta, pergunta.resposta, link)
+		msg = assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,]
+		msgs += (msg),
+	send_mass_mail(msgs, fail_silently=False)
+	bloco.publish()
+	return redirect('faq', pk=pk)
 
 @login_required
 def bloco_remove(request, pk):
@@ -341,6 +417,18 @@ def def_randomiza(lista):
 
 def def_borda(x=5, y=25):
 	return str(randint(x, y)) + 'px'
+
+def def_cor(cor='acp'):
+	cor_lista=[]
+	for car in cor:
+		if car == 'a':
+			cor_lista.append('azul')
+		elif car == 'c':
+			cor_lista.append('cinza')
+		elif car == 'p':
+			cor_lista.append('preto')
+	return choice(cor_lista)
+
 
 
 # def send_email(request, slug):

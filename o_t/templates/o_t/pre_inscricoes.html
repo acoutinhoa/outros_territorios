@@ -1,7 +1,7 @@
-<p class="titulo titulo_ linha" id="inscricoes">inscrições</p>
-
-<p class="texto linha">texto com instruçoes pras inscrições</p>
-
+<div class="post linha" id="inscricoes">
+	<p class="titulo_">inscrições</p>
+	<p class="texto_">texto com instruçoes pras inscrições</p>
+</div>
 <table class="form">
 <form method="POST" >
 	{% csrf_token %}
@@ -12,22 +12,19 @@
 				<td>{{ field }}</td>
 			</tr>
 		{% else %}
-			<tr><td></td></tr>
+			<tr><td class="espaco"></td></tr>
 			{{ dados_form }}
-			<tr><td></td></tr>
+			<tr><td class="espaco"></td></tr>
 			<tr>
-				<td>{{ field }}</td>
-				<td>{{ field.label_tag }}</td>
+				<th>{{ field }}</th>
+				<td class="termos">{{ field.label_tag }}</td>
 			</tr>
-
 		{% endif %}
-
 	{% endfor %}
 
-
-
-
+<tr><td class="espaco"></td></tr>
 <tr>
+	<td></td>
 	<td><button type="submit" name='inscricao_submit'>inscrever</button></td>
 </tr>
 </form>

@@ -1,6 +1,8 @@
 
-<p class="linha titulo titulo_">novas consultas</p>
-<table class="form linha">
+<div class="post">
+<p class="titulo_">novas consultas</p>
+
+<table class="form" style="padding: 0;">
 <form method="POST">
 	{% csrf_token %}
 		{{ consultas.management_form }}
@@ -22,10 +24,13 @@
 				<td>{{ form.instance.consulta }}</td>
 			</tr>
 			{{ form }}
-			<tr><td class="linha" colspan="2"></td></tr>
+			<tr><td class="espaco"></td></tr>
 		{% endfor %}
+	<tr><td class="espaco"></td></tr>
 	<tr>
+		<td></td>
 		<td><button type="submit" name="consultas_submit">salvar</button></td>
 	</tr>
 </form>
 </table>
+</div>

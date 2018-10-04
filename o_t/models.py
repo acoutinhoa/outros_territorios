@@ -12,12 +12,24 @@ class Cartaz(models.Model):
 	def __str__(self):
 		return self.pagina
 
+def arquivos_filepath(instance, filename):
+    return 'o_t/arquivos/{0}/{1}'.format(instance.pagina, filename)
+
+
 class Arquivo(models.Model):
+	tipos = [
+		('o_t','o_t'),
+		('patrocinio','patrocinio'),
+	]
 	pagina = models.ForeignKey(Cartaz, on_delete=models.CASCADE, blank=True)
+	tipo = models.CharField(max_length=20, choices=tipos, blank=True, null=True)
 	nome = models.CharField(max_length=200, blank=True)
-	arquivo = models.FileField(upload_to = 'o_t/arquivos/')
+	arquivo = models.FileField(upload_to = arquivos_filepath)
 	def __str__(self):
 		return self.nome
+	def save(self, *args, **kwargs):
+		self.nome = self.arquivo.name.split('.')[0]
+		super().save(*args, **kwargs)
 
 class Nota(models.Model):
 	autor = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -78,11 +90,15 @@ class Faq(models.Model):
 		ordering = ['data0']
 
 class Inscricao(models.Model):
+	areas = [
+		('arquitetura','arquitetura'),
+		('design','design'),
+	]
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	data0 = models.DateTimeField(auto_now_add=True)
 	nome = models.CharField(max_length=100)
 	email = models.EmailField('e-mail', unique=True)
-	area = models.CharField('área de atuação profissional', max_length=50)
+	area = models.CharField('área', choices=areas, max_length=20)
 	termos = models.BooleanField()
 
 	def __str__(self):
@@ -119,7 +135,7 @@ class Equipe(models.Model):
 		return self.nome
 
 def inscricao_filepath(instance, filename):
-    return 'concuso/{0}/{1}'.format(instance.inscricao.id, filename)
+    return 'o_t/concuso/{0}/{1}'.format(instance.inscricao.id, filename)
 
 class Projeto(models.Model):
 	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
