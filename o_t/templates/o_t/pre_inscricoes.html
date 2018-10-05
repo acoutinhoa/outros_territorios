@@ -1,8 +1,8 @@
 <div class="post linha" id="inscricoes">
 	<p class="titulo_">inscrições</p>
-	<p class="texto_">texto com instruçoes pras inscrições</p>
+	<p class="texto">texto com instruçoes pras inscrições</p>
 </div>
-<table class="form">
+<table class="form inscricao" >
 <form method="POST" >
 	{% csrf_token %}
 	{% for field in inscricao_form %}

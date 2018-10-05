@@ -1,10 +1,10 @@
 {% if blocos %}
-<div class="post linha" id="inscricoes">
+<div class="post linha">
 	<p class="titulo_">blocos de respostas</p>
 	<table class="form" style="padding: 0;">
 	{% for bloco in blocos %}
 		<tr>
-			<td style="width: 90px;">{{ bloco.data1|date:'d/m/Y'}}</td>
+			<td style="width: 90px;">{{ bloco.data1|date:'d_m_Y'}}</td>
 			<td class="titulo_lista"><a href="{% url 'faq' pk=bloco.pk %}">{{ bloco }}</a></td>
 		</tr>
 	{% endfor %}
@@ -16,10 +16,10 @@
 	<p class="data linha">consulta enviada</p>
 {% endif %}
 
-<div class="post linha">
+<div class="post" style="padding-bottom: 0px;">
 	<p class="texto"><b>Outras consultas podem ser realizadas por meio do formulário a seguir e serão respondidas semanalmente neste espaço:</b></p>
-
-	<table class="form" style="padding: 0; padding-top: 50px;">
+</div>
+	<table class="form linha">
 		<form method="POST">
 			{% csrf_token %}
 			{{ form }}
@@ -30,4 +30,3 @@
 		</tr>
 		</form>
 	</table>
-</div>

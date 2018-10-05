@@ -20,8 +20,11 @@ def formatadata(text, car='', autoescape=True):
 	text=text.split('\n')
 	t = ''
 	for par in text:
-		par=par.split(':')
-		t += '%s%s<br><b>%s</b><br><br>' % (par[0], car, par[1])
+		if ':' in par:
+			par=par.split(':')
+			t += '%s%s<br><b>%s</b><br><br>' % (par[0], car, par[1])
+		else:
+			t += par + '<br><br>'
 	return mark_safe(t[:-8])
 
 @register.filter

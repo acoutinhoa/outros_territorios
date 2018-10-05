@@ -174,9 +174,9 @@ def concurso(request, edit=False, confirmacao=False,):
 					send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
 					return redirect('email_confirmacao')
 		else:
-			inscricao_form = InscricaoForm(prefix='inscricao')
-			dados_form = DadosForm(prefix='dados')
-			email_form = EmailForm(prefix='email')
+			inscricao_form = InscricaoForm(prefix='inscricao', label_suffix='')
+			dados_form = DadosForm(prefix='dados', label_suffix='')
+			email_form = EmailForm(prefix='email', label_suffix='')
 
 	return render(request, 'o_t/concurso.html', {
 		'titulo': titulo, 

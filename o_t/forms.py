@@ -81,7 +81,8 @@ BlocoRespostasForm = forms.modelform_factory(
 InscricaoForm = forms.modelform_factory(
 	Inscricao,
 	fields=('nome', 'email', 'area', 'termos'),
-	labels={'termos':'''By ticking this box and submitting this Request Form I agree to treat all supplied information in the strictest confidence, and to not disclose the content to persons outside of my organisation / immediate bid team who will similarly treat such information in strict confidence.
+	labels={'termos':'''
+By ticking this box and submitting this Request Form I agree to treat all supplied information in the strictest confidence, and to not disclose the content to persons outside of my organisation / immediate bid team who will similarly treat such information in strict confidence.
 Your data is being collected and will be used for the purpose of potential participation in this competition only. Your data will not be used for any other purpose and will be deleted from all databases once the competition has come to a close and the winner is announced. If you wish to be removed from the database before this end point please email contato@outrosterritorios.com'''},
 	)
 

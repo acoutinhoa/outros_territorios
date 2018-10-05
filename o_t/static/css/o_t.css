@@ -120,7 +120,7 @@ img {
 	font-family: var(--fonte_);
 	font-size: 12px;
 	text-align: right;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 }
 .texto {
 	font-family: var(--fonte_);
@@ -134,9 +134,6 @@ img {
 }
 
 /* form */
-.termos {
-	font-size: 10px;
-}
 table {
 	width: 100%;
 	padding: 50px 20px;
@@ -153,28 +150,40 @@ table {
 	font-family: var(--fonte_);
 }
 .form textarea, .form input{
-    width: 100%;
+    width: 110%;
 	border-bottom: var(--cor) solid var(--borda-link);
-	padding: 1px 10px;
+	padding: 0px 10px;
 	margin-bottom: 5px;
 }
 .form textarea {
+    width: 100%;
 	border-left: var(--cor) solid var(--borda-link);
 }
 .form select {
 	border-top: var(--cor) solid var(--borda-link);
 	border-right: var(--cor) solid var(--borda-link);
 }
-.form label {
-}
 .form input[type=checkbox] {
 	width: 20px;
 }
 .form th {
 	text-align: right;
+	vertical-align: baseline;
 }
 .botao, .botao:link, .botao:active, .botao:hover, .botao:visited {
 	border: none;
+}
+.inscricao label {
+	border-bottom: var(--cor) solid var(--borda-link);
+	margin-right: -5px;
+	padding: 3px 10px;
+}
+.termos label {
+	border: 0;
+	font-size: 10px;
+}
+.notas td, .notas th{
+	padding-bottom: 10px;
 }
 button {
     cursor: pointer;
