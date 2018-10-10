@@ -1,42 +1,66 @@
 {% extends 'o_t/base.html' %}
+{% load outras_tags %}
 
 {% block c0 %}
-<p class="linha titulo titulo_">inscrições</p>
-<div class="linha">
-<table class="form">
-    {% for field in inscricao_form %}
-    	{% if field.name != 'termos' %}
-        <tr>
-            <th>{{ field.label }}:</th>
-            <td>{{ field.value }}</td>
-        </tr>
-        {% endif %}
-    {% endfor %}
-</table>
+<div class="post linha">
+    <p class="titulo_">informações</p>
+    <p class="texto" style="margin-bottom: 50px;">O formulário do projeto poderá ser acessado e alterado quantas vezes for necessário até a data limite definida no cronograma. <br><br>
+    <b>Não se esqueça de salvar as informações a cada alteração. <br><br>A submissão só será efetivada após o clique em “enviar proposta”. </b>A partir desse momento, não será mais possível realizar modificações.</p>
+
+    <a href="{% url 'home_edit' %}" class="botao"><button type="button"">enviar proposta</button></a>
 </div>
 
-<div class="linha">
-<table class="form">
-    {% for field in dados_form %}
-        <tr>
-            <th>{{ field.label }}:</th>
-            <td>{{ field.value }}</td>
-        </tr>
-    {% endfor %}
-</table>
+
+<div class="post linha">
+<p class="titulo_">dados</p>
+<p class="texto">
+    Nome<br>
+    <b>{{ inscricao.nome }} {{ inscricao.sobrenome }}</b><br><br>
+    E-mail<br>
+    <b>{{ inscricao.email }}</b><br><br>
+    Área<br>
+    <b>{{ inscricao.area}}</b><br><br><br><br>
+
+
+{% for field in dados_form %}
+    {{ field.label }}<br><b>
+    {% if field.name == 'nascimento'%}
+        {{ field.value|date:'d_m_Y' }}
+    {% else %}
+        {{ field.value|title }}
+    {% endif %}</b><br><br>
+{% endfor %}
+</p>
 </div>
 
 {% endblock %}
 
 {% block c1 %}
-<p class="titulo titulo_ linha">projeto</p>
+<div class="cartaz linha">
+<p class="titulo">projeto</p>
+</div>
 
 <table class="form">
 <form method="POST" enctype="multipart/form-data" >
+        <tr>
+            <th>Inscrição: </th>
+            <td>{{ inscricao.codigo }}</td>
+        </tr>
+            <tr><td class="espaco"></td></tr>
 	{% csrf_token %}
-	{{ projeto_form }}
-	{{ prancha_form }}
+    {% for field in projeto_form %}
+        {% if field.name == 'arquivo' or field.name == 'img' %}
+            <tr><td class="espaco"></td></tr>
+            <tr>
+        {% endif %}
+        <tr>
+            <th>{{ field.label_tag }}</th>
+            <td>{{ field }}</td>
+        </tr>
+    {% endfor %}
 <tr>
+    <tr><td class="espaco"></td></tr>
+    <td></td>
 	<td><button type="submit" name="projeto_submit">salvar projeto</button></td>
 </tr>
 </form>
@@ -45,14 +69,21 @@
 
 
 {% block c2 %}
-<p class="titulo titulo_ linha">equipe</p>
+<div class="cartaz linha">
+<p class="titulo">equipe</p>
+</div>
 
 <table class="form">
 <form method="POST" enctype="multipart/form-data" >
 	{% csrf_token %}
-	{{ equipe_form }}
+    {{ equipe_form.management_form }}
+    {% for form in equipe_form %}
+        {{ form }}
+        <tr><td class="espaco"></td></tr>
+    {% endfor %}
 <tr>
-	<td><button type="submit" name="equipe_submit">salvar equipe e adicionar novo integrante</button></td>
+    <td></td>
+	<td><button type="submit" name="equipe_submit">salvar equipe e/ou adicionar novo integrante</button></td>
 </tr>
 </form>
 </table>

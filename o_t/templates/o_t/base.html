@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -7,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>outros territórios | {{ titulo }}</title>
+<title>{% trans 'Outros Territórios' %}_{{ titulo }}</title>
 <style type="text/css">
 
 @font-face {
@@ -40,6 +41,7 @@
     src: url({% static 'fonts/Frutiger LT Std 55 Roman Bold.otf' %});
     font-weight: bold;
 }
+
 :root {
     --fonte: {{ fonte|default:"lehigh, sans-serif" }};
     --fonte_: {{ fonte_|default:'frutiger, sans-serif' }};
@@ -68,7 +70,7 @@
 {% block content %}
 <div id="tudo">
 
-<div class="frame coluna" style="width: 19%;">
+<div class="frame coluna" style="width: {{ c0|default:'19'}}%;">
 {% block c0 %}
     {% include 'o_t/menu.html' %}
     {% block menu %}
@@ -76,12 +78,12 @@
 {% endblock %}
 </div>
 
-<div class="frame coluna" style="width: 51%;">
+<div class="frame coluna" style="width: {{ c1|default:'51'}}%;">
 {% block c1 %}
 {% endblock %}
 </div>
 
-<div class="frame coluna" style="width: 30%;">
+<div class="frame coluna" style="width: {{ c2|default:'30'}}%;">
 {% block c2 %}
 {% endblock %}
 </div>

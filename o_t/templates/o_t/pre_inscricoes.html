@@ -1,8 +1,11 @@
-<div class="post linha" id="inscricoes">
+{% load i18n %}
+<div class="post linha" id="{% trans 'inscricoes' %}">
 	<p class="titulo_">inscrições</p>
-	<p class="texto">texto com instruçoes pras inscrições</p>
+	<p class="texto">As inscrições devem ser realizadas através do formulário a seguir. <br><br>
+	As equipes deverão se inscrever somente uma vez, utilizando as informações do membro responsável. <br><br>
+	Um link e instruções para submissão das propostas serão enviados para o email fornecido – <b>caso haja a necessidade de reenvio destas informações, favor utilizar o campo ao final da página.</b></p>
 </div>
-<table class="form inscricao" >
+<table class="form inscricao linha" >
 <form method="POST" >
 	{% csrf_token %}
 	{% for field in inscricao_form %}

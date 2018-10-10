@@ -4,11 +4,12 @@
 	{% for nota in notas %}
 		{% ifchanged nota.data1.year %}
 			<tr>
-				<td>{{ nota.data1.year }}</td>
+				<td>{{ nota.data1|date:'Y' }}</td>
 			</tr>
 		{% endifchanged %}
 		<tr>
-			<th style="width: 80px; padding-right: 10px; font-weight: normal;">{{ nota.data1|date:'d_m'}}</th>
+			<td></td>
+			<td>{{ nota.data1|date:'d_m'}}</td>
 			<td class="titulo_lista"><a href="{% url 'blog' pk=nota.pk %}">{{ nota.titulo }}</a></td>
 		</tr>
 	{% endfor %}

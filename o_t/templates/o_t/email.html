@@ -1,21 +1,21 @@
 
-<table class="form inscricao" style="padding: 30px 20px;">
+<div class="post" style="padding-bottom: 0px;">
+	<p class="texto">reenviar link para submissão do projeto</p>
+</div>
+
+<table class="form inscricao" style="padding-top: 20px">
 {% if confirmacao %}
 <tr>
 	<td></td>
 	<th>email enviado</th>
 </tr>
 {% endif %}
-<tr>
-	<td></td>
-	<td>reenviar link de inscrições</td>
-</tr>
-<form method="POST" >
+<form method="POST">
 	{% csrf_token %}
 	{{ email_form }}
 <tr>
 	<td></td>
-	<td><button type="submit" name='email_submit'>enviar link</button></td>
+	<td><button type="submit" name='email_submit'>reenviar link</button></td>
 </tr>
 </form>
 </table>

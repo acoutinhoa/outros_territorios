@@ -1,0 +1,30 @@
+@font-face {
+    font-family: lehigh;
+    src: url({% static 'fonts/Lehigh-Commercial-Regular.otf' %});
+    font-weight: normal;
+}
+@font-face {
+    font-family: lehigh;
+    src: url({% static 'fonts/Lehigh-Commercial-Bold.otf' %});
+    font-weight: bold;
+}
+@font-face {
+    font-family: lehigh;
+    src: url({% static 'fonts/Lehigh-Commercial-Thin.otf' %});
+    font-weight: thin;
+}
+@font-face {
+    font-family: frutiger;
+    src: url({% static 'fonts/Frutiger LT Std 55 Roman Regular.otf' %});
+    font-weight: normal;
+}
+@font-face {
+    font-family: frutiger;
+    src: url({% static 'fonts/Frutiger LT Std 45 Light Italic.otf' %});
+    font-style: italic;
+}
+@font-face {
+    font-family: frutiger;
+    src: url({% static 'fonts/Frutiger LT Std 55 Roman Bold.otf' %});
+    font-weight: bold;
+}

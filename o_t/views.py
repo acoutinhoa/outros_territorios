@@ -4,59 +4,63 @@ from django.utils import timezone
 from django.urls import reverse, reverse_lazy
 from django.core.mail import BadHeaderError, send_mail, send_mass_mail
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from random import randint, randrange, choice
 from .forms import *
 from .models import *
 
 
+# Translators: palavras do menu
 menu = [
-	['início', reverse_lazy('home'), []],
-	['chamada de ideias', reverse_lazy('concurso'), [
-		('inscrições', 'inscricoes'),
-		('bases do concurso', 'bases'), 
-		('cronograma', 'cronograma'), 
-		('comissão julgadora', 'juri'),
+	[_('início'), reverse_lazy('home'), []],
+	[_('chamada de projetos'), reverse_lazy('concurso'), [
+		(_('inscrições'), _('inscricoes')),
+		(_('arquivos adicionais'), _('arquivos')), 
+		(_('cronograma'), _('cronograma')), 
+		(_('júri'), _('juri')),
 		]],
-	['galeria', reverse_lazy('galeria'), []],
-	['blog', reverse_lazy('blog'), []],
-	['faq', reverse_lazy('faq'), []],
+	[_('galeria'), reverse_lazy('galeria'), []],
+	[_('blog'), reverse_lazy('blog'), []],
+	[_('perguntas frequentes'), reverse_lazy('faq'), []],
 	]
 
-msg_inscricao = '''olá %s,
-mensagem de confirmacao de inscrição.
+msg_inscricao = '''Olá %s,
+Sua inscrição foi realizada com sucesso!
+Seu código de identificação é %s. Sua proposta deverá ser enviada através do link a seguir, que ficará disponível até a data limite definida no nosso cronograma. Cada link é único e deve ser utilizado para envio de um único projeto apenas.
+Acompanhe as atualizações no nosso blog.
+Dúvidas só serão respondidas através do nosso site.
 _
-link para envio do projeto:
+Link para envio da proposta:
 %s'''
 
-msg_email = '''olá %s,
-reenvio de link para inscricao.
+msg_email = '''Olá %s,
+Segue novamente o link para envio da sua proposta.
 _
-link para envio do projeto:
+Link para envio da proposta:
 %s'''
 
-msg_consulta = '''olá %s,
-mensagem de confirmacao.
+msg_consulta = '''Olá %s,
+Recebemos sua consulta. Ela será respondida no site no próximo bloco de respostas.
 _
-consulta:
+Consulta:
 %s'''
 
-msg_publicacao_consulta = '''olá %s,
-sua consulta foi respondida.
+msg_publicacao_consulta = '''Olá %s,
+Sua consulta foi respondida.
 
 _
-consulta:
+Consulta:
 %s
 
-resposta:
+Resposta:
 %s
-
 _
-link para bloco de respostas:
+Link para bloco de respostas:
 %s'''
 
 
 def home(request, edit=False,):
-	titulo = 'home'
+	titulo = 'início'
 	cartaz_form = None
 	arquivos_form = None
 	logos_form = None
@@ -113,7 +117,7 @@ def home(request, edit=False,):
 
 
 def concurso(request, edit=False, confirmacao=False,):
-	titulo = 'concurso'
+	titulo = 'chamada de projetos'
 	cartaz_form = None
 	arquivos_form = None
 	juri_form = None
@@ -157,9 +161,9 @@ def concurso(request, edit=False, confirmacao=False,):
 					dados.inscricao = inscricao
 					dados.save()
 					# enviar email
-					assunto = 'outros_territorios/inscrições'
+					assunto = 'Outros Territórios_confirmação de inscrição'
 					link = request.build_absolute_uri(reverse('inscricoes', kwargs={'pk': inscricao.pk}))
-					msg = msg_inscricao % (inscricao.nome, link)
+					msg = msg_inscricao % (inscricao.nome, inscricao.codigo, link)
 					send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
 					return redirect('inscricoes', pk=inscricao.pk)
 			elif 'email_submit' in request.POST:
@@ -168,7 +172,7 @@ def concurso(request, edit=False, confirmacao=False,):
 					email = email_form.cleaned_data['email']
 					inscricao = Inscricao.objects.get(email=email)
 					# enviar email
-					assunto = 'outros_territorios/link para inscrição'
+					assunto = 'Outros Territórios_reenvio de link'
 					link = request.build_absolute_uri(reverse('inscricoes', kwargs={'pk': inscricao.pk}))
 					msg = msg_email % (inscricao.nome, link)
 					send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
@@ -203,38 +207,40 @@ def inscricoes(request, pk,):
 	titulo = 'inscricoes'
 	inscricao = get_object_or_404(Inscricao, pk=pk)
 	dados = Dados.objects.get(inscricao=inscricao)
-	inscricao_form = InscricaoForm(instance=inscricao, prefix='inscricao')
+	projeto = Projeto.objects.get_or_create(inscricao=inscricao)[0]
 	dados_form = DadosForm(instance=dados, prefix='dados')
+	c0 = '27'
+	c1 = '43'
+	c2 = '30'
 
-	if request.method == 'POST':
-		if 'equipe_submit' in request.POST:
-			equipe_form = EquipeFormSet(request.POST, instance=inscricao, prefix='equipe')
-			if equipe_form.is_valid():
-				equipe_form.save()
-		elif 'projeto_submit' in request.POST:
-			projeto_form = ProjetoForm(request.POST, request.FILES, instance=inscricao, prefix='projeto')
-			prancha_form = PranchaFormSet(request.POST, request.FILES, instance=inscricao, prefix='prancha')
-			if projeto_form.is_valid() and prancha_form.is_valid():
-				projeto_form.save()
-				prancha_form.save()
-		return redirect('inscricoes', pk=pk)
-	else:
-		equipe_form = EquipeFormSet(instance=inscricao, prefix='equipe')
-		projeto_form = ProjetoForm(instance=inscricao, prefix='projeto')
-		prancha_form = PranchaFormSet(instance=inscricao, prefix='prancha')
+	if not inscricao.ok:
+		if request.method == 'POST':
+			if 'equipe_submit' in request.POST:
+				equipe_form = EquipeFormSet(request.POST, instance=inscricao, prefix='equipe')
+				if equipe_form.is_valid():
+					equipe_form.save()
+			elif 'projeto_submit' in request.POST:
+				projeto_form = ProjetoForm(request.POST, request.FILES, instance=projeto, prefix='projeto')
+				if projeto_form.is_valid():
+					projeto_form.save()
+			return redirect('inscricoes', pk=pk)
+		else:
+			equipe_form = EquipeFormSet(instance=inscricao, prefix='equipe')
+			projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
 
 	return render(request, 'o_t/inscricoes.html', {
 		'titulo': titulo, 
 		'inscricao': inscricao, 
-		'inscricao_form': inscricao_form,
 		'dados_form': dados_form,
 		'equipe_form': equipe_form,
 		'projeto_form': projeto_form,
-		'prancha_form': prancha_form,
 		'cor': def_cor(),
 		'cor_link': def_cor(),
 		'cor_hover': def_cor(),
 		'cor_borda': def_cor(),
+		'c0': c0,
+		'c1': c1,
+		'c2': c2,		
 		})
 
 def galeria(request,):
@@ -313,12 +319,12 @@ def faq(request, confirmacao=False, pk=None,):
 			pergunta.data = timezone.now()
 			pergunta.save()
 			# enviar email
-			assunto = 'outros_territorios/consultas'
+			assunto = 'Outros Territórios_consulta'
 			msg = msg_consulta % (pergunta.nome, pergunta.consulta)
 			send_mail(assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,])
 			return redirect('faq_confirmacao')
 	else:
-		form = PerguntaForm()
+		form = PerguntaForm(label_suffix='')
 	
 	return render(request, 'o_t/faq.html', {
 		'titulo': titulo, 
@@ -389,7 +395,7 @@ def bloco_publish(request, pk):
 	bloco = get_object_or_404(BlocoRespostas, pk=pk)
 	consultas = Pergunta.objects.filter(bloco=bloco)
 	# enviar email
-	assunto = 'outros_territorios/publicação de bloco de respostas'
+	assunto = 'Outros Territórios_resposta à consulta'
 	link = request.build_absolute_uri(reverse('faq', kwargs={'pk': pk}))
 	msgs = ()
 	for pergunta in consultas:
@@ -428,40 +434,4 @@ def def_cor(cor='acp'):
 		elif car == 'p':
 			cor_lista.append('preto')
 	return choice(cor_lista)
-
-
-
-# def send_email(request, slug):
-#     """ Send notification email to original owner of device who lost it """
-#     grab = Item.objects.get(slug=slug)
-#     if request.method == "POST":
-#         form = NotifyEmailForm(request.POST)
-#         if form.is_valid():
-#             subject = form.cleaned_data['subject']
-#             message = form.cleaned_data['message']
-#             sender = request.user.email
-#             recipients = [grab.created_by.email]
-#             recipients.append(sender)
- 
-#             send_mail(subject, message, sender, recipients)
-#             return HttpResponseRedirect('/notify/thanks')  # Redirect after POST
-#     else:
-#         form = NotifyEmailForm()  # An unbound form
-#     return render(request, 'send-mail.html', {'form': form, 'object': slug, })
-
-
-# def send_email(request):
-#     subject = request.POST.get('subject', '')
-#     message = request.POST.get('message', '')
-#     from_email = request.POST.get('from_email', '')
-#     if subject and message and from_email:
-#         try:
-#             send_mail(subject, message, from_email, ['admin@example.com'])
-#         except BadHeaderError:
-#             return HttpResponse('Invalid header found.')
-#         return HttpResponseRedirect('/contact/thanks/')
-#     else:
-#         # In reality we'd use a form class
-#         # to get proper validation errors.
-#         return HttpResponse('Make sure all fields are entered and valid.')
 

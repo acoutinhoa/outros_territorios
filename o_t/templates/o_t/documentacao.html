@@ -1,6 +1,7 @@
+{% load i18n %}
 {% load outras_tags %}
 
-<div class="cartaz linha" id="chamada">
+<div class="cartaz linha">
 	<p class="titulo">{{ cartaz.titulo|linebreaksbr }}</p>
 </div>
 
@@ -9,7 +10,7 @@
 		<p class="texto">{{ cartaz.texto|paragrafo }}</p>
 	</div>
 	<div class="post linha">
-		<p class="titulo_" id="juri">comissão julgadora</p>
+		<p class="titulo_" id="{% trans 'juri' %}">júri</p>
 		{% for juri in jurados %}
 			<p class="titulo_lista">
 			{% if juri.site %}
@@ -18,21 +19,21 @@
 				{{ juri }}
 			{% endif %}
 			</p>
-			<p class="texto" style="margin-bottom: 40px;">{{ juri.bio }}</p>
+			<p class="texto" style="margin-bottom: 60px;">{{ juri.bio }}</p>
 		{% endfor %}
 	</div>
 </div>
 
 <div class="cartaz" style="width: 40%;">
-	<div class="linha post" id="bases">
-		<p class="titulo_">bases do concurso</p>
+	<div class="linha post" id="{% trans 'arquivos' %}">
+		<p class="titulo_">arquivos adicionais</p>
 		<ul>
 		{% for arquivo in arquivos %}
 			<li><a href="{{ arquivo.arquivo.url }}" target="_blank">{{ arquivo.arquivo|filename }}</a></li>
 		{% endfor %}
 		</ul>
 	</div>
-	<div class="post linha" id="cronograma">
+	<div class="post linha" id="{% trans 'cronograma' %}">
 		<p class="titulo_">cronograma</p>
 		<p class="texto">{{ cartaz.datas|formatadata }}</p>
 	</div>

@@ -1,3 +1,4 @@
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -12,9 +13,12 @@ urlpatterns = [
     path('accounts/logout/', views.LogoutView.as_view(next_page='/'), name='logout'),
 	# path('accounts/', include('django.contrib.auth.urls')),
     path('teste/', include('blog.urls')),
-
-    path('', include('o_t.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += i18n_patterns(
+    path('', include('o_t.urls')),
+    prefix_default_language=False
+)

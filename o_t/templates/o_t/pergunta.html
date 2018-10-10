@@ -1,7 +1,7 @@
 {% if blocos %}
 <div class="post linha">
 	<p class="titulo_">blocos de respostas</p>
-	<table class="form" style="padding: 0;">
+	<table class="form notas" style="padding: 0;">
 	{% for bloco in blocos %}
 		<tr>
 			<td style="width: 90px;">{{ bloco.data1|date:'d_m_Y'}}</td>
@@ -17,16 +17,17 @@
 {% endif %}
 
 <div class="post" style="padding-bottom: 0px;">
-	<p class="texto"><b>Outras consultas podem ser realizadas por meio do formulário a seguir e serão respondidas semanalmente neste espaço:</b></p>
+	<p class="titulo_">consultas</p>
+	<p class="texto">Outras consultas podem ser realizadas por meio do formulário a seguir e serão respondidas em blocos nesta seção.</p>
 </div>
-	<table class="form linha">
-		<form method="POST">
-			{% csrf_token %}
-			{{ form }}
-			<tr><td class="espaco"></td></tr>
-		<tr>
-			<td></td>
-			<td><button type="submit">enviar</button></td>
-		</tr>
-		</form>
-	</table>
+<table class="form inscricao linha" >
+	<form method="POST">
+		{% csrf_token %}
+		{{ form }}
+		<tr><td class="espaco"></td></tr>
+	<tr>
+		<td></td>
+		<td><button type="submit">enviar</button></td>
+	</tr>
+	</form>
+</table>

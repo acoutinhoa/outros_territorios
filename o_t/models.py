@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from datetime import date
 from django.utils.text import slugify
-import uuid
+import uuid, random
 
 class Cartaz(models.Model):
 	pagina = models.CharField(max_length=50)
@@ -91,36 +91,50 @@ class Faq(models.Model):
 
 class Inscricao(models.Model):
 	areas = [
-		('arquitetura','arquitetura'),
-		('design','design'),
+		('arquitetura','Arquitetura'),
+		('artesV','Artes Visuais'),
+		('artesP','Artes Performáticas'),
+		('design','Design'),
+		('paisagismo','Paisagismo'),
 	]
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	data0 = models.DateTimeField(auto_now_add=True)
-	nome = models.CharField(max_length=100)
-	email = models.EmailField('e-mail', unique=True)
+	email = models.EmailField(unique=True)
+	nome = models.CharField(max_length=30)
+	sobrenome = models.CharField(max_length=70, null=True)
 	area = models.CharField('área', choices=areas, max_length=20)
 	termos = models.BooleanField()
+	codigo = models.CharField(max_length=5, unique=True, blank=True, null=True)
+	ok = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.nome
 	class Meta:
 		ordering = ['data0']
+	def novo_codigo(self):
+		codigo = str(random.randint(10000,99999))
+		if Inscricao.objects.filter(codigo=codigo).exists():
+			self.novo_codigo()
+		return codigo
+	def save(self, *args, **kwargs):
+		if not self.codigo:
+			self.codigo = self.novo_codigo()
+		super().save(*args, **kwargs)
 
 
 class Dados(models.Model):
 	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
 
 	nascimento = models.DateField()
-	cpf = models.CharField('CPF', max_length=11, unique=True)
-	rg = models.CharField('RG', max_length=15)
-	celular = models.CharField(max_length=13)
+	cpf = models.CharField('CPF/CNPJ', max_length=30, unique=True)
+	celular = models.CharField(max_length=20)
 
-	cep = models.CharField('CEP', max_length=8)
-	rua = models.CharField(max_length=60)
+	rua = models.CharField('endereço', max_length=60)
 	complemento = models.CharField(max_length=20, blank=True)
 	bairro = models.CharField(max_length=20)
 	cidade = models.CharField(max_length=20)
 	estado = models.CharField(max_length=2)
+	cep = models.CharField('CEP', max_length=15)
 	pais = models.CharField(max_length=20)
 
 	def __str__(self):
@@ -128,7 +142,8 @@ class Dados(models.Model):
 
 class Equipe(models.Model):
 	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
-	nome = models.CharField(max_length=100)
+	nome = models.CharField(max_length=30)
+	sobrenome = models.CharField(max_length=70, null=True)
 	email = models.EmailField('e-mail')
 
 	def __str__(self):
@@ -138,18 +153,24 @@ def inscricao_filepath(instance, filename):
     return 'o_t/concuso/{0}/{1}'.format(instance.inscricao.id, filename)
 
 class Projeto(models.Model):
+	palafitas = [
+		('01', '01. Cônsul Walter 425: palafita-pomar'),
+		('02', '02. Cônsul Walter 437: palafita-caverna'),
+		('03', '03. Cônsul Walter 483: palafita-empena'),
+		('04', '04. Cônsul Walter 511: palafita-indiscreta'),
+		('05', '05. Teresa Mota Valadares 76: palafita-caleidoscópica'),
+		('06', '06. Fidélis Martins 173: palafita-esbelta'),
+		('07', '07. Maria Heilbuth Surete 1223: palafita-dos-cachorros'),
+		('08', '08. Maria Heilbuth Surete 1159: palafita-comum'),
+		('09', '09. Maria Heilbuth Surete 1193: palafita-gigante-I'),
+		('10', '10. Maria Heilbuth Surete 1295: palafita-gigante-II'),
+	]
 	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
-	nome = models.CharField('titulo do projeto', max_length=200, blank=True)
 	slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
+	palafita = models.CharField(choices=palafitas, max_length=2)
+	nome = models.CharField('título', max_length=200, blank=True)
+	texto = models.TextField('descrição', blank=True, max_length=3000)
 	img = models.ImageField('imagem principal', upload_to = inscricao_filepath, blank=True)
-	texto = models.TextField('descrição do projeto', blank=True)
-
+	arquivo = models.FileField(upload_to = inscricao_filepath, blank=True)
 	def __str__(self):
 		return self.nome
-
-class Prancha(models.Model):
-	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
-	img = models.ImageField('prancha', upload_to = inscricao_filepath)
-
-	def __str__(self):
-		return '%s_%s' % (self.inscricao.nome, self.pk)
