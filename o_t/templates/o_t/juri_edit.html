@@ -1,20 +1,21 @@
 <p class="titulo titulo_ linha">juri/edit</p>
 
 {% if user.is_authenticated %}
-<table class="form">
-<form method="POST">
-	{% csrf_token %}
-	{{ juri_form.management_form }}
-	{% for form in juri_form %}
-		{{ form }}
-		<tr><td class="espaco"></td></tr>
-	{% endfor %}
-<tr>
-	<td></td><td>
-		<button type="submit" name="juri_submit">+ juri</button>
-		<button type="submit" name="juri_submit_home">salvar</button>
-	</td>
-</tr>
-</form>
-</table>
+	<table class="form">
+		<form method="POST">
+			{% csrf_token %}
+			{{ juri_form.management_form }}
+			{% for form in juri_form %}
+				{{ form }}
+				<tr><td class="espaco"></td></tr>
+			{% endfor %}
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit" name="juri_submit">+ juri</button>
+					<button type="submit" name="juri_submit_home">salvar</button>
+				</td>
+			</tr>
+		</form>
+	</table>
 {% endif %}

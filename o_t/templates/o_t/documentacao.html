@@ -1,16 +1,31 @@
-{% load i18n %}
-{% load outras_tags %}
+{% load i18n outras_tags %}
+
+{% get_current_language as lang %}
 
 <div class="cartaz linha">
-	<p class="titulo">{{ cartaz.titulo|linebreaksbr }}</p>
+	<p class="titulo">
+		{% if lang == 'en' and cartaz.titulo_en %}
+			{{ cartaz.titulo_en|linebreaksbr }}
+		{% else %}
+			{{ cartaz.titulo|linebreaksbr }}
+		{% endif %}
+	</p>
 </div>
 
 <div class="cartaz coluna" style="width: 60%;">
+	
 	<div class="post linha">
-		<p class="texto">{{ cartaz.texto|paragrafo }}</p>
+		<p class="texto">
+			{% if lang == 'en' and cartaz.texto_en %}
+				{{ cartaz.texto_en|paragrafo }}
+			{% else %}
+				{{ cartaz.texto|paragrafo }}
+			{% endif %}
+		</p>
 	</div>
+	
 	<div class="post linha">
-		<p class="titulo_" id="{% trans 'juri' %}">júri</p>
+		<p class="titulo_" id="{% trans 'juri' %}">{% trans 'júri' %}</p>
 		{% for juri in jurados %}
 			<p class="titulo_lista">
 			{% if juri.site %}
@@ -19,22 +34,38 @@
 				{{ juri }}
 			{% endif %}
 			</p>
-			<p class="texto" style="margin-bottom: 60px;">{{ juri.bio }}</p>
+			<p class="texto" style="margin-bottom: 60px;">
+				{% if lang == 'en' and juri.bio_en %}
+					{{ juri.bio_en|paragrafo }}
+				{% else %}
+					{{ juri.bio|paragrafo }}
+				{% endif %}
+			</p>
 		{% endfor %}
 	</div>
+
 </div>
 
 <div class="cartaz" style="width: 40%;">
+	
 	<div class="linha post" id="{% trans 'arquivos' %}">
-		<p class="titulo_">arquivos adicionais</p>
+		<p class="titulo_">{% trans 'arquivos adicionais' %}</p>
 		<ul>
 		{% for arquivo in arquivos %}
 			<li><a href="{{ arquivo.arquivo.url }}" target="_blank">{{ arquivo.arquivo|filename }}</a></li>
 		{% endfor %}
 		</ul>
 	</div>
+	
 	<div class="post linha" id="{% trans 'cronograma' %}">
-		<p class="titulo_">cronograma</p>
-		<p class="texto">{{ cartaz.datas|formatadata }}</p>
+		<p class="titulo_">{% trans 'cronograma' %}</p>
+		<p class="texto">
+			{% if lang == 'en' and cartaz.datas_en %}
+				{{ cartaz.datas_en|formatadata }}
+			{% else %}
+				{{ cartaz.datas|formatadata }}
+			{% endif %}
+		</p>
 	</div>
+
 </div>

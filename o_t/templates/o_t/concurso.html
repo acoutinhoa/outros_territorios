@@ -1,14 +1,14 @@
 {% extends 'o_t/base.html' %}
 
 {% block menu %}
-{% if user.is_authenticated %}
-	<div class="linha menu">
-	<a href="{% url 'concurso_edit' %}" class="botao"><button type="button">editar</button></a>
-	</div>
-{% endif %}
+	{% if user.is_authenticated %}
+		<div class="linha menu">
+			<a href="{% url 'concurso_edit' %}" class="botao"><button type="button">editar</button></a>
+		</div>
+	{% endif %}
 {% endblock %}
 
-<!-- cartaz -->
+
 {% block c1 %}
 	{% if edit %}
 		{% include 'o_t/cartaz_edit.html' %}
@@ -23,12 +23,5 @@
 		{% include 'o_t/juri_edit.html' %}
 	{% else %}
 		{% include 'o_t/pre_inscricoes.html' %}
-		{% include 'o_t/email.html' %}
-<!-- 		<div class="frame linha" style="height: 80%;">
-		{% include 'o_t/pre_inscricoes.html' %}
-		</div>
-		<div class="frame" style="height: 20%;">
-		{% include 'o_t/email.html' %}
-		</div>
- -->	{% endif %}
+	{% endif %}
 {% endblock %}

@@ -32,18 +32,38 @@ Dúvidas só serão respondidas através do nosso site.
 _
 Link para envio da proposta:
 %s'''
+msg_inscricao_en = '''Hi %s,
+Your registration has been successfully received!
+Your identification code is %s. Your proposal should be submitted through the following link, which will be available until the deadline defined in our schedule. Each link is unique and should be used to submit a single proposal only.
+Please follow the updates on our blog.
+Questions will only be answered through the appropriate space on our site.
+_
+Link to submit proposal:
+%s'''
+
 
 msg_email = '''Olá %s,
 Segue novamente o link para envio da sua proposta.
 _
 Link para envio da proposta:
 %s'''
+msg_email_en = '''Hi %s,
+We are resending the link for submission of the proposal.
+_
+Link to submit proposal:
+%s'''
+
 
 msg_consulta = '''Olá %s,
 Recebemos sua consulta. Ela será respondida no site no próximo bloco de respostas.
 _
 Consulta:
 %s'''
+msg_consulta_en = '''Hi %s,
+We have received your inquiry. It will be answered on the website in the next block of responses.
+_
+%s'''
+
 
 msg_publicacao_consulta = '''Olá %s,
 Sua consulta foi respondida.
@@ -60,7 +80,7 @@ Link para bloco de respostas:
 
 
 def home(request, edit=False,):
-	titulo = 'início'
+	titulo = _('início')
 	cartaz_form = None
 	arquivos_form = None
 	logos_form = None
@@ -102,22 +122,17 @@ def home(request, edit=False,):
 		'menu': menu, 
 		'logo_o_t': logo_o_t,
 		'edit': edit,
-		'borda': def_borda(),
 		'cartaz': cartaz,
 		'img': img,
 		'notas': notas,
 		'cartaz_form': cartaz_form,
 		'arquivos_form': arquivos_form,
 		'logos_form': logos_form,
-		'cor': def_cor('pc'),
-		'cor_link': def_cor(),
-		'cor_hover': def_cor(),
-		'cor_borda': def_cor(),
 		})
 
 
 def concurso(request, edit=False, confirmacao=False,):
-	titulo = 'chamada de projetos'
+	titulo = _('chamada de projetos')
 	cartaz_form = None
 	arquivos_form = None
 	juri_form = None
@@ -161,9 +176,13 @@ def concurso(request, edit=False, confirmacao=False,):
 					dados.inscricao = inscricao
 					dados.save()
 					# enviar email
-					assunto = 'Outros Territórios_confirmação de inscrição'
 					link = request.build_absolute_uri(reverse('inscricoes', kwargs={'pk': inscricao.pk}))
-					msg = msg_inscricao % (inscricao.nome, inscricao.codigo, link)
+					if request.LANGUAGE_CODE == 'en':
+						assunto = 'Other Territories_registration confirmation'
+						msg = msg_inscricao_en % (inscricao.nome, inscricao.codigo, link)
+					else:
+						assunto = 'Outros Territórios_confirmação de inscrição'
+						msg = msg_inscricao % (inscricao.nome, inscricao.codigo, link)
 					send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
 					return redirect('inscricoes', pk=inscricao.pk)
 			elif 'email_submit' in request.POST:
@@ -172,9 +191,13 @@ def concurso(request, edit=False, confirmacao=False,):
 					email = email_form.cleaned_data['email']
 					inscricao = Inscricao.objects.get(email=email)
 					# enviar email
-					assunto = 'Outros Territórios_reenvio de link'
 					link = request.build_absolute_uri(reverse('inscricoes', kwargs={'pk': inscricao.pk}))
-					msg = msg_email % (inscricao.nome, link)
+					if request.LANGUAGE_CODE == 'en':
+						assunto = 'Other Territories_ submission link'
+						msg = msg_email_en % (inscricao.nome, link)
+					else:
+						assunto = 'Outros Territórios_reenvio de link'
+						msg = msg_email % (inscricao.nome, link)
 					send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
 					return redirect('email_confirmacao')
 		else:
@@ -185,7 +208,6 @@ def concurso(request, edit=False, confirmacao=False,):
 	return render(request, 'o_t/concurso.html', {
 		'titulo': titulo, 
 		'menu': menu, 
-		'borda': def_borda(),
 		'edit': edit,
 		'cartaz': cartaz,
 		'arquivos': arquivos,
@@ -197,14 +219,10 @@ def concurso(request, edit=False, confirmacao=False,):
 		'dados_form': dados_form,
 		'email_form': email_form,
 		'confirmacao': confirmacao,
-		'cor': def_cor(),
-		'cor_link': def_cor(),
-		'cor_hover': def_cor(),
-		'cor_borda': def_cor(),
 		})
 
 def inscricoes(request, pk,):
-	titulo = 'inscricoes'
+	titulo = _('inscrições')
 	inscricao = get_object_or_404(Inscricao, pk=pk)
 	dados = Dados.objects.get(inscricao=inscricao)
 	projeto = Projeto.objects.get_or_create(inscricao=inscricao)[0]
@@ -234,25 +252,32 @@ def inscricoes(request, pk,):
 		'dados_form': dados_form,
 		'equipe_form': equipe_form,
 		'projeto_form': projeto_form,
-		'cor': def_cor(),
-		'cor_link': def_cor(),
-		'cor_hover': def_cor(),
-		'cor_borda': def_cor(),
 		'c0': c0,
 		'c1': c1,
 		'c2': c2,		
 		})
 
-def galeria(request,):
-	titulo = 'galeria'
+def galeria(request, edit=False,):
+	titulo = _('galeria')
+	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
+	cartaz_form = None
+
+	if edit:
+		if request.method == 'POST':
+			if 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
+				cartaz_form = CartazForm(request.POST, request.FILES, instance=cartaz)
+				if cartaz_form.is_valid():
+					cartaz_form.save()
+			return redirect('galeria')
+		else:
+			cartaz_form = CartazForm(instance=cartaz)
+
 	return render(request, 'o_t/galeria.html', {
 		'titulo': titulo, 
 		'menu': menu, 
-		'borda': def_borda(),
-		'cor': def_cor(),
-		'cor_link': def_cor(),
-		'cor_hover': def_cor(),
-		'cor_borda': def_cor(),
+		'edit': edit,
+		'cartaz': cartaz,
+		'cartaz_form': cartaz_form,
 		})
 
 def blog(request, pk=None, edit=False,):
@@ -278,15 +303,11 @@ def blog(request, pk=None, edit=False,):
 	return render(request, 'o_t/blog.html', {
 		'titulo': titulo, 
 		'menu': menu, 
-		'borda': def_borda(),
+		'edit': edit,
 		'notas': notas,
 		'notas_': notas_,
 		'nota': nota,
 		'form': form,
-		'cor': def_cor(),
-		'cor_link': def_cor(),
-		'cor_hover': def_cor(),
-		'cor_borda': def_cor(),
 		})
 
 @login_required
@@ -303,7 +324,7 @@ def nota_remove(request, pk):
 
 
 def faq(request, confirmacao=False, pk=None,):
-	titulo = 'faq'
+	titulo = _('perguntas frequentes')
 	form = None
 	if pk:
 		bloco = get_object_or_404(BlocoRespostas, pk=pk)
@@ -319,8 +340,12 @@ def faq(request, confirmacao=False, pk=None,):
 			pergunta.data = timezone.now()
 			pergunta.save()
 			# enviar email
-			assunto = 'Outros Territórios_consulta'
-			msg = msg_consulta % (pergunta.nome, pergunta.consulta)
+			if request.LANGUAGE_CODE == 'en':
+				assunto = 'Other Territories_queries'
+				msg = msg_consulta_en % (pergunta.nome, pergunta.consulta)
+			else:
+				assunto = 'Outros Territórios_consulta'
+				msg = msg_consulta % (pergunta.nome, pergunta.consulta)
 			send_mail(assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,])
 			return redirect('faq_confirmacao')
 	else:
@@ -329,15 +354,10 @@ def faq(request, confirmacao=False, pk=None,):
 	return render(request, 'o_t/faq.html', {
 		'titulo': titulo, 
 		'menu': menu, 
-		'borda': def_borda(),
 		'form': form,
 		'confirmacao': confirmacao,
 		'respostas': respostas,
 		'blocos': blocos,
-		'cor': def_cor(),
-		'cor_link': def_cor(),
-		'cor_hover': def_cor(),
-		'cor_borda': def_cor(),
 		})
 
 @login_required
@@ -378,16 +398,11 @@ def faq_edit(request, pk=None,):
 	return render(request, 'o_t/faq_edit.html', {
 		'titulo': titulo, 
 		'menu': menu, 
-		'borda': def_borda(),
 		'consultas': consultas,
 		'blocos': blocos,
 		'novo_bloco':novo_bloco,
 		'respostas': respostas,
 		'faq': faq,
-		'cor': def_cor(),
-		'cor_link': def_cor(),
-		'cor_hover': def_cor(),
-		'cor_borda': def_cor(),
 		})
 
 @login_required
@@ -411,27 +426,4 @@ def bloco_remove(request, pk):
     bloco = get_object_or_404(BlocoRespostas, pk=pk)
     bloco.delete()
     return redirect('faq_edit')
-
-################### funcoes
-
-
-def def_randomiza(lista):
-	l = []
-	for i in range(len(lista)):
-		l.append(lista.pop(randrange(len(lista))))
-	return l
-
-def def_borda(x=5, y=25):
-	return str(randint(x, y)) + 'px'
-
-def def_cor(cor='acp'):
-	cor_lista=[]
-	for car in cor:
-		if car == 'a':
-			cor_lista.append('azul')
-		elif car == 'c':
-			cor_lista.append('cinza')
-		elif car == 'p':
-			cor_lista.append('preto')
-	return choice(cor_lista)
 

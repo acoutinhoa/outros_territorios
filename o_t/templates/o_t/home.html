@@ -1,47 +1,35 @@
 {% extends 'o_t/base.html' %}
 
 {% block menu %}
-{% if user.is_authenticated %}
-	<div class="linha menu">
-	<a href="{% url 'home_edit' %}" class="botao"><button type="button">editar</button></a>
-	</div>
-{% endif %}
+	{% if user.is_authenticated %}
+		<div class="linha menu">
+			<a href="{% url 'home_edit' %}" class="botao"><button type="button">editar</button></a>
+		</div>
+	{% endif %}
 {% endblock %}
 
 
-<!-- cartaz -->
 {% block c1 %}
+	{% if edit %}
+		{% include 'o_t/cartaz_edit.html' %}
+	{% else %}
+		<div class="frame linha" style="height: 85%;">
+			{% include 'o_t/cartaz.html' %}
+		</div>
 
-{% if edit %}
-	{% include 'o_t/cartaz_edit.html' %}
-{% else %}
-	<div class="frame linha" style="height: 85%;">
-		{% include 'o_t/cartaz.html' %}
-	</div>
-
-	<div class="frame" style="height: 15%;">
-		<p class="titulo">logos</p>
-	</div> 
-{% endif %}
-
+		<div class="frame" style="height: 15%;">
+			<p class="titulo">logos</p>
+		</div> 
+	{% endif %}
 {% endblock %}
 
 
 {% block c2 %}
-
-{% if edit %}
-	{% include 'o_t/logos_edit.html' %}
-{% else %}
-	{% include 'o_t/notas.html' with titulo='blog' %}
-{% endif %}
-
+	{% if edit %}
+		{% include 'o_t/logos_edit.html' %}
+	{% else %}
+		{% include 'o_t/notas.html' with titulo='blog' %}
+	{% endif %}
 {% endblock %}
 
-<!-- posts
-<div class="frame linha" style="height: 90%;">
-{% include 'o_t/notas.html' with titulo='blog' %}
-</div> -->
-<!-- midias 
-<div class="frame linha" style="height: 10%;">
-{% include 'o_t/midias.html' %}
-</div> -->
+

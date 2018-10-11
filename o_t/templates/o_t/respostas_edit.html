@@ -1,42 +1,43 @@
-<p class="titulo titulo_ linha"> respostas/edit</p>
+<p class="titulo titulo_ linha">respostas/edit</p>
 
 <table class="form">
-<form method="POST" >
-	{% csrf_token %}
+	<form method="POST" >
+		{% csrf_token %}
 
-	{% if faq %}
-		{{ faq.management_form }}
-		{% for form in faq %}
-			{{ form }}
-			<tr><td class="espaco"></td></tr>
-		{% endfor %}
-		<td></td><td>
-			<button type="submit" name="faq_submit">+ resposta</button>
-			<button type="submit" name="faq_submit_home">salvar</button>
-		</td>
+		{% if faq %}
+			{{ faq.management_form }}
+			{% for form in faq %}
+				{{ form }}
+				<tr><td class="espaco"></td></tr>
+			{% endfor %}
+			<td></td>
+			<td>
+				<button type="submit" name="faq_submit">+ resposta</button>
+				<button type="submit" name="faq_submit_home">salvar</button>
+			</td>
 
-	{% else %}
-		{{ respostas.management_form }}
-
-		{% for form in respostas %}
-			<tr>
-				<th>e-mail:</th>
-				<td>{{ form.instance.email }}</td>
-			</tr>
-			<tr>
-				<th>consulta:</th>
-				<td>{{ form.instance.consulta }}</td>
-			</tr>
-			{{ form }}
-			<tr><td class="espaco"></td></tr>
-		{% empty %}
-			<tr>
-				<td>nenhuma consulta selecionada.</td>
-			</tr>
-		{% endfor %}
-		<td></td><td>
-			<button type="submit" name="respostas_submit">salvar</button>
-		</td>
-	{% endif %}
-</form>
+		{% else %}
+			{{ respostas.management_form }}
+			{% for form in respostas %}
+				<tr>
+					<th>e-mail:</th>
+					<td>{{ form.instance.email }}</td>
+				</tr>
+				<tr>
+					<th>consulta:</th>
+					<td>{{ form.instance.consulta }}</td>
+				</tr>
+				{{ form }}
+				<tr><td class="espaco"></td></tr>
+			{% empty %}
+				<tr>
+					<td>nenhuma consulta selecionada.</td>
+				</tr>
+			{% endfor %}
+			<td></td>
+			<td>
+				<button type="submit" name="respostas_submit">salvar</button>
+			</td>
+		{% endif %}
+	</form>
 </table>

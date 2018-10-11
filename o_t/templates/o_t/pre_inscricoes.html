@@ -1,10 +1,13 @@
-{% load i18n %}
+{% load i18n outras_tags %}
+
 <div class="post linha" id="{% trans 'inscricoes' %}">
-	<p class="titulo_">inscrições</p>
-	<p class="texto">As inscrições devem ser realizadas através do formulário a seguir. <br><br>
-	As equipes deverão se inscrever somente uma vez, utilizando as informações do membro responsável. <br><br>
-	Um link e instruções para submissão das propostas serão enviados para o email fornecido – <b>caso haja a necessidade de reenvio destas informações, favor utilizar o campo ao final da página.</b></p>
+	<p class="titulo_">{% trans 'inscrições' %}</p>
+	<p class="texto">{% trans 'As inscrições devem ser realizadas através do formulário a seguir.' %}<br><br>
+	{% trans 'As equipes deverão se inscrever somente uma vez, utilizando as informações do membro responsável.' %}<br><br>
+	{% trans 'Um link e instruções para submissão das propostas serão enviados para o email fornecido' %} – 
+	<b>{% trans 'caso haja a necessidade de reenvio destas informações, favor utilizar o campo ao final da página.' %}</b></p>
 </div>
+
 <table class="form inscricao linha" >
 <form method="POST" >
 	{% csrf_token %}
@@ -24,11 +27,33 @@
 			</tr>
 		{% endif %}
 	{% endfor %}
-
-<tr><td class="espaco"></td></tr>
-<tr>
-	<td></td>
-	<td><button type="submit" name='inscricao_submit'>inscrever</button></td>
-</tr>
+	<tr><td class="espaco"></td></tr>
+	<tr>
+		<td></td>
+		<td><button type="submit" name='inscricao_submit'>{% trans 'inscrever' %}</button></td>
+	</tr>
 </form>
+</table>
+
+
+<!-- reenviar email -->
+<div class="post" style="padding-bottom: 0px;">
+	<p class="texto">{% trans 'reenviar link para submissão do projeto' %}</p>
+</div>
+
+<table class="form inscricao" style="padding-top: 20px">
+	{% if confirmacao %}
+		<tr>
+			<td></td>
+			<th>{% trans 'email enviado' %}</th>
+		</tr>
+	{% endif %}
+	<form method="POST">
+		{% csrf_token %}
+		{{ email_form }}
+		<tr>
+			<td></td>
+			<td><button type="submit" name='email_submit'>{% trans 'reenviar link' %}</button></td>
+		</tr>
+	</form>
 </table>

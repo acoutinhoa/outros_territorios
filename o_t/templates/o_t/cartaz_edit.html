@@ -4,7 +4,15 @@
 <table class="form">
 <form method="POST" enctype="multipart/form-data" >
 	{% csrf_token %}
-	{{ cartaz_form }}
+	{% for field in cartaz_form %}
+		{% if field.name == 'titulo_en' %}
+			<tr><td class="espaco"></td></tr>
+		{% endif %}
+		<tr>
+		<th>{{ field.label_tag }}</th>
+		<td>{{ field }}</td>
+		</tr>
+	{% endfor %}
 	<tr><td class="espaco"></td></tr>
 	{{ arquivos_form.management_form }}
 	{% for form in arquivos_form %}

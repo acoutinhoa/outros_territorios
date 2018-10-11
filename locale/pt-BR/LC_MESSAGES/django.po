@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 20:22-0300\n"
+"POT-Creation-Date: 2018-10-11 20:04-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,63 +18,178 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: o_t/templates/o_t/base.html:11
+#: o_t/templates/o_t/base.html:10
 msgid "Outros Territórios"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:13 o_t/views.py:20
+#: o_t/templates/o_t/documentacao.html:28 o_t/views.py:20
 msgid "juri"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:28 o_t/views.py:18
+#: o_t/templates/o_t/documentacao.html:28 o_t/views.py:20
+msgid "júri"
+msgstr ""
+
+#: o_t/templates/o_t/documentacao.html:51 o_t/views.py:18
 msgid "arquivos"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:36 o_t/views.py:19
+#: o_t/templates/o_t/documentacao.html:52 o_t/views.py:18
+msgid "arquivos adicionais"
+msgstr ""
+
+#: o_t/templates/o_t/documentacao.html:60
+#: o_t/templates/o_t/documentacao.html:61 o_t/views.py:19
 msgid "cronograma"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:2 o_t/views.py:17
+#: o_t/templates/o_t/inscricoes.html:7
+msgid "informações"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:9
+msgid ""
+"O formulário do projeto poderá ser acessado e alterado quantas vezes for "
+"necessário até a data limite definida no cronograma."
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:10
+msgid "Não se esqueça de salvar as informações a cada alteração."
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:11
+msgid "A submissão só será efetivada após o clique em “enviar proposta”."
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:12
+msgid "A partir desse momento, não será mais possível realizar modificações."
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:14
+msgid "enviar proposta"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:19
+msgid "Nome"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:23
+msgid "Área de atuação profissional"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:42
+msgid "projeto"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:48
+msgid "Código de identificação"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:65
+msgid "salvar projeto"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:74
+msgid "equipe"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:87
+msgid "salvar equipe e/ou adicionar novo integrante"
+msgstr ""
+
+#: o_t/templates/o_t/pergunta.html:7
+msgid "blocos de respostas"
+msgstr ""
+
+#: o_t/templates/o_t/pergunta.html:26
+msgid "consulta enviada"
+msgstr ""
+
+#: o_t/templates/o_t/pergunta.html:30
+msgid "consultas"
+msgstr ""
+
+#: o_t/templates/o_t/pergunta.html:32
+msgid ""
+"Outras consultas podem ser realizadas por meio do formulário a seguir e "
+"serão respondidas em blocos nesta seção."
+msgstr ""
+
+#: o_t/templates/o_t/pergunta.html:43
+msgid "enviar"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:3 o_t/views.py:17
 msgid "inscricoes"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:4 o_t/views.py:17 o_t/views.py:225
+msgid "inscrições"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:5
+msgid "As inscrições devem ser realizadas através do formulário a seguir."
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:6
+msgid ""
+"As equipes deverão se inscrever somente uma vez, utilizando as informações "
+"do membro responsável."
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:7
+msgid ""
+"Um link e instruções para submissão das propostas serão enviados para o "
+"email fornecido"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:8
+msgid ""
+"caso haja a necessidade de reenvio destas informações, favor utilizar o "
+"campo ao final da página."
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:33
+msgid "inscrever"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:41
+msgid "reenviar link para submissão do projeto"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:48
+msgid "email enviado"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:56
+msgid "reenviar link"
 msgstr ""
 
 #: o_t/urls.py:28
 msgid "inscricoes/<uuid:pk>/"
 msgstr ""
 
-#: o_t/urls.py:35
+#: o_t/urls.py:40
 msgid "galeria/"
 msgstr ""
 
-#: o_t/urls.py:37
+#: o_t/urls.py:42
 msgid "chamada_de_projetos/"
 msgstr ""
 
-#: o_t/urls.py:38
+#: o_t/urls.py:43
 msgid "perguntas_frequentes/"
 msgstr ""
 
-#: o_t/views.py:15
+#: o_t/views.py:15 o_t/views.py:83
 msgid "início"
 msgstr ""
 
-#: o_t/views.py:16
+#: o_t/views.py:16 o_t/views.py:135
 msgid "chamada de projetos"
 msgstr ""
 
-#: o_t/views.py:17
-msgid "inscrições"
-msgstr ""
-
-#: o_t/views.py:18
-msgid "arquivos adicionais"
-msgstr ""
-
-#: o_t/views.py:20
-msgid "júri"
-msgstr ""
-
-#: o_t/views.py:22
+#: o_t/views.py:22 o_t/views.py:261
 msgid "galeria"
 msgstr ""
 
@@ -82,16 +197,8 @@ msgstr ""
 msgid "blog"
 msgstr ""
 
-#: o_t/views.py:24
+#: o_t/views.py:24 o_t/views.py:327
 msgid "perguntas frequentes"
-msgstr ""
-
-#: outros_territorios/settings.py:125
-msgid "Português"
-msgstr ""
-
-#: outros_territorios/settings.py:126
-msgid "English"
 msgstr ""
 
 #: s2/lib/python3.7/site-packages/django/contrib/messages/apps.py:7

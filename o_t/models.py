@@ -9,6 +9,9 @@ class Cartaz(models.Model):
 	titulo = models.TextField(blank=True)
 	datas = models.TextField(blank=True)
 	texto = models.TextField(blank=True)
+	titulo_en = models.TextField(blank=True)
+	datas_en = models.TextField(blank=True)
+	texto_en = models.TextField(blank=True)
 	def __str__(self):
 		return self.pagina
 
@@ -49,6 +52,7 @@ class Juri(models.Model):
 	nome = models.CharField(max_length=200)
 	site = models.URLField(blank=True)
 	bio = models.TextField()
+	bio_en = models.TextField(blank=True)
 	def __str__(self):
 		return self.nome
 
@@ -82,6 +86,8 @@ class Pergunta(models.Model):
 class Faq(models.Model):
 	pergunta = models.TextField()
 	resposta = models.TextField()
+	pergunta_en = models.TextField(blank=True)
+	resposta_en = models.TextField(blank=True)
 	data0 = models.DateTimeField(auto_now_add=True)
 	publicar = models.BooleanField(default=False)
 	def __str__(self):

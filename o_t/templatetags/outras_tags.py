@@ -2,6 +2,7 @@ from django import template
 from django.template.defaultfilters import stringfilter, linebreaksbr
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
+import random
 import os
 
 register = template.Library()
@@ -28,10 +29,32 @@ def formatadata(text, car='', autoescape=True):
 	return mark_safe(t[:-8])
 
 @register.filter
-def filename(value):
+def filename(value, ext=True):
 	filename = os.path.basename(value.file.name)
 	filename = filename.replace('_', ' ')
+	if not ext:
+		filename = filename.split('.')[0]
 	return filename
+
+@register.simple_tag
+def randint(min, max):
+	return str(random.randint(min, max))
+
+@register.simple_tag
+def cem(n):
+	return str(100-int(n))
+
+@register.simple_tag
+def cor(cor='acp'):
+	cor_lista=[]
+	for car in cor:
+		if car == 'a':
+			cor_lista.append('azul')
+		elif car == 'c':
+			cor_lista.append('cinza')
+		elif car == 'p':
+			cor_lista.append('preto')
+	return random.choice(cor_lista)
 
 
 

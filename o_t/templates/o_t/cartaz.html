@@ -1,20 +1,42 @@
-{% load outras_tags %}
+{% load i18n outras_tags %}
+
+{% get_current_language as lang %}
 
 <div class="cartaz linha">
 	{% if logo_o_t %}
 		<img src="{{ logo_o_t.arquivo.url }}" alt="{{ logo_o_t.nome }}" style="padding: 5vh 5vw;">
 	{% else %}
-		<p class="titulo">{{ cartaz.titulo|linebreaksbr }}</p>
+		<p class="titulo">
+			{% if lang == 'en' and cartaz.titulo_en %}
+				{{ cartaz.titulo_en|linebreaksbr }}
+			{% else %}
+				{{ cartaz.titulo|linebreaksbr }}
+			{% endif %}
+		</p>
 	{% endif %}
 </div>
+
 <div class="cartaz linha">
-	<img src="{{ img.arquivo.url }}" alt="{{ img.nome }}">
+	<img src="{{ img.arquivo.url }}" alt="{{ img.arquivo|filename:False }}">
 </div>
-<div class="cartaz" style="height: auto;">
+
+<div class="cartaz">
 	<div class="post coluna" style="width: 60%;">
-		<p class="texto">{{ cartaz.texto|paragrafo }}</p>
+		<p class="texto">
+			{% if lang == 'en' and cartaz.texto_en %}
+				{{ cartaz.texto_en|paragrafo }}
+			{% else %}
+				{{ cartaz.texto|paragrafo }}
+			{% endif %}
+		</p>
 	</div>
 	<div class="cartaz linha" style="width: 40%;">
-		<p class="data">{{ cartaz.datas|formatadata }}</p>
+		<p class="data">
+			{% if lang == 'en' and cartaz.datas_en %}
+				{{ cartaz.datas_en|formatadata }}
+			{% else %}
+				{{ cartaz.datas|formatadata }}
+			{% endif %}
+		</p>
 	</div>
 </div>

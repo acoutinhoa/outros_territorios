@@ -28,11 +28,16 @@ concurso_patterns = [
     path(_('inscricoes/<uuid:pk>/'), views.inscricoes, name='inscricoes'),
 ]
 
+galeria_patterns = [
+    path('', views.galeria, name='galeria'),
+    path('edit/', views.galeria, {'edit':True,}, name='galeria_edit'),
+]
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('edit/', views.home, {'edit':True,}, name='home_edit'),
 
-    path(_('galeria/'), views.galeria, name='galeria'),
+    path(_('galeria/'), include(galeria_patterns)),
 
     path(_('chamada_de_projetos/'), include(concurso_patterns)),
     path(_('perguntas_frequentes/'), include(faq_patterns)),

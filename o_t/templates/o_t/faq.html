@@ -1,18 +1,19 @@
 {% extends 'o_t/base.html' %}
 
 {% block menu %}
-{% if user.is_authenticated %}
-	<div class="linha menu">
-	<a href="{% url 'faq_edit' %}" class="botao"><button type="button">editar</button></a>
-	</div>
-{% endif %}
+	{% if user.is_authenticated %}
+		<div class="linha menu">
+			<a href="{% url 'faq_edit' %}" class="botao"><button type="button">editar</button></a>
+		</div>
+	{% endif %}
 {% endblock %}
+
 
 {% block c1 %}
 	{% include 'o_t/respostas.html' %}
 {% endblock %}
 
+
 {% block c2 %}
-<!-- formulario perguntas -->
-{% include 'o_t/pergunta.html' %}
+	{% include 'o_t/pergunta.html' %}
 {% endblock %}

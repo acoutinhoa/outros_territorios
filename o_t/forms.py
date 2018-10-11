@@ -9,9 +9,10 @@ class NotaForm(forms.ModelForm):
 
 CartazForm = forms.modelform_factory(
 	Cartaz,
-	fields = ('titulo', 'datas', 'texto'),
+	fields = ('titulo', 'datas', 'texto', 'titulo_en', 'datas_en', 'texto_en', ),
 	widgets = {
 		'titulo': forms.Textarea(attrs={'rows': 2}),
+		'titulo_en': forms.Textarea(attrs={'rows': 2}),
 		},
 	)
 
@@ -31,7 +32,7 @@ LogosFormSet = forms.inlineformset_factory(
 
 JuriFormSet = forms.modelformset_factory(
 	Juri, 
-	fields=('nome', 'site', 'bio'), 
+	fields=('nome', 'site', 'bio', 'bio_en'), 
 	extra=1, 
 	can_delete=True,
 	)
@@ -39,12 +40,14 @@ JuriFormSet = forms.modelformset_factory(
 # faq
 FaqFormSet = forms.modelformset_factory(
 	Faq, 
-	fields=('pergunta', 'resposta', 'publicar'), 
+	fields=('pergunta', 'resposta', 'pergunta_en', 'resposta_en', 'publicar'), 
 	extra=1, 
 	can_delete=True,
 	widgets = {
 		'pergunta': forms.Textarea(attrs={'rows': 2}),
 		'resposta': forms.Textarea(attrs={'rows': 5}),
+		'pergunta_en': forms.Textarea(attrs={'rows': 2}),
+		'resposta_en': forms.Textarea(attrs={'rows': 5}),
 		},
 	)
 

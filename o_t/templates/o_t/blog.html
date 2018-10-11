@@ -1,17 +1,17 @@
 {% extends 'o_t/base.html' %}
 
 {% block menu %}
-{% if user.is_authenticated %}
-<div class="linha menu">
-<a href="{% url 'nota_add' %}" class="botao"><button type="button">novo post</button></a>
-</div>
-{% endif %}
+	{% if user.is_authenticated %}
+		<div class="linha menu">
+			<a href="{% url 'nota_add' %}" class="botao"><button type="button">novo post</button></a>
+		</div>
+	{% endif %}
 {% endblock %}
 
 
 {% block c1 %}
-{% if form %}
-	{% include 'o_t/nota_edit.html' %}
+	{% if edit %}
+		{% include 'o_t/nota_edit.html' %}
 	{% else %}
 		{% if nota %}
 			{% include 'o_t/nota.html' %}
@@ -21,18 +21,16 @@
 	{% endif %}
 {% endblock %}
 
+
 {% block c2 %}
-{% if user.is_authenticated %}
-	<!-- lista posts -->
-	<div class="frame linha" style="height: 50%;">
-	{% include 'o_t/notas_lista.html' %}
-	</div>
-	<!-- midias -->
-	<div class="frame linha" style="height: 50%;">
-	{% include 'o_t/notas_lista.html' with titulo_='rascunhos' notas=notas_ %}
-	</div>
-{% else %}
-	<!-- lista posts -->
-	{% include 'o_t/notas_lista.html' %}
-{% endif %}
+	{% if user.is_authenticated %}
+		<div class="frame linha" style="height: 50%;">
+			{% include 'o_t/notas_lista.html' %}
+		</div>
+		<div class="frame linha" style="height: 50%;">
+			{% include 'o_t/notas_lista.html' with titulo_='rascunhos' notas=notas_ %}
+		</div>
+	{% else %}
+		{% include 'o_t/notas_lista.html' %}
+	{% endif %}
 {% endblock %}

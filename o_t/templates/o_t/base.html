@@ -1,5 +1,4 @@
-{% load i18n %}
-{% load static %}
+{% load i18n static outras_tags %}
 
 <!DOCTYPE html>
 
@@ -43,24 +42,24 @@
 }
 
 :root {
-    --fonte: {{ fonte|default:"lehigh, sans-serif" }};
-    --fonte_: {{ fonte_|default:'frutiger, sans-serif' }};
+    --fonte: lehigh, sans-serif;
+    --fonte_: frutiger, sans-serif;
 
-    --fonte-menu: {{ fonte_menu|default:'16px' }};
-    --fonte-form: {{ fonte_form|default:'13px' }};
-    --fonte-texto: {{ fonte_form|default:'14px' }};
+    --fonte-menu: 16px;
+    --fonte-form: 13px;
+    --fonte-texto: 14px;
 
     --azul: #B1E4E3;
     --cinza: #63666A;
     --preto: black;
 
-    --cor: var(--{{ cor|default:'preto' }});
-    --cor-borda: var(--{{ cor_borda|default:'cinza' }});
-    --cor-link: var(--{{ cor_link|default:'cinza' }});
-    --cor-hover: var(--{{ cor_hover|default:'azul' }});
+    --cor: var(--{% cor cor='cp' %});
+    --cor-borda: var(--{% cor %});
+    --cor-link: var(--{% cor %});
+    --cor-hover: var(--{% cor %});
 
-    --borda: {{ borda|default:'10px' }};
-    --borda-link: {{ borda_|default:'2px' }};
+    --borda: {% randint 10 20 %}px;
+    --borda-link: 2px;
 }
 </style>
 <link rel="stylesheet" href="{% static 'css/o_t.css' %}">

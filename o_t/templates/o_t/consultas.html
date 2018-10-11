@@ -1,36 +1,36 @@
 
 <div class="post">
-<p class="titulo_">novas consultas</p>
+	<p class="titulo_">novas consultas</p>
 
-<table class="form" style="padding: 0;">
-<form method="POST">
-	{% csrf_token %}
-		{{ consultas.management_form }}
-		{% for form in consultas %}
-			<tr>
-				<th>data:</th>
-				<td>{{ form.instance.data|date:'d/m/Y' }}</td>
-			</tr>
-			<tr>
-				<th>nome:</th>
-				<td>{{ form.instance.nome }}</td>
-			</tr>
-			<tr>
-				<th>email:</th>
-				<td>{{ form.instance.email }}</td>
-			</tr>
-			<tr>
-				<th>consulta:</th>
-				<td>{{ form.instance.consulta }}</td>
-			</tr>
-			{{ form }}
+	<table class="form" style="padding: 0;">
+		<form method="POST">
+			{% csrf_token %}
+				{{ consultas.management_form }}
+				{% for form in consultas %}
+					<tr>
+						<th>data:</th>
+						<td>{{ form.instance.data|date:'d_m_Y' }}</td>
+					</tr>
+					<tr>
+						<th>nome:</th>
+						<td>{{ form.instance.nome }}</td>
+					</tr>
+					<tr>
+						<th>email:</th>
+						<td>{{ form.instance.email }}</td>
+					</tr>
+					<tr>
+						<th>consulta:</th>
+						<td>{{ form.instance.consulta }}</td>
+					</tr>
+					{{ form }}
+					<tr><td class="espaco"></td></tr>
+				{% endfor %}
 			<tr><td class="espaco"></td></tr>
-		{% endfor %}
-	<tr><td class="espaco"></td></tr>
-	<tr>
-		<td></td>
-		<td><button type="submit" name="consultas_submit">salvar</button></td>
-	</tr>
-</form>
-</table>
+			<tr>
+				<td></td>
+				<td><button type="submit" name="consultas_submit">salvar</button></td>
+			</tr>
+		</form>
+	</table>
 </div>
