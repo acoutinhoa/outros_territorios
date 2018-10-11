@@ -55,8 +55,9 @@
 
     --cor: var(--{% cor cor='cp' %});
     --cor-borda: var(--{% cor %});
-    --cor-link: var(--{% cor %});
-    --cor-hover: var(--{% cor %});
+    {% cor as link %}
+    --cor-link: var(--{{ link }});
+    --cor-hover: var(--{% cor nao=link %});
 
     --borda: {% randint 10 20 %}px;
     --borda-link: 2px;

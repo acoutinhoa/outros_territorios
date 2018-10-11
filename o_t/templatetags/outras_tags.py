@@ -45,7 +45,7 @@ def cem(n):
 	return str(100-int(n))
 
 @register.simple_tag
-def cor(cor='acp'):
+def cor(cor='acp', nao=''):
 	cor_lista=[]
 	for car in cor:
 		if car == 'a':
@@ -54,6 +54,8 @@ def cor(cor='acp'):
 			cor_lista.append('cinza')
 		elif car == 'p':
 			cor_lista.append('preto')
+	if nao in cor_lista:
+		cor_lista.remove(nao)
 	return random.choice(cor_lista)
 
 
