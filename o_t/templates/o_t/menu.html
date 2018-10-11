@@ -4,10 +4,10 @@
 
 <div class="linha menu">
 	{% for lang_code, lang_name in languages %}
-    {% language lang_code %}
-    <a href="{% url 'home' %}">{{ lang_name }}</a>
-    {% if not forloop.last %} / {% endif %}
-    {% endlanguage %}
+	    {% language lang_code %}
+	    <a href="{% url 'home' %}">{{ lang_name }}</a>
+	    {% if not forloop.last %} / {% endif %}
+	    {% endlanguage %}
 	{% endfor %}
 </div>
 
