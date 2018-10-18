@@ -10,7 +10,7 @@
 	{% for nota in notas %}
 
 		{% if lang == 'en' and nota.slug_en %}
-			{% url 'blog_slug' slug=nota.slug_en as nota_link %}	
+			{% url 'blog_slug' slug=nota.slug_en as nota_link %}
 		{% elif nota.slug %}
 			{% url 'blog_slug' slug=nota.slug as nota_link %}
 		{% else %}
@@ -38,7 +38,13 @@
 					{{ nota.data1|date:'d_m'}}
 				{% endif %}
 			</td>
-			<td class="texto"><a href="{{ nota_link }}">{{ nota.titulo }}</a></td>
+			<td class="texto"><a href="{{ nota_link }}">
+				{% if lang == 'en' and nota.titulo_en %}
+					{{ nota.titulo_en }}
+				{% else %}
+					{{ nota.titulo }}
+				{% endif %}
+			</a></td>
 		</tr>
 
 	{% endfor %}

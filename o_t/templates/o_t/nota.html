@@ -1,5 +1,7 @@
 {% load i18n outras_tags %}
 
+{% get_current_language as lang %}
+
 {% if lang == 'en' and nota.titulo_en and nota.texto_en %}
 	{% set nota.titulo_en as titulo %}
 	{% set nota.texto_en as texto %}
