@@ -68,8 +68,8 @@ def home(request, edit=False,):
 	bg = None
 	cartaz = Cartaz.objects.get_or_create(pagina='home')[0]
 	# logos
-	logos = Cartaz.objects.get_or_create(pagina='logos')[0]
-	logos = Arquivo.objects.filter(pagina=logos)
+	logos_ = Cartaz.objects.get_or_create(pagina='logos')[0]
+	logos = Arquivo.objects.filter(pagina=logos_)
 
 	if cartaz.arquivo_set.all():
 		img = cartaz.arquivo_set.all().order_by('?')[0]
