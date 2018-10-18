@@ -57,12 +57,14 @@
 
 <!-- logos -->
 <div class="post linha">
+	{% if logos %}
 	{% for logo in logos %}
 		{% ifchanged logo.tipo %}
 			<p class="texto" style="padding-top: 40px;">{{ logo.tipo_verbose }}</p>
 		{% endifchanged %}
 		<img src="{{ logo.arquivo.url }}" alt="{{ logo.arquivo|filename:False }}" style="height: {{ logo.altura }}px; width: auto; margin-right: 10px; ">
 	{% endfor %}
+	{% endif %}
 </div>
 {% espaco borda='' %}
 

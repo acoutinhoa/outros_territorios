@@ -57,28 +57,6 @@ _
 Link para bloco de respostas:
 {3}''')
 
-# msg_inscricao_en = '''Hi %s,
-# Your registration has been successfully received!
-# Your identification code is %s. Your proposal should be submitted through the following link, which will be available until the deadline defined in our schedule. Each link is unique and should be used to submit a single proposal only.
-# Please follow the updates on our blog.
-# Questions will only be answered through the appropriate space on our site.
-# _
-# Link to submit proposal:
-# %s'''
-# msg_email_en = '''Hi %s,
-# We are resending the link for submission of the proposal.
-# _
-# Link to submit proposal:
-# %s'''
-
-
-# msg_consulta_en = '''Hi %s,
-# We have received your inquiry. It will be answered on the website in the next block of responses.
-# _
-# %s'''
-
-
-
 
 def home(request, edit=False,):
 	titulo = _('início')
