@@ -1,17 +1,47 @@
+{% load i18n outras_tags %}
+
+{% get_current_language as lang %}
+
+{% espaco %}
+
 <div class="post">
-	<p class="titulo_">{{ titulo }}/{{ titulo_|default:'arquivo'}}</p>
+	<p class="titulo_">{% trans 'arquivo' %}</p>
 	<table class="form notas" style="padding: 0;">
 	{% for nota in notas %}
+
+		{% if lang == 'en' and nota.slug_en %}
+			{% url 'blog_slug' slug=nota.slug_en as nota_link %}	
+		{% elif nota.slug %}
+			{% url 'blog_slug' slug=nota.slug as nota_link %}
+		{% else %}
+			{% url 'blog' pk=nota.pk as nota_link %}	
+		{% endif %}
+
 		{% ifchanged nota.data1.year %}
-			<tr>
-				<td>{{ nota.data1|date:'Y' }}</td>
-			</tr>
+			{% if nota.data1 %}
+				<tr>
+					<td>{{ nota.data1|date:'Y' }}</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td>____</td>
+				</tr>
+			{% endif %}
 		{% endifchanged %}
+
 		<tr>
 			<td></td>
-			<td>{{ nota.data1|date:'d_m'}}</td>
-			<td class="titulo_lista"><a href="{% url 'blog' pk=nota.pk %}">{{ nota.titulo }}</a></td>
+			<td>
+				{% if lang == 'en' %}
+					{{ nota.data1|date:'m_d'}}
+				{% else %}
+					{{ nota.data1|date:'d_m'}}
+				{% endif %}
+			</td>
+			<td class="texto"><a href="{{ nota_link }}">{{ nota.titulo }}</a></td>
 		</tr>
+
 	{% endfor %}
 	</table>
 </div>
+

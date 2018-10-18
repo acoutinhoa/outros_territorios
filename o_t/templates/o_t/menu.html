@@ -1,13 +1,13 @@
-{% load i18n %}
+{% load i18n outras_tags %}
 
 {% get_available_languages as languages %}
 
+{% espaco 30 60 %}
+
 <div class="linha menu">
 	{% for lang_code, lang_name in languages %}
-	    {% language lang_code %}
-	    <a href="{% url 'home' %}">{{ lang_name }}</a>
+	    <a href="{% change_lang lang_code %}">{{ lang_name }}</a>
 	    {% if not forloop.last %} / {% endif %}
-	    {% endlanguage %}
 	{% endfor %}
 </div>
 
@@ -34,7 +34,7 @@
 
 {% if user.is_authenticated %}
 <div class="linha menu">
-<p>conectado: {{ user.username }}</p>
+<p class="texto">conectado: {{ user.username }}</p>
 <a href="{% url 'logout' %}" class="botao"><button type="button">sair</button></a>
 </div>
 {% endif %}

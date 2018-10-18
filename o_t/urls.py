@@ -4,11 +4,13 @@ from . import views
 
 blog_patterns = [
     path('', views.blog, name='blog'),
-    path('<int:pk>/', views.blog, name='blog'),
     path('add/', views.blog, {'edit':True,}, name='nota_add'),
+    path('tag/<slug:tag>/', views.blog, name='blog_tag'),
+    path('<int:pk>/', views.blog, name='blog'),
     path('<int:pk>/edit/', views.blog, {'edit':True,}, name='nota_edit'),
     path('<int:pk>/publish/', views.nota_publish, name='nota_publish'),
     path('<int:pk>/remove/', views.nota_remove, name='nota_remove'),
+    path('<slug:slug>/', views.blog, name='blog_slug'),
 ]
 
 faq_patterns = [
@@ -19,6 +21,7 @@ faq_patterns = [
     path('<int:pk>/edit/', views.faq_edit, name='faq_edit'),
     path('<int:pk>/publish/', views.bloco_publish, name='bloco_publish'),
     path('<int:pk>/remove/', views.bloco_remove, name='bloco_remove'),
+    path('<slug:slug>/', views.faq, name='bloco_slug'),
 ]
 
 concurso_patterns = [
@@ -26,6 +29,8 @@ concurso_patterns = [
     path('edit/', views.concurso, {'edit':True,}, name='concurso_edit'),
     path('ok/', views.concurso, {'confirmacao':True,}, name='email_confirmacao'),
     path(_('inscricoes/<uuid:pk>/'), views.inscricoes, name='inscricoes'),
+    path(_('inscricoes/<uuid:pk>/submit'), views.inscricoes_submit, name='inscricoes_submit'),
+    path(_('inscricoes/<uuid:pk>/erro'), views.inscricoes, {'erro':True,}, name='inscricoes_erro'),
 ]
 
 galeria_patterns = [

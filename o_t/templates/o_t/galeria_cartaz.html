@@ -15,12 +15,12 @@
 {% randint 30 70 as largura %}
 <div class="cartaz">
 	<div class="post coluna" style="width: {{ largura }}%; height: 100vh;"></div>
-	<div class="cartaz linha" style="width: {% cem largura %}%;">
-		<p class="data">
-			{% if lang == 'en' and cartaz.datas_en %}
-				{{ cartaz.datas_en|formatadata }}
+	<div class="post linha data" style="width: {% cem largura %}%;">
+		<p >
+			{% if lang == 'en' and cartaz.texto_en %}
+				{{ cartaz.texto_en|linebreaksbr }}
 			{% else %}
-				{{ cartaz.datas|formatadata }}
+				{{ cartaz.texto|linebreaksbr }}
 			{% endif %}
 		</p>
 	</div>

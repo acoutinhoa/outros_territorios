@@ -2,10 +2,27 @@ from django.core.exceptions import ValidationError
 from django import forms
 from .models import *
 
-class NotaForm(forms.ModelForm):
-	class Meta:
-		model = Nota
-		fields = ('titulo', 'texto', 'imagem')
+NotaForm = forms.modelform_factory(
+	Nota,
+	fields = ('titulo', 'texto', 'titulo_en', 'texto_en', 'data1', 'tags',),
+	widgets = {
+		'titulo': forms.Textarea(attrs={'rows': 2}),
+		'titulo_en': forms.Textarea(attrs={'rows': 2}),
+		'texto': forms.Textarea(attrs={'rows': 25}),
+		'texto_en': forms.Textarea(attrs={'rows': 25}),
+		'tags' : forms.CheckboxSelectMultiple(attrs={'class': 'tags'}),
+		},
+	help_texts = {
+		'data1' : 'formato: dd/mm/yyyy hh:mm:ss',	
+	}, 
+	)
+
+ImagemForm = forms.inlineformset_factory(
+	Nota, 
+	Imagem, 
+	extra=1,
+	fields=('nome', 'arquivo',), 
+	)
 
 CartazForm = forms.modelform_factory(
 	Cartaz,
@@ -13,24 +30,38 @@ CartazForm = forms.modelform_factory(
 	widgets = {
 		'titulo': forms.Textarea(attrs={'rows': 2}),
 		'titulo_en': forms.Textarea(attrs={'rows': 2}),
+		'texto': forms.Textarea(attrs={'rows': 20}),
+		'texto_en': forms.Textarea(attrs={'rows': 20}),
 		},
 	)
 
-ArquivoFormSet = forms.inlineformset_factory(
+NovaTagForm = forms.modelform_factory(
+	Tag,
+	fields = ('tag', 'tag_en'),
+	)
+
+TagForm = forms.modelformset_factory(
+	Tag,
+	fields = ('tag', 'tag_en'),
+	extra=0, 
+	can_delete=True,
+	)
+
+ArquivoForm = forms.inlineformset_factory(
 	Cartaz, 
 	Arquivo, 
 	extra=1,
-	fields=('arquivo',), 
+	fields=('arquivo','en'), 
 	)
 
-LogosFormSet = forms.inlineformset_factory(
+LogosForm = forms.inlineformset_factory(
 	Cartaz, 
 	Arquivo, 
 	extra=1,
-	fields=('tipo', 'arquivo',), 
+	fields=('tipo', 'arquivo', 'nome', 'altura', 'en', ), 
 	)
 
-JuriFormSet = forms.modelformset_factory(
+JuriForm = forms.modelformset_factory(
 	Juri, 
 	fields=('nome', 'site', 'bio', 'bio_en'), 
 	extra=1, 
@@ -38,7 +69,7 @@ JuriFormSet = forms.modelformset_factory(
 	)
 
 # faq
-FaqFormSet = forms.modelformset_factory(
+FaqForm = forms.modelformset_factory(
 	Faq, 
 	fields=('pergunta', 'resposta', 'pergunta_en', 'resposta_en', 'publicar'), 
 	extra=1, 
@@ -56,36 +87,37 @@ PerguntaForm = forms.modelform_factory(
 	fields=('nome', 'email', 'consulta'),
 	)
 
-ConsultasFormSet = forms.modelformset_factory(
+ConsultasForm = forms.modelformset_factory(
 	Pergunta,
 	extra=0, 
 	fields=('bloco',),
 	can_delete=True,
 	)
 
-RespostasFormSet = forms.modelformset_factory(
+RespostasForm = forms.modelformset_factory(
 	Pergunta, 
 	extra=0,
-	fields=('bloco', 'pergunta', 'resposta',), 
+	fields=('bloco', 'pergunta', 'resposta', 'pergunta_en', 'resposta_en',), 
 	widgets = {
 		'pergunta': forms.Textarea(attrs={'rows': 2}),
 		'resposta': forms.Textarea(attrs={'rows': 6}),
+		'pergunta_en': forms.Textarea(attrs={'rows': 2}),
+		'resposta_en': forms.Textarea(attrs={'rows': 6}),
 		},
 	can_delete=False,
 	)
 
 BlocoRespostasForm = forms.modelform_factory(
 	BlocoRespostas,
-	fields=('nome',),
-	labels={'nome':'novo bloco'},
+	fields=('nome','nome_en'),
 	)
 
 # incricoes
 InscricaoForm = forms.modelform_factory(
 	Inscricao,
-	fields=('email', 'nome', 'sobrenome', 'area', 'termos'),
-	labels={'termos':'''By ticking this box and submitting this Request Form I agree to treat all supplied information in the strictest confidence, and to not disclose the content to persons outside of my organisation / immediate bid team who will similarly treat such information in strict confidence.
-Your data is being collected and will be used for the purpose of potential participation in this competition only. Your data will not be used for any other purpose and will be deleted from all databases once the competition has come to a close and the winner is announced. If you wish to be removed from the database before this end point please email contato@outrosterritorios.com'''},
+	fields=('email', 'nome', 'sobrenome', 'area'),
+# 	labels={'termos':'''By ticking this box and submitting this Request Form I agree to treat all supplied information in the strictest confidence, and to not disclose the content to persons outside of my organisation / immediate bid team who will similarly treat such information in strict confidence.
+# Your data is being collected and will be used for the purpose of potential participation in this competition only. Your data will not be used for any other purpose and will be deleted from all databases once the competition has come to a close and the winner is announced. If you wish to be removed from the database before this end point please email contato@outrosterritorios.com'''},
 	)
 
 # reenviar email
@@ -115,7 +147,7 @@ DadosForm = forms.modelform_factory(
 	error_messages = None, 
 	)
 
-EquipeFormSet = forms.inlineformset_factory(
+EquipeForm = forms.inlineformset_factory(
 	Inscricao, 
 	Equipe, 
 	extra=1,

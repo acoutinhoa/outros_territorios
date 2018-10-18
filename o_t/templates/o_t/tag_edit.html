@@ -1,0 +1,33 @@
+<div class="cartaz linha">
+	<p class="titulo titulo_" style="margin-bottom: 0;">tags/edit</p>
+</div>
+
+<table class="form linha">
+	<form method="POST" >
+		{% csrf_token %}
+		{{ novatag_form }}
+		<tr>
+			<td></td>
+			<td>
+				<button type="submit" name="novatag_submit">+ tag</button>
+			</td>
+		</tr>
+	</form>
+</table>
+
+<table class="form">
+	<form method="POST" >
+		{% csrf_token %}
+		{{ tag_form.management_form }}
+		{% for form in tag_form %}
+			{{ form }}
+			<tr><td class="espaco"></td></tr>
+		{% endfor %}
+		<tr>
+			<td></td>
+			<td>
+				<button type="submit" name="tag_submit">salvar</button>
+			</td>
+		</tr>
+	</form>
+</table>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 20:04-0300\n"
+"POT-Creation-Date: 2018-10-18 15:14-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,178 +18,334 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: o_t/models.py:32
+msgid "organização"
+msgstr ""
+
+#: o_t/models.py:33
+msgid "patrocínio"
+msgstr ""
+
+#: o_t/models.py:34
+msgid "apoio"
+msgstr ""
+
+#: o_t/models.py:157 o_t/models.py:193 o_t/models.py:238
+msgid "nome"
+msgstr ""
+
+#: o_t/models.py:159
+msgid "consulta"
+msgstr ""
+
+#: o_t/models.py:184
+msgid "Arquitetura"
+msgstr ""
+
+#: o_t/models.py:185
+msgid "Artes Visuais"
+msgstr ""
+
+#: o_t/models.py:186
+msgid "Artes Performáticas"
+msgstr ""
+
+#: o_t/models.py:187
+msgid "Design"
+msgstr ""
+
+#: o_t/models.py:188
+msgid "Paisagismo"
+msgstr ""
+
+#: o_t/models.py:194 o_t/models.py:239
+msgid "sobrenome"
+msgstr ""
+
+#: o_t/models.py:195
+msgid "área"
+msgstr ""
+
+#: o_t/models.py:221
+msgid "nascimento"
+msgstr ""
+
+#: o_t/models.py:222
+msgid "CPF/CNPJ"
+msgstr ""
+
+#: o_t/models.py:223
+msgid "celular"
+msgstr ""
+
+#: o_t/models.py:225
+msgid "endereço"
+msgstr ""
+
+#: o_t/models.py:226
+msgid "complemento"
+msgstr ""
+
+#: o_t/models.py:227
+msgid "bairro"
+msgstr ""
+
+#: o_t/models.py:228
+msgid "cidade"
+msgstr ""
+
+#: o_t/models.py:229
+msgid "estado"
+msgstr ""
+
+#: o_t/models.py:230
+msgid "CEP"
+msgstr ""
+
+#: o_t/models.py:231
+msgid "país"
+msgstr ""
+
+#: o_t/models.py:250
+msgid "01. Cônsul Walter 425: palafita-pomar"
+msgstr ""
+
+#: o_t/models.py:251
+msgid "02. Cônsul Walter 437: palafita-caverna"
+msgstr ""
+
+#: o_t/models.py:252
+msgid "03. Cônsul Walter 483: palafita-empena"
+msgstr ""
+
+#: o_t/models.py:253
+msgid "04. Cônsul Walter 511: palafita-indiscreta"
+msgstr ""
+
+#: o_t/models.py:254
+msgid "05. Teresa Mota Valadares 76: palafita-caleidoscópica"
+msgstr ""
+
+#: o_t/models.py:255
+msgid "06. Fidélis Martins 173: palafita-esbelta"
+msgstr ""
+
+#: o_t/models.py:256
+msgid "07. Maria Heilbuth Surete 1223: palafita-dos-cachorros"
+msgstr ""
+
+#: o_t/models.py:257
+msgid "08. Maria Heilbuth Surete 1159: palafita-comum"
+msgstr ""
+
+#: o_t/models.py:258
+msgid "09. Maria Heilbuth Surete 1193: palafita-gigante-I"
+msgstr ""
+
+#: o_t/models.py:259
+msgid "10. Maria Heilbuth Surete 1295: palafita-gigante-II"
+msgstr ""
+
+#: o_t/models.py:264
+msgid "título"
+msgstr ""
+
+#: o_t/models.py:265
+msgid "descrição"
+msgstr ""
+
+#: o_t/models.py:266
+msgid "imagem"
+msgstr ""
+
+#: o_t/models.py:267 o_t/templates/o_t/notas_lista.html:8
+msgid "arquivo"
+msgstr ""
+
 #: o_t/templates/o_t/base.html:10
 msgid "Outros Territórios"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:28 o_t/views.py:20
+#: o_t/templates/o_t/documentacao.html:36 o_t/views.py:20
 msgid "juri"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:28 o_t/views.py:20
+#: o_t/templates/o_t/documentacao.html:36 o_t/views.py:20
 msgid "júri"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:51 o_t/views.py:18
+#: o_t/templates/o_t/documentacao.html:59 o_t/views.py:18
 msgid "arquivos"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:52 o_t/views.py:18
+#: o_t/templates/o_t/documentacao.html:60 o_t/views.py:18
 msgid "arquivos adicionais"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:60
-#: o_t/templates/o_t/documentacao.html:61 o_t/views.py:19
+#: o_t/templates/o_t/documentacao.html:69
+#: o_t/templates/o_t/documentacao.html:70 o_t/views.py:19
 msgid "cronograma"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:7
+#: o_t/templates/o_t/inscricoes.html:13
 msgid "informações"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:9
+#: o_t/templates/o_t/inscricoes.html:16
+msgid "Sua inscrição foi finalizada em"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:20
 msgid ""
 "O formulário do projeto poderá ser acessado e alterado quantas vezes for "
 "necessário até a data limite definida no cronograma."
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:10
+#: o_t/templates/o_t/inscricoes.html:21
 msgid "Não se esqueça de salvar as informações a cada alteração."
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:11
+#: o_t/templates/o_t/inscricoes.html:22
 msgid "A submissão só será efetivada após o clique em “enviar proposta”."
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:12
+#: o_t/templates/o_t/inscricoes.html:23
 msgid "A partir desse momento, não será mais possível realizar modificações."
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:14
+#: o_t/templates/o_t/inscricoes.html:26
+msgid "você salvou os formulários de projeto e equipe?"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:26
 msgid "enviar proposta"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:19
+#: o_t/templates/o_t/inscricoes.html:33 o_t/templates/o_t/inscricoes.html:121
 msgid "Nome"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:23
+#: o_t/templates/o_t/inscricoes.html:37
 msgid "Área de atuação profissional"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:42
+#: o_t/templates/o_t/inscricoes.html:58
 msgid "projeto"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:48
+#: o_t/templates/o_t/inscricoes.html:63 o_t/templates/o_t/inscricoes.html:83
 msgid "Código de identificação"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:65
+#: o_t/templates/o_t/inscricoes.html:101
 msgid "salvar projeto"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:74
+#: o_t/templates/o_t/inscricoes.html:113
 msgid "equipe"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:87
+#: o_t/templates/o_t/inscricoes.html:140
 msgid "salvar equipe e/ou adicionar novo integrante"
 msgstr ""
 
-#: o_t/templates/o_t/pergunta.html:7
+#: o_t/templates/o_t/nota.html:28
+msgid "publicado em"
+msgstr ""
+
+#: o_t/templates/o_t/pergunta.html:8
 msgid "blocos de respostas"
 msgstr ""
 
-#: o_t/templates/o_t/pergunta.html:26
+#: o_t/templates/o_t/pergunta.html:43
 msgid "consulta enviada"
 msgstr ""
 
-#: o_t/templates/o_t/pergunta.html:30
+#: o_t/templates/o_t/pergunta.html:48
 msgid "consultas"
 msgstr ""
 
-#: o_t/templates/o_t/pergunta.html:32
+#: o_t/templates/o_t/pergunta.html:50
 msgid ""
 "Outras consultas podem ser realizadas por meio do formulário a seguir e "
 "serão respondidas em blocos nesta seção."
 msgstr ""
 
-#: o_t/templates/o_t/pergunta.html:43
+#: o_t/templates/o_t/pergunta.html:66 o_t/templates/o_t/pre_inscricoes.html:26
 msgid "enviar"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:3 o_t/views.py:17
+#: o_t/templates/o_t/pre_inscricoes.html:6
+msgid "email enviado"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:9 o_t/views.py:17
 msgid "inscricoes"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:4 o_t/views.py:17 o_t/views.py:225
+#: o_t/templates/o_t/pre_inscricoes.html:10 o_t/views.py:17 o_t/views.py:230
 msgid "inscrições"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:5
+#: o_t/templates/o_t/pre_inscricoes.html:11
 msgid "As inscrições devem ser realizadas através do formulário a seguir."
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:6
+#: o_t/templates/o_t/pre_inscricoes.html:12
 msgid ""
 "As equipes deverão se inscrever somente uma vez, utilizando as informações "
 "do membro responsável."
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:7
+#: o_t/templates/o_t/pre_inscricoes.html:13
 msgid ""
 "Um link e instruções para submissão das propostas serão enviados para o "
 "email fornecido"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:8
+#: o_t/templates/o_t/pre_inscricoes.html:14
 msgid ""
 "caso haja a necessidade de reenvio destas informações, favor utilizar o "
 "campo ao final da página."
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:33
-msgid "inscrever"
-msgstr ""
-
-#: o_t/templates/o_t/pre_inscricoes.html:41
+#: o_t/templates/o_t/pre_inscricoes.html:46
 msgid "reenviar link para submissão do projeto"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:48
-msgid "email enviado"
-msgstr ""
-
-#: o_t/templates/o_t/pre_inscricoes.html:56
-msgid "reenviar link"
-msgstr ""
-
-#: o_t/urls.py:28
+#: o_t/urls.py:31
 msgid "inscricoes/<uuid:pk>/"
 msgstr ""
 
-#: o_t/urls.py:40
+#: o_t/urls.py:32
+msgid "inscricoes/<uuid:pk>/submit"
+msgstr ""
+
+#: o_t/urls.py:33
+msgid "inscricoes/<uuid:pk>/erro"
+msgstr ""
+
+#: o_t/urls.py:45
 msgid "galeria/"
 msgstr ""
 
-#: o_t/urls.py:42
+#: o_t/urls.py:47
 msgid "chamada_de_projetos/"
 msgstr ""
 
-#: o_t/urls.py:43
+#: o_t/urls.py:48
 msgid "perguntas_frequentes/"
 msgstr ""
 
-#: o_t/views.py:15 o_t/views.py:83
+#: o_t/views.py:15 o_t/views.py:84
 msgid "início"
 msgstr ""
 
-#: o_t/views.py:16 o_t/views.py:135
+#: o_t/views.py:16 o_t/views.py:136
 msgid "chamada de projetos"
 msgstr ""
 
-#: o_t/views.py:22 o_t/views.py:261
+#: o_t/views.py:22 o_t/views.py:285
 msgid "galeria"
 msgstr ""
 
@@ -197,8 +353,83 @@ msgstr ""
 msgid "blog"
 msgstr ""
 
-#: o_t/views.py:24 o_t/views.py:327
+#: o_t/views.py:24 o_t/views.py:415
 msgid "perguntas frequentes"
+msgstr ""
+
+#: o_t/views.py:27
+#, python-brace-format
+msgid ""
+"Olá {0},\n"
+"Sua inscrição foi realizada com sucesso!\n"
+"Seu código de identificação é {1}. Sua proposta deverá ser enviada através "
+"do link a seguir, que ficará disponível até a data limite definida no nosso "
+"cronograma. Cada link é único e deve ser utilizado para envio de um único "
+"projeto apenas.\n"
+"Acompanhe as atualizações no nosso blog.\n"
+"Dúvidas só serão respondidas através do nosso site.\n"
+"_\n"
+"Link para envio da proposta:\n"
+"{2}"
+msgstr ""
+
+#: o_t/views.py:36
+#, python-brace-format
+msgid ""
+"Olá {0},\n"
+"Segue novamente o link para envio da sua proposta.\n"
+"_\n"
+"Link para envio da proposta:\n"
+"{1}"
+msgstr ""
+
+#: o_t/views.py:42
+#, python-brace-format
+msgid ""
+"Olá {0},\n"
+"Recebemos sua consulta. Ela será respondida no site no próximo bloco de "
+"respostas.\n"
+"_\n"
+"Consulta:\n"
+"{1}"
+msgstr ""
+
+#: o_t/views.py:48
+#, python-brace-format
+msgid ""
+"Olá {0},\n"
+"Sua consulta foi respondida.\n"
+"_\n"
+"Consulta:\n"
+"{1}\n"
+"\n"
+"Resposta:\n"
+"{2}\n"
+"_\n"
+"Link para bloco de respostas:\n"
+"{3}"
+msgstr ""
+
+#: o_t/views.py:181
+msgid "Outros Territórios_confirmação de inscrição"
+msgstr ""
+
+#: o_t/views.py:198
+msgid "Outros Territórios_reenvio de link"
+msgstr ""
+
+#: o_t/views.py:240
+msgid ""
+"Você precisa preencher todos os campos do projeto para finalizar sua "
+"inscrição."
+msgstr ""
+
+#: o_t/views.py:435
+msgid "Outros Territórios_consulta"
+msgstr ""
+
+#: o_t/views.py:519
+msgid "Outros Territórios_resposta à consulta"
 msgstr ""
 
 #: s2/lib/python3.7/site-packages/django/contrib/messages/apps.py:7

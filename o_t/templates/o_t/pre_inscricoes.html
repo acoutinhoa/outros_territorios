@@ -1,5 +1,11 @@
 {% load i18n outras_tags %}
 
+{% espaco %}
+{% if confirmacao %}
+	<div class="post linha">
+		<p class="texto"><b>{% trans 'email enviado' %}</b></p>
+	</div>
+{% endif %}
 <div class="post linha" id="{% trans 'inscricoes' %}">
 	<p class="titulo_">{% trans 'inscrições' %}</p>
 	<p class="texto">{% trans 'As inscrições devem ser realizadas através do formulário a seguir.' %}<br><br>
@@ -8,52 +14,55 @@
 	<b>{% trans 'caso haja a necessidade de reenvio destas informações, favor utilizar o campo ao final da página.' %}</b></p>
 </div>
 
-<table class="form inscricao linha" >
-<form method="POST" >
-	{% csrf_token %}
-	{% for field in inscricao_form %}
-		{% if field.name != 'termos' %}
-			<tr>
-				<th>{{ field.label_tag }}</th>
-				<td>{{ field }}</td>
-			</tr>
-		{% else %}
-			<tr><td class="espaco"></td></tr>
-			{{ dados_form }}
-			<tr><td class="espaco"></td></tr>
-			<tr>
-				<th>{{ field }}</th>
-				<td class="termos">{{ field.label_tag }}</td>
-			</tr>
-		{% endif %}
-	{% endfor %}
-	<tr><td class="espaco"></td></tr>
-	<tr>
-		<td></td>
-		<td><button type="submit" name='inscricao_submit'>{% trans 'inscrever' %}</button></td>
-	</tr>
-</form>
+<table class="form inscricao linha">
+	<form method="POST">
+		{% csrf_token %}
+		{{ inscricao_form }}
+		<tr><td class="espaco"></td></tr>
+		{{ dados_form }}
+		<tr><td class="espaco"></td></tr>
+		<tr>
+			<td></td>
+			<td><button type="submit" name='inscricao_submit'>{% trans 'enviar' %}</button></td>
+		</tr>
+	</form>
 </table>
 
 
 <!-- reenviar email -->
-<div class="post" style="padding-bottom: 0px;">
-	<p class="texto">{% trans 'reenviar link para submissão do projeto' %}</p>
-</div>
-
-<table class="form inscricao" style="padding-top: 20px">
-	{% if confirmacao %}
-		<tr>
-			<td></td>
-			<th>{% trans 'email enviado' %}</th>
-		</tr>
-	{% endif %}
+{% espaco %}
+<table class="form inscricao">
 	<form method="POST">
 		{% csrf_token %}
-		{{ email_form }}
+		{% for field in email_form %}
+			<tr>
+				<th style="width: 60px;">{{ field.label_tag }}</th>
+				<td>{{ field }} {{ field.errors }}</td>
+			</tr>
+		{% endfor %}
+		<tr><td class="espaco"></td></tr>
 		<tr>
 			<td></td>
-			<td><button type="submit" name='email_submit'>{% trans 'reenviar link' %}</button></td>
+			<td><button type="submit" name='email_submit'>{% trans 'reenviar link para submissão do projeto' %}</button></td>
 		</tr>
 	</form>
 </table>
+{% espaco borda='linha_' %}
+
+
+<!-- 		{% for field in inscricao_form %}
+			{% if field.name != 'termos' %}
+				<tr>
+					<th>{{ field.label_tag }}</th>
+					<td>{{ field }} {{ field.errors }}</td>
+				</tr>
+			{% else %}
+				<tr><td class="espaco"></td></tr>
+				{{ dados_form }}
+				<tr><td class="espaco"></td></tr>
+				<tr>
+					<th>{{ field }}</th>
+					<td class="termos">{{ field.label_tag }}</td>
+				</tr>
+			{% endif %}
+		{% endfor %} -->

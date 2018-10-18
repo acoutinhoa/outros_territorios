@@ -2,54 +2,46 @@
 
 {% get_current_language as lang %}
 
+{% espaco 60 140 %}
 <div class="cartaz linha">
 	<p class="titulo">{{ titulo }}</p>
 </div>
+{% espaco %}
 
 <div class="post linha titulo_lista">
 	<ul>
 	{% for resp in respostas %}
+		{% if lang == 'en' and resp.pergunta_en %}
+			{% set resp.pergunta_en as pergunta %}
+		{% elif resp.pergunta %}
+			{% set resp.pergunta as pergunta %}
+		{% else %}
+			{% set resp.consulta as pergunta %}
+		{% endif %}
 		<li>
-			{% if resp.bloco %}
-				<a href="{% url 'faq' pk=resp.bloco.pk %}#{{ resp.id }}">
-			{% else %}
-				<a href="{% url 'faq' %}#{{ resp.id }}">
-			{% endif %}
-
-			{% if resp.pergunta %}
-				{% if lang == 'en' and resp.pergunta_en %}
-					{{ resp.pergunta_en }}
-				{% else %}
-					{{ resp.pergunta }}
-				{% endif %}
-			{% else %}
-				{{ resp.consulta }}
-			{% endif %}
-			</a>
+			<a href="{{ request.path }}#{{ pergunta }}">{{ pergunta }}</a>
 		</li>
 	{% endfor %}
 	</ul>
 </div>
 
 {% for resp in respostas %}
-	<div class="post linha" id="{{ resp.pk }}">
-		<p class="titulo_lista">
-			{% if resp.pergunta %}
-				{% if lang == 'en' and resp.pergunta_en %}
-					{{ resp.pergunta_en }}
-				{% else %}
-					{{ resp.pergunta }}
-				{% endif %}
-			{% else %}
-				{{ resp.consulta }}
-			{% endif %}
-		</p>
+	{% if lang == 'en' and resp.pergunta_en %}
+		{% set resp.pergunta_en as pergunta %}
+	{% elif resp.pergunta %}
+		{% set resp.pergunta as pergunta %}
+	{% else %}
+		{% set resp.consulta as pergunta %}
+	{% endif %}
+	<div class="post linha" id="{{ pergunta }}">
+		<p class="titulo_lista">{{ pergunta }}</p>
 		<p class="texto">
 			{% if lang == 'en' and resp.resposta_en %}
-				{{ resp.resposta_en|paragrafo }}
+				{{ resp.resposta_en|linebreaksbr }}
 			{% else %}
-				{{ resp.resposta|paragrafo }}
+				{{ resp.resposta|linebreaksbr }}
 			{% endif %}
 		</p>
 	</div>
 {% endfor %}
+{% espaco borda='' %}

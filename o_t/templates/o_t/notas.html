@@ -1,17 +1,25 @@
-{% load outras_tags %}
+{% load i18n outras_tags %}
 
-<div class="cartaz">
+{% get_current_language as lang %}
+
+{% espaco %}
+
+<div class="cartaz linha">
 	<p class="titulo">{{ titulo }}</p>
 </div>
 {% for nota in notas %}
-	<div class="post linha_">
-		<p class="titulo_"><a href="{% url 'blog' pk=nota.pk %}">{{ nota.titulo }}</a></p>
-		{% if nota.imagem %}
-			</div>
-				<img src="{{ nota.imagem.url }}" alt="{{ img }}" style="margin-top: -80px;">
-			<div class="post">
-		{% endif %}
-		<p class="data_">{{ nota.data1|date:"d_m_Y" }}</p>
-		<p class="texto">{{ nota.texto|linebreaksbr }}</p>
-	</div>
+	{% if forloop.first %}
+		{% espaco 60 120 %}
+	{% else %}
+		{% espaco 80 180 borda='linha linha_' %}
+	{% endif %}
+	{% if lang == 'en' and nota.slug_en %}
+		{% url 'blog_slug' slug=nota.slug_en as nota_link %}
+	{% elif nota.slug %}
+		{% url 'blog_slug' slug=nota.slug as nota_link %}	
+	{% else %}
+		{% url 'blog' pk=nota.pk as nota_link %}	
+	{% endif %}
+	{% include 'o_t/nota.html' with link=nota_link %}
 {% endfor %}
+{% espaco borda='linha_' %}

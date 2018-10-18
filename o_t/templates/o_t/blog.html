@@ -1,4 +1,5 @@
 {% extends 'o_t/base.html' %}
+{% load outras_tags %}
 
 {% block menu %}
 	{% if user.is_authenticated %}
@@ -14,7 +15,9 @@
 		{% include 'o_t/nota_edit.html' %}
 	{% else %}
 		{% if nota %}
+			{% espaco %}	
 			{% include 'o_t/nota.html' %}
+			{% espaco borda='linha_' %}	
 		{% else %}
 			{% include 'o_t/notas.html' %}
 		{% endif %}
@@ -23,14 +26,14 @@
 
 
 {% block c2 %}
-	{% if user.is_authenticated %}
-		<div class="frame linha" style="height: 50%;">
+	{% if edit %}
+		{% include 'o_t/tag_edit.html' %}
+	{% else %}
+		<div class="frame linha" style="height: 65%;">
 			{% include 'o_t/notas_lista.html' %}
 		</div>
-		<div class="frame linha" style="height: 50%;">
-			{% include 'o_t/notas_lista.html' with titulo_='rascunhos' notas=notas_ %}
+		<div class="frame" style="height: 35%;">
+			{% include 'o_t/tags_lista.html' %}
 		</div>
-	{% else %}
-		{% include 'o_t/notas_lista.html' %}
 	{% endif %}
 {% endblock %}

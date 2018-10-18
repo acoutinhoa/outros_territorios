@@ -2,9 +2,19 @@
 
 {% get_current_language as lang %}
 
+{% query logos 'filter' tipo='01' as logo_o_t %}
+{% query logos 'exclude' tipo='01' as logos %}
+
+{% if lang == 'pt-br' %}
+	{% query logo_o_t 'filter' get=True en='False' as logo %}
+{% elif lang == 'en' %}
+	{% query logo_o_t 'filter' get=True en='True' as logo %}
+{% endif %}
+
+{% espaco %}
 <div class="cartaz linha">
-	{% if logo_o_t %}
-		<img src="{{ logo_o_t.arquivo.url }}" alt="{{ logo_o_t.nome }}" style="padding: 5vh 5vw;">
+	{% if logo %}
+		<img src="{{ logo.arquivo.url }}" alt="{{ logo.nome }}" style="padding: 6vh 7vw;">
 	{% else %}
 		<p class="titulo">
 			{% if lang == 'en' and cartaz.titulo_en %}
@@ -19,16 +29,19 @@
 <div class="cartaz linha">
 	<img src="{{ img.arquivo.url }}" alt="{{ img.arquivo|filename:False }}">
 </div>
-
-<div class="cartaz">
-	<div class="post coluna" style="width: 60%;">
-		<p class="texto">
-			{% if lang == 'en' and cartaz.texto_en %}
-				{{ cartaz.texto_en|paragrafo }}
-			{% else %}
-				{{ cartaz.texto|paragrafo }}
-			{% endif %}
-		</p>
+{% espaco 50 100 %}
+<div class="cartaz linha">
+	<div class="cartaz coluna" style="width: 60%;">
+		<div class="post linha">
+			<p class="texto">
+				{% if lang == 'en' and cartaz.texto_en %}
+					{{ cartaz.texto_en|linebreaksbr }}
+				{% else %}
+					{{ cartaz.texto|linebreaksbr }}
+				{% endif %}
+			</p>
+		</div>
+		{% espaco 100 200 borda='' %}
 	</div>
 	<div class="cartaz linha" style="width: 40%;">
 		<p class="data">
@@ -40,3 +53,16 @@
 		</p>
 	</div>
 </div>
+
+
+<!-- logos -->
+<div class="post linha">
+	{% for logo in logos %}
+		{% ifchanged logo.tipo %}
+			<p class="texto" style="padding-top: 40px;">{{ logo.tipo_verbose }}</p>
+		{% endifchanged %}
+		<img src="{{ logo.arquivo.url }}" alt="{{ logo.arquivo|filename:False }}" style="height: {{ logo.altura }}px; width: auto; margin-right: 10px; ">
+	{% endfor %}
+</div>
+{% espaco borda='' %}
+

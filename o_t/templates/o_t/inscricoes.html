@@ -3,18 +3,32 @@
 
 <!-- info -->
 {% block c0 %}
+    {% espaco %}
+    {% if erro %}
+        <div class="post linha">
+            <p class="texto"><b>{{ erro }}</b></p>
+        </div>
+    {% endif %}
     <div class="post linha">
         <p class="titulo_">{% trans 'informações' %}</p>
-        <p class="texto" style="margin-bottom: 50px;">
-            {% trans 'O formulário do projeto poderá ser acessado e alterado quantas vezes for necessário até a data limite definida no cronograma.' %} <br><br>
-            <b>{% trans 'Não se esqueça de salvar as informações a cada alteração.' %} <br><br>
-            {% trans 'A submissão só será efetivada após o clique em “enviar proposta”.' %} </b>
-            {% trans 'A partir desse momento, não será mais possível realizar modificações.' %}
-        </p>
-        <a href="{% url 'home_edit' %}" class="botao"><button type="button">{% trans 'enviar proposta' %}</button></a>
+        {% if inscricao.finalizada %}
+            <p class="texto">
+                {% trans 'Sua inscrição foi finalizada em' %} <b>{{ inscricao.finalizada }}</b>.
+            </p>
+        {% else %}
+            <p class="texto" style="margin-bottom: 50px;">
+                {% trans 'O formulário do projeto poderá ser acessado e alterado quantas vezes for necessário até a data limite definida no cronograma.' %} <br><br>
+                <b>{% trans 'Não se esqueça de salvar as informações a cada alteração.' %} <br><br>
+                {% trans 'A submissão só será efetivada após o clique em “enviar proposta”.' %} </b>
+                {% trans 'A partir desse momento, não será mais possível realizar modificações.' %}
+            </p>
+            <div style="padding: 0 30%;">
+                <a href="{% url 'inscricoes_submit' pk=inscricao.pk %}" class="botao"><button type="button" onclick="return confirm('{% trans "você salvou os formulários de projeto e equipe?" %}')" />{% trans 'enviar proposta' %}</button></a>
+            </div>
+        {% endif %}
     </div>
 
-    <div class="post linha">
+    <div class="post">
         <p class="texto">
             {% trans 'Nome' %}<br>
             <b>{{ inscricao.nome }} {{ inscricao.sobrenome }}</b><br><br>
@@ -27,66 +41,107 @@
         {% for field in dados_form %}
             {{ field.label }}<br><b>
             {% if field.name == 'nascimento'%}
-                {{ field.value|date:'d_m_Y' }}
+                {{ field.value }}
             {% else %}
                 {{ field.value|title }}
             {% endif %}</b><br><br>
         {% endfor %}
         </p>
     </div>
+    {% espaco borda='linha_' %}
 {% endblock %}
 
 <!-- projeto -->
 {% block c1 %}
+    {% espaco %}
     <div class="cartaz linha">
         <p class="titulo">{% trans 'projeto' %}</p>
     </div>
-
-    <table class="form">
-        <form method="POST" enctype="multipart/form-data" >
+    {% if inscricao.finalizada %}
+        <div class="post">
+            <p class="texto">
+            {% trans 'Código de identificação' %}<br>
+            <b>{{ inscricao.codigo }}</b><br><br>
+            {% for field in projeto_form %}
+                {{ field.label }}<br>
+                {% if field.name == 'arquivo' %}
+                    <a href="{{ projeto_form.instance.arquivo.url }}" target="_blank">{{ projeto_form.instance.arquivo|filename }}</a>
+                {% elif field.name == 'img' %}
+                    <a href="{{ projeto_form.instance.img.url }}" target="_blank">{{ projeto_form.instance.img|filename }}</a>
+                {% elif field.name == 'palafita' %}
+                    <b>{{ field.palafita_verbose }}</b>
+                {% else %}
+                    <b>{{ field.value|linebreaksbr }}</b>
+                {% endif %}<br><br>
+            {% endfor %}
+            </p>
+        </div>
+    {% else %}
+        <table class="form">
             <tr>
+                <td></td>
                 <th>{% trans 'Código de identificação' %}:</th>
                 <td>{{ inscricao.codigo }}</td>
             </tr>
-            <tr><td class="espaco"></td></tr>
-        	{% csrf_token %}
-            {% for field in projeto_form %}
-                {% if field.name == 'arquivo' or field.name == 'img' %}
-                    <tr><td class="espaco"></td></tr>
-                {% endif %}
+            <form method="POST" enctype="multipart/form-data" id="projeto_form">
+                <tr><td class="espaco"></td></tr>
+            	{% csrf_token %}
+                {% for field in projeto_form %}
+                    {% if field.name == 'arquivo' or field.name == 'img' %}
+                        <tr><td class="espaco"></td></tr>
+                    {% endif %}
+                    <tr>
+                        <th>{{ field.label_tag }}</th>
+                        <td colspan="2">{{ field }}</td>
+                    </tr>
+                {% endfor %}
+                <tr><td class="espaco"></td></tr>
                 <tr>
-                    <th>{{ field.label_tag }}</th>
-                    <td>{{ field }}</td>
+                    <td></td>
+                	<td><button type="submit" name="projeto_submit">{% trans 'salvar projeto' %}</button></td>
                 </tr>
-            {% endfor %}
-            <tr><td class="espaco"></td></tr>
-            <tr>
-                <td></td>
-            	<td><button type="submit" name="projeto_submit">{% trans 'salvar projeto' %}</button></td>
-            </tr>
-        </form>
+            </form>
+        {% endif %}
     </table>
+    {% espaco borda='linha_' %}
 {% endblock %}
 
 <!-- equipe -->
 {% block c2 %}
+    {% espaco %}
     <div class="cartaz linha">
         <p class="titulo">{% trans 'equipe' %}</p>
     </div>
 
-    <table class="form">
-        <form method="POST" enctype="multipart/form-data" >
-        	{% csrf_token %}
-            {{ equipe_form.management_form }}
+    {% if inscricao.finalizada %}
+        <div class="post">
+            <p class="texto">
             {% for form in equipe_form %}
-                {{ form }}
-                <tr><td class="espaco"></td></tr>
+                {% if form.id.value %}
+                    {% trans 'Nome' %}<br>
+                    <b>{{ form.instance.nome }} {{ form.instance.sobrenome }}</b><br>
+                    E-mail<br>
+                    <b>{{ form.instance.email }}</b><br>
+                {% endif %}<br><br>
             {% endfor %}
-            <tr>
-                <td></td>
-            	<td><button type="submit" name="equipe_submit">{% trans 'salvar equipe e/ou adicionar novo integrante' %}</button></td>
-            </tr>
-        </form>
-    </table>
+            </p>
+        </div>
+    {% else %}
+        <table class="form">
+            <form method="POST" enctype="multipart/form-data" id="equipe_form">
+            	{% csrf_token %}
+                {{ equipe_form.management_form }}
+                {% for form in equipe_form %}
+                    {{ form }}
+                    <tr><td class="espaco"></td></tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                	<td><button type="submit" name="equipe_submit">{% trans 'salvar equipe e/ou adicionar novo integrante' %}</button></td>
+                </tr>
+            </form>
+        </table>
+    {% endif %}
+    {% espaco borda='linha_' %}
 {% endblock %}
 

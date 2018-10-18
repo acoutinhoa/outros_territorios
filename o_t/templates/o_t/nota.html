@@ -1,15 +1,37 @@
-{% if user.is_authenticated %}
-	<table class="linha">
-	{% include 'o_t/botoes.html' %}
-	</table>
+{% load i18n outras_tags %}
+
+{% if lang == 'en' and nota.titulo_en and nota.texto_en %}
+	{% set nota.titulo_en as titulo %}
+	{% set nota.texto_en as texto %}
+{% else %}
+	{% set nota.titulo as titulo %}
+	{% set nota.texto as texto %}
 {% endif %}
-<p class="titulo">{{ nota.titulo }}</p>
-{% if nota.imagem %}
-    <img src="{{ nota.imagem.url }}" alt="{{ imagem }}">
-{% endif %}
-<div class="post linha">
+
+{% imgs_post nota as imgs %}
+
+<div class="post">
+	{% if user.is_authenticated %}
+		{% include 'o_t/botoes.html' %}
+	{% endif %}
+	<p class="titulo_">
+		{% if nota_link %}
+			<a href="{{ nota_link }}">{{ titulo }}</a>
+		{% else %}
+			{{ titulo }}
+		{% endif %}
+	</p>
+	<p class="texto">
+		{{ texto|post:imgs }}
+	</p>
     {% if nota.data1 %}
-        <p class="data_">{{ nota.data1|date:'d_m_Y' }}</p>
+        <p class="data_">____<br><br>{% trans 'publicado em' %} {{ nota.data1 }}</p>
     {% endif %}
-<p class="texto_">{{ nota.texto|linebreaksbr }}</p>
+    {% if nota.tags.all %}
+		<ul class="menu tags">
+	    	{% for tag in nota.tags.all %}
+				<li><a href="{% url 'blog_tag' tag=tag.tag  %}">#{{ tag }}</a></li>
+			{% endfor %}
+		</ul>
+    {% endif %}
 </div>

@@ -2,20 +2,36 @@
 
 {% get_current_language as lang %}
 
+{% espaco %}
 {% if blocos %}
 <div class="post linha">
 	<p class="titulo_">{% trans 'blocos de respostas' %}</p>
 	<table class="form notas" style="padding: 0;">
 		{% for bloco in blocos %}
+
+			{% if lang == 'en' and bloco.slug_en %}
+				{% url 'bloco_slug' slug=bloco.slug_en as bloco_link %}	
+			{% elif bloco.slug %}
+				{% url 'bloco_slug' slug=bloco.slug as bloco_link %}
+			{% else %}
+				{% url 'faq' pk=bloco.pk as bloco_link %}	
+			{% endif %}
+
 			<tr>
-				<td style="width: 90px;">
+				<td style="width: 80px;">
 					{% if lang == 'en' %}
 						{{ bloco.data1|date:'m_d_Y'}}
 					{% else %}
 						{{ bloco.data1|date:'d_m_Y'}}
 					{% endif %}				
 				</td>
-				<td class="titulo_lista"><a href="{% url 'faq' pk=bloco.pk %}">{{ bloco }}</a></td>
+				<td class="texto"><a href="{{ bloco_link }}">
+					{% if lang == 'en' and bloco.nome_en %}
+						{{ bloco.nome_en }}
+					{% else %}
+						{{ bloco }}
+					{% endif %}				
+				</a></td>
 			</tr>
 		{% endfor %}
 	</table>
@@ -23,7 +39,9 @@
 {% endif %}
 
 {% if confirmacao %}
-	<p class="data linha">{% trans 'consulta enviada' %}</p>
+	<div class="post linha">
+		<p class="texto"><b>{% trans 'consulta enviada' %}</b></p>
+	</div>
 {% endif %}
 
 <div class="post" style="padding-bottom: 0px;">
@@ -33,10 +51,15 @@
 	</p>
 </div>
 
-<table class="form inscricao linha" >
+<table class="form inscricao linha">
 	<form method="POST">
 		{% csrf_token %}
-		{{ form }}
+		{% for field in consulta_form %}
+			<tr>
+				<th>{{ field.label_tag }}</th>
+				<td>{{ field }} {{ field.errors }}</td>
+			</tr>
+		{% endfor %}
 		<tr><td class="espaco"></td></tr>
 		<tr>
 			<td></td>
@@ -44,3 +67,5 @@
 		</tr>
 	</form>
 </table>
+
+{% espaco borda='' %}

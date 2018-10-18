@@ -2,6 +2,14 @@
 
 {% get_current_language as lang %}
 
+{% if lang == 'en' %}
+	{% query arquivos 'filter' en='True' as arquivos %}
+{% else %}
+	{% query arquivos 'filter' en='False' as arquivos %}
+{% endif %}
+
+
+{% espaco %}
 <div class="cartaz linha">
 	<p class="titulo">
 		{% if lang == 'en' and cartaz.titulo_en %}
@@ -13,18 +21,18 @@
 </div>
 
 <div class="cartaz coluna" style="width: 60%;">
-	
+	{% espaco %}
 	<div class="post linha">
 		<p class="texto">
 			{% if lang == 'en' and cartaz.texto_en %}
-				{{ cartaz.texto_en|paragrafo }}
+				{{ cartaz.texto_en|linebreaksbr }}
 			{% else %}
-				{{ cartaz.texto|paragrafo }}
+				{{ cartaz.texto|linebreaksbr }}
 			{% endif %}
 		</p>
 	</div>
-	
-	<div class="post linha">
+
+	<div class="post">
 		<p class="titulo_" id="{% trans 'juri' %}">{% trans 'júri' %}</p>
 		{% for juri in jurados %}
 			<p class="titulo_lista">
@@ -36,9 +44,9 @@
 			</p>
 			<p class="texto" style="margin-bottom: 60px;">
 				{% if lang == 'en' and juri.bio_en %}
-					{{ juri.bio_en|paragrafo }}
+					{{ juri.bio_en|linebreaksbr }}
 				{% else %}
-					{{ juri.bio|paragrafo }}
+					{{ juri.bio|linebreaksbr }}
 				{% endif %}
 			</p>
 		{% endfor %}
@@ -56,7 +64,8 @@
 		{% endfor %}
 		</ul>
 	</div>
-	
+	{% espaco %}
+
 	<div class="post linha" id="{% trans 'cronograma' %}">
 		<p class="titulo_">{% trans 'cronograma' %}</p>
 		<p class="texto">
@@ -69,3 +78,4 @@
 	</div>
 
 </div>
+{% espaco borda='linha_' %}

@@ -1,5 +1,7 @@
+
 body, * {
 	margin: 0;
+	padding: 0;
 	border: none;
 	box-sizing: border-box;
 	color: var(--cor);
@@ -17,7 +19,6 @@ a:hover {
 }
 ul {
     list-style-type: none;
-    padding: 0;
 }
 li {
 	margin-bottom: 10px;
@@ -49,6 +50,8 @@ li {
 
 /* menu */
 .menu {
+	float: left;
+	width: 100%;
 	text-align: right;
 	padding: 3vh 1.5vw 4vh 0;
 	font-size: var(--fonte-menu);
@@ -70,14 +73,6 @@ li {
 .submenu_hover:hover ~ .submenu {
 	border-right: solid var(--cor-hover) var(--borda);
 }
-
-/* midias */
-.midias {
-	text-align: center;
-	padding-top: 2.5vh;
-	font-size: 2vh;
-}
-
 
 /* cartaz */
 img {
@@ -109,27 +104,38 @@ img {
 	width: 100%;
 	padding: 60px 40px;
 }
+.img_post{
+	margin-left: -40px;
+	width: calc(100% + 80px);
+}
 .titulo_ {
 	font-family: var(--fonte);
 	font-size: 2.5vw;
 	margin-bottom: 50px;
+	margin-top: 15px;
 	font-weight: bold;
 }
 .data_ {
 	font-family: var(--fonte_);
 	font-size: 12px;
+	padding-top: 50px;
 	text-align: right;
-	margin-bottom: 20px;
 }
-.texto {
+.texto, .texto a:link, .texto li {
 	font-family: var(--fonte_);
 	font-size: var(--fonte-texto);
 }
 .titulo_lista, .titulo_lista a:link, .titulo_lista li {
 	font-family: var(--fonte_);
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: bold;
-	margin-bottom: 15px;
+	margin-bottom: 13px;
+}
+.tags, .tags li  { 
+	width: auto;
+	float: left;
+	display: inline;
+	padding: 0 15px 0 0;
 }
 
 /* form */
@@ -150,7 +156,7 @@ table {
 .form textarea, .form input {
     width: 110%;
 	border-bottom: var(--cor) solid var(--borda-link);
-	padding: 0px 10px;
+	padding: 0px 5px;
 }
 .form textarea {
     width: 100%;
@@ -161,7 +167,8 @@ table {
 	border-right: var(--cor) solid var(--borda-link);
 	-webkit-appearance: none;
 	-webkit-border-radius: 0px;
-	padding: 0 3px;
+	-webkit-padding: 4px 3px 0 3px;
+	padding: 4px 3px 0 3px;
 	background: none;
 }
 .form input[type=checkbox] {
@@ -175,38 +182,46 @@ table {
 	text-align: right;
 }
 .inscricao label {
-	border-bottom: var(--cor) solid var(--borda-link);
-	margin-right: -5px;
+/*	border-bottom: var(--cor) solid var(--borda-link);
+*/	margin-right: -5px;
 	padding: 2px 10px;
+	font-weight: normal;
 }
+@-moz-document url-prefix() {
+/*    .inscricao label {padding: 1px 10px;}
+*/}
 .termos label {
 	border: 0;
 	font-size: 10px;
 }
 .notas td, .notas th{
-	padding-bottom: 11px;
+	padding-top: 11px;
 	padding-right: 5px;
 }
 .botao, .botao:link, .botao:active, .botao:hover, .botao:visited {
 	border: none;
 }
-button {
+button, .form button {
     cursor: pointer;
     background: none;
     color: var(--cor);
-    font-family: var(--fonte_);
-    font-size: var(--fonte-form);
+    font-family: var(--fonte);
+    font-size: var(--fonte-texto);
     font-weight: bold;
     vertical-align: center;
     padding: 3px 10px;
+	border-top: transparent solid var(--borda-link);
+	border-left: transparent solid var(--borda-link);
 	border-bottom: var(--cor) solid var(--borda-link);
 	border-right: var(--cor) solid var(--borda-link);
 	margin-right: 10px;
 }
-button:hover {
-    color: var(--cor-hover);
+button:hover, .form button:hover {
     border:0;
-	border-top: var(--cor-hover) solid var(--borda-link);
-	border-left: var(--cor-hover) solid var(--borda-link);
+	border-top: var(--cor) solid var(--borda-link);
+	border-left: var(--cor) solid var(--borda-link);
+	border-bottom: transparent solid var(--borda-link);
+	border-right: transparent solid var(--borda-link);
 }
+
 
