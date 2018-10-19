@@ -40,7 +40,7 @@ galeria_patterns = [
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('edit/', views.home, {'edit':True,}, name='home_edit'),
+    path('edit/', views.home_edit, name='home_edit'),
 
     path(_('galeria/'), include(galeria_patterns)),
 

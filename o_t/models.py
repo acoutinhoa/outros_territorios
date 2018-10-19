@@ -34,16 +34,20 @@ class Arquivo(models.Model):
 		('04',_('apoio')),
 	]
 	pagina = models.ForeignKey(Cartaz, on_delete=models.CASCADE, blank=True)
-	tipo = models.CharField(max_length=20, choices=tipos, blank=True, null=True)
 	nome = models.CharField(max_length=200, blank=True)
-	arquivo = models.FileField(upload_to = arquivos_filepath)
-	altura = models.CharField(max_length=4, default='100')
+	arquivo = models.FileField(upload_to = arquivos_filepath, blank=True, null=True)
 	en = models.BooleanField(default=False)
+	imagem = models.ImageField(upload_to = arquivos_filepath, blank=True, null=True)
+	tipo = models.CharField(max_length=20, choices=tipos, blank=True, null=True)
+	altura = models.CharField(max_length=4, default='100')
 	def __str__(self):
 		return '%s_%s' % (self.pagina, self.nome)
 	def save(self, *args, **kwargs):
 		if not self.nome:
-			self.nome = self.arquivo.name.split('.')[0]
+			if self.arquivo:
+				self.nome = self.arquivo.name
+			elif self.imagem:
+				self.nome = self.imagem.name.split('.')[0]
 		super().save(*args, **kwargs)
 	def tipo_verbose(self):
 	        return dict(Arquivo.tipos)[self.tipo]
@@ -98,7 +102,7 @@ class Nota(models.Model):
 		ordering = ['-data1','-data0']
 
 def imagem_filepath(instance, filename):
-    return 'o_t/arquivos/{0}/{1}'.format(instance.nota.pk, filename)
+    return 'o_t/blog/{0}/{1}'.format(instance.nota.pk, filename)
 
 class Imagem(models.Model):
 	nota = models.ForeignKey(Nota, on_delete=models.CASCADE)
@@ -243,7 +247,7 @@ class Equipe(models.Model):
 		return self.nome
 
 def inscricao_filepath(instance, filename):
-    return 'o_t/concuso/{0}/{1}'.format(instance.inscricao.id, filename)
+    return 'o_t/concurso/{0}/{1}'.format(instance.inscricao.id, filename)
 
 class Projeto(models.Model):
 	palafitas = [

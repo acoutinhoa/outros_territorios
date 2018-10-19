@@ -12,7 +12,6 @@ urlpatterns = [
     path('accounts/login/', views.LoginView.as_view(), name='login'),
     path('accounts/logout/', views.LogoutView.as_view(next_page='/'), name='logout'),
 	# path('accounts/', include('django.contrib.auth.urls')),
-    path('teste/', include('blog.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
 ]
 

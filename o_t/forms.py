@@ -51,14 +51,21 @@ ArquivoForm = forms.inlineformset_factory(
 	Cartaz, 
 	Arquivo, 
 	extra=1,
-	fields=('arquivo','en'), 
+	fields=('nome' ,'arquivo','en',), 
+	)
+
+ArquivoHomeForm = forms.inlineformset_factory(
+	Cartaz, 
+	Arquivo, 
+	extra=1,
+	fields=('imagem',), 
 	)
 
 LogosForm = forms.inlineformset_factory(
 	Cartaz, 
 	Arquivo, 
 	extra=1,
-	fields=('tipo', 'arquivo', 'nome', 'altura', 'en', ), 
+	fields=('tipo', 'imagem', 'nome', 'altura', 'en', ), 
 	)
 
 JuriForm = forms.modelformset_factory(

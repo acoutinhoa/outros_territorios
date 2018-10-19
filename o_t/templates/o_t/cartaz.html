@@ -14,7 +14,7 @@
 {% espaco %}
 <div class="cartaz linha">
 	{% if logo %}
-		<img src="{{ logo.arquivo.url }}" alt="{{ logo.nome }}" style="padding: 6vh 7vw;">
+		<img src="{{ logo.imagem.url }}" alt="{{ logo.nome }}" style="padding: 6vh 7vw;">
 	{% else %}
 		<p class="titulo">
 			{% if lang == 'en' and cartaz.titulo_en %}
@@ -26,9 +26,11 @@
 	{% endif %}
 </div>
 
-<div class="cartaz linha">
-	<img src="{{ img.arquivo.url }}" alt="{{ img.arquivo|filename:False }}">
-</div>
+{% if img %}
+	<div class="cartaz linha">
+		<img src="{{ img.imagem.url }}" alt="{{ img.nome }}">
+	</div>
+{% endif %}
 {% espaco 50 100 %}
 <div class="cartaz linha">
 	<div class="cartaz coluna" style="width: 60%;">
@@ -57,14 +59,12 @@
 
 <!-- logos -->
 <div class="post linha">
-	{% if logos %}
 	{% for logo in logos %}
 		{% ifchanged logo.tipo %}
 			<p class="texto" style="padding-top: 40px;">{{ logo.tipo_verbose }}</p>
 		{% endifchanged %}
-		<img src="{{ logo.arquivo.url }}" alt="{{ logo.arquivo|filename:False }}" style="height: {{ logo.altura }}px; width: auto; margin-right: 10px; ">
+		<img src="{{ logo.imagem.url }}" alt="{{ logo.nome }}" style="height: {{ logo.altura }}px; width: auto; margin-right: 10px; ">
 	{% endfor %}
-	{% endif %}
 </div>
 {% espaco borda='' %}
 

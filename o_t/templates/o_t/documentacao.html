@@ -2,12 +2,13 @@
 
 {% get_current_language as lang %}
 
-{% if lang == 'en' %}
-	{% query arquivos 'filter' en='True' as arquivos %}
-{% else %}
-	{% query arquivos 'filter' en='False' as arquivos %}
+{% if arquivos %}
+	{% if lang == 'en' %}
+		{% query arquivos 'filter' en='True' as arquivos %}
+	{% else %}
+		{% query arquivos 'filter' en='False' as arquivos %}
+	{% endif %}
 {% endif %}
-
 
 {% espaco %}
 <div class="cartaz linha">
@@ -60,7 +61,7 @@
 		<p class="titulo_">{% trans 'arquivos adicionais' %}</p>
 		<ul>
 		{% for arquivo in arquivos %}
-			<li><a href="{{ arquivo.arquivo.url }}" target="_blank">{{ arquivo.arquivo|filename }}</a></li>
+			<li><a href="{{ arquivo.arquivo.url }}" target="_blank">{{ arquivo.nome }}</a></li>
 		{% endfor %}
 		</ul>
 	</div>

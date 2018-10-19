@@ -5,4 +5,5 @@ s2
 db.sqlite3
 /static
 /media
+/outros_territorios/settings.py
 .DS_Store

@@ -12,29 +12,31 @@
 </div>
 
 <div class="linha menu">
-{% for item, item_url, info in menu %}
-	{% if info %}
-		<p class="submenu_hover"><a href="{{ item_url }}">{{ item }}</a></p>
-		<div class="submenu">
-		{% for subitem, anchor in info %}
-			<p><a href="{{ item_url }}#{{ anchor }}">{{ subitem }}</a></p>
-		{% endfor %}
-		</div>
-	{% else %}
-		<p><a href="{{ item_url }}">{{ item }}</a></p>
-	{% endif %}
-{% endfor %}
+	{% for item, item_url, info in menu %}
+		{% if info %}
+			<p class="submenu_hover"><a href="{{ item_url }}">{{ item }}</a></p>
+			<div class="submenu">
+				{% for subitem, anchor in info %}
+					<p><a href="{{ item_url }}#{{ anchor }}">{{ subitem }}</a></p>
+				{% endfor %}
+			</div>
+		{% else %}
+			<p><a href="{{ item_url }}">{{ item }}</a></p>
+		{% endif %}
+	{% endfor %}
 </div>
 
 <div class="linha menu">
 	<p>
-		<a href="https://www.facebook.com/outrosterritorios" target="_blank">facebook</a> / 
-		<a href="https://www.instagram.com/outrosterritorios" target="_blank">instagram</a></p>
+		<a href="https://www.facebook.com/outrosterritorios" target="_blank">facebook</a>
+		 / 
+		<a href="https://www.instagram.com/outrosterritorios" target="_blank">instagram</a>
+	</p>
 </div>
 
 {% if user.is_authenticated %}
-<div class="linha menu">
-<p class="texto">conectado: {{ user.username }}</p>
-<a href="{% url 'logout' %}" class="botao"><button type="button">sair</button></a>
-</div>
+	<div class="linha menu">
+		<p class="texto">conectado: {{ user.username }}</p>
+		<a href="{% url 'logout' %}" class="botao"><button type="button">sair</button></a>
+	</div>
 {% endif %}

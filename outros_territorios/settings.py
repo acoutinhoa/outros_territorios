@@ -20,12 +20,14 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o(-tj_pf4xbb88kmedu*_u_u17a*k)_^u@i!epjk8^o_w1fvv*'
+# SECRET_KEY = 'o(-tj_pf4xbb88kmedu*_u_u17a*k)_^u@i!epjk8^o_w1fvv*'
+SECRET_KEY = 'f@$cjb5ae=l(favhzf77m2t8=i_jtqy)&9k!1319m^qiwt*cej'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', '.outrosterritorios.com.br']
 
 
 # Application definition
@@ -37,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
     'o_t',
 ]
 
@@ -84,7 +85,16 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'outros_territorios',
+#         'USER': 'alien',
+#         'PASSWORD': 'quaD2008',
+#         'HOST': '',
+#         'PORT': '',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

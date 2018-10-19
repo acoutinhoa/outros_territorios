@@ -9,8 +9,6 @@ from random import randint, randrange, choice
 from .forms import *
 from .models import *
 
-
-# Translators: palavras do menu
 menu = [
 	[_('início'), reverse_lazy('home'), []],
 	[_('chamada de projetos'), reverse_lazy('concurso'), [
@@ -24,91 +22,98 @@ menu = [
 	[_('perguntas frequentes'), reverse_lazy('faq'), []],
 	]
 
-msg_inscricao = _('''Olá {0},
+msg_inscricao = _('''Olá {nome},
 Sua inscrição foi realizada com sucesso!
-Seu código de identificação é {1}. Sua proposta deverá ser enviada através do link a seguir, que ficará disponível até a data limite definida no nosso cronograma. Cada link é único e deve ser utilizado para envio de um único projeto apenas.
+Seu código de identificação é {codigo}. Sua proposta deverá ser enviada através do link a seguir, que ficará disponível até a data limite definida no nosso cronograma. Cada link é único e deve ser utilizado para envio de um único projeto apenas.
 Acompanhe as atualizações no nosso blog.
 Dúvidas só serão respondidas através do nosso site.
 _
 Link para envio da proposta:
-{2}''')
+{link}''')
 
-msg_email = _('''Olá {0},
+msg_email = _('''Olá {nome},
 Segue novamente o link para envio da sua proposta.
 _
 Link para envio da proposta:
-{1}''')
+{link}''')
 
-msg_consulta = _('''Olá {0},
+msg_consulta = _('''Olá {nome},
 Recebemos sua consulta. Ela será respondida no site no próximo bloco de respostas.
 _
 Consulta:
-{1}''')
+{consulta}''')
 
-msg_publicacao_consulta = _('''Olá {0},
+msg_publicacao_consulta = _('''Olá {nome},
 Sua consulta foi respondida.
 _
 Consulta:
-{1}
+{consulta}
 
 Resposta:
-{2}
+{resposta}
 _
 Link para bloco de respostas:
-{3}''')
+{link}''')
 
 
-def home(request, edit=False,):
+def home(request):
 	titulo = _('início')
-	cartaz_form = None
-	arquivos_form = None
-	logos_form = None
-	logo_o_t = None
-	img = None
-	bg = None
 	cartaz = Cartaz.objects.get_or_create(pagina='home')[0]
-	# logos
-	logos_ = Cartaz.objects.get_or_create(pagina='logos')[0]
-	logos = Arquivo.objects.filter(pagina=logos_)
-
-	if cartaz.arquivo_set.all():
-		img = cartaz.arquivo_set.all().order_by('?')[0]
 	notas = Nota.objects.filter(data1__lte=timezone.now())
-
-	if edit:
-		if request.method == 'POST':
-			if 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
-				cartaz_form = CartazForm(request.POST, request.FILES, instance=cartaz)
-				arquivos_form = ArquivoForm(request.POST, request.FILES, instance=cartaz)
-				if arquivos_form.is_valid() and cartaz_form.is_valid():
-					cartaz_form.save()
-					arquivos_form.save()
-			elif 'logos_submit' in request.POST or 'logos_submit_home' in request.POST:
-				logos_form = LogosForm(request.POST, request.FILES, instance=logos_)
-				if logos_form.is_valid():
-					logos_form.save()
-			if 'logos_submit_home' in request.POST or 'cartaz_submit_home' in request.POST:
-				return redirect('home')
-			elif 'logos_submit' in request.POST or 'cartaz_submit' in request.POST:
-				return redirect('home_edit')
-		else:
-			cartaz_form = CartazForm(instance=cartaz)
-			arquivos_form = ArquivoForm(instance=cartaz)
-			logos_form = LogosForm(instance=logos_)
+	# logos
+	logos = Cartaz.objects.get_or_create(pagina='logos')[0]
+	logos = Arquivo.objects.filter(pagina=logos)
+	# img
+	if cartaz.arquivo_set.all().exists():
+		img = cartaz.arquivo_set.all().order_by('?')[0]
+	else:
+		img = None
 
 	return render(request, 'o_t/home.html', {
 		'titulo': titulo, 
 		'menu': menu, 
 		'logos': logos,
-		'edit': edit,
 		'cartaz': cartaz,
 		'img': img,
 		'notas': notas,
+		})
+
+def home_edit(request):
+	titulo = _('início')+'/edit'
+	cartaz = Cartaz.objects.get_or_create(pagina='home')[0]
+	logos = Cartaz.objects.get_or_create(pagina='logos')[0]
+
+	if request.method == 'POST':
+		if 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
+			cartaz_form = CartazForm(request.POST, instance=cartaz)
+			arquivos_form = ArquivoHomeForm(request.POST, request.FILES, instance=cartaz)
+			if arquivos_form.is_valid() and cartaz_form.is_valid():
+				cartaz_form.save()
+				arquivos_form.save()
+				if 'cartaz_submit_home' in request.POST:
+					return redirect('home')
+			logos_form = LogosForm(instance=logos)
+		elif 'logos_submit' in request.POST or 'logos_submit_home' in request.POST:
+			logos_form = LogosForm(request.POST, request.FILES, instance=logos)
+			if logos_form.is_valid():
+				logos_form.save()
+				if 'logos_submit_home' in request.POST:
+					return redirect('home')
+			cartaz_form = CartazForm(instance=cartaz)
+			arquivos_form = ArquivoHomeForm(instance=cartaz)
+	else:
+		cartaz_form = CartazForm(instance=cartaz)
+		arquivos_form = ArquivoHomeForm(instance=cartaz)
+		logos_form = LogosForm(instance=logos)
+
+	return render(request, 'o_t/home_edit.html', {
+		'titulo': titulo, 
+		'menu': menu, 
+		'cartaz': cartaz,
 		'cartaz_form': cartaz_form,
 		'arquivos_form': arquivos_form,
 		'logos_form': logos_form,
 		})
-
 
 def concurso(request, edit=False, confirmacao=False,):
 	titulo = _('chamada de projetos')
@@ -127,10 +132,13 @@ def concurso(request, edit=False, confirmacao=False,):
 	if edit:
 		if request.method == 'POST':
 			if 'juri_submit' in request.POST or 'juri_submit_home' in request.POST:
+				cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
+				arquivos_form = ArquivoForm(instance=cartaz, prefix='arquivo')
 				juri_form = JuriForm(request.POST, prefix='juri')
 				if juri_form.is_valid():
 					juri_form.save()
 			elif 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
+				juri_form = JuriForm(prefix='juri')
 				cartaz_form = CartazForm(request.POST, instance=cartaz, prefix='cartaz')
 				arquivos_form = ArquivoForm(request.POST, request.FILES, instance=cartaz, prefix='arquivo')
 				if arquivos_form.is_valid() and cartaz_form.is_valid():
@@ -138,8 +146,6 @@ def concurso(request, edit=False, confirmacao=False,):
 					arquivos_form.save()
 			if 'juri_submit_home' in request.POST or 'cartaz_submit_home' in request.POST:
 				return redirect('concurso')
-			elif 'juri_submit' in request.POST or 'cartaz_submit' in request.POST:
-				return redirect('concurso_edit')
 		else:
 			cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
 			arquivos_form = ArquivoForm(instance=cartaz, prefix='arquivo')
@@ -147,6 +153,7 @@ def concurso(request, edit=False, confirmacao=False,):
 	else:
 		if request.method == 'POST':
 			if 'inscricao_submit' in request.POST:
+				email_form = EmailForm(prefix='email', label_suffix='')
 				inscricao_form = InscricaoForm(request.POST, prefix='inscricao')
 				dados_form = DadosForm(request.POST, prefix='dados')
 				if inscricao_form.is_valid() and dados_form.is_valid():
@@ -157,30 +164,20 @@ def concurso(request, edit=False, confirmacao=False,):
 					# enviar email
 					link = request.build_absolute_uri(reverse('inscricoes', kwargs={'pk': inscricao.pk}))
 					assunto = _('Outros Territórios_confirmação de inscrição')
-					msg = msg_inscricao.format(inscricao.nome, inscricao.codigo, link)
-					# if request.LANGUAGE_CODE == 'en':
-					# 	assunto = 'Other Territories_registration confirmation'
-					# 	msg = msg_inscricao_en % (inscricao.nome, inscricao.codigo, link)
-					# else:
-					# 	assunto = 'Outros Territórios_confirmação de inscrição'
-					# 	msg = msg_inscricao % (inscricao.nome, inscricao.codigo, link)
+					msg = msg_inscricao.format(nome=inscricao.nome, codigo=inscricao.codigo, link=link)
 					send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
 					return redirect('inscricoes', pk=inscricao.pk)
 			elif 'email_submit' in request.POST:
 				email_form = EmailForm(request.POST, prefix='email')
+				inscricao_form = InscricaoForm(prefix='inscricao', label_suffix='')
+				dados_form = DadosForm(prefix='dados', label_suffix='')
 				if email_form.is_valid():
 					email = email_form.cleaned_data['email']
 					inscricao = Inscricao.objects.get(email=email)
 					# enviar email
 					link = request.build_absolute_uri(reverse('inscricoes', kwargs={'pk': inscricao.pk}))
 					assunto = _('Outros Territórios_reenvio de link')
-					msg = msg_email.format(inscricao.nome, link)
-					# if request.LANGUAGE_CODE == 'en':
-					# 	assunto = 'Other Territories_ submission link'
-					# 	msg = msg_email_en % (inscricao.nome, link)
-					# else:
-					# 	assunto = 'Outros Territórios_reenvio de link'
-					# 	msg = msg_email % (inscricao.nome, link)
+					msg = msg_email.format(nome=inscricao.nome, link=link)
 					send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
 					return redirect('email_confirmacao')
 		else:
@@ -218,21 +215,16 @@ def inscricoes(request, pk, erro=False,):
 		erro = _('Você precisa preencher todos os campos do projeto para finalizar sua inscrição.')
 
 	if request.method == 'POST':
-		if 'inscricoes_submit' in request.POST:
-			equipe_form = EquipeForm(request.POST, instance=inscricao, prefix='equipe')
-			projeto_form = ProjetoForm(request.POST, request.FILES, instance=projeto, prefix='projeto')
-			if equipe_form.is_valid() and projeto_form.is_valid():
-				equipe_form.save()
-				projeto_form.save()
-		elif 'equipe_submit' in request.POST:
+		if 'equipe_submit' in request.POST:
+			projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
 			equipe_form = EquipeForm(request.POST, instance=inscricao, prefix='equipe')
 			if equipe_form.is_valid():
 				equipe_form.save()
 		elif 'projeto_submit' in request.POST:
+			equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 			projeto_form = ProjetoForm(request.POST, request.FILES, instance=projeto, prefix='projeto')
 			if projeto_form.is_valid():
 				projeto_form.save()
-		return redirect('inscricoes', pk=pk)
 	else:
 		equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 		projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
@@ -318,6 +310,8 @@ def blog(request, pk=None, edit=False, slug=None, tag=None):
 	else:
 		if request.method == 'POST':
 			if 'nota_submit' in request.POST or 'nota_submit_home' in request.POST:
+				tag_form = TagForm(prefix='tag')
+				novatag_form = NovaTagForm(prefix='novatag')
 				if nota:
 					data = Nota.objects.filter(pk=nota.pk).values()[0]
 					nota_form = NotaForm(request.POST, instance=nota, prefix='nota', initial=data)
@@ -334,6 +328,11 @@ def blog(request, pk=None, edit=False, slug=None, tag=None):
 						nota.save()
 						nota_form.save_m2m()
 						imagem_form.save()
+						if 'nota_submit_home' in request.POST:
+							return redirect('blog_slug', slug=nota.slug)
+						else:
+							imagem_form = ImagemForm(instance=nota, prefix='img')
+
 				else:
 					nota_form = NotaForm(request.POST, prefix='nota')
 					if nota_form.is_valid():
@@ -341,27 +340,31 @@ def blog(request, pk=None, edit=False, slug=None, tag=None):
 						nota.autor = request.user
 						nota.save()
 						nota_form.save_m2m()
-				if 'nota_submit_home' in request.POST:
-					if request.LANGUAGE_CODE == 'en' and nota.slug_en:
-						slug = nota.slug_en
-					else:
-						slug = nota.slug
-					return redirect('blog_slug', slug=slug)
-			elif 'tag_submit' in request.POST:
-				tag_form = TagForm(request.POST, prefix='tag')
-				if tag_form.is_valid():
-					tag_form.save()
-			elif 'novatag_submit' in request.POST:
-				novatag_form = NovaTagForm(request.POST, prefix='novatag')
-				if novatag_form.is_valid():
-					novatag_form.save()
-		if nota:
-			nota_form = NotaForm(instance=nota, prefix='nota')
-			imagem_form = ImagemForm(instance=nota, prefix='img')
+						return redirect('nota_edit', pk=nota.pk)
+			else:
+				if 'tag_submit' in request.POST:
+					novatag_form = NovaTagForm(prefix='novatag')
+					tag_form = TagForm(request.POST, prefix='tag')
+					if tag_form.is_valid():
+						tag_form.save()
+				elif 'novatag_submit' in request.POST:
+					tag_form = TagForm(prefix='tag')
+					novatag_form = NovaTagForm(request.POST, prefix='novatag')
+					if novatag_form.is_valid():
+						novatag_form.save()
+				if nota:
+					nota_form = NotaForm(instance=nota, prefix='nota')
+					imagem_form = ImagemForm(instance=nota, prefix='img')
+				else:
+					nota_form = NotaForm(prefix='nota')
 		else:
-			nota_form = NotaForm(prefix='nota')
-		tag_form = TagForm(prefix='tag')
-		novatag_form = NovaTagForm(prefix='novatag')
+			if nota:
+				nota_form = NotaForm(instance=nota, prefix='nota')
+				imagem_form = ImagemForm(instance=nota, prefix='img')
+			else:
+				nota_form = NotaForm(prefix='nota')
+			tag_form = TagForm(prefix='tag')
+			novatag_form = NovaTagForm(prefix='novatag')
 
 	return render(request, 'o_t/blog.html', {
 		'titulo': titulo, 
@@ -411,13 +414,7 @@ def faq(request, confirmacao=False, pk=None, slug=None):
 			pergunta = consulta_form.save()
 			# enviar email
 			assunto = _('Outros Territórios_consulta')
-			msg = msg_consulta.format(pergunta.nome, pergunta.consulta)
-			# if request.LANGUAGE_CODE == 'en':
-			# 	assunto = 'Other Territories_queries'
-			# 	msg = msg_consulta_en % (pergunta.nome, pergunta.consulta)
-			# else:
-			# 	assunto = 'Outros Territórios_consulta'
-			# 	msg = msg_consulta % (pergunta.nome, pergunta.consulta)
+			msg = msg_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta)
 			send_mail(assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,])
 			return redirect('faq_confirmacao')
 	else:
@@ -498,7 +495,7 @@ def bloco_publish(request, pk):
 	link = request.build_absolute_uri(reverse('faq', kwargs={'pk': pk}))
 	msgs = ()
 	for pergunta in consultas:
-		msg = msg_publicacao_consulta.format(pergunta.nome, pergunta.consulta, pergunta.resposta, link)
+		msg = msg_publicacao_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta, resposta=pergunta.resposta, link=link)
 		msg = assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,]
 		msgs += (msg),
 	send_mass_mail(msgs, fail_silently=False)

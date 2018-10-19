@@ -1,0 +1,19 @@
+{% extends 'o_t/base.html' %}
+
+{% if user.is_authenticated %}
+	{% block menu %}
+		<div class="linha menu">
+			<a href="{% url 'home_edit' %}" class="botao"><button type="button">editar</button></a>
+		</div>
+	{% endblock %}
+
+	{% block c1 %}
+		{% include 'o_t/cartaz_edit.html' %}
+	{% endblock %}
+
+	{% block c2 %}
+		{% include 'o_t/logos_edit.html' %}
+	{% endblock %}
+{% endif %}
+
+
