@@ -90,6 +90,7 @@ def home_edit(request):
 			if arquivos_form.is_valid() and cartaz_form.is_valid():
 				cartaz_form.save()
 				arquivos_form.save()
+				arquivos_form = ArquivoHomeForm(instance=cartaz)
 				if 'cartaz_submit_home' in request.POST:
 					return redirect('home')
 			logos_form = LogosForm(instance=logos)
