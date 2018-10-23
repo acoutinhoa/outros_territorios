@@ -63,7 +63,7 @@
 		{% ifchanged logo.tipo %}
 			<p class="texto" style="padding-top: 40px;">{{ logo.tipo_verbose }}</p>
 		{% endifchanged %}
-		<img src="{{ logo.imagem.url }}" alt="{{ logo.nome }}" style="height: {{ logo.altura }}px; width: auto; margin-right: 10px; ">
+		<img src="{{ logo.imagem.url }}" alt="{{ logo.nome }}" style="height: {{ logo.altura }}px;" class="logos">
 	{% endfor %}
 </div>
 {% espaco borda='' %}

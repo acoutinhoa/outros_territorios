@@ -98,6 +98,11 @@ img {
 	font-size: 22px;
 	padding: 7vh 3vw;	
 }
+.logos {
+	width: auto; 
+	margin-right: 15px; 
+	vertical-align: middle;
+}
 
 /* blog */
 .post {
