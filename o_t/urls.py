@@ -13,16 +13,16 @@ blog_patterns = [
     path('<slug:slug>/', views.blog, name='blog_slug'),
 ]
 
-faq_patterns = [
-    path('', views.faq, name='faq'),
-    path('<int:pk>/', views.faq, name='faq'),
-    path('ok/', views.faq, {'confirmacao':True,}, name='faq_confirmacao'),
-    path('edit/', views.faq_edit, name='faq_edit'),
-    path('<int:pk>/edit/', views.faq_edit, name='faq_edit'),
-    path('<int:pk>/publish/', views.bloco_publish, name='bloco_publish'),
-    path('<int:pk>/remove/', views.bloco_remove, name='bloco_remove'),
-    path('<slug:slug>/', views.faq, name='bloco_slug'),
-]
+# faq_patterns = [
+#     path('', views.faq, name='faq'),
+#     path('<int:pk>/', views.faq, name='faq'),
+#     path('ok/', views.faq, {'confirmacao':True,}, name='faq_confirmacao'),
+#     path('edit/', views.faq_edit, name='faq_edit'),
+#     path('<int:pk>/edit/', views.faq_edit, name='faq_edit'),
+#     path('<int:pk>/publish/', views.bloco_publish, name='bloco_publish'),
+#     path('<int:pk>/remove/', views.bloco_remove, name='bloco_remove'),
+#     path('<slug:slug>/', views.faq, name='bloco_slug'),
+# ]
 
 concurso_patterns = [
     path('', views.concurso, name='concurso'),
@@ -43,9 +43,8 @@ urlpatterns = [
     path('edit/', views.home_edit, name='home_edit'),
 
     path(_('galeria/'), include(galeria_patterns)),
-
     path(_('chamada_de_projetos/'), include(concurso_patterns)),
-    path(_('perguntas_frequentes/'), include(faq_patterns)),
+    # path(_('perguntas_frequentes/'), include(faq_patterns)),
     path('blog/', include(blog_patterns)),
 ]
 

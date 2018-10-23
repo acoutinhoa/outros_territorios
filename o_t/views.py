@@ -19,7 +19,7 @@ menu = [
 		]],
 	[_('galeria'), reverse_lazy('galeria'), []],
 	[_('blog'), reverse_lazy('blog'), []],
-	[_('perguntas frequentes'), reverse_lazy('faq'), []],
+	# [_('perguntas frequentes'), reverse_lazy('faq'), []],
 	]
 
 msg_inscricao = _('''Olá {nome},
@@ -393,120 +393,120 @@ def nota_remove(request, pk):
     return redirect('blog')
 
 
-def faq(request, confirmacao=False, pk=None, slug=None):
-	titulo = _('perguntas frequentes')
-	consulta_form = None
+# def faq(request, confirmacao=False, pk=None, slug=None):
+# 	titulo = _('perguntas frequentes')
+# 	consulta_form = None
 	
-	if pk or slug:
-		if pk:
-			bloco = get_object_or_404(BlocoRespostas, pk=pk)
-		if slug:
-			if BlocoRespostas.objects.filter(slug_en=slug).exists():
-				bloco = get_object_or_404(BlocoRespostas, slug_en=slug)
-			else:
-				bloco = get_object_or_404(BlocoRespostas, slug=slug)
-		respostas = Pergunta.objects.filter(bloco=bloco)
-	else:
-		respostas = Faq.objects.filter(publicar=True)
-	blocos = BlocoRespostas.objects.filter(data1__lte=timezone.now()).order_by('-data1')
+# 	if pk or slug:
+# 		if pk:
+# 			bloco = get_object_or_404(BlocoRespostas, pk=pk)
+# 		if slug:
+# 			if BlocoRespostas.objects.filter(slug_en=slug).exists():
+# 				bloco = get_object_or_404(BlocoRespostas, slug_en=slug)
+# 			else:
+# 				bloco = get_object_or_404(BlocoRespostas, slug=slug)
+# 		respostas = Pergunta.objects.filter(bloco=bloco)
+# 	else:
+# 		respostas = Faq.objects.filter(publicar=True)
+# 	blocos = BlocoRespostas.objects.filter(data1__lte=timezone.now()).order_by('-data1')
 	
-	if request.method == 'POST':
-		consulta_form = PerguntaForm(request.POST)
-		if consulta_form.is_valid():
-			pergunta = consulta_form.save()
-			# enviar email
-			assunto = _('Outros Territórios_consulta')
-			msg = msg_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta)
-			send_mail(assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,])
-			return redirect('faq_confirmacao')
-	else:
-		consulta_form = PerguntaForm(label_suffix='')
+# 	if request.method == 'POST':
+# 		consulta_form = PerguntaForm(request.POST)
+# 		if consulta_form.is_valid():
+# 			pergunta = consulta_form.save()
+# 			# enviar email
+# 			assunto = _('Outros Territórios_consulta')
+# 			msg = msg_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta)
+# 			send_mail(assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,])
+# 			return redirect('faq_confirmacao')
+# 	else:
+# 		consulta_form = PerguntaForm(label_suffix='')
 	
-	return render(request, 'o_t/faq.html', {
-		'titulo': titulo, 
-		'menu': menu, 
-		'consulta_form': consulta_form,
-		'confirmacao': confirmacao,
-		'respostas': respostas,
-		'blocos': blocos,
-		})
+# 	return render(request, 'o_t/faq.html', {
+# 		'titulo': titulo, 
+# 		'menu': menu, 
+# 		'consulta_form': consulta_form,
+# 		'confirmacao': confirmacao,
+# 		'respostas': respostas,
+# 		'blocos': blocos,
+# 		})
 
-@login_required
-def faq_edit(request, pk=None,):
-	titulo = 'faq/edit'
-	respostas = None
-	faq = None
-	bloco_form = None
-	blocos = BlocoRespostas.objects.all()
-	if pk:
-		bloco = get_object_or_404(BlocoRespostas, pk=pk)
+# @login_required
+# def faq_edit(request, pk=None,):
+# 	titulo = 'faq/edit'
+# 	respostas = None
+# 	faq = None
+# 	bloco_form = None
+# 	blocos = BlocoRespostas.objects.all()
+# 	if pk:
+# 		bloco = get_object_or_404(BlocoRespostas, pk=pk)
 	
-	if request.method == 'POST':
-		if 'bloco_submit' in request.POST:
-			novo_bloco = BlocoRespostasForm(request.POST, prefix='blocos')
-			if novo_bloco.is_valid():
-				novo_bloco.save()
-		elif 'respostas_submit' in request.POST:
-			data = BlocoRespostas.objects.filter(pk=bloco.pk).values()[0]
-			bloco_form = BlocoRespostasForm(request.POST, instance=bloco, prefix='bloco', initial=data)
-			respostas = RespostasForm(request.POST, queryset=Pergunta.objects.filter(bloco=bloco), prefix='respostas')
-			if respostas.is_valid() and bloco_form.is_valid():
-				bloco = bloco_form.save(commit=False)
-				if bloco_form.has_changed():
-					if 'nome' in bloco_form.changed_data:
-						bloco.slug = ''
-					if 'nome_en' in bloco_form.changed_data:
-						bloco.slug_en = ''
-				bloco.save()
-				respostas.save()
-		elif 'faq_submit' in request.POST or 'faq_submit_home' in request.POST:
-			faq = FaqForm(request.POST, prefix='faq')
-			if faq.is_valid():
-				faq.save()
-			if 'faq_submit_home' in request.POST:
-				return redirect('faq')
-		elif 'consultas_submit' in request.POST:
-			consultas = ConsultasForm(request.POST, prefix='consultas')
-			if consultas.is_valid():
-				consultas.save()
+# 	if request.method == 'POST':
+# 		if 'bloco_submit' in request.POST:
+# 			novo_bloco = BlocoRespostasForm(request.POST, prefix='blocos')
+# 			if novo_bloco.is_valid():
+# 				novo_bloco.save()
+# 		elif 'respostas_submit' in request.POST:
+# 			data = BlocoRespostas.objects.filter(pk=bloco.pk).values()[0]
+# 			bloco_form = BlocoRespostasForm(request.POST, instance=bloco, prefix='bloco', initial=data)
+# 			respostas = RespostasForm(request.POST, queryset=Pergunta.objects.filter(bloco=bloco), prefix='respostas')
+# 			if respostas.is_valid() and bloco_form.is_valid():
+# 				bloco = bloco_form.save(commit=False)
+# 				if bloco_form.has_changed():
+# 					if 'nome' in bloco_form.changed_data:
+# 						bloco.slug = ''
+# 					if 'nome_en' in bloco_form.changed_data:
+# 						bloco.slug_en = ''
+# 				bloco.save()
+# 				respostas.save()
+# 		elif 'faq_submit' in request.POST or 'faq_submit_home' in request.POST:
+# 			faq = FaqForm(request.POST, prefix='faq')
+# 			if faq.is_valid():
+# 				faq.save()
+# 			if 'faq_submit_home' in request.POST:
+# 				return redirect('faq')
+# 		elif 'consultas_submit' in request.POST:
+# 			consultas = ConsultasForm(request.POST, prefix='consultas')
+# 			if consultas.is_valid():
+# 				consultas.save()
 
-	consultas = ConsultasForm(queryset=Pergunta.objects.filter(bloco__nome='rascunho'), prefix='consultas')
-	novo_bloco = BlocoRespostasForm(prefix='blocos')
-	if pk:
-		respostas = RespostasForm(queryset=Pergunta.objects.filter(bloco=bloco), prefix='respostas')
-		bloco_form = BlocoRespostasForm(instance=bloco, prefix='bloco')
-	else:
-		faq = FaqForm(prefix='faq')
-	return render(request, 'o_t/faq_edit.html', {
-		'titulo': titulo, 
-		'menu': menu, 
-		'consultas': consultas,
-		'blocos': blocos,
-		'novo_bloco': novo_bloco,
-		'bloco_form': bloco_form,
-		'respostas': respostas,
-		'faq': faq,
-		})
+# 	consultas = ConsultasForm(queryset=Pergunta.objects.filter(bloco__nome='rascunho'), prefix='consultas')
+# 	novo_bloco = BlocoRespostasForm(prefix='blocos')
+# 	if pk:
+# 		respostas = RespostasForm(queryset=Pergunta.objects.filter(bloco=bloco), prefix='respostas')
+# 		bloco_form = BlocoRespostasForm(instance=bloco, prefix='bloco')
+# 	else:
+# 		faq = FaqForm(prefix='faq')
+# 	return render(request, 'o_t/faq_edit.html', {
+# 		'titulo': titulo, 
+# 		'menu': menu, 
+# 		'consultas': consultas,
+# 		'blocos': blocos,
+# 		'novo_bloco': novo_bloco,
+# 		'bloco_form': bloco_form,
+# 		'respostas': respostas,
+# 		'faq': faq,
+# 		})
 
-@login_required
-def bloco_publish(request, pk):
-	bloco = get_object_or_404(BlocoRespostas, pk=pk)
-	consultas = Pergunta.objects.filter(bloco=bloco)
-	# enviar email
-	assunto = _('Outros Territórios_resposta à consulta')
-	link = request.build_absolute_uri(reverse('faq', kwargs={'pk': pk}))
-	msgs = ()
-	for pergunta in consultas:
-		msg = msg_publicacao_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta, resposta=pergunta.resposta, link=link)
-		msg = assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,]
-		msgs += (msg),
-	send_mass_mail(msgs, fail_silently=False)
-	bloco.publish()
-	return redirect('faq', pk=pk)
+# @login_required
+# def bloco_publish(request, pk):
+# 	bloco = get_object_or_404(BlocoRespostas, pk=pk)
+# 	consultas = Pergunta.objects.filter(bloco=bloco)
+# 	# enviar email
+# 	assunto = _('Outros Territórios_resposta à consulta')
+# 	link = request.build_absolute_uri(reverse('faq', kwargs={'pk': pk}))
+# 	msgs = ()
+# 	for pergunta in consultas:
+# 		msg = msg_publicacao_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta, resposta=pergunta.resposta, link=link)
+# 		msg = assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,]
+# 		msgs += (msg),
+# 	send_mass_mail(msgs, fail_silently=False)
+# 	bloco.publish()
+# 	return redirect('faq', pk=pk)
 
-@login_required
-def bloco_remove(request, pk):
-    bloco = get_object_or_404(BlocoRespostas, pk=pk)
-    bloco.delete()
-    return redirect('faq_edit')
+# @login_required
+# def bloco_remove(request, pk):
+#     bloco = get_object_or_404(BlocoRespostas, pk=pk)
+#     bloco.delete()
+#     return redirect('faq_edit')
 
