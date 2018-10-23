@@ -21,5 +21,7 @@
 		{% url 'blog' pk=nota.pk as nota_link %}	
 	{% endif %}
 	{% include 'o_t/nota.html' with link=nota_link %}
+	{% if forloop.last %}
+		{% espaco borda='linha_' %}
+	{% endif %}
 {% endfor %}
-{% espaco borda='linha_' %}
