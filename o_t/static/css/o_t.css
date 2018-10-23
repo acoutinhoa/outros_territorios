@@ -1,3 +1,24 @@
+:root {
+    --fonte: lehigh, sans-serif;
+    --fonte_: frutiger, sans-serif;
+
+    --fonte-menu: 16px;
+    --fonte-form: 13px;
+    --fonte-texto: 14px;
+
+    --azul: #B1E4E3;
+    --cinza: #63666A;
+    --preto: black;
+
+    --cor: var(--preto);
+    --cor-borda: var(--cinza);
+    --cor-link: var(--cinza);
+    --cor-hover: var(--azul);
+    --cor-titulo: var(--preto);
+
+    --borda: 14px;
+    --borda-link: 2px;
+}
 
 body, * {
 	margin: 0;
@@ -161,7 +182,7 @@ table {
 	font-family: var(--fonte_);
 }
 .form textarea, .form input {
-    width: 110%;
+    width: 112%;
 	border-bottom: var(--cor) solid var(--borda-link);
 	padding: 0px 5px;
 }
@@ -189,13 +210,13 @@ table {
 	text-align: right;
 }
 .inscricao label {
-	border-bottom: var(--cor) solid var(--borda-link);
+	/*border-bottom: var(--cor) solid var(--borda-link);*/
 	margin-right: -5px;
-	padding: 2px 10px;
+	padding-right: 10px;
 	font-weight: normal;
 }
 @-moz-document url-prefix() {
-    .inscricao label {padding: 1px 10px;}
+    /*.inscricao label {padding: 1px 10px;}*/
 }
 .termos label {
 	border: 0;
