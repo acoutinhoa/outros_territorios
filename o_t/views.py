@@ -396,7 +396,7 @@ def nota_remove(request, pk):
 def faq(request, confirmacao=False, pk=None, slug=None):
 	titulo = _('perguntas frequentes')
 	consulta_form = None
-
+	
 	if pk or slug:
 		if pk:
 			bloco = get_object_or_404(BlocoRespostas, pk=pk)
@@ -406,10 +406,8 @@ def faq(request, confirmacao=False, pk=None, slug=None):
 			else:
 				bloco = get_object_or_404(BlocoRespostas, slug=slug)
 		respostas = Pergunta.objects.filter(bloco=bloco)
-	elif Faq.objects.filter(publicar=True).exists():
-		respostas = Faq.objects.filter(publicar=True)
 	else:
-		respostas = None
+		respostas = Faq.objects.filter(publicar=True)
 	blocos = BlocoRespostas.objects.filter(data1__lte=timezone.now()).order_by('-data1')
 	
 	if request.method == 'POST':
