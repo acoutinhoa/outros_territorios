@@ -29,13 +29,13 @@
     --cinza: #63666A;
     --preto: black;
 
-    --cor: var(--{% cor cor='cp' %});
-    --cor-borda: var(--{% cor %});
-    {% cor as link %}
-    --cor-link: var(--{{ link }});
-    --cor-hover: var(--{% cor nao=link %});
+    --cor: var(--preto);
+    --cor-borda: var(--cinza);
+    --cor-link: var(--{% cor cor='pc' %});
+    --cor-hover: var(--azul);
+    --cor-titulo: var(--{% cor cor='pc' %});
 
-    --borda: {% randint 10 20 %}px;
+    --borda: 14px;
     --borda-link: 2px;
 }
 

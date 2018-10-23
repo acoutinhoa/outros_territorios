@@ -30,7 +30,7 @@
         <p class="data_">____<br><br>{% trans 'publicado em' %} {{ nota.data1 }}</p>
     {% endif %}
     {% if nota.tags.all %}
-		<ul class="menu tags">
+		<ul class="menu tags"><br>
 	    	{% for tag in nota.tags.all %}
 				<li><a href="{% url 'blog_tag' tag=tag.tag  %}">#{{ tag }}</a></li>
 			{% endfor %}
