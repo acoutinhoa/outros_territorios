@@ -100,6 +100,7 @@ def home_edit(request):
 				logos_form.save()
 				if 'logos_submit_home' in request.POST:
 					return redirect('home')
+				logos_form = LogosForm(instance=logos)
 			cartaz_form = CartazForm(instance=cartaz)
 			arquivos_form = ArquivoHomeForm(instance=cartaz)
 	else:
@@ -396,7 +397,7 @@ def nota_remove(request, pk):
 def faq(request, confirmacao=False, pk=None, slug=None):
 	titulo = _('perguntas frequentes')
 	consulta_form = None
-	
+
 	if pk or slug:
 		if pk:
 			bloco = get_object_or_404(BlocoRespostas, pk=pk)
