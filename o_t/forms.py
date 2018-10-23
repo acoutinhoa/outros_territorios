@@ -75,49 +75,49 @@ JuriForm = forms.modelformset_factory(
 	can_delete=True,
 	)
 
-# # faq
-# FaqForm = forms.modelformset_factory(
-# 	Faq, 
-# 	fields=('pergunta', 'resposta', 'pergunta_en', 'resposta_en', 'publicar'), 
-# 	extra=1, 
-# 	can_delete=True,
-# 	widgets = {
-# 		'pergunta': forms.Textarea(attrs={'rows': 2}),
-# 		'resposta': forms.Textarea(attrs={'rows': 5}),
-# 		'pergunta_en': forms.Textarea(attrs={'rows': 2}),
-# 		'resposta_en': forms.Textarea(attrs={'rows': 5}),
-# 		},
-# 	)
+# faq
+FaqForm = forms.modelformset_factory(
+	Faq, 
+	fields=('pergunta', 'resposta', 'pergunta_en', 'resposta_en', 'publicar'), 
+	extra=1, 
+	can_delete=True,
+	widgets = {
+		'pergunta': forms.Textarea(attrs={'rows': 2}),
+		'resposta': forms.Textarea(attrs={'rows': 5}),
+		'pergunta_en': forms.Textarea(attrs={'rows': 2}),
+		'resposta_en': forms.Textarea(attrs={'rows': 5}),
+		},
+	)
 
-# PerguntaForm = forms.modelform_factory(
-# 	Pergunta,
-# 	fields=('nome', 'email', 'consulta'),
-# 	)
+PerguntaForm = forms.modelform_factory(
+	Pergunta,
+	fields=('nome', 'email', 'consulta'),
+	)
 
-# ConsultasForm = forms.modelformset_factory(
-# 	Pergunta,
-# 	extra=0, 
-# 	fields=('bloco',),
-# 	can_delete=True,
-# 	)
+ConsultasForm = forms.modelformset_factory(
+	Pergunta,
+	extra=0, 
+	fields=('bloco',),
+	can_delete=True,
+	)
 
-# RespostasForm = forms.modelformset_factory(
-# 	Pergunta, 
-# 	extra=0,
-# 	fields=('bloco', 'pergunta', 'resposta', 'pergunta_en', 'resposta_en',), 
-# 	widgets = {
-# 		'pergunta': forms.Textarea(attrs={'rows': 2}),
-# 		'resposta': forms.Textarea(attrs={'rows': 6}),
-# 		'pergunta_en': forms.Textarea(attrs={'rows': 2}),
-# 		'resposta_en': forms.Textarea(attrs={'rows': 6}),
-# 		},
-# 	can_delete=False,
-# 	)
+RespostasForm = forms.modelformset_factory(
+	Pergunta, 
+	extra=0,
+	fields=('bloco', 'pergunta', 'resposta', 'pergunta_en', 'resposta_en',), 
+	widgets = {
+		'pergunta': forms.Textarea(attrs={'rows': 2}),
+		'resposta': forms.Textarea(attrs={'rows': 6}),
+		'pergunta_en': forms.Textarea(attrs={'rows': 2}),
+		'resposta_en': forms.Textarea(attrs={'rows': 6}),
+		},
+	can_delete=False,
+	)
 
-# BlocoRespostasForm = forms.modelform_factory(
-# 	BlocoRespostas,
-# 	fields=('nome','nome_en'),
-# 	)
+BlocoRespostasForm = forms.modelform_factory(
+	BlocoRespostas,
+	fields=('nome','nome_en'),
+	)
 
 # incricoes
 InscricaoForm = forms.modelform_factory(

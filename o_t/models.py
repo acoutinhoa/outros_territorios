@@ -123,65 +123,65 @@ class Juri(models.Model):
 	def __str__(self):
 		return self.nome
 
-# class BlocoRespostas(models.Model):
-# 	nome = models.CharField(max_length=30)
-# 	nome_en = models.CharField(max_length=30, blank=True)
-# 	slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
-# 	slug_en = models.SlugField(max_length=200, blank=True, null=True, unique=True)
-# 	data0 = models.DateTimeField(auto_now_add=True)
-# 	data1 = models.DateTimeField(blank=True, null=True)
-# 	def publish(self):
-# 		self.data1 = timezone.now()
-# 		self.save()
-# 	def criar_slug(self, lang='pt', car=''):
-# 		if lang == 'pt':
-# 			slug = slugify(self.nome)+car
-# 			bloco = BlocoRespostas.objects.filter(slug=slug)
-# 		elif lang == 'en':
-# 			slug = slugify(self.nome_en)+car
-# 			bloco = BlocoRespostas.objects.filter(slug_en=slug)
-# 		if bloco.exists() and bloco[0] != self:
-# 			car += '-'
-# 			slug = self.criar_slug(lang=lang, car=car)
-# 		return slug
-# 	def save(self, *args, **kwargs):
-# 		if not self.slug:
-# 			self.slug = self.criar_slug()
-# 		if self.nome_en and not self.slug_en:
-# 			self.slug_en = self.criar_slug(lang='en')
-# 		super().save(*args, **kwargs)
-# 	def __str__(self):
-# 		return self.nome
+class BlocoRespostas(models.Model):
+	nome = models.CharField(max_length=30)
+	nome_en = models.CharField(max_length=30, blank=True)
+	slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
+	slug_en = models.SlugField(max_length=200, blank=True, null=True, unique=True)
+	data0 = models.DateTimeField(auto_now_add=True)
+	data1 = models.DateTimeField(blank=True, null=True)
+	def publish(self):
+		self.data1 = timezone.now()
+		self.save()
+	def criar_slug(self, lang='pt', car=''):
+		if lang == 'pt':
+			slug = slugify(self.nome)+car
+			bloco = BlocoRespostas.objects.filter(slug=slug)
+		elif lang == 'en':
+			slug = slugify(self.nome_en)+car
+			bloco = BlocoRespostas.objects.filter(slug_en=slug)
+		if bloco.exists() and bloco[0] != self:
+			car += '-'
+			slug = self.criar_slug(lang=lang, car=car)
+		return slug
+	def save(self, *args, **kwargs):
+		if not self.slug:
+			self.slug = self.criar_slug()
+		if self.nome_en and not self.slug_en:
+			self.slug_en = self.criar_slug(lang='en')
+		super().save(*args, **kwargs)
+	def __str__(self):
+		return self.nome
 
 def set_rascunho():
 	return str(BlocoRespostas.objects.get_or_create(nome='rascunho')[0].pk)
 
-# class Pergunta(models.Model):
-# 	bloco = models.ForeignKey(BlocoRespostas, on_delete=models.SET(set_rascunho), blank=True, default=set_rascunho)
-# 	nome = models.CharField(_('nome'), max_length=100)
-# 	email = models.EmailField('e-mail')
-# 	consulta = models.TextField(_('consulta'),)
-# 	pergunta = models.TextField(blank=True, null=True)
-# 	pergunta_en = models.TextField(blank=True, null=True)
-# 	resposta = models.TextField(blank=True, null=True)
-# 	resposta_en = models.TextField(blank=True, null=True)
-# 	data = models.DateTimeField(auto_now_add=True)
-# 	def __str__(self):
-# 		return self.pk
-# 	class Meta:
-# 		ordering = ['-data']
+class Pergunta(models.Model):
+	bloco = models.ForeignKey(BlocoRespostas, on_delete=models.SET(set_rascunho), blank=True, default=set_rascunho)
+	nome = models.CharField(_('nome'), max_length=100)
+	email = models.EmailField('e-mail')
+	consulta = models.TextField(_('consulta'),)
+	pergunta = models.TextField(blank=True, null=True)
+	pergunta_en = models.TextField(blank=True, null=True)
+	resposta = models.TextField(blank=True, null=True)
+	resposta_en = models.TextField(blank=True, null=True)
+	data = models.DateTimeField(auto_now_add=True)
+	def __str__(self):
+		return self.pk
+	class Meta:
+		ordering = ['-data']
 
-# class Faq(models.Model):
-# 	pergunta = models.TextField()
-# 	resposta = models.TextField()
-# 	pergunta_en = models.TextField(blank=True)
-# 	resposta_en = models.TextField(blank=True)
-# 	data0 = models.DateTimeField(auto_now_add=True)
-# 	publicar = models.BooleanField(default=False)
-# 	def __str__(self):
-# 		return self.pergunta
-# 	class Meta:
-# 		ordering = ['data0']
+class Faq(models.Model):
+	pergunta = models.TextField()
+	resposta = models.TextField()
+	pergunta_en = models.TextField(blank=True)
+	resposta_en = models.TextField(blank=True)
+	data0 = models.DateTimeField(auto_now_add=True)
+	publicar = models.BooleanField(default=False)
+	def __str__(self):
+		return self.pergunta
+	class Meta:
+		ordering = ['data0']
 
 class Inscricao(models.Model):
 	areas = [
