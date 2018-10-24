@@ -22,6 +22,3 @@ urlpatterns += i18n_patterns(
     path('', include('o_t.urls')),
     prefix_default_language=False
 )
-
-handler404 = 'o_t.views.handler404'
-handler500 = 'o_t.views.handler500'

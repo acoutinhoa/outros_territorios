@@ -527,8 +527,3 @@ def bloco_remove(request, pk):
     bloco.delete()
     return redirect('faq_edit')
 
-def handler404(request, exception,):
-    return render(request, 'error/404.html', {'titulo':'404', 'menu': menu,})
-
-def handler500(request,):
-    return render(request, 'error/500.html', {'titulo':'500', 'menu': menu,})
