@@ -1,0 +1,32 @@
+{% extends 'o_t/base.html' %}
+{% load outras_tags %}
+
+{% block menu %}
+	{% if user.is_authenticated %}
+		<div class="linha menu">
+			<a href="{% url 'galeria_edit' %}" class="botao"><button type="button">editar</button></a>
+		</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block c1 %}
+	{% espaco %}
+	<div class="cartaz linha">
+		<p class="titulo">{% trans 'erro 404' %}</p>
+	</div>
+
+	{% randint 30 70 as largura %}
+	<div class="cartaz">
+		<div class="post coluna" style="width: {{ largura }}%; height: 100vh;"></div>
+		<div class="post linha data" style="width: {% cem largura %}%;"></div>
+	</div>
+{% endblock %}
+
+{% block c2 %}
+	<div class="linha" style="height: {% randint 10 90 %}vh;"></div>
+{% endblock %}
+
+
+
+
