@@ -16,12 +16,7 @@
 <table class="form inscricao linha">
 	<form method="POST">
 		{% csrf_token %}
-		{% for field in consulta_form %}
-			<tr>
-				<th>{{ field.label_tag }}</th>
-				<td>{{ field }} {{ field.errors }}</td>
-			</tr>
-		{% endfor %}
+		{{ consulta_form }}
 		<tr><td class="espaco"></td></tr>
 		<tr>
 			<td></td>
