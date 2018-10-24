@@ -39,3 +39,29 @@
 	</div>
 {% endif %}
 
+{% if confirmacao %}
+	<div class="post linha">
+		<p class="texto"><b>{% trans 'consulta enviada' %}</b></p>
+	</div>
+{% endif %}
+
+<div class="post" style="padding-bottom: 0px;">
+	<p class="titulo_">{% trans 'consultas' %}</p>
+	<p class="texto">
+		{% trans 'Outras consultas podem ser realizadas por meio do formulário a seguir e serão respondidas em blocos nesta seção.' %}
+	</p>
+</div>
+
+<table class="form inscricao linha">
+	<form method="POST">
+		{% csrf_token %}
+		{{ consulta_form }}
+		<tr><td class="espaco"></td></tr>
+		<tr>
+			<td></td>
+			<td><button type="submit">{% trans 'enviar' %}</button></td>
+		</tr>
+	</form>
+</table>
+
+{% espaco borda='' %}
