@@ -2,14 +2,8 @@
 
 {% get_current_language as lang %}
 
-{% query logos 'filter' tipo='01' as logo_o_t %}
+{% query logos 'filter' tipo='01' get=True as logo %}
 {% query logos 'exclude' tipo='01' as logos %}
-
-{% if lang == 'pt-br' %}
-	{% query logo_o_t 'filter' get=True en='False' as logo %}
-{% elif lang == 'en' %}
-	{% query logo_o_t 'filter' get=True en='True' as logo %}
-{% endif %}
 
 {% espaco %}
 <div class="cartaz linha">
@@ -37,9 +31,9 @@
 		<div class="post linha">
 			<p class="texto">
 				{% if lang == 'en' and cartaz.texto_en %}
-					{{ cartaz.texto_en|linebreaksbr }}
+					{{ cartaz.texto_en|post }}
 				{% else %}
-					{{ cartaz.texto|linebreaksbr }}
+					{{ cartaz.texto|post }}
 				{% endif %}
 			</p>
 		</div>

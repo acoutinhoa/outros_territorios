@@ -2,6 +2,7 @@
 	<p class="titulo titulo_" style="margin-bottom: 0;">tags/edit</p>
 </div>
 
+{% if user.is_authenticated %}
 <table class="form linha">
 	<form method="POST" >
 		{% csrf_token %}
@@ -31,3 +32,4 @@
 		</tr>
 	</form>
 </table>
+{% endif %}

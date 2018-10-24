@@ -26,9 +26,9 @@
 	<div class="post linha">
 		<p class="texto">
 			{% if lang == 'en' and cartaz.texto_en %}
-				{{ cartaz.texto_en|linebreaksbr }}
+				{{ cartaz.texto_en|post }}
 			{% else %}
-				{{ cartaz.texto|linebreaksbr }}
+				{{ cartaz.texto|post }}
 			{% endif %}
 		</p>
 	</div>
@@ -50,8 +50,13 @@
 					{{ juri.bio|linebreaksbr }}
 				{% endif %}
 			</p>
+		{% empty %}
+			<p class="texto">{% trans 'Em Breve.' %}</p>
 		{% endfor %}
 	</div>
+	{% if not jurados %}
+		{% espaco 300 350 borda='linha_' %}
+	{% endif %}
 
 </div>
 

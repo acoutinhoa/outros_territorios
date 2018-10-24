@@ -2,6 +2,8 @@
 
 {% get_current_language as lang %}
 
+{% espaco %}
+
 <div class="cartaz linha">
 	<p class="titulo">
 		{% if lang == 'en' and cartaz.titulo_en %}
@@ -18,9 +20,9 @@
 	<div class="post linha data" style="width: {% cem largura %}%;">
 		<p >
 			{% if lang == 'en' and cartaz.texto_en %}
-				{{ cartaz.texto_en|linebreaksbr }}
+				{{ cartaz.texto_en|post }}
 			{% else %}
-				{{ cartaz.texto|linebreaksbr }}
+				{{ cartaz.texto|post }}
 			{% endif %}
 		</p>
 	</div>

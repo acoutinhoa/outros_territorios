@@ -14,7 +14,13 @@
 
 <div class="post">
 	{% if user.is_authenticated %}
-		{% include 'o_t/botoes.html' %}
+		<div class="menu">
+			<a href="{% url 'nota_edit' pk=nota.pk %}" class="botao"><button type="button">editar</button></a>
+			<a href="{% url 'nota_remove' pk=nota.pk %}" class="botao"><button type="button">deletar</button></a>
+			{% if not nota.data1 %}
+			    <a href="{% url 'nota_publish' pk=nota.pk %}" class="botao"><button type="button">publicar</button></a>
+			{% endif %}
+		</div>
 	{% endif %}
 	<p class="titulo_">
 		{% if nota_link %}

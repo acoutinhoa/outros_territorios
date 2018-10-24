@@ -1,5 +1,6 @@
 <p class="titulo titulo_ linha">logos/edit</p>
 
+{% if user.is_authenticated %}
 <table class="form">
 	<form method="POST" enctype="multipart/form-data" >
 		{% csrf_token %}
@@ -17,3 +18,4 @@
 		</tr>
 	</form>
 </table>
+{% endif %}

@@ -44,6 +44,7 @@ ul {
 li {
 	margin-bottom: 10px;
 }
+
 #tudo {
 	position: fixed;
 	width: 100vw;
@@ -164,6 +165,9 @@ img {
 	float: left;
 	display: inline;
 	padding: 0 15px 0 0;
+}
+.respostas {
+	padding-left: 60px;
 }
 
 /* form */

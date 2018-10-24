@@ -3,7 +3,7 @@
 {% block menu %}
 	{% if user.is_authenticated %}
 		<div class="linha menu">
-			<a href="{% url 'home_edit' %}" class="botao"><button type="button">editar</button></a>
+			<a href="{% url 'concurso_edit' %}" class="botao"><button type="button">editar</button></a>
 		</div>
 	{% endif %}
 {% endblock %}
@@ -13,7 +13,5 @@
 {% endblock %}
 
 {% block c2 %}
-	{% include 'o_t/logos_edit.html' %}
+	{% include 'o_t/juri_edit.html' %}
 {% endblock %}
-
-

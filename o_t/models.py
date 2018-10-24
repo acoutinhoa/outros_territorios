@@ -197,7 +197,6 @@ class Inscricao(models.Model):
 	nome = models.CharField(_('nome'), max_length=30)
 	sobrenome = models.CharField(_('sobrenome'), max_length=70, null=True)
 	area = models.CharField(_('área'), choices=areas, max_length=20)
-	termos = models.BooleanField()
 	codigo = models.CharField(max_length=5, unique=True, blank=True, null=True)
 	finalizada = models.DateTimeField(blank=True, null=True)
 

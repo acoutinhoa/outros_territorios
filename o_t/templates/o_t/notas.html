@@ -8,11 +8,13 @@
 	<p class="titulo">{{ titulo }}</p>
 </div>
 {% for nota in notas %}
+
 	{% if forloop.first %}
 		{% espaco 60 120 %}
 	{% else %}
 		{% espaco 80 180 borda='linha linha_' %}
 	{% endif %}
+	
 	{% if lang == 'en' and nota.slug_en %}
 		{% url 'blog_slug' slug=nota.slug_en as nota_link %}
 	{% elif nota.slug %}
@@ -20,8 +22,11 @@
 	{% else %}
 		{% url 'blog' pk=nota.pk as nota_link %}	
 	{% endif %}
+	
 	{% include 'o_t/nota.html' with link=nota_link %}
+	
 	{% if forloop.last %}
 		{% espaco borda='linha_' %}
 	{% endif %}
+
 {% endfor %}

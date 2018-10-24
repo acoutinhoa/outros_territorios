@@ -4,10 +4,10 @@ from . import views
 
 blog_patterns = [
     path('', views.blog, name='blog'),
-    path('add/', views.blog, {'edit':True,}, name='nota_add'),
+    path('add/', views.blog_edit, name='nota_add'),
     path('tag/<slug:tag>/', views.blog, name='blog_tag'),
     path('<int:pk>/', views.blog, name='blog'),
-    path('<int:pk>/edit/', views.blog, {'edit':True,}, name='nota_edit'),
+    path('<int:pk>/edit/', views.blog_edit, name='nota_edit'),
     path('<int:pk>/publish/', views.nota_publish, name='nota_publish'),
     path('<int:pk>/remove/', views.nota_remove, name='nota_remove'),
     path('<slug:slug>/', views.blog, name='blog_slug'),
@@ -26,7 +26,7 @@ faq_patterns = [
 
 concurso_patterns = [
     path('', views.concurso, name='concurso'),
-    path('edit/', views.concurso, {'edit':True,}, name='concurso_edit'),
+    path('edit/', views.concurso_edit, name='concurso_edit'),
     path('ok/', views.concurso, {'confirmacao':True,}, name='email_confirmacao'),
     path(_('inscricoes/<uuid:pk>/'), views.inscricoes, name='inscricoes'),
     path(_('inscricoes/<uuid:pk>/submit'), views.inscricoes_submit, name='inscricoes_submit'),

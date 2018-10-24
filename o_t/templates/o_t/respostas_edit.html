@@ -3,6 +3,16 @@
 <table class="form">
 	<form method="POST" >
 		{% csrf_token %}
+		<tr>
+			<th>bold:</th>
+			<td>[[ b = texto em bold ]]</td>
+		</tr>
+		<tr>
+			<th>link:</th>
+			<td>[[ nome = https://www.google.com ]] *nome = output do link </td>
+		</tr>
+		<tr><th>__</th></tr>
+		<tr><td class="espaco"></td></tr>
 
 		{% if faq %}
 			{{ faq.management_form }}

@@ -11,29 +11,21 @@
 
 
 {% block c1 %}
-	{% if edit %}
-		{% include 'o_t/nota_edit.html' %}
+	{% if nota %}
+		{% espaco %}	
+		{% include 'o_t/nota.html' %}
+		{% espaco borda='linha_' %}	
 	{% else %}
-		{% if nota %}
-			{% espaco %}	
-			{% include 'o_t/nota.html' %}
-			{% espaco borda='linha_' %}	
-		{% else %}
-			{% include 'o_t/notas.html' %}
-		{% endif %}
+		{% include 'o_t/notas.html' %}
 	{% endif %}
 {% endblock %}
 
 
 {% block c2 %}
-	{% if edit %}
-		{% include 'o_t/tag_edit.html' %}
-	{% else %}
-		<div class="frame linha" style="height: 65%;">
-			{% include 'o_t/notas_lista.html' %}
-		</div>
-		<div class="frame" style="height: 35%;">
-			{% include 'o_t/tags_lista.html' %}
-		</div>
-	{% endif %}
+	<div class="frame linha" style="height: 65%;">
+		{% include 'o_t/notas_lista.html' %}
+	</div>
+	<div class="frame" style="height: 35%;">
+		{% include 'o_t/tags_lista.html' %}
+	</div>
 {% endblock %}

@@ -65,7 +65,7 @@ LogosForm = forms.inlineformset_factory(
 	Cartaz, 
 	Arquivo, 
 	extra=1,
-	fields=('tipo', 'imagem', 'nome', 'altura', 'en', ), 
+	fields=('tipo', 'imagem', 'nome', 'altura', ), 
 	)
 
 JuriForm = forms.modelformset_factory(

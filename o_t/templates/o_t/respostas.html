@@ -8,8 +8,8 @@
 </div>
 {% espaco %}
 
-<div class="post linha titulo_lista">
-	<ul>
+<div class="post linha respostas">
+	<ol>
 	{% for resp in respostas %}
 		{% if lang == 'en' and resp.pergunta_en %}
 			{% set resp.pergunta_en as pergunta %}
@@ -18,13 +18,14 @@
 		{% else %}
 			{% set resp.consulta as pergunta %}
 		{% endif %}
-		<li>
-			<a href="{{ request.path }}#{{ pergunta }}">{{ pergunta }}</a>
+		<li class="titulo_lista">
+			<a href="{{ request.path }}#{{ pergunta|slugify }}">{{ pergunta }}</a>
 		</li>
 	{% endfor %}
-	</ul>
+	</ol>
 </div>
 
+<ol>
 {% for resp in respostas %}
 	{% if lang == 'en' and resp.pergunta_en %}
 		{% set resp.pergunta_en as pergunta %}
@@ -33,15 +34,16 @@
 	{% else %}
 		{% set resp.consulta as pergunta %}
 	{% endif %}
-	<div class="post linha" id="{{ pergunta }}">
-		<p class="titulo_lista">{{ pergunta }}</p>
+	<div class="post linha respostas" id="{{ pergunta|slugify }}">
+		<li class="titulo_lista">{{ pergunta }}</li>
 		<p class="texto">
 			{% if lang == 'en' and resp.resposta_en %}
-				{{ resp.resposta_en|linebreaksbr }}
+				{{ resp.resposta_en|post }}
 			{% else %}
-				{{ resp.resposta|linebreaksbr }}
+				{{ resp.resposta|post }}
 			{% endif %}
 		</p>
 	</div>
 {% endfor %}
+</ol>
 {% espaco borda='' %}

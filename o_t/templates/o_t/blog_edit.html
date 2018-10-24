@@ -1,19 +1,18 @@
 {% extends 'o_t/base.html' %}
+{% load outras_tags %}
 
 {% block menu %}
 	{% if user.is_authenticated %}
 		<div class="linha menu">
-			<a href="{% url 'home_edit' %}" class="botao"><button type="button">editar</button></a>
+			<a href="{% url 'nota_add' %}" class="botao"><button type="button">novo post</button></a>
 		</div>
 	{% endif %}
 {% endblock %}
 
 {% block c1 %}
-	{% include 'o_t/cartaz_edit.html' %}
+	{% include 'o_t/nota_edit.html' %}
 {% endblock %}
 
 {% block c2 %}
-	{% include 'o_t/logos_edit.html' %}
+	{% include 'o_t/tag_edit.html' %}
 {% endblock %}
-
-

@@ -3,6 +3,17 @@
 {% if user.is_authenticated %}
 <table class="form">
 <form method="POST" enctype="multipart/form-data" >
+	<tr>
+		<th>bold:</th>
+		<td>[[ b = texto em bold ]]</td>
+	</tr>
+	<tr>
+		<th>link:</th>
+		<td>[[ nome = https://www.google.com ]] *nome = output do link </td>
+	</tr>
+	<tr><th>__</th></tr>
+	<tr><td class="espaco"></td></tr>
+
 	{% csrf_token %}
 	{% for field in cartaz_form %}
 		{% if field.name == 'titulo_en' %}
@@ -10,7 +21,13 @@
 		{% endif %}
 		<tr>
 		<th>{{ field.label_tag }}</th>
-		<td>{{ field }}</td>
+		<td>{{ field }} {{ field.errors }}</td>
+		{% if field.help_text %}
+			<tr>
+				<th></th>
+				<td>{{ field.help_text }}</td>
+			</tr>
+		{% endif %}
 		</tr>
 	{% endfor %}
 	<tr><td class="espaco"></td></tr>
