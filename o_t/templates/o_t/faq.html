@@ -1,8 +1,6 @@
 {% extends 'o_t/base.html' %}
 {% load i18n outras_tags %}
 
-{% get_current_language as lang %}
-
 {% block menu %}
 	{% if user.is_authenticated %}
 		<div class="linha menu">
@@ -81,5 +79,4 @@
 	</table>
 
 	{% espaco borda='' %}
-
 {% endblock %}

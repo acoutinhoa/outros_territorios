@@ -45,9 +45,9 @@
 			</p>
 			<p class="texto" style="margin-bottom: 60px;">
 				{% if lang == 'en' and juri.bio_en %}
-					{{ juri.bio_en|linebreaksbr }}
+					{{ juri.bio_en|post }}
 				{% else %}
-					{{ juri.bio|linebreaksbr }}
+					{{ juri.bio|post }}
 				{% endif %}
 			</p>
 		{% empty %}

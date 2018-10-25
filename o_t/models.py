@@ -166,8 +166,9 @@ class Pergunta(models.Model):
 	resposta = models.TextField(blank=True, null=True)
 	resposta_en = models.TextField(blank=True, null=True)
 	data = models.DateTimeField(auto_now_add=True)
+	lang = models.CharField(max_length=5)
 	def __str__(self):
-		return self.pk
+		return self.nome
 	class Meta:
 		ordering = ['-data']
 

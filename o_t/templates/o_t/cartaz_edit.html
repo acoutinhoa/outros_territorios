@@ -2,7 +2,22 @@
 
 {% if user.is_authenticated %}
 <table class="form">
-<form method="POST" enctype="multipart/form-data" >
+	<tr>
+		<th></th>
+		<td><b>Datas</b></td>
+	</tr>
+	<tr>
+		<th></th>
+		<td>evento: data do evento</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td>evento2: data do evento2</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td><b>Texto</b></td>
+	</tr>
 	<tr>
 		<th>bold:</th>
 		<td>[[ b = texto em bold ]]</td>
@@ -11,9 +26,11 @@
 		<th>link:</th>
 		<td>[[ nome = https://www.google.com ]] *nome = output do link </td>
 	</tr>
+	<tr><td class="espaco"></td></tr>
 	<tr><th>__</th></tr>
 	<tr><td class="espaco"></td></tr>
 
+	<form method="POST" enctype="multipart/form-data" >
 	{% csrf_token %}
 	{% for field in cartaz_form %}
 		{% if field.name == 'titulo_en' %}

@@ -19,20 +19,22 @@ def formatadata(text, car='', autoescape=True):
 
 @register.filter(needs_autoescape=True)
 def post(text, imgs={}, autoescape=True):
-	text = text.split('[[')
-	for i, par in enumerate(text[1:]):
-		par = par.split(']]')
-		tipo, info = par[0].split('=')
-		tipo = tira_espacos(tipo)
-		info = tira_espacos(info)
-		if tipo == 'b':
-			info = '<b>%s</b>' % (info)
-		elif tipo == 'img':
-			info = '<img src="%s" alt="%s" class="img_post">' % (imgs[info], info)
-		else:
-			info = '<a href="%s" target="_blank">%s</a>' % (info, tipo)
-		text[i+1] = info + par[-1]
-	return mark_safe(''.join(text).replace('\n','<br>'))
+	if text:
+		text = text.split('[[')
+		for i, par in enumerate(text[1:]):
+			par = par.split(']]')
+			tipo, info = par[0].split('=')
+			tipo = tira_espacos(tipo)
+			info = tira_espacos(info)
+			if tipo == 'b':
+				info = '<b>%s</b>' % (info)
+			elif tipo == 'img':
+				info = '<img src="%s" alt="%s" class="img_post">' % (imgs[info], info)
+			else:
+				info = '<a href="%s" target="_blank">%s</a>' % (info, tipo)
+			text[i+1] = info + par[-1]
+		return mark_safe(''.join(text).replace('\n','<br>'))
+	return ''
 
 def tira_espacos(info):
 	if info[0] == ' ':

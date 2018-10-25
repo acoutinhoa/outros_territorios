@@ -5,6 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.core.mail import BadHeaderError, send_mail, send_mass_mail
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate, get_language
 from random import randint, randrange, choice
 from .forms import *
 from .models import *
@@ -182,6 +183,7 @@ def concurso_edit(request):
 				juri_form.save()
 				if 'juri_submit_home' in request.POST:
 					return redirect('concurso')
+				juri_form = JuriForm(prefix='juri')
 			cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
 			arquivos_form = ArquivoForm(instance=cartaz, prefix='arquivo')
 		elif 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
@@ -413,6 +415,7 @@ def nota_remove(request, pk):
 def faq(request, confirmacao=False, pk=None, slug=None):
 	titulo = _('perguntas frequentes')
 	consulta_form = None
+	lang = get_language()
 
 	if pk or slug:
 		if pk:
@@ -430,7 +433,9 @@ def faq(request, confirmacao=False, pk=None, slug=None):
 	if request.method == 'POST':
 		consulta_form = PerguntaForm(request.POST)
 		if consulta_form.is_valid():
-			pergunta = consulta_form.save()
+			pergunta = consulta_form.save(commit=False)
+			pergunta.lang = request.LANGUAGE_CODE
+			pergunta.save()
 			# enviar email
 			assunto = _('Outros Territórios_consulta')
 			msg = msg_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta)
@@ -442,6 +447,7 @@ def faq(request, confirmacao=False, pk=None, slug=None):
 	return render(request, 'o_t/faq.html', {
 		'titulo': titulo, 
 		'menu': menu, 
+		'lang': lang,
 		'consulta_form': consulta_form,
 		'confirmacao': confirmacao,
 		'respostas': respostas,
@@ -509,17 +515,24 @@ def faq_edit(request, pk=None,):
 def bloco_publish(request, pk):
 	bloco = get_object_or_404(BlocoRespostas, pk=pk)
 	consultas = Pergunta.objects.filter(bloco=bloco)
+	lang = get_language()
+	bloco.publish()
 	# enviar email
-	assunto = _('Outros Territórios_resposta à consulta')
-	link = request.build_absolute_uri(reverse('faq', kwargs={'pk': pk}))
 	msgs = ()
 	for pergunta in consultas:
-		msg = msg_publicacao_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta, resposta=pergunta.resposta, link=link)
+		activate(pergunta.lang)
+		assunto = _('Outros Territórios_resposta à consulta')
+		link = request.build_absolute_uri(reverse('bloco_slug', kwargs={'slug': bloco.slug}))
+		if pergunta.lang == 'en':
+			resposta = pergunta.resposta_en
+		else:
+			resposta = pergunta.resposta
+		msg = msg_publicacao_consulta.format(nome=pergunta.nome, consulta=pergunta.consulta, resposta=resposta, link=link)
 		msg = assunto, msg, settings.EMAIL_HOST_USER, [pergunta.email,]
 		msgs += (msg),
 	send_mass_mail(msgs, fail_silently=False)
-	bloco.publish()
-	return redirect('faq', pk=pk)
+	activate(lang)
+	return redirect('bloco_slug', slug=bloco.slug)
 
 @login_required
 def bloco_remove(request, pk):
@@ -527,3 +540,8 @@ def bloco_remove(request, pk):
     bloco.delete()
     return redirect('faq_edit')
 
+# def handler404(request, exception,):
+#     return render(request, 'error/404.html', {'titulo':'404', 'menu': menu,})
+
+# def handler500(request,):
+#     return render(request, 'error/500.html', {'titulo':'500', 'menu': menu,})

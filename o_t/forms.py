@@ -33,6 +33,9 @@ CartazForm = forms.modelform_factory(
 		'texto': forms.Textarea(attrs={'rows': 20}),
 		'texto_en': forms.Textarea(attrs={'rows': 20}),
 		},
+	help_texts = {
+		# 'datas' : 'evento: data do evento\nevento2: data do evento2\n...',	
+	}, 
 	)
 
 NovaTagForm = forms.modelform_factory(
