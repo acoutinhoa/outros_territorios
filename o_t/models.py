@@ -122,6 +122,8 @@ class Juri(models.Model):
 	bio_en = models.TextField(blank=True)
 	def __str__(self):
 		return self.nome
+	class Meta:
+		ordering = ['nome']
 
 class BlocoRespostas(models.Model):
 	nome = models.CharField(max_length=30)

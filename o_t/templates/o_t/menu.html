@@ -5,10 +5,12 @@
 {% espaco 30 60 %}
 
 <div class="linha menu">
-	{% for lang_code, lang_name in languages %}
-	    <a href="{% change_lang lang_code %}">{{ lang_name }}</a>
-	    {% if not forloop.last %} / {% endif %}
-	{% endfor %}
+	<p>
+		{% for lang_code, lang_name in languages %}
+		    <a href="{% change_lang lang_code %}">{{ lang_name }}</a>
+		    {% if not forloop.last %} / {% endif %}
+		{% endfor %}
+	</p>
 </div>
 
 <div class="linha menu">
@@ -23,6 +25,7 @@
 		{% else %}
 			<p><a href="{{ item_url }}">{{ item }}</a></p>
 		{% endif %}
+		{% if forloop.last %}<p></p>{% endif %}
 	{% endfor %}
 </div>
 

@@ -1,27 +1,42 @@
 {% extends "o_t/base.html" %}
+{% load outras_tags %}
 
-{% block content %}
-    <p class="linha titulo">outros_territorios/login</p>
-    <table class="form linha" style="padding-right: 50%;">
-    <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-        <tr>
-            <th>nome:</th>
-            <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-            <th>senha:</th>
-            <td>{{ form.password }}</td>
-        </tr>
+{% block c0 %}
+    <div class="linha" style="height: {% randint 10 90 %}vh;"></div>
+{% endblock %}
 
-        <tr>
-            <td></td>
-            <td><button type="submit">entrar</button></td>
-        </tr>
-        <input type="hidden" name="next" value="{{ next }}" />
-    </form>
-    </table>
+{% block c1 %}
+    {% espaco %}
+    <div class="cartaz linha">
+        <p class="titulo">outros_territorios/login</p>
+    </div>
+    {% espaco %}
     {% if form.errors %}
-        <p class="linha titulo titulo_">senha e/ou usuário incorretos</p>
+        <div class="post linha">
+            <p class="texto"><b>senha e/ou usuário incorretos</b></p>
+        </div>
     {% endif %}
+    <table class="form linha">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <tr>
+                <th style="width: 100px;">nome:</th>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <th>senha:</th>
+                <td>{{ form.password }}</td>
+            </tr>
+            <tr><td class="espaco"></td></tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">entrar</button></td>
+            </tr>
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    </table>
+{% endblock %}
+
+{% block c2 %}
+    <div class="linha" style="height: {% randint 10 90 %}vh;"></div>
 {% endblock %}
