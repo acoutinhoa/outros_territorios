@@ -11,7 +11,7 @@
     --preto: black;
 
     --cor: var(--preto);
-    --cor-borda: var(--azul);
+    --cor-borda: var(--cinza);
     --cor-link: var(--cinza);
     --cor-hover: var(--azul);
     --cor-titulo: var(--preto);
