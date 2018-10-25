@@ -2,6 +2,8 @@
     --fonte: lehigh, sans-serif;
     --fonte_: frutiger, sans-serif;
 
+    --fonte-titulo: 55px;
+    --fonte-titulo_: 35px;
     --fonte-menu: 16px;
     --fonte-form: 13px;
     --fonte-texto: 14px;
@@ -67,8 +69,10 @@ li {
 .c1 { width: 51%; }
 .c2 { width: 30%; }
 @media only screen and (max-width: 992px) {
-	.c0 { width: 30%; }
-	.c1 { width: 70%; }
+	/*#tudo { position: relative; height: auto; }*/
+	/*.frame { height: auto; }*/
+	.c0 { width: 32%; }
+	.c1 { width: 68%; }
 	.c2 { display: none; }
 } 
 
@@ -113,7 +117,7 @@ img {
 	color: var(--cor-titulo);
 	font-family: var(--fonte);
 	font-weight: bold;
-	font-size: 4vw;
+	font-size: var(--fonte-titulo);
 	text-align: center;	
 	padding: 40px 0;
 }
@@ -141,7 +145,7 @@ img {
 .titulo_ {
 	color: var(--cor-titulo);
 	font-family: var(--fonte);
-	font-size: 2.5vw;
+	font-size: var(--fonte-titulo_);
 	margin-bottom: 50px;
 	margin-top: 15px;
 	font-weight: bold;
