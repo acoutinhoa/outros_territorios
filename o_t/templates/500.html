@@ -1,14 +1,9 @@
-{% extends 'o_t/base.html' %}
+{% extends "o_t/base.html" %}
 {% load outras_tags %}
 
-{% block menu %}
-	{% if user.is_authenticated %}
-		<div class="linha menu">
-			<a href="{% url 'galeria_edit' %}" class="botao"><button type="button">editar</button></a>
-		</div>
-	{% endif %}
+{% block c0 %}
+    <div class="linha" style="height: {% randint 10 90 %}vh;"></div>
 {% endblock %}
-
 
 {% block c1 %}
 	{% espaco %}
@@ -24,9 +19,6 @@
 {% endblock %}
 
 {% block c2 %}
-	<div class="linha" style="height: {% randint 10 90 %}vh;"></div>
+    <div class="linha" style="height: {% randint 10 90 %}vh;"></div>
 {% endblock %}
-
-
-
 
