@@ -23,5 +23,5 @@ urlpatterns += i18n_patterns(
     prefix_default_language=False
 )
 
-handler404 = 'o_t.views.erro404'
-handler500 = 'o_t.views.erro500'
+# handler404 = 'o_t.views.erro404'
+# handler500 = 'o_t.views.erro500'

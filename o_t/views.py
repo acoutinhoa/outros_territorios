@@ -541,8 +541,8 @@ def bloco_remove(request, pk):
     return redirect('faq_edit')
 
 def erro404(request, exception, template_name='404.html'):
-    return render(request, {'titulo':'404', 'menu': menu,})
+    return render(request, {'titulo':'404', 'menu': menu,}, status=404)
 
 def erro500(request, template_name='500.html'):
-    return render(request, {'titulo':'500', 'menu': menu,})
+    return render(request, {'titulo':'500', 'menu': menu,}, status=500)
 
