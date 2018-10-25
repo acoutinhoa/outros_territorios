@@ -1154,51 +1154,51 @@ msgstr ""
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:18
 msgid "January"
-msgstr ""
+msgstr "Janeiro"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:18
 msgid "February"
-msgstr ""
+msgstr "Fevereiro"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:18
 msgid "March"
-msgstr ""
+msgstr "Março"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:18
 msgid "April"
-msgstr ""
+msgstr "Abril"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:18
 msgid "May"
-msgstr ""
+msgstr "Maio"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:18
 msgid "June"
-msgstr ""
+msgstr "Junho"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:19
 msgid "July"
-msgstr ""
+msgstr "Julho"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:19
 msgid "August"
-msgstr ""
+msgstr "Agosto"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:19
 msgid "September"
-msgstr ""
+msgstr "Setembro"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:19
 msgid "October"
-msgstr ""
+msgstr "Outubro"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:19
 msgid "November"
-msgstr ""
+msgstr "Novembro"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:20
 msgid "December"
-msgstr ""
+msgstr "Dezembro"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:23
 msgid "jan"
@@ -1206,7 +1206,7 @@ msgstr ""
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:23
 msgid "feb"
-msgstr ""
+msgstr "fev"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:23
 msgid "mar"
@@ -1214,11 +1214,11 @@ msgstr ""
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:23
 msgid "apr"
-msgstr ""
+msgstr "abr"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:23
 msgid "may"
-msgstr ""
+msgstr "mai"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:23
 msgid "jun"
@@ -1230,15 +1230,15 @@ msgstr ""
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:24
 msgid "aug"
-msgstr ""
+msgstr "ago"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:24
 msgid "sep"
-msgstr ""
+msgstr "set"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:24
 msgid "oct"
-msgstr ""
+msgstr "out"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:24
 msgid "nov"
@@ -1246,7 +1246,7 @@ msgstr ""
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:24
 msgid "dec"
-msgstr ""
+msgstr "dez"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:31
 msgctxt "abbrev. month"
@@ -1256,47 +1256,47 @@ msgstr ""
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:32
 msgctxt "abbrev. month"
 msgid "Feb."
-msgstr ""
+msgstr "Fev."
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:33
 msgctxt "abbrev. month"
 msgid "March"
-msgstr ""
+msgstr "Março"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:34
 msgctxt "abbrev. month"
 msgid "April"
-msgstr ""
+msgstr "Abril"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:35
 msgctxt "abbrev. month"
 msgid "May"
-msgstr ""
+msgstr "Maio"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:36
 msgctxt "abbrev. month"
 msgid "June"
-msgstr ""
+msgstr "Junho"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:37
 msgctxt "abbrev. month"
 msgid "July"
-msgstr ""
+msgstr "Julho"
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:38
 msgctxt "abbrev. month"
 msgid "Aug."
-msgstr ""
+msgstr "Ago."
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:39
 msgctxt "abbrev. month"
 msgid "Sept."
-msgstr ""
+msgstr "Set."
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:40
 msgctxt "abbrev. month"
 msgid "Oct."
-msgstr ""
+msgstr "Out."
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:41
 msgctxt "abbrev. month"
@@ -1306,7 +1306,7 @@ msgstr ""
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:42
 msgctxt "abbrev. month"
 msgid "Dec."
-msgstr ""
+msgstr "Dez."
 
 #: s2/lib/python3.7/site-packages/django/utils/dates.py:45
 msgctxt "alt. month"
