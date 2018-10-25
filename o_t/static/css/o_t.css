@@ -147,7 +147,7 @@ img {
 .data_ {
 	font-family: var(--fonte_);
 	font-size: 12px;
-	padding: 50px 0 30px 0;
+	padding: 50px 0 0 0;
 	text-align: right;
 }
 .texto, .texto a:link, .texto li {
@@ -160,13 +160,13 @@ img {
 	font-weight: bold;
 	margin-bottom: 13px;
 }
-.tags, .tags li  { 
+.tags { 
+	padding: 30px 0 0 0;
+}
+.tags li  { 
 	width: auto;
 	float: left;
 	display: inline;
-	padding: 0 0 30px 0;
-}
-.tags li  { 
 	padding: 0 15px 0px 0;
 }
 .respostas {
