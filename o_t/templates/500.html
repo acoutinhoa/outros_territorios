@@ -1,24 +1,21 @@
 {% extends "o_t/base.html" %}
-{% load o_t.outras_tags %}
 
 {% block c0 %}
-    <div class="linha" style="height: {% randint 10 90 %}vh;"></div>
+    <div class="linha" style="height: 50vh;"></div>
 {% endblock %}
 
 {% block c1 %}
-	{% espaco %}
 	<div class="cartaz linha">
-		<p class="titulo">{% trans 'erro 500' %}</p>
+		<p class="titulo">error 500</p>
 	</div>
 
-	{% randint 30 70 as largura %}
 	<div class="cartaz">
-		<div class="post coluna" style="width: {{ largura }}%; height: 100vh;"></div>
-		<div class="post linha data" style="width: {% cem largura %}%;"></div>
+		<div class="post coluna" style="width: 30%; height: 100vh;"></div>
+		<div class="post linha data" style="width: 70%;"></div>
 	</div>
 {% endblock %}
 
 {% block c2 %}
-    <div class="linha" style="height: {% randint 10 90 %}vh;"></div>
+    <div class="linha" style="height: 30vh;"></div>
 {% endblock %}
 
