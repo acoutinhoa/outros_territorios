@@ -48,6 +48,3 @@ urlpatterns = [
     path('blog/', include(blog_patterns)),
 ]
 
-# handler404 = 'views.erro404'
-# handler500 = 'views.erro500'
-
