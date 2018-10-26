@@ -4,16 +4,26 @@
 
 {% espaco 30 60 %}
 
-<div class="linha menu">
-	<p>
-		{% for lang_code, lang_name in languages %}
-		    <a href="{% change_lang lang_code %}">{{ lang_name }}</a>
-		    {% if not forloop.last %} / {% endif %}
-		{% endfor %}
-	</p>
+
+<div class="menu_celular">
+	<div class="linha menu">
+		<p>
+			{% for lang_code, lang_name in languages %}
+			    <a href="{% change_lang lang_code %}">{{ lang_name }}</a>
+			    {% if not forloop.last %} / {% endif %}
+			{% endfor %}
+		</p>
+	</div>
+	<div class="linha menu celular">
+		<p>
+			<a href="https://www.facebook.com/outrosterritorios" target="_blank">facebook</a>
+			 / 
+			<a href="https://www.instagram.com/outrosterritorios" target="_blank">instagram</a>
+		</p>
+	</div>
 </div>
 
-<div class="linha menu">
+<div class="linha menu menu_celular" style="border-left: none;">
 	{% for item, item_url, info in menu %}
 		{% if info %}
 			<p class="submenu_hover"><a href="{{ item_url }}">{{ item }}</a></p>
@@ -29,7 +39,7 @@
 	{% endfor %}
 </div>
 
-<div class="linha menu">
+<div class="linha menu esconde">
 	<p>
 		<a href="https://www.facebook.com/outrosterritorios" target="_blank">facebook</a>
 		 / 
