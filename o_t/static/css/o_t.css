@@ -129,18 +129,18 @@ img {
 .post {
 	float: left;
 	width: 100%;
-	padding: 9vh 4vw;
+	padding: 9vh 3vw;
 }
 .img_post{
-	margin-left: -4vw;
-	width: calc(100% + 8vw);
+	margin-left: -3vw;
+	width: calc(100% + 6vw);
 }
 .titulo_ {
 	color: var(--cor-titulo);
 	font-family: var(--fonte);
 	font-size: var(--fonte-titulo_);
 	margin-bottom: 50px;
-	margin-top: 15px;
+	margin-top: 10px;
 	font-weight: bold;
 }
 .data_ {
@@ -264,9 +264,9 @@ button:hover, .form button:hover {
 .a2a_svg, .a2a_count { border-radius: 0 !important; }
 
 .celular { display: none; }
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 900px) {
 	:root {
-	    --fonte-titulo: 40px;
+	    --fonte-titulo: 35px;
 	    --fonte-titulo_: 20px;
 	    --fonte-menu: 14px;
 	    --fonte-form: 12px;
