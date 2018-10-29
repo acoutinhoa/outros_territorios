@@ -191,7 +191,6 @@ table {
     width: 112%;
 	border-bottom: var(--cor) solid var(--borda-link);
 	padding: 0px 5px;
-	-webkit-appearance: none;
 	-webkit-border-radius: 0px;
 }
 .form textarea {
