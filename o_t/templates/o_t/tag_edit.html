@@ -17,18 +17,20 @@
 				<button type="submit" name="tag_submit">+</button>
 			</td>
 		</tr>
-		<tr><td class="espaco"></td></tr>
-		<tr><td class="espaco"></td></tr>
-		{% for form in tag_form.initial_forms %}
-			{{ form }}
+		{% if tag_form.initial_forms %}
 			<tr><td class="espaco"></td></tr>
-		{% endfor %}
-		<tr>
-			<td></td>
-			<td>
-				<button type="submit" name="tag_submit">+</button>
-			</td>
-		</tr>
+			<tr><td class="espaco"></td></tr>
+			{% for form in tag_form.initial_forms %}
+				{{ form }}
+				<tr><td class="espaco"></td></tr>
+			{% endfor %}
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit" name="tag_submit">+</button>
+				</td>
+			</tr>
+		{% endif %}
 	</form>
 </table>
 {% endif %}

@@ -16,16 +16,28 @@
 
 		{% if faq %}
 			{{ faq.management_form }}
-			{% for form in faq %}
+			{% for form in faq.extra_forms %}
 				{{ form }}
 				<tr><td class="espaco"></td></tr>
 			{% endfor %}
-			<td></td>
-			<td>
+			<tr>
+				<td></td><td>
 				<button type="submit" name="faq_submit">+</button>
 				<button type="submit" name="faq_submit_home">salvar</button>
-			</td>
-
+				</td>
+			</tr>
+			<tr><td class="espaco"></td></tr>
+			<tr><td class="espaco"></td></tr>
+			{% for form in faq.initial_forms %}
+				{{ form }}
+				<tr><td class="espaco"></td></tr>
+			{% endfor %}
+			<tr>
+				<td></td><td>
+				<button type="submit" name="faq_submit">+</button>
+				<button type="submit" name="faq_submit_home">salvar</button>
+				</td>
+			</tr>
 		{% else %}
 			{{ bloco_form }}
 			{% if bloco_form.instance.slug %}

@@ -15,18 +15,20 @@
 					<button type="submit" name="juri_submit_home">salvar</button>
 				</td>
 			</tr>
-			<tr><td class="espaco"></td></tr>
-			<tr><td class="espaco"></td></tr>
-			{% for form in juri_form.initial_forms %}
-				{{ form }}
+			{% if juri_form.initial_forms %}
 				<tr><td class="espaco"></td></tr>
-			{% endfor %}
-			<tr>
-				<td></td><td>
-					<button type="submit" name="juri_submit">+</button>
-					<button type="submit" name="juri_submit_home">salvar</button>
-				</td>
-			</tr>
+				<tr><td class="espaco"></td></tr>
+				{% for form in juri_form.initial_forms %}
+					{{ form }}
+					<tr><td class="espaco"></td></tr>
+				{% endfor %}
+				<tr>
+					<td></td><td>
+						<button type="submit" name="juri_submit">+</button>
+						<button type="submit" name="juri_submit_home">salvar</button>
+					</td>
+				</tr>
+			{% endif %}
 		</form>
 	</table>
 {% endif %}
