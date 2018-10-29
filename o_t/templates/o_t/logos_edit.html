@@ -5,14 +5,27 @@
 	<form method="POST" enctype="multipart/form-data" >
 		{% csrf_token %}
 		{{ logos_form.management_form }}
-		{% for form in logos_form %}
+		{% for form in logos_form.extra_forms %}
 			{{ form }}
 			<tr><td class="espaco"></td></tr>
 		{% endfor %}
 		<tr>
 			<td></td>
 			<td>
-				<button type="submit" name="logos_submit">+ logo</button>
+				<button type="submit" name="logos_submit">+</button>
+				<button type="submit" name="logos_submit_home">salvar</button>
+			</td>
+		</tr>
+		<tr><td class="espaco"></td></tr>
+		<tr><td class="espaco"></td></tr>
+		{% for form in logos_form.initial_forms %}
+			{{ form }}
+			<tr><td class="espaco"></td></tr>
+		{% endfor %}
+		<tr>
+			<td></td>
+			<td>
+				<button type="submit" name="logos_submit">+</button>
 				<button type="submit" name="logos_submit_home">salvar</button>
 			</td>
 		</tr>

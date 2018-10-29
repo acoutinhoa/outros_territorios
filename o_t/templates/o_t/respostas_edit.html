@@ -22,7 +22,7 @@
 			{% endfor %}
 			<td></td>
 			<td>
-				<button type="submit" name="faq_submit">+ resposta</button>
+				<button type="submit" name="faq_submit">+</button>
 				<button type="submit" name="faq_submit_home">salvar</button>
 			</td>
 
@@ -40,6 +40,7 @@
 					<td>{{ bloco_form.instance.slug_en }}</td>
 				</tr>
 			{% endif %}
+			<tr><th>__</th></tr>
 			<tr><td class="espaco"></td></tr>
 			{{ respostas.management_form }}
 			{% for form in respostas %}

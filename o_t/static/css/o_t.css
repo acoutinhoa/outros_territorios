@@ -190,7 +190,7 @@ table {
 .form textarea, .form input {
     width: 112%;
 	border-bottom: var(--cor) solid var(--borda-link);
-	padding: 0px 5px;
+	padding: 0px 12px 0 6px ;
 	-webkit-border-radius: 0px;
 }
 .form textarea {

@@ -5,14 +5,25 @@
 		<form method="POST">
 			{% csrf_token %}
 			{{ juri_form.management_form }}
-			{% for form in juri_form %}
+			{% for form in juri_form.extra_forms %}
 				{{ form }}
 				<tr><td class="espaco"></td></tr>
 			{% endfor %}
 			<tr>
-				<td></td>
-				<td>
-					<button type="submit" name="juri_submit">+ juri</button>
+				<td></td><td>
+					<button type="submit" name="juri_submit">+</button>
+					<button type="submit" name="juri_submit_home">salvar</button>
+				</td>
+			</tr>
+			<tr><td class="espaco"></td></tr>
+			<tr><td class="espaco"></td></tr>
+			{% for form in juri_form.initial_forms %}
+				{{ form }}
+				<tr><td class="espaco"></td></tr>
+			{% endfor %}
+			<tr>
+				<td></td><td>
+					<button type="submit" name="juri_submit">+</button>
 					<button type="submit" name="juri_submit_home">salvar</button>
 				</td>
 			</tr>

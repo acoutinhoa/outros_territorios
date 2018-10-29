@@ -38,15 +38,10 @@ CartazForm = forms.modelform_factory(
 	}, 
 	)
 
-NovaTagForm = forms.modelform_factory(
-	Tag,
-	fields = ('tag', 'tag_en'),
-	)
-
 TagForm = forms.modelformset_factory(
 	Tag,
 	fields = ('tag', 'tag_en'),
-	extra=0, 
+	extra=1, 
 	can_delete=True,
 	)
 

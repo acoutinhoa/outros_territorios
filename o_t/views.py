@@ -361,20 +361,12 @@ def blog_edit(request, pk=None):
 					else:
 						return redirect('nota_edit', pk=nota.pk)
 			tag_form = TagForm(prefix='tag')
-			novatag_form = NovaTagForm(prefix='novatag')
 		else:
 			if 'tag_submit' in request.POST:
 				tag_form = TagForm(request.POST, prefix='tag')
 				if tag_form.is_valid():
 					tag_form.save()
 					tag_form = TagForm(prefix='tag')
-				novatag_form = NovaTagForm(prefix='novatag')
-			elif 'novatag_submit' in request.POST:
-				novatag_form = NovaTagForm(request.POST, prefix='novatag')
-				if novatag_form.is_valid():
-					novatag_form.save()
-					novatag_form = NovaTagForm(prefix='novatag')
-				tag_form = TagForm(prefix='tag')
 			if nota:
 				nota_form = NotaForm(instance=nota, prefix='nota')
 				imagem_form = ImagemForm(instance=nota, prefix='img')
@@ -387,7 +379,6 @@ def blog_edit(request, pk=None):
 		else:
 			nota_form = NotaForm(prefix='nota')
 		tag_form = TagForm(prefix='tag')
-		novatag_form = NovaTagForm(prefix='novatag')
 
 	return render(request, 'o_t/blog_edit.html', {
 		'titulo': titulo, 
@@ -396,7 +387,6 @@ def blog_edit(request, pk=None):
 		'nota_form': nota_form,
 		'imagem_form': imagem_form,
 		'tag_form': tag_form,
-		'novatag_form': novatag_form,
 		})
 
 @login_required
