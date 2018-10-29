@@ -118,7 +118,6 @@ img {
 .data {
 	font-family: var(--fonte);
 	font-size: 22px;
-	padding: 7vh 3vw;	
 }
 .logos {
 	width: auto; 
@@ -267,9 +266,9 @@ button:hover, .form button:hover {
 	:root {
 	    --fonte-titulo: 50px;
 	    --fonte-titulo_: 30px;
-	    --fonte-menu: 15px;
+	    --fonte-menu: 14px;
 	    --fonte-form: 12px;
-	    --fonte-texto: 13px;
+	    --fonte-texto: 12px;
 	}
 	#tudo { position: relative; height: auto; }
 	.frame { width: 100%; height: auto; }
