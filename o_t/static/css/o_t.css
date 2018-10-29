@@ -113,11 +113,11 @@ img {
 	font-weight: bold;
 	font-size: var(--fonte-titulo);
 	text-align: center;	
-	padding: 40px 0;
+	padding: 6vh 0;
 }
 .data {
 	font-family: var(--fonte);
-	font-size: 22px;
+	font-size: 21px;
 }
 .logos {
 	width: auto; 
@@ -129,11 +129,11 @@ img {
 .post {
 	float: left;
 	width: 100%;
-	padding: 60px 40px;
+	padding: 9vh 4vw;
 }
 .img_post{
-	margin-left: -40px;
-	width: calc(100% + 80px);
+	margin-left: -4vw;
+	width: calc(100% + 8vw);
 }
 .titulo_ {
 	color: var(--cor-titulo);
@@ -191,6 +191,8 @@ table {
     width: 112%;
 	border-bottom: var(--cor) solid var(--borda-link);
 	padding: 0px 5px;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0px;
 }
 .form textarea {
     width: 100%;
@@ -264,8 +266,8 @@ button:hover, .form button:hover {
 .celular { display: none; }
 @media only screen and (max-width: 992px) {
 	:root {
-	    --fonte-titulo: 50px;
-	    --fonte-titulo_: 30px;
+	    --fonte-titulo: 40px;
+	    --fonte-titulo_: 20px;
 	    --fonte-menu: 14px;
 	    --fonte-form: 12px;
 	    --fonte-texto: 12px;
