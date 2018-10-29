@@ -282,7 +282,7 @@ button:hover, .form button:hover {
 		width: 50%; 
 		display: 
 		inline-block; 
-		height: calc(250px + 4vw);
+		height: 280px;
 		border-left: solid var(--cor-borda) var(--borda);
 		border-bottom: solid var(--cor-borda) var(--borda);
 	}
