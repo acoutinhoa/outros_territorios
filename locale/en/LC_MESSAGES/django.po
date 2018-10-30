@@ -32,7 +32,7 @@ msgstr ""
 
 #: o_t/models.py:188 o_t/models.py:225 o_t/models.py:276
 msgid "nome"
-msgstr "First name"
+msgstr "name"
 
 #: o_t/models.py:190
 msgid "consulta"
