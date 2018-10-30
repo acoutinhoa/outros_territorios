@@ -13,6 +13,7 @@ urlpatterns = [
     path('accounts/logout/', views.LogoutView.as_view(next_page='/'), name='logout'),
 	# path('accounts/', include('django.contrib.auth.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
+    # path('chaining/', include('smart_selects.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

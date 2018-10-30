@@ -4,13 +4,38 @@ from datetime import date
 from django.utils.text import slugify
 import uuid, random
 from django.utils.translation import gettext_lazy as _
+from django_countries.fields import CountryField
+# from smart_selects.db_fields import ChainedForeignKey
 
-class Pagina(models.Model):
-	nome = models.CharField(max_length=20)
-	texto = models.TextField(blank=True)
-	texto_en = models.TextField(blank=True)
-	def __str__(self):
-		return self.nome
+# from cities_light.abstract_models import (AbstractCity, AbstractRegion,
+#     AbstractCountry)
+# from cities_light.receivers import connect_default_signals
+
+
+# class Country(AbstractCountry):
+#     pass
+# connect_default_signals(Country)
+
+# class Region(AbstractRegion):
+#     pass
+# connect_default_signals(Region)
+
+# class City(AbstractCity):
+#     pass
+# connect_default_signals(City)
+
+# class Pais(models.Model):
+# 	nome = models.CharField(max_length=100)
+# 	codigo = models.CharField(max_length=2)
+# 	def __str__(self):
+# 		return self.nome
+
+# class Estado(models.Model):
+# 	pais = models.ForeignKey('Pais', on_delete=models.CASCADE)
+# 	nome = models.CharField(max_length=100)
+# 	def __str__(self):
+# 		return self.nome
+
 
 class Cartaz(models.Model):
 	pagina = models.CharField(max_length=20)
@@ -228,13 +253,20 @@ class Dados(models.Model):
 	cpf = models.CharField(_('CPF/CNPJ'), max_length=30, unique=True)
 	celular = models.CharField(_('celular'), max_length=20)
 
-	rua = models.CharField(_('endereço'), max_length=60)
+	pais = CountryField(default='BR')
+	rua = models.CharField(_('endereço'), max_length=100)
 	complemento = models.CharField(_('complemento'), max_length=20, blank=True)
-	bairro = models.CharField(_('bairro'), max_length=20)
-	cidade = models.CharField(_('cidade'), max_length=20)
-	estado = models.CharField(_('estado'), max_length=2)
+	bairro = models.CharField(_('bairro'), max_length=30)
+	cidade = models.CharField(_('cidade'), max_length=50)
+	estado = models.CharField(_('estado'), max_length=4,)
 	cep = models.CharField(_('CEP'), max_length=15)
-	pais = models.CharField(_('país'), max_length=20)
+
+	# pais = models.ForeignKey('Pais', on_delete=models.SET_NULL, null=True)
+	# estado = models.ForeignKey('Estado', on_delete=models.SET_NULL, null=True)
+	# estado = ChainedForeignKey(
+	# 	'Estado',
+	# 	chained_field="pais",
+	# 	chained_model_field="pais",)
 
 	def __str__(self):
 		return self.inscricao.nome
