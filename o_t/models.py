@@ -253,7 +253,7 @@ class Dados(models.Model):
 	cpf = models.CharField(_('CPF/CNPJ'), max_length=30, unique=True)
 	celular = models.CharField(_('celular'), max_length=20)
 
-	pais = CountryField(default='BR')
+	pais = CountryField(_('país'), default='BR')
 	rua = models.CharField(_('endereço'), max_length=100)
 	complemento = models.CharField(_('complemento'), max_length=20, blank=True)
 	bairro = models.CharField(_('bairro'), max_length=30)

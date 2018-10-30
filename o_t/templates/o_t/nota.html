@@ -57,7 +57,7 @@
 			{% url 'blog' pk=nota.pk as nota_link %}	
 		{% endif %}
 	{% endif %}
-	<div class="a2a_kit a2a_kit_size_32 a2a_default_style cartaz tags" data-a2a-url="{{ request.scheme }}://{{ request.get_host }}{{ nota_link }}" data-a2a-title="{% trans 'Outros Territórios_' %}{{ titulo }}" data-a2a-icon-color="var(--cinza),white">
+	<div class="a2a_kit a2a_kit_size_32 a2a_default_style cartaz tags" data-a2a-url="{{ request.scheme }}://{{ request.get_host }}{{ nota_link }}" data-a2a-title="{% trans 'Outros Territórios' %}_{{ titulo }}" data-a2a-icon-color="var(--cinza),white">
 	    <a class="a2a_button_facebook botao"></a>
 		<!-- <a class="a2a_button_google_plus botao""></a> -->
 		<a class="a2a_button_twitter botao""></a>
