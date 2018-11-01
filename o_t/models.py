@@ -5,37 +5,6 @@ from django.utils.text import slugify
 import uuid, random
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
-# from smart_selects.db_fields import ChainedForeignKey
-
-# from cities_light.abstract_models import (AbstractCity, AbstractRegion,
-#     AbstractCountry)
-# from cities_light.receivers import connect_default_signals
-
-
-# class Country(AbstractCountry):
-#     pass
-# connect_default_signals(Country)
-
-# class Region(AbstractRegion):
-#     pass
-# connect_default_signals(Region)
-
-# class City(AbstractCity):
-#     pass
-# connect_default_signals(City)
-
-# class Pais(models.Model):
-# 	nome = models.CharField(max_length=100)
-# 	codigo = models.CharField(max_length=2)
-# 	def __str__(self):
-# 		return self.nome
-
-# class Estado(models.Model):
-# 	pais = models.ForeignKey('Pais', on_delete=models.CASCADE)
-# 	nome = models.CharField(max_length=100)
-# 	def __str__(self):
-# 		return self.nome
-
 
 class Cartaz(models.Model):
 	pagina = models.CharField(max_length=20)
@@ -261,12 +230,23 @@ class Dados(models.Model):
 	estado = models.CharField(_('estado'), max_length=4,)
 	cep = models.CharField(_('CEP'), max_length=15)
 
-	# pais = models.ForeignKey('Pais', on_delete=models.SET_NULL, null=True)
-	# estado = models.ForeignKey('Estado', on_delete=models.SET_NULL, null=True)
+	# pais = models.ForeignKey('Country', verbose_name=_('país'), default='31', on_delete=models.SET_NULL, null=True)
 	# estado = ChainedForeignKey(
-	# 	'Estado',
+	# 	'Region',
 	# 	chained_field="pais",
-	# 	chained_model_field="pais",)
+	# 	chained_model_field="country",
+	# 	show_all=False, 
+	# 	auto_choose=True, 
+	# 	sort=True
+	# )
+	# cidade = ChainedForeignKey(
+	# 	'City',
+	# 	chained_field="estado",
+	# 	chained_model_field="region",
+	# 	show_all=False, 
+	# 	auto_choose=True, 
+	# 	sort=True
+	# )
 
 	def __str__(self):
 		return self.inscricao.nome

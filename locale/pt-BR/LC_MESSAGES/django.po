@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 15:35-0300\n"
+"POT-Creation-Date: 2018-11-01 12:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,147 +18,147 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: o_t/models.py:57
+#: o_t/models.py:26
 msgid "organização"
 msgstr ""
 
-#: o_t/models.py:58
+#: o_t/models.py:27
 msgid "patrocínio"
 msgstr ""
 
-#: o_t/models.py:59
+#: o_t/models.py:28
 msgid "apoio"
 msgstr ""
 
-#: o_t/models.py:188 o_t/models.py:225 o_t/models.py:276
+#: o_t/models.py:157 o_t/models.py:194 o_t/models.py:256
 msgid "nome"
 msgstr ""
 
-#: o_t/models.py:190
+#: o_t/models.py:159
 msgid "consulta"
 msgstr ""
 
-#: o_t/models.py:216
+#: o_t/models.py:185
 msgid "Arquitetura"
 msgstr ""
 
-#: o_t/models.py:217
+#: o_t/models.py:186
 msgid "Artes Visuais"
 msgstr ""
 
-#: o_t/models.py:218
+#: o_t/models.py:187
 msgid "Artes Performáticas"
 msgstr ""
 
-#: o_t/models.py:219
+#: o_t/models.py:188
 msgid "Design"
 msgstr ""
 
-#: o_t/models.py:220
+#: o_t/models.py:189
 msgid "Paisagismo"
 msgstr ""
 
-#: o_t/models.py:226 o_t/models.py:277
+#: o_t/models.py:195 o_t/models.py:257
 msgid "sobrenome"
 msgstr ""
 
-#: o_t/models.py:227
+#: o_t/models.py:196
 msgid "área"
 msgstr ""
 
-#: o_t/models.py:252
+#: o_t/models.py:221
 msgid "nascimento"
 msgstr ""
 
-#: o_t/models.py:253
+#: o_t/models.py:222
 msgid "CPF/CNPJ"
 msgstr ""
 
-#: o_t/models.py:254
+#: o_t/models.py:223
 msgid "celular"
 msgstr ""
 
-#: o_t/models.py:256
+#: o_t/models.py:225
 msgid "país"
 msgstr ""
 
-#: o_t/models.py:257
+#: o_t/models.py:226
 msgid "endereço"
 msgstr ""
 
-#: o_t/models.py:258
+#: o_t/models.py:227
 msgid "complemento"
 msgstr ""
 
-#: o_t/models.py:259
+#: o_t/models.py:228
 msgid "bairro"
 msgstr ""
 
-#: o_t/models.py:260
+#: o_t/models.py:229
 msgid "cidade"
 msgstr ""
 
-#: o_t/models.py:261
+#: o_t/models.py:230
 msgid "estado"
 msgstr ""
 
-#: o_t/models.py:262
+#: o_t/models.py:231
 msgid "CEP"
 msgstr ""
 
-#: o_t/models.py:288
+#: o_t/models.py:268
 msgid "01. Cônsul Walter 425: palafita-pomar"
 msgstr ""
 
-#: o_t/models.py:289
+#: o_t/models.py:269
 msgid "02. Cônsul Walter 437: palafita-caverna"
 msgstr ""
 
-#: o_t/models.py:290
+#: o_t/models.py:270
 msgid "03. Cônsul Walter 483: palafita-empena"
 msgstr ""
 
-#: o_t/models.py:291
+#: o_t/models.py:271
 msgid "04. Cônsul Walter 511: palafita-indiscreta"
 msgstr ""
 
-#: o_t/models.py:292
+#: o_t/models.py:272
 msgid "05. Teresa Mota Valadares 76: palafita-caleidoscópica"
 msgstr ""
 
-#: o_t/models.py:293
+#: o_t/models.py:273
 msgid "06. Fidélis Martins 173: palafita-esbelta"
 msgstr ""
 
-#: o_t/models.py:294
+#: o_t/models.py:274
 msgid "07. Maria Heilbuth Surete 1223: palafita-dos-cachorros"
 msgstr ""
 
-#: o_t/models.py:295
+#: o_t/models.py:275
 msgid "08. Maria Heilbuth Surete 1159: palafita-comum"
 msgstr ""
 
-#: o_t/models.py:296
+#: o_t/models.py:276
 msgid "09. Maria Heilbuth Surete 1193: palafita-gigante-I"
 msgstr ""
 
-#: o_t/models.py:297
+#: o_t/models.py:277
 msgid "10. Maria Heilbuth Surete 1295: palafita-gigante-II"
 msgstr ""
 
-#: o_t/models.py:302
+#: o_t/models.py:282
 msgid "título"
 msgstr ""
 
-#: o_t/models.py:303
+#: o_t/models.py:283
 msgid "descrição"
 msgstr ""
 
-#: o_t/models.py:304
+#: o_t/models.py:284
 msgid "imagem"
 msgstr ""
 
-#: o_t/models.py:305 o_t/templates/o_t/notas_lista.html:8
+#: o_t/models.py:285 o_t/templates/o_t/notas_lista.html:8
 msgid "arquivo"
 msgstr ""
 
