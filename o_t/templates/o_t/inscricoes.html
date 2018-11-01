@@ -1,6 +1,8 @@
 {% extends 'o_t/base.html' %}
 {% load i18n outras_tags %}
 
+{% get_current_language as lang %}
+
 <!-- info -->
 {% block c0 %}
     {% espaco %}
@@ -35,13 +37,15 @@
             E-mail<br>
             <b>{{ inscricao.email }}</b><br><br>
             {% trans 'Área de atuação profissional' %}<br>
-            <b>{{ inscricao.area}}</b><br><br><br><br>
+            <b>{{ inscricao.select_verbose }}</b><br><br><br><br>
 
 
         {% for field in dados_form %}
             {{ field.label }}<br><b>
             {% if field.name == 'nascimento'%}
                 {{ field.value }}
+            {% elif field.name == 'pais' %}
+                {{ dados_form.instance.select_verbose }}
             {% else %}
                 {{ field.value|title }}
             {% endif %}</b><br><br>

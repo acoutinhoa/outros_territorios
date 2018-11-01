@@ -27,7 +27,7 @@
 {% block content %}
 <div id="tudo">
 
-<div class="frame coluna c0">
+<div class="frame coluna c0" {% if c0 %}style="width:{{ c0 }}%"{% endif %}>
 {% block c0 %}
     {% include 'o_t/menu.html' %}
     {% block menu %}
@@ -35,12 +35,12 @@
 {% endblock %}
 </div>
 
-<div class="frame coluna c1">
+<div class="frame coluna c1" {% if c1 %}style="width:{{ c1 }}%"{% endif %}>
 {% block c1 %}
 {% endblock %}
 </div>
 
-<div class="frame coluna c2">
+<div class="frame coluna c2" {% if c2 %}style="width:{{ c2 }}%"{% endif %}>
 {% block c2 %}
 {% endblock %}
 </div>

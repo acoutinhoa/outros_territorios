@@ -163,7 +163,7 @@ ProjetoForm = forms.modelform_factory(
 	Projeto,
 	exclude = ('inscricao','slug'), 
 	widgets = {
-		'texto': forms.Textarea(attrs={'rows': 20}),
+		'texto': forms.Textarea(attrs={'rows': 30}),
 		},
 	)
 

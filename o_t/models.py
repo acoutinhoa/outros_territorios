@@ -5,6 +5,7 @@ from django.utils.text import slugify
 import uuid, random
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
+from django_countries import countries
 
 class Cartaz(models.Model):
 	pagina = models.CharField(max_length=20)
@@ -213,6 +214,8 @@ class Inscricao(models.Model):
 		if not self.codigo:
 			self.codigo = self.novo_codigo()
 		super().save(*args, **kwargs)
+	def select_verbose(self):
+		return dict(Inscricao.areas)[self.area]
 
 
 class Dados(models.Model):
@@ -230,26 +233,10 @@ class Dados(models.Model):
 	estado = models.CharField(_('estado'), max_length=4,)
 	cep = models.CharField(_('CEP'), max_length=15)
 
-	# pais = models.ForeignKey('Country', verbose_name=_('país'), default='31', on_delete=models.SET_NULL, null=True)
-	# estado = ChainedForeignKey(
-	# 	'Region',
-	# 	chained_field="pais",
-	# 	chained_model_field="country",
-	# 	show_all=False, 
-	# 	auto_choose=True, 
-	# 	sort=True
-	# )
-	# cidade = ChainedForeignKey(
-	# 	'City',
-	# 	chained_field="estado",
-	# 	chained_model_field="region",
-	# 	show_all=False, 
-	# 	auto_choose=True, 
-	# 	sort=True
-	# )
-
 	def __str__(self):
 		return self.inscricao.nome
+	def select_verbose(self):
+		return dict(countries)[self.pais]
 
 class Equipe(models.Model):
 	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
@@ -285,5 +272,5 @@ class Projeto(models.Model):
 	arquivo = models.FileField(_('arquivo'), upload_to = inscricao_filepath, blank=True)
 	def __str__(self):
 		return self.nome
-	def palafita_verbose(self):
+	def select_verbose(self):
 		return dict(Projeto.palafitas)[self.palafita]
