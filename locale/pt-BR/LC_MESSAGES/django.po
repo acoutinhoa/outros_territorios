@@ -417,11 +417,11 @@ msgstr ""
 
 #: o_t/views.py:140
 msgid "Outros Territórios_confirmação de inscrição"
-msgstr ""
+msgstr "Other Territories_registration confirmation"
 
 #: o_t/views.py:152
 msgid "Outros Territórios_reenvio de link"
-msgstr ""
+msgstr "Other Territories_submission link"
 
 #: o_t/views.py:224
 msgid ""
@@ -431,7 +431,7 @@ msgstr ""
 
 #: o_t/views.py:430
 msgid "Outros Territórios_consulta"
-msgstr ""
+msgstr "Other Territories_ queries"
 
 #: o_t/views.py:514
 msgid "Outros Territórios_resposta à consulta"

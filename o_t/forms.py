@@ -140,11 +140,6 @@ DadosForm = forms.modelform_factory(
 	widgets = {
 	'nascimento': forms.SelectDateWidget(
 		years = range(1900, 2001),
-		months = {
-		    1:('01'), 2:('02'), 3:('03'), 4:('04'),
-		    5:('05'), 6:('06'), 7:('07'), 8:('08'),
-		    9:('09'), 10:('10'), 11:('11'), 12:('12')
-			},
 		)
 	}, 
 	labels = None, 
