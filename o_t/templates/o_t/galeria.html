@@ -13,13 +13,17 @@
 {% block c1 %}
 	{% if edit %}
 		{% include 'o_t/cartaz_edit.html' %}
+	{% elif user.is_authenticated %}
 	{% else %}
 		{% include 'o_t/galeria_cartaz.html' %}
 	{% endif %}
 {% endblock %}
 
 {% block c2 %}
-	<div class="linha" style="height: {% randint 10 90 %}vh;"></div>
+	{% if user.is_authenticated %}
+	{% else %}
+		<div class="linha" style="height: {% randint 10 90 %}vh;"></div>
+	{% endif %}
 {% endblock %}
 
 

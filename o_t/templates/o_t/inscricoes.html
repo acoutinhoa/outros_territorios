@@ -31,7 +31,7 @@
     </div>
 
     <div class="post">
-        <p class="texto">
+        <p class="form">
             {% trans 'Nome' %}<br>
             <b>{{ inscricao.nome }} {{ inscricao.sobrenome }}</b><br><br>
             E-mail<br>
@@ -44,6 +44,8 @@
             {{ field.label }}<br><b>
             {% if field.name == 'nascimento'%}
                 {{ field.value }}
+            {% elif field.name == 'estado'%}
+                {{ field.value|upper }}
             {% elif field.name == 'pais' %}
                 {{ dados_form.instance.select_verbose }}
             {% else %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-01 12:05-0300\n"
+"POT-Creation-Date: 2018-11-01 16:27-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,147 +18,151 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: o_t/models.py:26
+#: o_t/models.py:27
 msgid "organização"
 msgstr ""
 
-#: o_t/models.py:27
+#: o_t/models.py:28
 msgid "patrocínio"
 msgstr ""
 
-#: o_t/models.py:28
+#: o_t/models.py:29
 msgid "apoio"
 msgstr ""
 
-#: o_t/models.py:157 o_t/models.py:194 o_t/models.py:256
+#: o_t/models.py:158 o_t/models.py:195 o_t/models.py:243
 msgid "nome"
 msgstr "name"
 
-#: o_t/models.py:159
+#: o_t/models.py:160
 msgid "consulta"
 msgstr ""
 
-#: o_t/models.py:185
+#: o_t/models.py:186
 msgid "Arquitetura"
 msgstr "Architecture"
 
-#: o_t/models.py:186
+#: o_t/models.py:187
 msgid "Artes Visuais"
 msgstr "Visual Arts"
 
-#: o_t/models.py:187
+#: o_t/models.py:188
 msgid "Artes Performáticas"
 msgstr "Performing Arts"
 
-#: o_t/models.py:188
+#: o_t/models.py:189
 msgid "Design"
 msgstr ""
 
-#: o_t/models.py:189
+#: o_t/models.py:190
 msgid "Paisagismo"
 msgstr "Landscape Design"
 
-#: o_t/models.py:195 o_t/models.py:257
+#: o_t/models.py:196 o_t/models.py:244
 msgid "sobrenome"
 msgstr "Last name"
 
-#: o_t/models.py:196
+#: o_t/models.py:197
 msgid "área"
 msgstr "Field of practice"
 
-#: o_t/models.py:221
+#: o_t/models.py:224
 msgid "nascimento"
 msgstr "Birthdate"
 
-#: o_t/models.py:222
+#: o_t/models.py:225
 msgid "CPF/CNPJ"
 msgstr "Personal or comercial ID"
 
-#: o_t/models.py:223
+#: o_t/models.py:226
 msgid "celular"
 msgstr "Mobile phone"
 
-#: o_t/models.py:225
+#: o_t/models.py:228
 msgid "país"
 msgstr "Country"
 
-#: o_t/models.py:226
+#: o_t/models.py:229
 msgid "endereço"
 msgstr "Address"
 
-#: o_t/models.py:227
+#: o_t/models.py:230
 msgid "complemento"
 msgstr "Apartment, suite, etc."
 
-#: o_t/models.py:228
+#: o_t/models.py:231
 msgid "bairro"
 msgstr ""
 
-#: o_t/models.py:229
+#: o_t/models.py:232
 msgid "cidade"
 msgstr "City"
 
-#: o_t/models.py:230
+#: o_t/models.py:233
 msgid "estado"
 msgstr "State/Province"
 
-#: o_t/models.py:231
+#: o_t/models.py:234
 msgid "CEP"
 msgstr "Postal code"
 
-#: o_t/models.py:268
+#: o_t/models.py:255
 msgid "01. Cônsul Walter 425: palafita-pomar"
 msgstr ""
 
-#: o_t/models.py:269
+#: o_t/models.py:256
 msgid "02. Cônsul Walter 437: palafita-caverna"
 msgstr ""
 
-#: o_t/models.py:270
+#: o_t/models.py:257
 msgid "03. Cônsul Walter 483: palafita-empena"
 msgstr ""
 
-#: o_t/models.py:271
+#: o_t/models.py:258
 msgid "04. Cônsul Walter 511: palafita-indiscreta"
 msgstr ""
 
-#: o_t/models.py:272
+#: o_t/models.py:259
 msgid "05. Teresa Mota Valadares 76: palafita-caleidoscópica"
 msgstr ""
 
-#: o_t/models.py:273
+#: o_t/models.py:260
 msgid "06. Fidélis Martins 173: palafita-esbelta"
 msgstr ""
 
-#: o_t/models.py:274
+#: o_t/models.py:261
 msgid "07. Maria Heilbuth Surete 1223: palafita-dos-cachorros"
 msgstr ""
 
-#: o_t/models.py:275
+#: o_t/models.py:262
 msgid "08. Maria Heilbuth Surete 1159: palafita-comum"
 msgstr ""
 
-#: o_t/models.py:276
+#: o_t/models.py:263
 msgid "09. Maria Heilbuth Surete 1193: palafita-gigante-I"
 msgstr ""
 
-#: o_t/models.py:277
+#: o_t/models.py:264
 msgid "10. Maria Heilbuth Surete 1295: palafita-gigante-II"
 msgstr ""
 
-#: o_t/models.py:282
+#: o_t/models.py:268
+msgid "palafita"
+msgstr "Palafitte"
+
+#: o_t/models.py:269
 msgid "título"
 msgstr "title"
 
-#: o_t/models.py:283
+#: o_t/models.py:270
 msgid "descrição"
 msgstr "Description"
 
-#: o_t/models.py:284
+#: o_t/models.py:271
 msgid "imagem"
 msgstr "image"
 
-#: o_t/models.py:285 o_t/templates/o_t/notas_lista.html:8
+#: o_t/models.py:272 o_t/templates/o_t/notas_lista.html:8
 msgid "arquivo"
 msgstr "file"
 
@@ -216,15 +220,15 @@ msgstr ""
 msgid "enviar"
 msgstr "send"
 
-#: o_t/templates/o_t/inscricoes.html:13
+#: o_t/templates/o_t/inscricoes.html:15
 msgid "informações"
 msgstr "information"
 
-#: o_t/templates/o_t/inscricoes.html:16
+#: o_t/templates/o_t/inscricoes.html:18
 msgid "Sua inscrição foi finalizada em"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:20
+#: o_t/templates/o_t/inscricoes.html:22
 msgid ""
 "O formulário do projeto poderá ser acessado e alterado quantas vezes for "
 "necessário até a data limite definida no cronograma."
@@ -232,53 +236,53 @@ msgstr ""
 "The project form can be accessed and changed as many times as necessary "
 "until the deadline."
 
-#: o_t/templates/o_t/inscricoes.html:21
+#: o_t/templates/o_t/inscricoes.html:23
 msgid "Não se esqueça de salvar as informações a cada alteração."
 msgstr "Do not forget to save the information after every change."
 
-#: o_t/templates/o_t/inscricoes.html:22
+#: o_t/templates/o_t/inscricoes.html:24
 msgid "A submissão só será efetivada após o clique em “enviar proposta”."
 msgstr ""
 "The submission will only take effect after clicking on “submit proposal”."
 
-#: o_t/templates/o_t/inscricoes.html:23
+#: o_t/templates/o_t/inscricoes.html:25
 msgid "A partir desse momento, não será mais possível realizar modificações."
 msgstr ""
 "From that moment on, it will no longer be possible to make modifications."
 
-#: o_t/templates/o_t/inscricoes.html:26
+#: o_t/templates/o_t/inscricoes.html:28
 msgid "você salvou os formulários de projeto e equipe?"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:26
+#: o_t/templates/o_t/inscricoes.html:28
 msgid "enviar proposta"
 msgstr "submit proposal"
 
-#: o_t/templates/o_t/inscricoes.html:33 o_t/templates/o_t/inscricoes.html:121
+#: o_t/templates/o_t/inscricoes.html:35 o_t/templates/o_t/inscricoes.html:127
 msgid "Nome"
 msgstr "Name"
 
-#: o_t/templates/o_t/inscricoes.html:37
+#: o_t/templates/o_t/inscricoes.html:39
 msgid "Área de atuação profissional"
 msgstr "Field of practice"
 
-#: o_t/templates/o_t/inscricoes.html:58
+#: o_t/templates/o_t/inscricoes.html:64
 msgid "projeto"
 msgstr "design project"
 
-#: o_t/templates/o_t/inscricoes.html:63 o_t/templates/o_t/inscricoes.html:83
+#: o_t/templates/o_t/inscricoes.html:69 o_t/templates/o_t/inscricoes.html:89
 msgid "Código de identificação"
 msgstr "Identification code"
 
-#: o_t/templates/o_t/inscricoes.html:101
+#: o_t/templates/o_t/inscricoes.html:107
 msgid "salvar projeto"
 msgstr "save project"
 
-#: o_t/templates/o_t/inscricoes.html:113
+#: o_t/templates/o_t/inscricoes.html:119
 msgid "equipe"
 msgstr "team"
 
-#: o_t/templates/o_t/inscricoes.html:140
+#: o_t/templates/o_t/inscricoes.html:146
 msgid "salvar equipe e/ou adicionar novo integrante"
 msgstr "save team and/or add new member"
 
@@ -362,7 +366,7 @@ msgstr "home"
 msgid "chamada de projetos"
 msgstr "call for projects"
 
-#: o_t/views.py:21 o_t/views.py:264
+#: o_t/views.py:21 o_t/views.py:265
 msgid "galeria"
 msgstr "gallery"
 
@@ -370,7 +374,7 @@ msgstr "gallery"
 msgid "blog"
 msgstr "blog"
 
-#: o_t/views.py:23 o_t/views.py:406
+#: o_t/views.py:23 o_t/views.py:407
 msgid "perguntas frequentes"
 msgstr "Q&A"
 
@@ -463,11 +467,11 @@ msgid ""
 "inscrição."
 msgstr ""
 
-#: o_t/views.py:430
+#: o_t/views.py:431
 msgid "Outros Territórios_consulta"
 msgstr "Other Territories_queries"
 
-#: o_t/views.py:514
+#: o_t/views.py:515
 #, fuzzy
 #| msgid "Outros Territórios"
 msgid "Outros Territórios_resposta à consulta"

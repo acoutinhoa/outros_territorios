@@ -225,15 +225,16 @@ def inscricoes(request, pk, erro=False,):
 
 	if request.method == 'POST':
 		if 'equipe_submit' in request.POST:
-			projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
 			equipe_form = EquipeForm(request.POST, instance=inscricao, prefix='equipe')
 			if equipe_form.is_valid():
 				equipe_form.save()
+				equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
+			projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
 		elif 'projeto_submit' in request.POST:
-			equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 			projeto_form = ProjetoForm(request.POST, request.FILES, instance=projeto, prefix='projeto')
 			if projeto_form.is_valid():
 				projeto_form.save()
+			equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 	else:
 		equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 		projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
@@ -337,6 +338,8 @@ def blog_edit(request, pk=None):
 				imagem_form = ImagemForm(request.POST, request.FILES, instance=nota, prefix='img')
 				if nota_form.is_valid() and imagem_form.is_valid():
 					nota = nota_form.save(commit=False)
+					nota.texto = str(nota.texto)
+					nota.texto_en = str(nota.texto_en)
 					if nota_form.has_changed():
 						if 'titulo' in nota_form.changed_data:
 							nota.slug = ''
