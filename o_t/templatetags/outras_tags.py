@@ -29,6 +29,7 @@ def post(text, imgs={}, autoescape=True):
 			if tipo == 'b':
 				info = '<b>%s</b>' % (info)
 			elif tipo == 'img':
+				info = info.lower()
 				if info in imgs:
 					info = '<img src="%s" alt="%s" class="img_post">' % (imgs[info], info)
 				else:
@@ -106,7 +107,7 @@ def imgs_post(nota):
 	if nota.imagem_set.all().exists():
 		imagens = nota.imagem_set.all()
 		for img in imagens:
-			imgs[img.nome] = img.arquivo.url
+			imgs[img.nome.lower()] = img.arquivo.url
 	return imgs
 
 @register.simple_tag(takes_context=True)
