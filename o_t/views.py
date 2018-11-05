@@ -338,8 +338,6 @@ def blog_edit(request, pk=None):
 				imagem_form = ImagemForm(request.POST, request.FILES, instance=nota, prefix='img')
 				if nota_form.is_valid() and imagem_form.is_valid():
 					nota = nota_form.save(commit=False)
-					nota.texto = str(nota.texto)
-					nota.texto_en = str(nota.texto_en)
 					if nota_form.has_changed():
 						if 'titulo' in nota_form.changed_data:
 							nota.slug = ''

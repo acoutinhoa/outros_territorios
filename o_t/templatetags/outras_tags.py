@@ -29,7 +29,10 @@ def post(text, imgs={}, autoescape=True):
 			if tipo == 'b':
 				info = '<b>%s</b>' % (info)
 			elif tipo == 'img':
-				info = '<img src="%s" alt="%s" class="img_post">' % (imgs[info], info)
+				if info in imgs:
+					info = '<img src="%s" alt="%s" class="img_post">' % (imgs[info], info)
+				else:
+					info = ''
 			else:
 				info = '<a href="%s" target="_blank">%s</a>' % (info, tipo)
 			text[i+1] = info + par[-1]
