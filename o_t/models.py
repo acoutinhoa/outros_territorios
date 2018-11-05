@@ -35,6 +35,7 @@ class Arquivo(models.Model):
 	imagem = models.ImageField(upload_to = arquivos_filepath, blank=True, null=True)
 	tipo = models.CharField(max_length=20, choices=tipos, blank=True, null=True)
 	altura = models.CharField(max_length=4, default='100')
+	link = models.URLField(blank=True)
 	def __str__(self):
 		return '%s_%s' % (self.pagina, self.nome)
 	def save(self, *args, **kwargs):
