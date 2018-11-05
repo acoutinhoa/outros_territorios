@@ -4,6 +4,7 @@ from datetime import date
 from django.utils.text import slugify
 import uuid, random
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 from django_countries.fields import CountryField
 from django_countries import countries
 
@@ -229,7 +230,6 @@ class Dados(models.Model):
 	pais = CountryField(_('país'), default='BR')
 	rua = models.CharField(_('endereço'), max_length=100)
 	complemento = models.CharField(_('complemento'), max_length=20, blank=True)
-	bairro = models.CharField(_('bairro'), max_length=30)
 	cidade = models.CharField(_('cidade'), max_length=50)
 	estado = models.CharField(_('estado'), max_length=4,)
 	cep = models.CharField(_('CEP'), max_length=15)
@@ -251,6 +251,11 @@ class Equipe(models.Model):
 def inscricao_filepath(instance, filename):
     return 'o_t/concurso/{0}/{1}'.format(instance.inscricao.id, filename)
 
+def validate_size(value): # add this to some file where you can import it from
+    limit = 10 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError(_('Erro: o arquivo não deve ultrapassar 10MB'))
+
 class Projeto(models.Model):
 	palafitas = [
 		('01', _('01. Cônsul Walter 425: palafita-pomar')),
@@ -269,8 +274,8 @@ class Projeto(models.Model):
 	palafita = models.CharField(_('palafita'), choices=palafitas, max_length=2)
 	nome = models.CharField(_('título'), max_length=200, blank=True)
 	texto = models.TextField(_('descrição'), blank=True, max_length=3000)
-	img = models.ImageField(_('imagem'), upload_to = inscricao_filepath, blank=True)
-	arquivo = models.FileField(_('arquivo'), upload_to = inscricao_filepath, blank=True)
+	img = models.ImageField(_('imagem'), upload_to = inscricao_filepath, blank=True, validators=[validate_size])
+	arquivo = models.FileField(_('arquivo'), upload_to = inscricao_filepath, blank=True, validators=[validate_size])
 	def __str__(self):
 		return self.nome
 	def select_verbose(self):

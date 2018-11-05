@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from .models import *
 
@@ -128,7 +129,7 @@ InscricaoForm = forms.modelform_factory(
 # reenviar email
 def validar_email(value):
 	if not Inscricao.objects.filter(email=value).exists():
-		raise ValidationError('email nao cadastrado')
+		raise ValidationError(_('Email não cadastrado'))
 
 class EmailForm(forms.Form):
 	email = forms.EmailField(label='E-mail', validators=[validar_email])
@@ -160,6 +161,10 @@ ProjetoForm = forms.modelform_factory(
 	widgets = {
 		'texto': forms.Textarea(attrs={'rows': 30}),
 		},
+	help_texts = {
+		'img' : _('Tamanho máximo: 10MB'),	
+		'arquivo' : _('Tamanho máximo: 10MB'),	
+		}, 
 	)
 
 

@@ -98,7 +98,7 @@
                     {% endif %}
                     <tr>
                         <th>{{ field.label_tag }}</th>
-                        <td colspan="2">{{ field }}</td>
+                        <td colspan="2">{{ field }}{{ field.errors }}{{ field.help_text }}</td>
                     </tr>
                 {% endfor %}
                 <tr><td class="espaco"></td></tr>
