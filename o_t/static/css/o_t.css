@@ -162,7 +162,7 @@ img {
 .tags { 
 	padding: 30px 0 0 0;
 }
-.tags li  { 
+.tag li  { 
 	width: auto;
 	float: left;
 	display: inline;

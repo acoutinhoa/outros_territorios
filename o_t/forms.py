@@ -11,7 +11,7 @@ NotaForm = forms.modelform_factory(
 		'titulo_en': forms.Textarea(attrs={'rows': 2}),
 		'texto': forms.Textarea(attrs={'rows': 25}),
 		'texto_en': forms.Textarea(attrs={'rows': 25}),
-		'tags' : forms.CheckboxSelectMultiple(attrs={'class': 'tags'}),
+		'tags' : forms.CheckboxSelectMultiple(attrs={'class': 'tag'}),
 		},
 	help_texts = {
 		'data1' : 'formato: dd/mm/yyyy hh:mm:ss',	
