@@ -1,4 +1,4 @@
-{% load i18n outras_tags %}
+{% load i18n tz outras_tags %}
 
 {% get_current_language as lang %}
 
@@ -41,7 +41,7 @@
 		{% post_format nota texto nota_link crop %}
 	</p>
     {% if nota.data1 %}
-        <p class="data_">____<br><br>{% trans 'publicado em' %} {{ nota.data1 }}</p>
+        <p class="data_">____<br><br>{% trans 'publicado em' %} {{ nota.data1|localtime }}</p>
     {% endif %}
     {% if nota.tags.all %}
 		<ul class="menu tags tag"><br>

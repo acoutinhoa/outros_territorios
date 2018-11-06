@@ -28,7 +28,11 @@ body, * {
 	border: none;
 	box-sizing: border-box;
 	color: var(--cor);
+	background-color: transparent;
 }
+/*body { 
+	background-color: rgba(177,228,227,0.3);
+}*/
 a:link, a:visited, a:active, a:hover {
 	color: var(--cor-link);
 	font-family: var(--fonte);

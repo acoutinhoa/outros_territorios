@@ -1,5 +1,5 @@
 {% extends 'o_t/base.html' %}
-{% load i18n outras_tags %}
+{% load i18n tz outras_tags %}
 
 {% get_current_language as lang %}
 
@@ -15,7 +15,7 @@
         <p class="titulo_">{% trans 'informações' %}</p>
         {% if inscricao.finalizada %}
             <p class="texto">
-                {% trans 'Sua inscrição foi finalizada em' %} <b>{{ inscricao.finalizada }}</b>.
+                {% trans 'Sua inscrição foi finalizada em' %} <b>{{ inscricao.finalizada|localtime }}</b>.
             </p>
         {% else %}
             <p class="texto" style="margin-bottom: 50px;">
