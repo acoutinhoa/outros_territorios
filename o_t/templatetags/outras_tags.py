@@ -3,6 +3,7 @@ from django.template.defaultfilters import stringfilter, linebreaksbr
 from django.urls import resolve, translate_url
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 import random
 import os
 
@@ -16,36 +17,6 @@ def formatadata(text, car='', autoescape=True):
 			par = par.split(':')
 			text[i] = '%s%s<br><b>%s</b>' % (par[0], car, par[1])
 	return mark_safe('<br><br>'.join(text))
-
-@register.filter(needs_autoescape=True)
-def post(text, imgs={}, autoescape=True):
-	if text:
-		text = text.split('[[')
-		for i, par in enumerate(text[1:]):
-			par = par.split(']]')
-			tipo, info = par[0].split('=')
-			tipo = tira_espacos(tipo)
-			info = tira_espacos(info)
-			if tipo == 'b':
-				info = '<b>%s</b>' % (info)
-			elif tipo == 'img':
-				info = info.lower()
-				if info in imgs:
-					info = '<img src="%s" alt="%s" class="img_post">' % (imgs[info], info)
-				else:
-					info = ''
-			else:
-				info = '<a href="%s" target="_blank">%s</a>' % (info, tipo)
-			text[i+1] = info + par[-1]
-		return mark_safe(''.join(text).replace('\n','<br>'))
-	return ''
-
-def tira_espacos(info):
-	if info[0] == ' ':
-		info = info[1:]
-	if info[-1] == ' ':
-		info = info[:-1]
-	return info
 
 @register.filter
 def filename(value, ext=True):
@@ -101,6 +72,43 @@ def query(qs, tp, get=False, **kwargs):
 def set(val):
 	return val
 
+@register.simple_tag(takes_context=True)
+def change_lang(context, lang=None, *args, **kwargs):
+	path = context['request'].path
+	return translate_url(path,lang)
+
+
+@register.filter(needs_autoescape=True)
+def post(text, imgs={}, autoescape=True):
+	if text:
+		text = text.split('[[')
+		for i, par in enumerate(text[1:]):
+			par = par.split(']]')
+			if '=' in par[0]:
+				tipo, info = par[0].split('=')
+				tipo = tira_espacos(tipo)
+				info = tira_espacos(info)
+				if tipo == 'b':
+					info = '<b>%s</b>' % (info)
+				elif tipo == 'img':
+					info = info.lower()
+					if info in imgs:
+						info = '<img src="%s" alt="%s" class="img_post">' % (imgs[info], info)
+					else:
+						info = ''
+				else:
+					info = '<a href="%s" target="_blank">%s</a>' % (info, tipo)
+				text[i+1] = info + par[-1]
+		return mark_safe(''.join(text).replace('\n','<br>'))
+	return ''
+
+def tira_espacos(info):
+	if info[0] == ' ':
+		info = info[1:]
+	if info[-1] == ' ':
+		info = info[:-1]
+	return info
+
 @register.simple_tag
 def imgs_post(nota):
 	imgs = {}
@@ -110,8 +118,24 @@ def imgs_post(nota):
 			imgs[img.nome.lower()] = img.arquivo.url
 	return imgs
 
-@register.simple_tag(takes_context=True)
-def change_lang(context, lang=None, *args, **kwargs):
-	path = context['request'].path
-	return translate_url(path,lang)
+
+@register.simple_tag
+def post_format(nota, txt, link, crop=False):
+	imgs = imgs_post(nota)
+
+	botao = False
+	lista = ['[[ + ]]', '[[+]]', '[[ +]]', '[[+ ]]']
+	for mais in lista:
+		if mais in txt:
+			if crop:
+				txt = txt.split(mais)[0]
+				botao = True
+			else:
+				txt = txt.replace(mais,'')
+
+	txt = post(txt, imgs)
+	if botao:
+		txt += '<a href="%s">%s</a>' % (link, _('ver mais'))
+
+	return mark_safe(txt)
 

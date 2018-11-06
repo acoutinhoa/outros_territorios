@@ -1,5 +1,11 @@
 {% extends 'o_t/base.html' %}
-{% load outras_tags %}
+{% load static outras_tags %}
+
+{% block head %}
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+	<script src="{% static 'js/infinite.min.js' %}"></script>
+{% endblock %}
 
 {% block menu %}
 	{% if user.is_authenticated %}

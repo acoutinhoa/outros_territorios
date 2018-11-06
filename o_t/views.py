@@ -6,6 +6,7 @@ from django.core.mail import BadHeaderError, send_mail, send_mass_mail
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import activate, get_language
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from random import randint, randrange, choice
 from .forms import *
 from .models import *
@@ -70,13 +71,23 @@ def home(request):
 	else:
 		img = None
 
+	# paginacao
+	page = request.GET.get('page', 1)
+	paginator = Paginator(notas, 5)
+	try:
+		notas_pg = paginator.page(page)
+	except PageNotAnInteger:
+		notas_pg = paginator.page(1)
+	except EmptyPage:
+		notas_pg = paginator.page(paginator.num_pages)
+
 	return render(request, 'o_t/home.html', {
 		'titulo': titulo, 
 		'menu': menu, 
 		'logos': logos,
 		'cartaz': cartaz,
 		'img': img,
-		'notas': notas,
+		'notas_pg': notas_pg,
 	})
 
 def home_edit(request):
@@ -311,6 +322,15 @@ def blog(request, pk=None, slug=None, tag=None):
 	if tag:
 		notas = notas.filter(tags__in=[tag.pk])
 
+	# paginacao
+	page = request.GET.get('page', 1)
+	paginator = Paginator(notas, 5)
+	try:
+		notas_pg = paginator.page(page)
+	except PageNotAnInteger:
+		notas_pg = paginator.page(1)
+	except EmptyPage:
+		notas_pg = paginator.page(paginator.num_pages)
 
 	return render(request, 'o_t/blog.html', {
 		'titulo': titulo, 
@@ -318,6 +338,7 @@ def blog(request, pk=None, slug=None, tag=None):
 		'notas': notas,
 		'nota': nota,
 		'tags': tags,
+		'notas_pg': notas_pg,
 		})
 
 def blog_edit(request, pk=None):

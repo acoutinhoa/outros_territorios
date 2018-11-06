@@ -10,7 +10,14 @@
 	{% set nota.texto as texto %}
 {% endif %}
 
-{% imgs_post nota as imgs %}
+{% if lang == 'en' and nota.slug_en %}
+	{% url 'blog_slug' slug=nota.slug_en as nota_link %}
+{% elif nota.slug %}
+	{% url 'blog_slug' slug=nota.slug as nota_link %}
+{% else %}
+	{% url 'blog' pk=nota.pk as nota_link %}	
+{% endif %}
+
 
 <div class="post">
 	{% if user.is_authenticated %}
@@ -23,14 +30,15 @@
 		</div>
 	{% endif %}
 	<p class="titulo_">
-		{% if nota_link %}
+		{% if link %}
 			<a href="{{ nota_link }}">{{ titulo }}</a>
 		{% else %}
 			{{ titulo }}
 		{% endif %}
 	</p>
+
 	<p class="texto">
-		{{ texto|post:imgs }}
+		{% post_format nota texto nota_link crop %}
 	</p>
     {% if nota.data1 %}
         <p class="data_">____<br><br>{% trans 'publicado em' %} {{ nota.data1 }}</p>
@@ -48,15 +56,6 @@
 		</ul>
     {% endif %}
 	<!-- AddToAny BEGIN -->
-	{% if not nota_link %}
-		{% if lang == 'en' and nota.slug_en %}
-			{% url 'blog_slug' slug=nota.slug_en as nota_link %}
-		{% elif nota.slug %}
-			{% url 'blog_slug' slug=nota.slug as nota_link %}
-		{% else %}
-			{% url 'blog' pk=nota.pk as nota_link %}	
-		{% endif %}
-	{% endif %}
 	<div class="a2a_kit a2a_kit_size_32 a2a_default_style cartaz tags" data-a2a-url="{{ request.scheme }}://{{ request.get_host }}{{ nota_link }}" data-a2a-title="{% trans 'Outros Territórios' %}_{{ titulo }}" data-a2a-icon-color="var(--cinza),white">
 	    <a class="a2a_button_facebook botao"></a>
 		<!-- <a class="a2a_button_google_plus botao""></a> -->
