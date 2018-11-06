@@ -271,7 +271,7 @@ class Projeto(models.Model):
 	]
 	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
 	slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
-	palafita = models.CharField(_('palafita'), choices=palafitas, max_length=2)
+	palafita = models.CharField(_('palafita'), choices=palafitas, max_length=2, blank=True)
 	nome = models.CharField(_('título'), max_length=200, blank=True)
 	texto = models.TextField(_('descrição'), blank=True, max_length=3000)
 	img = models.ImageField(_('imagem'), upload_to = inscricao_filepath, blank=True, validators=[validate_size])
