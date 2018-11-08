@@ -8,6 +8,11 @@
 	<p class="titulo_">{% trans 'arquivo' %}</p>
 	<table class="form notas" style="padding: 0;">
 	{% if tag %}
+		{% if lang == 'en' %}
+			{% set tag.tag_en as tag %}
+		{% else %}
+			{% set tag.tag as tag %}
+		{% endif %}
 		<tr>
 			<td colspan="3"><b>Tag: {{ tag }} <sup><a href="{% url 'blog'%}" style="border-bottom:none;">x</a></sup></b></td>
 		</tr>
