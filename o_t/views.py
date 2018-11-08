@@ -236,6 +236,11 @@ def inscricoes(request, pk, erro=False,):
 	c1 = '43'
 	c2 = '30'
 
+	ativo = False
+	finaliza = Data.objects.all()[0]
+	if timezone.now() < finaliza.fim:
+		ativo = True
+
 	if erro:
 		erro = _('Você precisa preencher todos os campos do projeto para finalizar sua inscrição')
 
@@ -264,7 +269,8 @@ def inscricoes(request, pk, erro=False,):
 		'c0': c0,
 		'c1': c1,
 		'c2': c2,
-		'erro': erro,		
+		'erro': erro,	
+		'ativo': ativo,	
 	})
 
 def inscricoes_submit(request, pk,):

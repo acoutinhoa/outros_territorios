@@ -24,9 +24,13 @@
                 {% trans 'A submissão só será efetivada após o clique em “enviar proposta”.' %} </b>
                 {% trans 'A partir desse momento, não será mais possível realizar modificações.' %}
             </p>
+            {% if ativo %}
             <div style="padding: 0 30%;">
                 <a href="{% url 'inscricoes_submit' pk=inscricao.pk %}" class="botao"><button type="button" onclick="return confirm('{% trans "você salvou os formulários de projeto e equipe?" %}')" />{% trans 'enviar proposta' %}</button></a>
             </div>
+            {% else %}
+            <p class="texto confirmacao">{% trans 'Prazo encerrado' %}</p>
+            {% endif %}
         {% endif %}
     </div>
 

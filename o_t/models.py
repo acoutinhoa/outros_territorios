@@ -183,6 +183,9 @@ class Faq(models.Model):
 	class Meta:
 		ordering = ['data0']
 
+class Data(models.Model):
+	fim=models.DateTimeField()
+
 class Inscricao(models.Model):
 	areas = [
 		('01',_('Arquitetura')),
