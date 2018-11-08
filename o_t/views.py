@@ -129,13 +129,17 @@ def home_edit(request):
 		'logos_form': logos_form,
 	})
 
-def concurso(request, confirmacao=False,):
+def concurso(request, msg='',):
 	titulo = _('chamada de projetos')
 	cartaz = Cartaz.objects.get_or_create(pagina='concurso')[0]
 	arquivos = None
 	if cartaz.arquivo_set.all().exists():
 		arquivos = cartaz.arquivo_set.all()
 	jurados = Juri.objects.all()
+
+	msg = msg.replace('-', ' ')
+	if 'Inscricao' in msg:
+		msg = msg.replace('Inscricao', 'Inscrição')
 
 	if request.method == 'POST':
 		if 'inscricao_submit' in request.POST:
@@ -151,7 +155,8 @@ def concurso(request, confirmacao=False,):
 				assunto = _('Outros Territórios_confirmação de inscrição')
 				msg = msg_inscricao.format(nome=inscricao.nome, codigo=inscricao.codigo, link=link)
 				send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
-				return redirect('inscricoes', pk=inscricao.pk)
+				return redirect('confirmacao', msg=_('Inscricao-realizada'))
+				# return redirect('inscricoes', pk=inscricao.pk)
 			email_form = EmailForm(prefix='email', label_suffix='')
 		elif 'email_submit' in request.POST:
 			email_form = EmailForm(request.POST, prefix='email')
@@ -163,7 +168,7 @@ def concurso(request, confirmacao=False,):
 				assunto = _('Outros Territórios_reenvio de link')
 				msg = msg_email.format(nome=inscricao.nome, link=link)
 				send_mail(assunto, msg, settings.EMAIL_HOST_USER, [inscricao.email,])
-				return redirect('email_confirmacao')
+				return redirect('confirmacao', msg=_('Email-enviado'))
 			inscricao_form = InscricaoForm(prefix='inscricao', label_suffix='')
 			dados_form = DadosForm(prefix='dados', label_suffix='')
 	else:
@@ -180,7 +185,7 @@ def concurso(request, confirmacao=False,):
 		'inscricao_form': inscricao_form,
 		'dados_form': dados_form,
 		'email_form': email_form,
-		'confirmacao': confirmacao,
+		'confirmacao': msg,
 	})
 
 def concurso_edit(request):
@@ -232,7 +237,7 @@ def inscricoes(request, pk, erro=False,):
 	c2 = '30'
 
 	if erro:
-		erro = _('Você precisa preencher todos os campos do projeto para finalizar sua inscrição.')
+		erro = _('Você precisa preencher todos os campos do projeto para finalizar sua inscrição')
 
 	if request.method == 'POST':
 		if 'equipe_submit' in request.POST:

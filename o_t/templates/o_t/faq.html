@@ -18,6 +18,12 @@
 {% block c2 %}
 	{% espaco %}
 
+	{% if confirmacao %}
+		<div class="post linha">
+			<p class="texto confirmacao">{% trans 'Consulta enviada' %}</p>
+		</div>
+	{% endif %}
+
 	{% if blocos %}
 		<div class="post linha">
 			<p class="titulo_">{% trans 'blocos de respostas' %}</p>
@@ -50,12 +56,6 @@
 					</tr>
 				{% endfor %}
 			</table>
-		</div>
-	{% endif %}
-
-	{% if confirmacao %}
-		<div class="post linha">
-			<p class="texto"><b>{% trans 'consulta enviada' %}</b></p>
 		</div>
 	{% endif %}
 

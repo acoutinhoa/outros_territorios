@@ -27,10 +27,10 @@ faq_patterns = [
 concurso_patterns = [
     path('', views.concurso, name='concurso'),
     path('edit/', views.concurso_edit, name='concurso_edit'),
-    path('ok/', views.concurso, {'confirmacao':True,}, name='email_confirmacao'),
     path(_('inscricoes/<uuid:pk>/'), views.inscricoes, name='inscricoes'),
     path(_('inscricoes/<uuid:pk>/submit'), views.inscricoes_submit, name='inscricoes_submit'),
     path(_('inscricoes/<uuid:pk>/erro'), views.inscricoes, {'erro':True,}, name='inscricoes_erro'),
+    path('<slug:msg>/', views.concurso, name='confirmacao'),
 ]
 
 galeria_patterns = [
