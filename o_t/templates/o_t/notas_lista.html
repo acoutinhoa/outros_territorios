@@ -7,6 +7,11 @@
 <div class="post">
 	<p class="titulo_">{% trans 'arquivo' %}</p>
 	<table class="form notas" style="padding: 0;">
+	{% if tag %}
+		<tr>
+			<td colspan="3"><b>Tag: {{ tag }} <sup><a href="{% url 'blog'%}" style="border-bottom:none;">x</a></sup></b></td>
+		</tr>
+	{% endif %}
 	{% for nota in notas %}
 
 		{% if lang == 'en' and nota.slug_en %}

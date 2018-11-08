@@ -343,6 +343,7 @@ def blog(request, pk=None, slug=None, tag=None):
 		'notas': notas,
 		'nota': nota,
 		'tags': tags,
+		'tag': tag,
 		'notas_pg': notas_pg,
 		})
 
