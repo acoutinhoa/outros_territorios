@@ -15,7 +15,7 @@
         <p class="titulo_">{% trans 'informações' %}</p>
         {% if inscricao.finalizada %}
             <p class="texto">
-                {% trans 'Sua inscrição foi finalizada em' %} <b>{{ inscricao.finalizada|localtime }}</b>.
+                {% trans 'Sua inscrição foi finalizada em' %} <b>{{ inscricao.finalizada|localtime }}</b>
             </p>
         {% else %}
             <p class="texto" style="margin-bottom: 50px;">
@@ -63,12 +63,10 @@
 
 <!-- projeto -->
 {% block c1 %}
-    {% espaco %}
-    <div class="cartaz linha">
-        <p class="titulo">{% trans 'projeto' %}</p>
-    </div>
     {% if inscricao.finalizada %}
-        <div class="post">
+        {% set projeto_form.instance as projeto %} 
+        {% include 'o_t/projeto.html' with projeto=projeto %}
+        <!-- <div class="post">
             <p class="texto">
             {% trans 'Código de identificação' %}<br>
             <b>{{ inscricao.codigo }}</b><br><br>
@@ -85,8 +83,12 @@
                 {% endif %}<br><br>
             {% endfor %}
             </p>
-        </div>
+        </div> -->
     {% else %}
+    {% espaco %}
+        <div class="cartaz linha">
+            <p class="titulo">{% trans 'projeto' %}</p>
+        </div>
         <table class="form">
             <tr>
                 <td></td>
@@ -111,9 +113,9 @@
                 	<td><button type="submit" name="projeto_submit">{% trans 'salvar projeto' %}</button></td>
                 </tr>
             </form>
-        {% endif %}
-    </table>
-    {% espaco borda='linha_' %}
+        </table>
+        {% espaco borda='linha_' %}
+    {% endif %}
 {% endblock %}
 
 <!-- equipe -->
@@ -126,13 +128,12 @@
     {% if inscricao.finalizada %}
         <div class="post">
             <p class="texto">
-            {% for form in equipe_form %}
-                {% if form.id.value %}
-                    {% trans 'Nome' %}<br>
-                    <b>{{ form.instance.nome }} {{ form.instance.sobrenome }}</b><br>
-                    E-mail<br>
-                    <b>{{ form.instance.email }}</b><br>
-                {% endif %}<br><br>
+            {% for form in equipe_form.initial_forms %}
+                {% trans 'Nome' %}<br>
+                <b>{{ form.instance.nome }} {{ form.instance.sobrenome }}</b><br>
+                E-mail<br>
+                <b>{{ form.instance.email }}</b><br>
+                {% if not forloop.last %}<br><br>{% endif %}
             {% endfor %}
             </p>
         </div>

@@ -1,0 +1,33 @@
+{% load outras_tags %}
+
+{% espaco %}
+
+{% query inscricoes 'filter' finalizada=None as inscricoes_abertas %}
+
+{% query inscricoes 'exclude' finalizada=None as inscricoes_fechadas %}
+
+{% if user.is_authenticated %}
+	<div class="post linha respostas">
+		<p class="titulo_">inscrições finalizadas ({{inscricoes_fechadas.count}})</p>
+		<ol class="titulo_lista">
+		{% for inscricao in inscricoes_fechadas|dictsort:"finalizada" %}
+			<li><a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}">{{ inscricao.codigo }}</a></li>
+		{% empty %}
+			<p class="texto">nenhuma inscrição finalizada</p>
+		{% endfor %}
+		</ol>
+	</div>
+
+	<div class="post linha respostas">
+		<p class="titulo_">inscrições em aberto ({{inscricoes_abertas.count}})</p>
+		<ol class="titulo_lista">
+		{% for inscricao in inscricoes_abertas %}
+			<li><a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}">{{ inscricao.codigo }}</a></li>
+		{% empty %}
+			<p class="texto">nenhuma inscrição em aberto.</p>
+		{% endfor %}
+		</ol>
+	</div>
+
+	{% espaco borda='' %}
+{% endif %}

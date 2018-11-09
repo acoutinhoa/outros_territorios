@@ -35,7 +35,8 @@ concurso_patterns = [
 
 galeria_patterns = [
     path('', views.galeria, name='galeria'),
-    path('edit/', views.galeria, {'edit':True,}, name='galeria_edit'),
+    path('edit/', views.galeria_edit, name='galeria_edit'),
+    path('<int:codigo>/', views.galeria, name='galeria_projeto'),
 ]
 
 urlpatterns = [

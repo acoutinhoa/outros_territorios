@@ -18,6 +18,10 @@ def formatadata(text, car='', autoescape=True):
 			text[i] = '%s%s<br><b>%s</b>' % (par[0], car, par[1])
 	return mark_safe('<br><br>'.join(text))
 
+@register.filter()
+def formatapalafita(txt):
+	return txt.split(' ')[-1]
+
 @register.filter
 def filename(value, ext=True):
 	filename = os.path.basename(value.file.name)

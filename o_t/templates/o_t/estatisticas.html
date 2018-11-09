@@ -1,0 +1,19 @@
+{% load i18n outras_tags %}
+
+{% espaco %}
+
+{% if user.is_authenticated %}
+	<div class="cartaz linha">
+		<p class="titulo">inscrições</p>
+	</div>
+	<div class="post linha texto">
+		<ul>
+			<li>total: {{ inscricoes.count }}</li>
+<!-- 			{% for item in dados %}
+				<li>{{ item }}</li>
+			{% endfor %}
+ -->		</ul>
+	</div>
+
+	{% espaco borda='' %}
+{% endif %}

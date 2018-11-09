@@ -250,12 +250,12 @@ def inscricoes(request, pk, erro=False,):
 			if equipe_form.is_valid():
 				equipe_form.save()
 				equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
-			projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
+				return redirect('inscricoes', pk=pk)
 		elif 'projeto_submit' in request.POST:
 			projeto_form = ProjetoForm(request.POST, request.FILES, instance=projeto, prefix='projeto')
 			if projeto_form.is_valid():
 				projeto_form.save()
-			equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
+				return redirect('inscricoes', pk=pk)
 	else:
 		equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 		projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
@@ -283,20 +283,43 @@ def inscricoes_submit(request, pk,):
 	else:
 		return redirect('inscricoes_erro', pk=pk)
 
-def galeria(request, edit=False,):
+def galeria(request, codigo=None):
+	titulo = _('galeria')
+	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
+	inscricoes = Inscricao.objects.all()
+	projeto = None
+	dados = None
+	projetos = None
+	if codigo:
+		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
+		projeto = Projeto.objects.get_or_create(inscricao=inscricao)[0]
+	else:
+		dados = Dados.objects.all()
+		projetos = Projeto.objects.all()
+		dados = Dados.objects.order_by('pais').values('pais').distinct()
+	return render(request, 'o_t/galeria.html', {
+		'titulo': titulo, 
+		'menu': menu, 
+		'cartaz': cartaz,
+		'inscricoes': inscricoes,
+		'projeto': projeto,
+		'dados': dados,
+		'projetos': projetos,
+		})
+
+def galeria_edit(request, edit=True):
 	titulo = _('galeria')
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
 	cartaz_form = None
 
-	if edit:
-		if request.method == 'POST':
-			if 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
-				cartaz_form = CartazForm(request.POST, request.FILES, instance=cartaz)
-				if cartaz_form.is_valid():
-					cartaz_form.save()
-			return redirect('galeria')
-		else:
-			cartaz_form = CartazForm(instance=cartaz)
+	if request.method == 'POST':
+		if 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
+			cartaz_form = CartazForm(request.POST, request.FILES, instance=cartaz)
+			if cartaz_form.is_valid():
+				cartaz_form.save()
+		return redirect('galeria')
+	else:
+		cartaz_form = CartazForm(instance=cartaz)
 
 	return render(request, 'o_t/galeria.html', {
 		'titulo': titulo, 

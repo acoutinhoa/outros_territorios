@@ -206,7 +206,7 @@ class Inscricao(models.Model):
 	def __str__(self):
 		return self.nome
 	class Meta:
-		ordering = ['data0']
+		ordering = ['finalizada', 'data0']
 	def finaliza(self):
 		self.finalizada = timezone.now()
 		self.save()
@@ -281,5 +281,5 @@ class Projeto(models.Model):
 	arquivo = models.FileField(_('arquivo'), upload_to = inscricao_filepath, blank=True, validators=[validate_size])
 	def __str__(self):
 		return self.nome
-	def select_verbose(self):
+	def palafita_verbose(self):
 		return dict(Projeto.palafitas)[self.palafita]
