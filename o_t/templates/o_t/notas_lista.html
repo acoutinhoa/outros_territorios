@@ -50,9 +50,9 @@
 			</td>
 			<td class="texto"><a href="{{ nota_link }}">
 				{% if lang == 'en' and nota.titulo_en %}
-					{{ nota.titulo_en }}
+					{{ nota.titulo_en|alien }}
 				{% else %}
-					{{ nota.titulo }}
+					{{ nota.titulo|alien }}
 				{% endif %}
 			</a></td>
 		</tr>
