@@ -31,14 +31,14 @@
 	{% endif %}
 	<p class="titulo_">
 		{% if link %}
-			<a href="{{ nota_link }}">{{ titulo }}</a>
+			<a href="{{ nota_link }}">{{ titulo|alien }}</a>
 		{% else %}
-			{{ titulo }}
+			{{ titulo|alien }}
 		{% endif %}
 	</p>
 
 	<p class="texto">
-		{% post_format nota texto nota_link crop %}
+		{% post_format nota texto|alien nota_link crop %}
 	</p>
     {% if nota.data1 %}
         <p class="data_">____<br><br>{% trans 'publicado em' %} {{ nota.data1|localtime }}</p>

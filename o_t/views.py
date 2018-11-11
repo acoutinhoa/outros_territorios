@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import activate, get_language
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count
 from random import randint, randrange, choice
 from .forms import *
 from .models import *
@@ -296,7 +297,9 @@ def galeria(request, codigo=None):
 	else:
 		dados = Dados.objects.all()
 		projetos = Projeto.objects.all()
-		dados = Dados.objects.order_by('pais').values('pais').distinct()
+		palafitas = Projeto.palafitas
+
+
 	return render(request, 'o_t/galeria.html', {
 		'titulo': titulo, 
 		'menu': menu, 
@@ -305,6 +308,7 @@ def galeria(request, codigo=None):
 		'projeto': projeto,
 		'dados': dados,
 		'projetos': projetos,
+		'palafitas': palafitas,
 		})
 
 def galeria_edit(request, edit=True):

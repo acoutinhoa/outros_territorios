@@ -30,6 +30,24 @@ def filename(value, ext=True):
 		filename = filename.split('.')[0]
 	return filename
 
+@register.filter
+def alien(txt):
+	if 'aline coutinho' in txt or 'alien coutinho' in txt:
+		txt = txt.split(' ')
+		for i,p in enumerate(txt):
+			if '\n' in p:
+				p = p.split('\n')
+				for j,pp in enumerate(p):
+					if pp == 'aline' or pp == 'alien':
+						p[j] = random.choice(['aline', 'alien'])
+				txt[i] = '\n'.join(p)
+
+			else:
+				if p == 'aline' or p == 'alien':
+					txt[i] = random.choice(['aline', 'alien'])
+		txt = ' '.join(txt)
+	return txt
+
 @register.simple_tag
 def randint(min, max):
 	return str(random.randint(min, max))

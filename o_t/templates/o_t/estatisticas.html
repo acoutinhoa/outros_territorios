@@ -9,10 +9,21 @@
 	<div class="post linha texto">
 		<ul>
 			<li>total: {{ inscricoes.count }}</li>
-<!-- 			{% for item in dados %}
-				<li>{{ item }}</li>
+			{% for item in dados %}
+				{% ifchanged item.pais %}
+					<li>
+						{{ item.select_verbose }}
+						{% query dados 'filter' pais=item.pais as num %} {{ num.count }}
+					</li>
+				{% endifchanged %}
 			{% endfor %}
- -->		</ul>
+			{% for palafita,nome in palafitas %}
+				{% query projetos 'filter' palafita=palafita as num %}
+				<li>
+					{{ nome|formatapalafita }} {{ num.count }}
+				</li>
+			{% endfor %}
+		</ul>
 	</div>
 
 	{% espaco borda='' %}
