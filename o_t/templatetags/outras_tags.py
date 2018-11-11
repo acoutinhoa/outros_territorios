@@ -1,4 +1,4 @@
-from django import template
+from django import template, get_version
 from django.template.defaultfilters import stringfilter, linebreaksbr
 from django.urls import resolve, translate_url
 from django.utils.html import conditional_escape
@@ -161,3 +161,10 @@ def post_format(nota, txt, link, crop=False):
 
 	return mark_safe(txt)
 
+@register.simple_tag
+def hifen():
+	return '-' * random.randint(2,20)
+
+# @register.simple_tag
+# def django():
+# 	return 'django %s' % (get_version())
