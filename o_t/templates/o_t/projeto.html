@@ -18,7 +18,7 @@
 				{% if projeto.inscricao.finalizada %}
 					{{ projeto.inscricao.finalizada }}
 				{% else %}
-					----
+					{% hifen %}
 				{% endif %}</b>
 		</p>
 		{% if projeto.texto %}
@@ -28,7 +28,7 @@
 			{% if projeto.arquivo %}
 				<a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'ver arquivo' %}</a>
 			{% else %}
-				----
+				{% hifen %}
 			{% endif %}<br>
 		</p>
 	</div>

@@ -291,6 +291,7 @@ def galeria(request, codigo=None):
 	projeto = None
 	dados = None
 	projetos = None
+	palafitas = None
 	if codigo:
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 		projeto = Projeto.objects.get_or_create(inscricao=inscricao)[0]
