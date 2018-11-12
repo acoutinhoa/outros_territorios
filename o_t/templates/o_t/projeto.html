@@ -6,7 +6,7 @@
 
 {% if user.is_authenticated %}
 	<div class="post linha">
-		{% if projeto.nome %}
+		{% if projeto.nome or projeto.palafita %}
 			<p class='titulo' style="text-align: left;">{{ projeto.nome }}<br><span class="titulo_" style="font-weight: normal;">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
 		{% endif %}
 		{% if projeto.img %}
@@ -24,13 +24,11 @@
 		{% if projeto.texto %}
 			<p class="texto margem">{{ projeto.texto|linebreaksbr }}</p>
 		{% endif %}
-		<p class="menu margem">
-			{% if projeto.arquivo %}
-				<a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'ver arquivo' %}</a>
-			{% else %}
-				{% hifen %}
-			{% endif %}<br>
-		</p>
+		
+		{% if projeto.arquivo %}
+			<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'ver arquivo' %}</a></p>
+		{% endif %}
+		
 	</div>
 {% endif %}
 
