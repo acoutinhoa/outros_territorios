@@ -21,6 +21,8 @@
 {% endif %}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+{% if noindex %}<meta name="robots" content="noindex, nofollow">{% else %}<meta name="robots" content="index, follow">{% endif %}
+<meta content="{% trans 'Outros Territórios é um conjunto de intervenções efêmeras que serão propostas para um bairro montanhoso em Belo Horizonte: o bairro Buritis. Será uma mudança instantânea em sua paisagem através da ocupação de diversas “palafitas” ao mesmo tempo.' %}" name="description">
 <link rel="icon" href="{% static 'img/favicon.ico' %}">
 <title>{% trans 'Outros Territórios' %}_{{ titulo }}</title>
 {% block head %}{% endblock %}

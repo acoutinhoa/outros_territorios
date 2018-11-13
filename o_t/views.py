@@ -272,6 +272,7 @@ def inscricoes(request, pk, erro=False,):
 		'c2': c2,
 		'erro': erro,	
 		'ativo': ativo,	
+		'noindex': True,
 	})
 
 def inscricoes_submit(request, pk,):
@@ -296,7 +297,7 @@ def galeria(request, codigo=None):
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 		projeto = Projeto.objects.get_or_create(inscricao=inscricao)[0]
 	else:
-		dados = Dados.objects.all()
+		dados = Dados.objects.all().order_by('pais')
 		projetos = Projeto.objects.all()
 		palafitas = Projeto.palafitas
 
