@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 from datetime import date
 from django.utils.text import slugify
 import uuid, random
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import get_language
 from django.core.exceptions import ValidationError
 from django_countries.fields import CountryField
 from django_countries import countries
@@ -97,6 +99,12 @@ class Nota(models.Model):
 		super().save(*args, **kwargs)
 	class Meta:
 		ordering = ['-data1','-data0']
+	def get_absolute_url(self):
+		if get_language() == 'en' and self.slug_en:
+			slug = self.slug_en
+		else:
+			slug = self.slug
+		return reverse('blog_slug', args=[slug])
 
 def imagem_filepath(instance, filename):
     return 'o_t/blog/{0}/{1}'.format(instance.nota.pk, filename)

@@ -114,8 +114,13 @@ def post(text, imgs={}, autoescape=True):
 					info = '<b>%s</b>' % (info)
 				elif tipo == 'img':
 					info = info.lower()
+					gs = ''
+					if '|' in info:
+						info, gs = info.split('|')
 					if info in imgs:
-						info = '<img src="%s" alt="%s" class="img_post">' % (imgs[info], info)
+						if gs:
+							gs = 'style="-webkit-filter: grayscale({0}%); filter: grayscale({0}%);"'.format(gs)
+						info = '<img src="%s" alt="%s" class="img_post" %s>' % (imgs[info], info, gs)
 					else:
 						info = ''
 				else:
@@ -163,7 +168,7 @@ def post_format(nota, txt, link, crop=False):
 
 @register.simple_tag
 def hifen():
-	return '-' * random.randint(2,20)
+	return '-' * random.randint(2,19)
 
 # @register.simple_tag
 # def django():

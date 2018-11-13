@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-01 16:27-0300\n"
+"POT-Creation-Date: 2018-11-12 13:51-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,163 +18,171 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: o_t/models.py:27
-msgid "organização"
+#: o_t/forms.py:132
+msgid "Email não cadastrado"
+msgstr ""
+
+#: o_t/forms.py:165 o_t/forms.py:166
+msgid "Tamanho máximo: 10MB"
 msgstr ""
 
 #: o_t/models.py:28
-msgid "patrocínio"
+msgid "organização"
 msgstr ""
 
 #: o_t/models.py:29
+msgid "patrocínio"
+msgstr ""
+
+#: o_t/models.py:30
 msgid "apoio"
 msgstr ""
 
-#: o_t/models.py:158 o_t/models.py:195 o_t/models.py:243
+#: o_t/models.py:160 o_t/models.py:200 o_t/models.py:247
 msgid "nome"
 msgstr ""
 
-#: o_t/models.py:160
+#: o_t/models.py:162
 msgid "consulta"
 msgstr ""
 
-#: o_t/models.py:186
+#: o_t/models.py:191
 msgid "Arquitetura"
 msgstr ""
 
-#: o_t/models.py:187
+#: o_t/models.py:192
 msgid "Artes Visuais"
 msgstr ""
 
-#: o_t/models.py:188
+#: o_t/models.py:193
 msgid "Artes Performáticas"
 msgstr ""
 
-#: o_t/models.py:189
+#: o_t/models.py:194
 msgid "Design"
 msgstr ""
 
-#: o_t/models.py:190
+#: o_t/models.py:195
 msgid "Paisagismo"
 msgstr ""
 
-#: o_t/models.py:196 o_t/models.py:244
+#: o_t/models.py:201 o_t/models.py:248
 msgid "sobrenome"
 msgstr ""
 
-#: o_t/models.py:197
+#: o_t/models.py:202
 msgid "área"
 msgstr ""
 
-#: o_t/models.py:224
+#: o_t/models.py:229
 msgid "nascimento"
 msgstr ""
 
-#: o_t/models.py:225
+#: o_t/models.py:230
 msgid "CPF/CNPJ"
 msgstr ""
 
-#: o_t/models.py:226
+#: o_t/models.py:231
 msgid "celular"
 msgstr ""
 
-#: o_t/models.py:228
+#: o_t/models.py:233
 msgid "país"
 msgstr ""
 
-#: o_t/models.py:229
+#: o_t/models.py:234
 msgid "endereço"
 msgstr ""
 
-#: o_t/models.py:230
+#: o_t/models.py:235
 msgid "complemento"
 msgstr ""
 
-#: o_t/models.py:231
-msgid "bairro"
-msgstr ""
-
-#: o_t/models.py:232
+#: o_t/models.py:236
 msgid "cidade"
 msgstr ""
 
-#: o_t/models.py:233
+#: o_t/models.py:237
 msgid "estado"
 msgstr ""
 
-#: o_t/models.py:234
+#: o_t/models.py:238
 msgid "CEP"
 msgstr ""
 
-#: o_t/models.py:255
-msgid "01. Cônsul Walter 425: palafita-pomar"
-msgstr ""
-
-#: o_t/models.py:256
-msgid "02. Cônsul Walter 437: palafita-caverna"
-msgstr ""
-
-#: o_t/models.py:257
-msgid "03. Cônsul Walter 483: palafita-empena"
-msgstr ""
-
-#: o_t/models.py:258
-msgid "04. Cônsul Walter 511: palafita-indiscreta"
-msgstr ""
-
-#: o_t/models.py:259
-msgid "05. Teresa Mota Valadares 76: palafita-caleidoscópica"
-msgstr ""
-
 #: o_t/models.py:260
-msgid "06. Fidélis Martins 173: palafita-esbelta"
-msgstr ""
-
-#: o_t/models.py:261
-msgid "07. Maria Heilbuth Surete 1223: palafita-dos-cachorros"
-msgstr ""
-
-#: o_t/models.py:262
-msgid "08. Maria Heilbuth Surete 1159: palafita-comum"
-msgstr ""
-
-#: o_t/models.py:263
-msgid "09. Maria Heilbuth Surete 1193: palafita-gigante-I"
+msgid "Erro: o arquivo não deve ultrapassar 10MB"
 msgstr ""
 
 #: o_t/models.py:264
-msgid "10. Maria Heilbuth Surete 1295: palafita-gigante-II"
+msgid "01. Cônsul Walter 425: palafita-pomar"
+msgstr ""
+
+#: o_t/models.py:265
+msgid "02. Cônsul Walter 437: palafita-caverna"
+msgstr ""
+
+#: o_t/models.py:266
+msgid "03. Cônsul Walter 483: palafita-empena"
+msgstr ""
+
+#: o_t/models.py:267
+msgid "04. Cônsul Walter 511: palafita-indiscreta"
 msgstr ""
 
 #: o_t/models.py:268
-msgid "palafita"
+msgid "05. Teresa Mota Valadares 76: palafita-caleidoscópica"
 msgstr ""
 
 #: o_t/models.py:269
-msgid "título"
+msgid "06. Fidélis Martins 173: palafita-esbelta"
 msgstr ""
 
 #: o_t/models.py:270
-msgid "descrição"
+msgid "07. Maria Heilbuth Surete 1223: palafita-dos-cachorros"
 msgstr ""
 
 #: o_t/models.py:271
+msgid "08. Maria Heilbuth Surete 1159: palafita-comum"
+msgstr ""
+
+#: o_t/models.py:272
+msgid "09. Maria Heilbuth Surete 1193: palafita-gigante-I"
+msgstr ""
+
+#: o_t/models.py:273
+msgid "10. Maria Heilbuth Surete 1295: palafita-gigante-II"
+msgstr ""
+
+#: o_t/models.py:277
+msgid "palafita"
+msgstr ""
+
+#: o_t/models.py:278
+msgid "título"
+msgstr ""
+
+#: o_t/models.py:279
+msgid "descrição"
+msgstr ""
+
+#: o_t/models.py:280
 msgid "imagem"
 msgstr ""
 
-#: o_t/models.py:272 o_t/templates/o_t/notas_lista.html:8
+#: o_t/models.py:281 o_t/templates/o_t/notas_lista.html:8
 msgid "arquivo"
 msgstr ""
 
-#: o_t/templates/o_t/base.html:11 o_t/templates/o_t/nota.html:60
+#: o_t/templates/o_t/base.html:25 o_t/templates/o_t/nota.html:59
 msgid "Outros Territórios"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:37 o_t/views.py:19
+#: o_t/templates/o_t/documentacao.html:37 o_t/views.py:21
 msgid "juri"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:37 o_t/views.py:19
+#: o_t/templates/o_t/documentacao.html:37 o_t/views.py:21
 msgid "júri"
 msgstr ""
 
@@ -182,25 +190,25 @@ msgstr ""
 msgid "Em Breve."
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:65 o_t/views.py:17
+#: o_t/templates/o_t/documentacao.html:65 o_t/views.py:19
 msgid "arquivos"
 msgstr ""
 
-#: o_t/templates/o_t/documentacao.html:66 o_t/views.py:17
+#: o_t/templates/o_t/documentacao.html:66 o_t/views.py:19
 msgid "arquivos adicionais"
 msgstr ""
 
 #: o_t/templates/o_t/documentacao.html:75
-#: o_t/templates/o_t/documentacao.html:76 o_t/views.py:18
+#: o_t/templates/o_t/documentacao.html:76 o_t/views.py:20
 msgid "cronograma"
 msgstr ""
 
-#: o_t/templates/o_t/faq.html:23 o_t/templates/o_t/pergunta.html:7
-msgid "blocos de respostas"
+#: o_t/templates/o_t/faq.html:23
+msgid "Consulta enviada"
 msgstr ""
 
-#: o_t/templates/o_t/faq.html:58 o_t/templates/o_t/pergunta.html:42
-msgid "consulta enviada"
+#: o_t/templates/o_t/faq.html:29 o_t/templates/o_t/pergunta.html:7
+msgid "blocos de respostas"
 msgstr ""
 
 #: o_t/templates/o_t/faq.html:63 o_t/templates/o_t/pergunta.html:47
@@ -244,55 +252,68 @@ msgstr ""
 msgid "A partir desse momento, não será mais possível realizar modificações."
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:28
+#: o_t/templates/o_t/inscricoes.html:29
 msgid "você salvou os formulários de projeto e equipe?"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:28
+#: o_t/templates/o_t/inscricoes.html:29
 msgid "enviar proposta"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:35 o_t/templates/o_t/inscricoes.html:127
+#: o_t/templates/o_t/inscricoes.html:32
+msgid "Prazo encerrado"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:39 o_t/templates/o_t/inscricoes.html:132
 msgid "Nome"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:39
+#: o_t/templates/o_t/inscricoes.html:43
 msgid "Área de atuação profissional"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:64
-msgid "projeto"
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:69 o_t/templates/o_t/inscricoes.html:89
+#: o_t/templates/o_t/inscricoes.html:71 o_t/templates/o_t/inscricoes.html:95
+#: o_t/templates/o_t/projeto.html:16
 msgid "Código de identificação"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:107
+#: o_t/templates/o_t/inscricoes.html:90
+msgid "projeto"
+msgstr ""
+
+#: o_t/templates/o_t/inscricoes.html:113
 msgid "salvar projeto"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:119
+#: o_t/templates/o_t/inscricoes.html:125
 msgid "equipe"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:146
+#: o_t/templates/o_t/inscricoes.html:151
 msgid "salvar equipe e/ou adicionar novo integrante"
 msgstr ""
 
-#: o_t/templates/o_t/nota.html:36
+#: o_t/templates/o_t/nota.html:44
 msgid "publicado em"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:6
-msgid "email enviado"
+#: o_t/templates/o_t/notas.html:27 o_t/templatetags/outras_tags.py:160
+msgid "ver mais"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:9 o_t/views.py:16
+#: o_t/templates/o_t/notas.html:30
+msgid "carregando..."
+msgstr ""
+
+#: o_t/templates/o_t/pergunta.html:42
+msgid "consulta enviada"
+msgstr ""
+
+#: o_t/templates/o_t/pre_inscricoes.html:9 o_t/views.py:18
 msgid "inscricoes"
 msgstr ""
 
-#: o_t/templates/o_t/pre_inscricoes.html:10 o_t/views.py:16 o_t/views.py:214
+#: o_t/templates/o_t/pre_inscricoes.html:10 o_t/views.py:18 o_t/views.py:231
 msgid "inscrições"
 msgstr ""
 
@@ -322,51 +343,59 @@ msgstr ""
 msgid "reenviar link para submissão do projeto"
 msgstr ""
 
-#: o_t/urls.py:31
+#: o_t/templates/o_t/projeto.html:17
+msgid "Enviado em"
+msgstr ""
+
+#: o_t/templates/o_t/projeto.html:29
+msgid "ver arquivo"
+msgstr ""
+
+#: o_t/urls.py:30
 msgid "inscricoes/<uuid:pk>/"
 msgstr ""
 
-#: o_t/urls.py:32
+#: o_t/urls.py:31
 msgid "inscricoes/<uuid:pk>/submit"
 msgstr ""
 
-#: o_t/urls.py:33
+#: o_t/urls.py:32
 msgid "inscricoes/<uuid:pk>/erro"
 msgstr ""
 
-#: o_t/urls.py:45
+#: o_t/urls.py:46
 msgid "galeria/"
 msgstr ""
 
-#: o_t/urls.py:46
+#: o_t/urls.py:47
 msgid "chamada_de_projetos/"
 msgstr ""
 
-#: o_t/urls.py:47
+#: o_t/urls.py:48
 msgid "perguntas_frequentes/"
 msgstr ""
 
-#: o_t/views.py:14 o_t/views.py:61 o_t/views.py:83
+#: o_t/views.py:16 o_t/views.py:63 o_t/views.py:95
 msgid "início"
 msgstr ""
 
-#: o_t/views.py:15 o_t/views.py:122 o_t/views.py:176
+#: o_t/views.py:17 o_t/views.py:134 o_t/views.py:193
 msgid "chamada de projetos"
 msgstr ""
 
-#: o_t/views.py:21 o_t/views.py:265
+#: o_t/views.py:23 o_t/views.py:288 o_t/views.py:316
 msgid "galeria"
 msgstr ""
 
-#: o_t/views.py:22
+#: o_t/views.py:24
 msgid "blog"
 msgstr ""
 
-#: o_t/views.py:23 o_t/views.py:407
+#: o_t/views.py:25 o_t/views.py:468
 msgid "perguntas frequentes"
 msgstr ""
 
-#: o_t/views.py:26
+#: o_t/views.py:28
 #, python-brace-format
 msgid ""
 "Olá {nome},\n"
@@ -382,7 +411,7 @@ msgid ""
 "{link}"
 msgstr ""
 
-#: o_t/views.py:35
+#: o_t/views.py:37
 #, python-brace-format
 msgid ""
 "Olá {nome},\n"
@@ -392,7 +421,7 @@ msgid ""
 "{link}"
 msgstr ""
 
-#: o_t/views.py:41
+#: o_t/views.py:43
 #, python-brace-format
 msgid ""
 "Olá {nome},\n"
@@ -403,7 +432,7 @@ msgid ""
 "{consulta}"
 msgstr ""
 
-#: o_t/views.py:47
+#: o_t/views.py:49
 #, python-brace-format
 msgid ""
 "Olá {nome},\n"
@@ -419,25 +448,33 @@ msgid ""
 "{link}"
 msgstr ""
 
-#: o_t/views.py:140
+#: o_t/views.py:156
 msgid "Outros Territórios_confirmação de inscrição"
 msgstr "Other Territories_registration confirmation"
 
-#: o_t/views.py:152
+#: o_t/views.py:159
+msgid "Inscricao-realizada"
+msgstr ""
+
+#: o_t/views.py:169
 msgid "Outros Territórios_reenvio de link"
 msgstr "Other Territories_submission link"
 
-#: o_t/views.py:224
-msgid ""
-"Você precisa preencher todos os campos do projeto para finalizar sua "
-"inscrição."
+#: o_t/views.py:172
+msgid "Email-enviado"
 msgstr ""
 
-#: o_t/views.py:431
+#: o_t/views.py:246
+msgid ""
+"Você precisa preencher todos os campos do projeto para finalizar sua "
+"inscrição"
+msgstr ""
+
+#: o_t/views.py:492
 msgid "Outros Territórios_consulta"
 msgstr "Other Territories_ queries"
 
-#: o_t/views.py:515
+#: o_t/views.py:576
 msgid "Outros Territórios_resposta à consulta"
 msgstr ""
 

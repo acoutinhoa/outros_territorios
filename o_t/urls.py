@@ -1,6 +1,14 @@
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 from . import views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import *
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'concurso': ConcursoSitemap,
+    'posts': PostSitemap,
+}
 
 blog_patterns = [
     path('', views.blog, name='blog'),
@@ -40,6 +48,7 @@ galeria_patterns = [
 ]
 
 urlpatterns = [
+    path('sitemap.xml/', sitemap, {'sitemaps' : sitemaps } , name='sitemap'),
     path('', views.home, name='home'),
     path('edit/', views.home_edit, name='home_edit'),
 
