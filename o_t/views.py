@@ -67,10 +67,10 @@ def home(request):
 	logos = Cartaz.objects.get_or_create(pagina='logos')[0]
 	logos = Arquivo.objects.filter(pagina=logos)
 	# img
+	img = None
 	if cartaz.arquivo_set.all().exists():
+		# img = cartaz.arquivo_set.all()
 		img = cartaz.arquivo_set.all().order_by('?')[0]
-	else:
-		img = None
 
 	# paginacao
 	page = request.GET.get('page', 1)
@@ -335,7 +335,7 @@ def galeria_edit(request, edit=True):
 		'cartaz_form': cartaz_form,
 		})
 
-def blog(request, pk=None, slug=None, tag=None):
+def blog(request, pk=None, slug=None, tag=None, rascunho=False):
 	titulo = 'blog'
 	nota = None
 	if pk:
@@ -355,8 +355,8 @@ def blog(request, pk=None, slug=None, tag=None):
 			tag = get_object_or_404(Tag, tag=tag)
 
 	# notas lista
-	if request.user.is_authenticated:
-		notas = Nota.objects.all()
+	if rascunho:
+		notas = Nota.objects.exclude(data1__lte=timezone.now())
 	else:
 		notas = Nota.objects.filter(data1__lte=timezone.now())
 	if tag:
@@ -380,7 +380,9 @@ def blog(request, pk=None, slug=None, tag=None):
 		'tags': tags,
 		'tag': tag,
 		'notas_pg': notas_pg,
+		'rascunho': rascunho,
 		})
+
 
 def blog_edit(request, pk=None):
 	titulo = 'blog'

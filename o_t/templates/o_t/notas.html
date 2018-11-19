@@ -7,36 +7,39 @@
 <div class="cartaz linha">
 	<p class="titulo">{{ titulo }}</p>
 </div>
-<div class="infinite-container">
-	{% for nota in notas_pg %}
-		<div class="infinite-item">
-			{% if forloop.first %}
-				{% espaco 60 120 %}
-			{% else %}
-				{% espaco 80 180 borda='linha linha_' %}
-			{% endif %}
-			{% include 'o_t/nota.html' with link=True crop=True %}
-			{% if forloop.last %}
-				{% espaco borda='linha_' %}
-			{% endif %}
-		</div>
-	{% endfor %}
-</div>
 
-{% if notas_pg.has_next %}
-	<a class="infinite-more-link" href="?page={{ notas_pg.next_page_number }}">{% trans 'ver mais' %}</a>
+{% if rascunho and user.is_authenticated or not rascunho %}
+	<div class="infinite-container">
+		{% for nota in notas_pg %}
+			<div class="infinite-item">
+				{% if forloop.first %}
+					{% espaco 60 120 %}
+				{% else %}
+					{% espaco 80 180 borda='linha linha_' %}
+				{% endif %}
+				{% include 'o_t/nota.html' with link=True crop=True %}
+				{% if forloop.last %}
+					{% espaco borda='linha_' %}
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+
+	{% if notas_pg.has_next %}
+		<a class="infinite-more-link" href="?page={{ notas_pg.next_page_number }}">{% trans 'ver mais' %}</a>
+	{% endif %}
+
+	<div class="loading" style="display: none;">{% trans 'carregando...' %}</div>
+
+	<script>
+		var infinite = new Waypoint.Infinite({
+		  element: $('.infinite-container')[0],
+		  onBeforePageLoad: function () {
+		    $('.loading').show();
+		  },
+		  onAfterPageLoad: function ($items) {
+		    $('.loading').hide();
+		  }
+		});
+	</script>
 {% endif %}
-
-<div class="loading" style="display: none;">{% trans 'carregando...' %}</div>
-
-<script>
-	var infinite = new Waypoint.Infinite({
-	  element: $('.infinite-container')[0],
-	  onBeforePageLoad: function () {
-	    $('.loading').show();
-	  },
-	  onAfterPageLoad: function ($items) {
-	    $('.loading').hide();
-	  }
-	});
-</script>

@@ -29,7 +29,7 @@ class Arquivo(models.Model):
 		('01','o_t'),
 		('02',_('organização')),
 		('03',_('patrocínio')),
-		('04',_('apoio')),
+		('04',_('apoio institucional')),
 	]
 	pagina = models.ForeignKey(Cartaz, on_delete=models.CASCADE, blank=True)
 	nome = models.CharField(max_length=200, blank=True)
