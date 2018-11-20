@@ -25,7 +25,7 @@
 		{% for item in dados %}
 			{% ifchanged item.pais %}
 				<tr>
-					<th>{{forloop.counter}}. {{ item.select_verbose }}</th>
+					<th>{{ item.select_verbose }}</th>
 					<th>{% query dados_ 'filter' pais=item.pais as total %}{{ total.count }}</th>
 					<td> {% hifen %} {% query dados 'filter' pais=item.pais as total %}{{ total.count }}</td>
 				</tr>
