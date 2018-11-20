@@ -306,7 +306,7 @@ def galeria(request, codigo=None):
 			palafitas.append([palafita[1], finalizadas, total])
 		paises = []
 		pais = None
-		for item in Dados.objects.all():
+		for item in Dados.objects.all().order_by('pais'):
 			if item.select_verbose() != pais:
 				pais = item.select_verbose()
 				finalizadas = Dados.objects.filter(pais=item.pais, inscricao__in=inscricoes_).count()
