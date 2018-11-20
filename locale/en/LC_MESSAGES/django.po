@@ -124,11 +124,11 @@ msgstr "02. Consul Walter 437: stil-cave"
 
 #: o_t/models.py:274
 msgid "03. Cônsul Walter 483: palafita-empena"
-msgstr "03. Consul Walter 483: gabled stilts"
+msgstr "03. Consul Walter 483: gabled-stilts"
 
 #: o_t/models.py:275
 msgid "04. Cônsul Walter 511: palafita-indiscreta"
-msgstr "04. Consul Walter 511: indiscreet stilts"
+msgstr "04. Consul Walter 511: indiscreet-stilts"
 
 #: o_t/models.py:276
 msgid "05. Teresa Mota Valadares 76: palafita-caleidoscópica"
@@ -136,23 +136,23 @@ msgstr "05. Teresa Mota Valadares 76: stilt-kaleidoscope"
 
 #: o_t/models.py:277
 msgid "06. Fidélis Martins 173: palafita-esbelta"
-msgstr "06. Fidelis Martins 173: slender stilts"
+msgstr "06. Fidelis Martins 173: slender-stilts"
 
 #: o_t/models.py:278
 msgid "07. Maria Heilbuth Surete 1223: palafita-dos-cachorros"
-msgstr "07. Maria Heilbuth Surete 1223: stilts of strays"
+msgstr "07. Maria Heilbuth Surete 1223: stilts-of-strays"
 
 #: o_t/models.py:279
 msgid "08. Maria Heilbuth Surete 1159: palafita-comum"
-msgstr "08. Maria Heilbuth Surete 1159: standard stilts"
+msgstr "08. Maria Heilbuth Surete 1159: standard-stilts"
 
 #: o_t/models.py:280
 msgid "09. Maria Heilbuth Surete 1193: palafita-gigante-I"
-msgstr "09. Maria Heilbuth Surete 1193: giant stilts-I"
+msgstr "09. Maria Heilbuth Surete 1193: giant-stilts-I"
 
 #: o_t/models.py:281
 msgid "10. Maria Heilbuth Surete 1295: palafita-gigante-II"
-msgstr "10. Maria Heilbuth Surete 1295: giant stilts-II"
+msgstr "10. Maria Heilbuth Surete 1295: giant-stilts-II"
 
 #: o_t/models.py:285
 msgid "palafita"
