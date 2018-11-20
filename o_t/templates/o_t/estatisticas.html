@@ -25,7 +25,7 @@
 		{% for item in dados %}
 			{% ifchanged item.pais %}
 				<tr>
-					<th>{{ item.select_verbose }}</th>
+					<th>{{forloop.counter}}. {{ item.select_verbose }}</th>
 					<th>{% query dados_ 'filter' pais=item.pais as total %}{{ total.count }}</th>
 					<td> {% hifen %} {% query dados 'filter' pais=item.pais as total %}{{ total.count }}</td>
 				</tr>
@@ -36,7 +36,7 @@
 		</tr>
 		{% for palafita,nome in palafitas %}
 			<tr>
-				<th>{{ palafita }} {{ nome|formatapalafita }}</th>
+				<th>{{forloop.counter}}. {{ nome|formatapalafita }}</th>
 				<th>{% query projetos_ 'filter' palafita=palafita as total %}{{ total.count }}</th>
 				<td> {% hifen %} {% query projetos 'filter' palafita=palafita as total %}{{ total.count }}</td>
 			</tr>
