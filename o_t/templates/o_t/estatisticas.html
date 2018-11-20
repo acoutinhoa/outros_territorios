@@ -23,7 +23,7 @@
 			</tr>
 			{% for nome,finalizada,total in valores %}
 				<tr>
-					<th>{{forloop.counter}}. {{ nome|formatapalafita }}</th>
+					<th>{{forloop.counter}}. {% if item == 'palafitas' %}{{ nome|formatapalafita }}{% else %}{{ nome }}{% endif %}</th>
 					<th>{{ finalizada }}</th>
 					<td> {% hifen %} {{ total }}</td>
 				</tr>
