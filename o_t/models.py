@@ -98,7 +98,7 @@ class Nota(models.Model):
 			self.slug_en = self.criar_slug(lang='en')
 		super().save(*args, **kwargs)
 	class Meta:
-		ordering = ['-data1','-data0']
+		ordering = ['-data1']
 	def get_absolute_url(self):
 		if get_language() == 'en' and self.slug_en:
 			slug = self.slug_en

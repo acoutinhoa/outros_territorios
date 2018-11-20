@@ -5,6 +5,64 @@
 {% espaco %}
 
 <div class="post">
+	<p class="titulo_">{% trans 'arquivo' %}</p>
+	<table class="form notas" style="padding: 0;">
+	{% if tag %}
+		{% if lang == 'en' %}
+			{% set tag.tag_en as tag %}
+		{% else %}
+			{% set tag.tag as tag %}
+		{% endif %}
+		<tr>
+			<td colspan="3"><b>Tag: {{ tag }} <sup><a href="{% url 'blog'%}" style="border-bottom:none;">x</a></sup></b></td>
+		</tr>
+	{% endif %}
+	{% for nota in notas %}
+		{% if lang == 'en' and nota.slug_en %}
+			{% url 'blog_slug' slug=nota.slug_en as nota_link %}
+		{% elif nota.slug %}
+			{% url 'blog_slug' slug=nota.slug as nota_link %}
+		{% else %}
+			{% url 'blog' pk=nota.pk as nota_link %}	
+		{% endif %}
+
+ 		{% ifchanged nota.data1.year %}
+			{% if nota.data1 %}
+				<tr>
+					<td>{{ nota.data1|date:'Y' }}</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="2">Rascunhos</td>
+				</tr>
+			{% endif %}
+		{% endifchanged %}
+ 		<tr>
+			<td></td>
+			<td>
+				{% if lang == 'en' %}
+					{{ nota.data1|date:'m_d'}}
+				{% else %}
+					{{ nota.data1|date:'d_m'}}
+				{% endif %}
+			</td>
+			<td class="texto"><a href="{{ nota_link }}">
+				{% if lang == 'en' and nota.titulo_en %}
+					{{ nota.titulo_en|alien }}
+				{% else %}
+					{{ nota.titulo|alien }}
+				{% endif %}
+			</a></td>
+		</tr>
+ 	{% endfor %}
+	</table>
+</div>
+
+
+
+
+{% comment %}
+<div class="post">
 	<p class="titulo_">
 		{% if user.is_authenticated %}
 			<a href="{% url 'blog' %}">{% trans 'arquivo' %}</a> / 
@@ -64,12 +122,8 @@
 					{% endif %}
 				</a></td>
 			</tr>
-		{% empty %}
-			<!-- <tr>
-				<td>{% trans 'Nenhum post' %}</td>
-			</tr> -->
 		{% endfor %}
 		</table>
 	{% endif %}
 </div>
-
+{% endcomment %}

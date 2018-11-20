@@ -8,7 +8,6 @@
 	<p class="titulo">{{ titulo }}</p>
 </div>
 
-{% if rascunho and user.is_authenticated or not rascunho %}
 	<div class="infinite-container">
 		{% for nota in notas_pg %}
 			<div class="infinite-item">
@@ -42,4 +41,3 @@
 		  }
 		});
 	</script>
-{% endif %}

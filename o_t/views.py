@@ -7,7 +7,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import activate, get_language
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Count
+from django.db.models import Count, F
 from random import randint, randrange, choice
 from .forms import *
 from .models import *
@@ -335,7 +335,7 @@ def galeria_edit(request, edit=True):
 		'cartaz_form': cartaz_form,
 		})
 
-def blog(request, pk=None, slug=None, tag=None, rascunho=False):
+def blog(request, pk=None, slug=None, tag=None):
 	titulo = 'blog'
 	nota = None
 	if pk:
@@ -355,8 +355,10 @@ def blog(request, pk=None, slug=None, tag=None, rascunho=False):
 			tag = get_object_or_404(Tag, tag=tag)
 
 	# notas lista
-	if rascunho:
-		notas = Nota.objects.exclude(data1__lte=timezone.now())
+	# if rascunho:
+	# 	notas = Nota.objects.exclude(data1__lte=timezone.now())
+	if request.user.is_authenticated:
+		notas = Nota.objects.all().order_by(F('data1').desc(nulls_first=True))
 	else:
 		notas = Nota.objects.filter(data1__lte=timezone.now())
 	if tag:
@@ -380,9 +382,8 @@ def blog(request, pk=None, slug=None, tag=None, rascunho=False):
 		'tags': tags,
 		'tag': tag,
 		'notas_pg': notas_pg,
-		'rascunho': rascunho,
+		# 'rascunho': rascunho,
 		})
-
 
 def blog_edit(request, pk=None):
 	titulo = 'blog'
