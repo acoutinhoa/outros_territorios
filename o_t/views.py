@@ -238,8 +238,8 @@ def inscricoes(request, pk, erro=False,):
 	c2 = '30'
 
 	ativo = False
-	finaliza = Data.objects.all()[0]
-	if timezone.now() < finaliza.fim:
+	finaliza = Data.objects.all()[0].fim
+	if timezone.now() < finaliza:
 		ativo = True
 
 	if erro:
@@ -289,6 +289,7 @@ def galeria(request, codigo=None):
 	titulo = _('galeria')
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
 	inscricoes = Inscricao.objects.all()
+	inscricoes_ = Inscricao.objects.exclude(finalizada=None)
 	projeto = None
 	dados = None
 	projetos = None
@@ -297,10 +298,22 @@ def galeria(request, codigo=None):
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 		projeto = Projeto.objects.get_or_create(inscricao=inscricao)[0]
 	else:
-		dados = Dados.objects.all().order_by('pais')
-		projetos = Projeto.objects.all()
-		palafitas = Projeto.palafitas
-
+		dados=[]
+		palafitas = []
+		for i, palafita in enumerate(Projeto.palafitas):
+			finalizadas = Projeto.objects.filter(palafita=palafita[0], inscricao__in=inscricoes_).count()
+			total = Projeto.objects.filter(palafita=palafita[0]).count()
+			palafitas.append([palafita[1], finalizadas, total])
+		paises = []
+		pais = None
+		for item in Dados.objects.all():
+			if item.select_verbose() != pais:
+				pais = item.select_verbose()
+				finalizadas = Dados.objects.filter(pais=item.pais, inscricao__in=inscricoes_).count()
+				total = Dados.objects.filter(pais=item.pais).count()
+				paises.append([pais, finalizadas, total])
+		dados.append(['paises', paises])
+		dados.append(['palafitas', palafitas])
 
 	return render(request, 'o_t/galeria.html', {
 		'titulo': titulo, 

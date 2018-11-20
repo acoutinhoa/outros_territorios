@@ -1,8 +1,6 @@
 {% load i18n outras_tags %}
 
 {% query inscricoes 'exclude' finalizada=None as inscricoes_ %}
-{% query dados 'filter' inscricao__in=inscricoes_ as dados_ %}
-{% query projetos 'filter' inscricao__in=inscricoes_ as projetos_ %}
 
 {% espaco %}
 
@@ -19,27 +17,17 @@
 			<th style="width:40px;">{{ inscricoes_.count }}</th>
 			<td> {% hifen %} {{ inscricoes.count }}</td>
 		</tr>
-		<tr>
-			<td>paises</td>
-		</tr>
-		{% for item in dados %}
-			{% ifchanged item.pais %}
-				<tr>
-					<th>{{ item.select_verbose }}</th>
-					<th>{% query dados_ 'filter' pais=item.pais as total %}{{ total.count }}</th>
-					<td> {% hifen %} {% query dados 'filter' pais=item.pais as total %}{{ total.count }}</td>
-				</tr>
-			{% endifchanged %}
-		{% endfor %}
-		<tr>
-			<td>palafitas</td>
-		</tr>
-		{% for palafita,nome in palafitas %}
+		{% for item,valores in dados %}
 			<tr>
-				<th>{{forloop.counter}}. {{ nome|formatapalafita }}</th>
-				<th>{% query projetos_ 'filter' palafita=palafita as total %}{{ total.count }}</th>
-				<td> {% hifen %} {% query projetos 'filter' palafita=palafita as total %}{{ total.count }}</td>
+				<td>{{item}}</td>
 			</tr>
+			{% for nome,finalizada,total in valores %}
+				<tr>
+					<th>{{forloop.counter}}. {{ nome|formatapalafita }}</th>
+					<th>{{ finalizada }}</th>
+					<td> {% hifen %} {{ total }}</td>
+				</tr>
+			{% endfor %}
 		{% endfor %}
 	</table>
 
