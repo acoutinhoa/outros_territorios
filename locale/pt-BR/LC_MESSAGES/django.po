@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-28 16:39-0200\n"
+"POT-Creation-Date: 2018-11-28 17:58-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,6 +208,52 @@ msgstr ""
 msgid "Outros Territórios"
 msgstr ""
 
+#: o_t/templates/o_t/dados.html:12
+msgid "informações"
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:15
+msgid "Sua inscrição foi finalizada em"
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:19
+msgid ""
+"O formulário do projeto poderá ser acessado e alterado quantas vezes for "
+"necessário até a data limite definida no cronograma."
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:20
+msgid "Não se esqueça de salvar as informações a cada alteração."
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:21
+msgid "A submissão só será efetivada após o clique em “enviar proposta”."
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:22
+msgid "A partir desse momento, não será mais possível realizar modificações."
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:26
+msgid "Você salvou os formulários de projeto e equipe?"
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:26
+msgid "enviar proposta"
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:29
+msgid "Prazo encerrado"
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:36 o_t/templates/o_t/inscricoes.html:79
+msgid "Nome"
+msgstr ""
+
+#: o_t/templates/o_t/dados.html:40
+msgid "Área de atuação profissional"
+msgstr ""
+
 #: o_t/templates/o_t/documentacao.html:37 o_t/views.py:21
 msgid "júri"
 msgstr ""
@@ -243,70 +289,24 @@ msgstr ""
 msgid "enviar"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:15
-msgid "informações"
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:18
-msgid "Sua inscrição foi finalizada em"
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:22
-msgid ""
-"O formulário do projeto poderá ser acessado e alterado quantas vezes for "
-"necessário até a data limite definida no cronograma."
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:23
-msgid "Não se esqueça de salvar as informações a cada alteração."
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:24
-msgid "A submissão só será efetivada após o clique em “enviar proposta”."
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:25
-msgid "A partir desse momento, não será mais possível realizar modificações."
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:29
-msgid "Você salvou os formulários de projeto e equipe?"
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:29
-msgid "enviar proposta"
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:32
-msgid "Prazo encerrado"
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:39 o_t/templates/o_t/inscricoes.html:132
-msgid "Nome"
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:43
-msgid "Área de atuação profissional"
-msgstr ""
-
-#: o_t/templates/o_t/inscricoes.html:71 o_t/templates/o_t/inscricoes.html:95
+#: o_t/templates/o_t/inscricoes.html:18 o_t/templates/o_t/inscricoes.html:42
 #: o_t/templates/o_t/projeto.html:16
 msgid "Código de identificação"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:90
+#: o_t/templates/o_t/inscricoes.html:37
 msgid "projeto"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:113
+#: o_t/templates/o_t/inscricoes.html:60
 msgid "salvar projeto"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:125
+#: o_t/templates/o_t/inscricoes.html:72
 msgid "equipe"
 msgstr ""
 
-#: o_t/templates/o_t/inscricoes.html:151
+#: o_t/templates/o_t/inscricoes.html:98
 msgid "salvar equipe e/ou adicionar novo integrante"
 msgstr ""
 

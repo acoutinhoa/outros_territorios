@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-28 16:39-0200\n"
+"POT-Creation-Date: 2018-11-28 17:58-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,6 +208,56 @@ msgstr ""
 msgid "Outros Territórios"
 msgstr "Other Territories"
 
+#: o_t/templates/o_t/dados.html:12
+msgid "informações"
+msgstr "information"
+
+#: o_t/templates/o_t/dados.html:15
+msgid "Sua inscrição foi finalizada em"
+msgstr "Registration completed in"
+
+#: o_t/templates/o_t/dados.html:19
+msgid ""
+"O formulário do projeto poderá ser acessado e alterado quantas vezes for "
+"necessário até a data limite definida no cronograma."
+msgstr ""
+"The project form can be accessed and changed as many times as necessary "
+"until the deadline."
+
+#: o_t/templates/o_t/dados.html:20
+msgid "Não se esqueça de salvar as informações a cada alteração."
+msgstr "Do not forget to save the information after every change."
+
+#: o_t/templates/o_t/dados.html:21
+msgid "A submissão só será efetivada após o clique em “enviar proposta”."
+msgstr ""
+"The submission will only take effect after clicking on “submit proposal”."
+
+#: o_t/templates/o_t/dados.html:22
+msgid "A partir desse momento, não será mais possível realizar modificações."
+msgstr ""
+"From that moment on, it will no longer be possible to make modifications."
+
+#: o_t/templates/o_t/dados.html:26
+msgid "Você salvou os formulários de projeto e equipe?"
+msgstr "Have you saved the team and project forms?"
+
+#: o_t/templates/o_t/dados.html:26
+msgid "enviar proposta"
+msgstr "submit proposal"
+
+#: o_t/templates/o_t/dados.html:29
+msgid "Prazo encerrado"
+msgstr "Deadline is closed"
+
+#: o_t/templates/o_t/dados.html:36 o_t/templates/o_t/inscricoes.html:79
+msgid "Nome"
+msgstr "Name"
+
+#: o_t/templates/o_t/dados.html:40
+msgid "Área de atuação profissional"
+msgstr "Field of practice"
+
 #: o_t/templates/o_t/documentacao.html:37 o_t/views.py:21
 msgid "júri"
 msgstr "jury"
@@ -245,74 +295,24 @@ msgstr ""
 msgid "enviar"
 msgstr "send"
 
-#: o_t/templates/o_t/inscricoes.html:15
-msgid "informações"
-msgstr "information"
-
-#: o_t/templates/o_t/inscricoes.html:18
-msgid "Sua inscrição foi finalizada em"
-msgstr "Registration completed in"
-
-#: o_t/templates/o_t/inscricoes.html:22
-msgid ""
-"O formulário do projeto poderá ser acessado e alterado quantas vezes for "
-"necessário até a data limite definida no cronograma."
-msgstr ""
-"The project form can be accessed and changed as many times as necessary "
-"until the deadline."
-
-#: o_t/templates/o_t/inscricoes.html:23
-msgid "Não se esqueça de salvar as informações a cada alteração."
-msgstr "Do not forget to save the information after every change."
-
-#: o_t/templates/o_t/inscricoes.html:24
-msgid "A submissão só será efetivada após o clique em “enviar proposta”."
-msgstr ""
-"The submission will only take effect after clicking on “submit proposal”."
-
-#: o_t/templates/o_t/inscricoes.html:25
-msgid "A partir desse momento, não será mais possível realizar modificações."
-msgstr ""
-"From that moment on, it will no longer be possible to make modifications."
-
-#: o_t/templates/o_t/inscricoes.html:29
-msgid "Você salvou os formulários de projeto e equipe?"
-msgstr "Have you saved the team and project forms?"
-
-#: o_t/templates/o_t/inscricoes.html:29
-msgid "enviar proposta"
-msgstr "submit proposal"
-
-#: o_t/templates/o_t/inscricoes.html:32
-msgid "Prazo encerrado"
-msgstr "Deadline is closed"
-
-#: o_t/templates/o_t/inscricoes.html:39 o_t/templates/o_t/inscricoes.html:132
-msgid "Nome"
-msgstr "Name"
-
-#: o_t/templates/o_t/inscricoes.html:43
-msgid "Área de atuação profissional"
-msgstr "Field of practice"
-
-#: o_t/templates/o_t/inscricoes.html:71 o_t/templates/o_t/inscricoes.html:95
+#: o_t/templates/o_t/inscricoes.html:18 o_t/templates/o_t/inscricoes.html:42
 #: o_t/templates/o_t/projeto.html:16
 msgid "Código de identificação"
 msgstr "Identification code"
 
-#: o_t/templates/o_t/inscricoes.html:90
+#: o_t/templates/o_t/inscricoes.html:37
 msgid "projeto"
 msgstr "design project"
 
-#: o_t/templates/o_t/inscricoes.html:113
+#: o_t/templates/o_t/inscricoes.html:60
 msgid "salvar projeto"
 msgstr "save project"
 
-#: o_t/templates/o_t/inscricoes.html:125
+#: o_t/templates/o_t/inscricoes.html:72
 msgid "equipe"
 msgstr "team"
 
-#: o_t/templates/o_t/inscricoes.html:151
+#: o_t/templates/o_t/inscricoes.html:98
 msgid "salvar equipe e/ou adicionar novo integrante"
 msgstr "save team and/or add new member"
 
