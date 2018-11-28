@@ -247,7 +247,7 @@ class Dados(models.Model):
 	cep = models.CharField(_('CEP'), max_length=15)
 
 	def __str__(self):
-		return self.inscricao.nome
+		return self.inscricao
 	def select_verbose(self):
 		return dict(countries)[self.pais]
 
