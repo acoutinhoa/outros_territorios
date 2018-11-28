@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 14:31-0200\n"
+"POT-Creation-Date: 2018-11-28 16:39-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,140 +38,144 @@ msgstr "sponsor"
 msgid "apoio institucional"
 msgstr "institutional support"
 
-#: o_t/models.py:168 o_t/models.py:208 o_t/models.py:255
+#: o_t/models.py:33
+msgid "parceiro de mídia"
+msgstr "media partner"
+
+#: o_t/models.py:169 o_t/models.py:209 o_t/models.py:256
 msgid "nome"
 msgstr "name"
 
-#: o_t/models.py:170
+#: o_t/models.py:171
 msgid "consulta"
 msgstr "question"
 
-#: o_t/models.py:199
+#: o_t/models.py:200
 msgid "Arquitetura"
 msgstr "Architecture"
 
-#: o_t/models.py:200
+#: o_t/models.py:201
 msgid "Artes Visuais"
 msgstr "Visual Arts"
 
-#: o_t/models.py:201
+#: o_t/models.py:202
 msgid "Artes Performáticas"
 msgstr "Performing Arts"
 
-#: o_t/models.py:202
+#: o_t/models.py:203
 msgid "Design"
 msgstr ""
 
-#: o_t/models.py:203
+#: o_t/models.py:204
 msgid "Paisagismo"
 msgstr "Landscape Design"
 
-#: o_t/models.py:209 o_t/models.py:256
+#: o_t/models.py:210 o_t/models.py:257
 msgid "sobrenome"
 msgstr "Last name"
 
-#: o_t/models.py:210
+#: o_t/models.py:211
 msgid "área"
 msgstr "Field of practice"
 
-#: o_t/models.py:237
+#: o_t/models.py:238
 msgid "nascimento"
 msgstr "Birthdate"
 
-#: o_t/models.py:238
+#: o_t/models.py:239
 msgid "CPF/CNPJ"
 msgstr "passport/Local ID number"
 
-#: o_t/models.py:239
+#: o_t/models.py:240
 msgid "celular"
 msgstr "Mobile phone"
 
-#: o_t/models.py:241
+#: o_t/models.py:242
 msgid "país"
 msgstr "Country"
 
-#: o_t/models.py:242
+#: o_t/models.py:243
 msgid "endereço"
 msgstr "Address"
 
-#: o_t/models.py:243
+#: o_t/models.py:244
 msgid "complemento"
 msgstr "Apartment, suite, etc."
 
-#: o_t/models.py:244
+#: o_t/models.py:245
 msgid "cidade"
 msgstr "City"
 
-#: o_t/models.py:245
+#: o_t/models.py:246
 msgid "estado"
 msgstr "State/Province"
 
-#: o_t/models.py:246
+#: o_t/models.py:247
 msgid "CEP"
 msgstr "Postal code"
 
-#: o_t/models.py:268
+#: o_t/models.py:269
 msgid "Erro: o arquivo não deve ultrapassar 10MB"
 msgstr "Error: file cannot exceed 10MB"
 
-#: o_t/models.py:272
+#: o_t/models.py:273
 msgid "01. Cônsul Walter 425: palafita-pomar"
 msgstr "01. Consul Walter 425: stilt-orchard"
 
-#: o_t/models.py:273
+#: o_t/models.py:274
 msgid "02. Cônsul Walter 437: palafita-caverna"
 msgstr "02. Consul Walter 437: stil-cave"
 
-#: o_t/models.py:274
+#: o_t/models.py:275
 msgid "03. Cônsul Walter 483: palafita-empena"
 msgstr "03. Consul Walter 483: gabled-stilts"
 
-#: o_t/models.py:275
+#: o_t/models.py:276
 msgid "04. Cônsul Walter 511: palafita-indiscreta"
 msgstr "04. Consul Walter 511: indiscreet-stilts"
 
-#: o_t/models.py:276
+#: o_t/models.py:277
 msgid "05. Teresa Mota Valadares 76: palafita-caleidoscópica"
 msgstr "05. Teresa Mota Valadares 76: stilt-kaleidoscope"
 
-#: o_t/models.py:277
+#: o_t/models.py:278
 msgid "06. Fidélis Martins 173: palafita-esbelta"
 msgstr "06. Fidelis Martins 173: slender-stilts"
 
-#: o_t/models.py:278
+#: o_t/models.py:279
 msgid "07. Maria Heilbuth Surete 1223: palafita-dos-cachorros"
 msgstr "07. Maria Heilbuth Surete 1223: stilts-of-strays"
 
-#: o_t/models.py:279
+#: o_t/models.py:280
 msgid "08. Maria Heilbuth Surete 1159: palafita-comum"
 msgstr "08. Maria Heilbuth Surete 1159: standard-stilts"
 
-#: o_t/models.py:280
+#: o_t/models.py:281
 msgid "09. Maria Heilbuth Surete 1193: palafita-gigante-I"
 msgstr "09. Maria Heilbuth Surete 1193: giant-stilts-I"
 
-#: o_t/models.py:281
+#: o_t/models.py:282
 msgid "10. Maria Heilbuth Surete 1295: palafita-gigante-II"
 msgstr "10. Maria Heilbuth Surete 1295: giant-stilts-II"
 
-#: o_t/models.py:285
+#: o_t/models.py:286
 msgid "palafita"
 msgstr "Palafitte"
 
-#: o_t/models.py:286
+#: o_t/models.py:287
 msgid "título"
 msgstr "title"
 
-#: o_t/models.py:287
+#: o_t/models.py:288
 msgid "descrição"
 msgstr "Description"
 
-#: o_t/models.py:288
+#: o_t/models.py:289
 msgid "imagem"
 msgstr "image"
 
-#: o_t/models.py:289 o_t/templates/o_t/notas_lista.html:10
-#: o_t/templates/o_t/notas_lista.html:13 o_t/templates/o_t/projeto.html:29
+#: o_t/models.py:290 o_t/templates/o_t/notas_lista.html:8
+#: o_t/templates/o_t/projeto.html:29
 msgid "arquivo"
 msgstr "file"
 
@@ -316,17 +320,13 @@ msgstr "save team and/or add new member"
 msgid "publicado em"
 msgstr "published in"
 
-#: o_t/templates/o_t/notas.html:29 o_t/templatetags/outras_tags.py:165
+#: o_t/templates/o_t/notas.html:28 o_t/templatetags/outras_tags.py:165
 msgid "ver mais"
 msgstr "read more"
 
-#: o_t/templates/o_t/notas.html:32
+#: o_t/templates/o_t/notas.html:31
 msgid "carregando..."
 msgstr "loading..."
-
-#: o_t/templates/o_t/notas_lista.html:69
-msgid "Nenhum post"
-msgstr ""
 
 #: o_t/templates/o_t/pergunta.html:42
 msgid "consulta enviada"
@@ -372,27 +372,27 @@ msgstr "please resend the link to submit the entry"
 msgid "Enviado em"
 msgstr "Sent in"
 
-#: o_t/urls.py:39
+#: o_t/urls.py:40
 msgid "inscricoes/<uuid:pk>/"
 msgstr "registration/<uuid:pk>/"
 
-#: o_t/urls.py:40
+#: o_t/urls.py:41
 msgid "inscricoes/<uuid:pk>/submit"
 msgstr "registration/<uuid:pk>/submit"
 
-#: o_t/urls.py:41
+#: o_t/urls.py:42
 msgid "inscricoes/<uuid:pk>/erro"
 msgstr "registration/<uuid:pk>/erro"
 
-#: o_t/urls.py:56
+#: o_t/urls.py:57
 msgid "galeria/"
 msgstr "gallery/"
 
-#: o_t/urls.py:57
+#: o_t/urls.py:58
 msgid "chamada_de_projetos/"
 msgstr "call_for_projects/"
 
-#: o_t/urls.py:58
+#: o_t/urls.py:59
 msgid "perguntas_frequentes/"
 msgstr "Q&A/"
 
@@ -404,7 +404,7 @@ msgstr "home"
 msgid "chamada de projetos"
 msgstr "call for projects"
 
-#: o_t/views.py:23 o_t/views.py:289 o_t/views.py:317
+#: o_t/views.py:23 o_t/views.py:289 o_t/views.py:325
 msgid "galeria"
 msgstr "gallery"
 
@@ -412,7 +412,7 @@ msgstr "gallery"
 msgid "blog"
 msgstr "blog"
 
-#: o_t/views.py:25 o_t/views.py:471
+#: o_t/views.py:25 o_t/views.py:480
 msgid "perguntas frequentes"
 msgstr "Q&A"
 
@@ -513,11 +513,11 @@ msgid ""
 "inscrição"
 msgstr ""
 
-#: o_t/views.py:495
+#: o_t/views.py:504
 msgid "Outros Territórios_consulta"
 msgstr "Other Territories_queries"
 
-#: o_t/views.py:579
+#: o_t/views.py:588
 msgid "Outros Territórios_resposta à consulta"
 msgstr "Other Territories"
 

@@ -291,14 +291,11 @@ def galeria(request, codigo=None):
 	inscricoes = Inscricao.objects.all()
 	inscricoes_ = Inscricao.objects.exclude(finalizada=None)
 	projeto = None
-	dados = None
-	projetos = None
-	palafitas = None
+	dados = []
 	if codigo:
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 		projeto = Projeto.objects.get_or_create(inscricao=inscricao)[0]
 	else:
-		dados=[]
 		palafitas = []
 		for i, palafita in enumerate(Projeto.palafitas):
 			finalizadas = Projeto.objects.filter(palafita=palafita[0], inscricao__in=inscricoes_).count()
@@ -322,8 +319,6 @@ def galeria(request, codigo=None):
 		'inscricoes': inscricoes,
 		'projeto': projeto,
 		'dados': dados,
-		'projetos': projetos,
-		'palafitas': palafitas,
 		})
 
 def galeria_edit(request, edit=True):
