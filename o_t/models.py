@@ -213,7 +213,7 @@ class Inscricao(models.Model):
 	finalizada = models.DateTimeField(blank=True, null=True)
 
 	def __str__(self):
-		return self.nome
+		return '%s - %s' % (self.nome, self.email)
 	class Meta:
 		ordering = ['finalizada', 'data0']
 	def finaliza(self):
