@@ -227,6 +227,18 @@ def concurso_edit(request):
 	})
 
 
+def email(request):
+	titulo = _('email')
+	inscritos = Inscricao.objects.filter(finalizada=None)
+	finalizados = Inscricao.objects.exclude(finalizada=None)
+
+	return render(request, 'o_t/email.html', {
+		'titulo': titulo, 
+		'menu': menu, 
+		'inscritos': inscritos, 
+		'finalizados': finalizados, 
+	})
+
 def inscricoes(request, pk, erro=False,):
 	titulo = _('inscrições')
 	inscricao = get_object_or_404(Inscricao, pk=pk)

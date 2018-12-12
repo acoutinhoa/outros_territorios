@@ -1,0 +1,36 @@
+{% extends 'o_t/base.html' %}
+{% load outras_tags %}
+
+{% block menu %}
+{% endblock %}
+
+
+{% block c1 %}
+{% espaco %}
+<div class="post linha">
+	<p class="titulo_">inscrições finalizadas</p>
+	<p class="texto">
+		{% for pessoa in finalizados %}
+			{{ pessoa.email }}
+			{% if not forloop.last %}, {% endif %}
+		{% endfor %}
+	</p>
+</div>
+<div class="post">
+	<p class="titulo_">inscrições</p>
+	<p class="texto">
+		{% for pessoa in inscritos %}
+			{{ pessoa.email }}{% if not forloop.last %}, {% endif %}
+		{% endfor %}
+	</p>
+</div>
+{% espaco borda='linha_' %}
+{% endblock %}
+
+{% block c2 %}
+{% espaco 200 500 %}
+{% endblock %}
+
+
+
+
