@@ -11,8 +11,7 @@
 	<p class="titulo_">inscrições finalizadas</p>
 	<p class="texto">
 		{% for pessoa in finalizados %}
-			{{ pessoa.email }}
-			{% if not forloop.last %}, {% endif %}
+			{{ pessoa.email }}{% if not forloop.last %}, {% endif %}
 		{% endfor %}
 	</p>
 </div>

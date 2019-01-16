@@ -237,6 +237,7 @@ def email(request):
 		'menu': menu, 
 		'inscritos': inscritos, 
 		'finalizados': finalizados, 
+		'noindex': True,
 	})
 
 def inscricoes(request, pk, erro=False,):
