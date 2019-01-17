@@ -107,9 +107,13 @@ def post(text, imgs={}, autoescape=True):
 		for i, par in enumerate(text[1:]):
 			par = par.split(']]')
 			if '=' in par[0]:
-				tipo, info = par[0].split('=')
-				tipo = tira_espacos(tipo)
-				info = tira_espacos(info)
+				for n,c in enumerate(par[0]):
+					if c == '=':
+						break
+
+				# tipo, info = par[0].split('=')
+				tipo = tira_espacos(par[0][:n])
+				info = tira_espacos(par[0][n+1:])
 				if tipo == 'b':
 					info = '<b>%s</b>' % (info)
 				elif tipo == 'img':
