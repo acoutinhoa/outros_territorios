@@ -512,6 +512,8 @@ msgid ""
 "Você precisa preencher todos os campos do projeto para finalizar sua "
 "inscrição"
 msgstr ""
+"You must complete all project fields to finalize your "
+"registration"
 
 #: o_t/views.py:504
 msgid "Outros Territórios_consulta"
