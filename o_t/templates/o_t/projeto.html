@@ -4,32 +4,30 @@
 
 {% espaco %}
 
-{% if user.is_authenticated %}
-	<div class="post linha">
-		{% if projeto.nome or projeto.palafita %}
-			<p class='titulo' style="text-align: left;">{{ projeto.nome }}<br><span class="titulo_" style="font-weight: normal;">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
-		{% endif %}
-		{% if projeto.img %}
-			<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post">
-		{% endif %}
-		<p class="data_">
-			{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>
-			{% trans 'Enviado em' %} <b>
-				{% if projeto.inscricao.finalizada %}
-					{{ projeto.inscricao.finalizada }}
-				{% else %}
-					{% hifen %}
-				{% endif %}</b>
-		</p>
-		{% if projeto.texto %}
-			<p class="texto margem">{{ projeto.texto|linebreaksbr }}</p>
-		{% endif %}
-		
-		{% if projeto.arquivo %}
-			<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'arquivo' %}</a></p>
-		{% endif %}
-		
-	</div>
-{% endif %}
+<div class="post linha">
+	{% if projeto.nome or projeto.palafita %}
+		<p class='titulo' style="text-align: left;">{{ projeto.nome }}<br><span class="titulo_" style="font-weight: normal;">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
+	{% endif %}
+	{% if projeto.img %}
+		<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post">
+	{% endif %}
+	<p class="data_">
+		{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>
+		{% trans 'Enviado em' %} <b>
+			{% if projeto.inscricao.finalizada %}
+				{{ projeto.inscricao.finalizada }}
+			{% else %}
+				{% hifen %}
+			{% endif %}</b>
+	</p>
+	{% if projeto.texto %}
+		<p class="texto margem">{{ projeto.texto|linebreaksbr }}</p>
+	{% endif %}
+	
+	{% if projeto.arquivo %}
+		<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'arquivo' %}</a></p>
+	{% endif %}
+	
+</div>
 
 {% espaco borda='' %}
