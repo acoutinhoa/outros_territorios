@@ -43,12 +43,9 @@
                 <td>{{ inscricao.codigo }}</td>
             </tr>
             <form method="POST" enctype="multipart/form-data" id="projeto_form">
-                <tr><td class="espaco"></td></tr>
             	{% csrf_token %}
                 {% for field in projeto_form %}
-                    {% if field.name == 'arquivo' or field.name == 'img' %}
-                        <tr><td class="espaco"></td></tr>
-                    {% endif %}
+                    <tr><td class="espaco"></td></tr>
                     <tr>
                         <th>{{ field.label_tag }}</th>
                         <td colspan="2">{{ field }}{{ field.errors }}{{ field.help_text }}</td>
