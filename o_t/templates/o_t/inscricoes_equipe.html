@@ -1,0 +1,38 @@
+{% load i18n outras_tags %}
+
+{% get_current_language as lang %}
+
+    {% espaco %}
+    <div class="cartaz linha">
+        <p class="titulo">{% trans 'equipe' %}</p>
+    </div>
+
+    {% if inscricao.finalizada %}
+        <div class="post">
+            <p class="texto">
+            {% for form in equipe_form.initial_forms %}
+                {% trans 'Nome' %}<br>
+                <b>{{ form.instance.nome }} {{ form.instance.sobrenome }}</b><br>
+                E-mail<br>
+                <b>{{ form.instance.email }}</b><br>
+                {% if not forloop.last %}<br><br>{% endif %}
+            {% endfor %}
+            </p>
+        </div>
+    {% else %}
+        <table class="form">
+            <form method="POST" enctype="multipart/form-data" id="equipe_form">
+            	{% csrf_token %}
+                {{ equipe_form.management_form }}
+                {% for form in equipe_form %}
+                    {{ form }}
+                    <tr><td class="espaco"></td></tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                	<td><button type="submit" name="equipe_submit">{% trans 'salvar equipe e/ou adicionar novo integrante' %}</button></td>
+                </tr>
+            </form>
+        </table>
+    {% endif %}
+    {% espaco borda='linha_' %}

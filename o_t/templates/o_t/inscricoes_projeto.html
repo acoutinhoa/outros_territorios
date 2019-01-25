@@ -1,0 +1,36 @@
+{% load i18n outras_tags %}
+
+{% get_current_language as lang %}
+
+    {% if inscricao.finalizada %}
+        {% set projeto_form.instance as projeto %} 
+        {% include 'o_t/projeto.html' with projeto=projeto %}
+    {% else %}
+    {% espaco %}
+        <div class="cartaz linha">
+            <p class="titulo">{% trans 'projeto' %}</p>
+        </div>
+        <table class="form">
+            <tr>
+                <td></td>
+                <th>{% trans 'Código de identificação' %}:</th>
+                <td>{{ inscricao.codigo }}</td>
+            </tr>
+            <form method="POST" enctype="multipart/form-data" id="projeto_form">
+            	{% csrf_token %}
+                {% for field in projeto_form %}
+                    <tr><td class="espaco"></td></tr>
+                    <tr>
+                        <th>{{ field.label_tag }}</th>
+                        <td colspan="2">{{ field }}{{ field.errors }}{{ field.help_text }}</td>
+                    </tr>
+                {% endfor %}
+                <tr><td class="espaco"></td></tr>
+                <tr>
+                    <td></td>
+                	<td><button type="submit" name="projeto_submit">{% trans 'salvar projeto' %}</button></td>
+                </tr>
+            </form>
+        </table>
+        {% espaco borda='linha_' %}
+    {% endif %}
