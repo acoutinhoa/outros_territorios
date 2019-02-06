@@ -308,11 +308,10 @@ class Criterios(models.Model):
 		ordering = ['pk']
 
 class AvaliacaoJuri(models.Model):
-	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
+	inscricao = models.ForeignKey(Inscricao, on_delete=models.CASCADE)
 	juri = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 	s2 = models.BooleanField('♥', default=False)
 	texto = models.TextField(_('comentário'), blank=True, default='')
-	# media = models.DecimalField(max_digits=4, decimal_places=2, default=0)
 	media = models.FloatField(default=0)
 	def __str__(self):
 		return '%s_%s' % (self.juri, self.inscricao.codigo)
