@@ -2,13 +2,12 @@
 
 {% get_current_language as lang %}
 
-{% query dados 'filter' s2=True as likes %}
 {% query dados 'exclude' texto='' as coments %}
 
     <table class="form linha_" {% borda %}>
         <tr>
-            <th style="width: 119px;">{% media dados %} {% hifen peso='normal' %}</th><td><span style="font-weight: bold;">média total</td>
-            <th>♥{{ likes.count }}</th>
+            <th style="width: 119px;">{{ projeto.inscricao.media|floatformat }} {% hifen peso='normal' %}</th><td><span style="font-weight: bold;">média total</td>
+            <th>♥{{ projeto.inscricao.s2 }}</th>
         </tr>
         {% for criterio in criterios %}
             <tr>

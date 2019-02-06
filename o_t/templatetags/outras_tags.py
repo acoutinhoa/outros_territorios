@@ -1,5 +1,5 @@
 from django import template, get_version
-from django.template.defaultfilters import stringfilter, linebreaksbr
+from django.template.defaultfilters import stringfilter, linebreaksbr, floatformat
 from django.urls import resolve, translate_url
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
@@ -219,11 +219,9 @@ def media(qs, criterio=None):
 			n -= 1
 		else:
 			media += nota
-	if n == 0:
-		media = 0
-	else:
+	if n != 0:
 		media = media / n
-	return str(round(media, 2))
+	return str(floatformat(media))
 
 # @register.simple_tag
 # def django():

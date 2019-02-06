@@ -160,6 +160,7 @@ ProjetoForm = forms.modelform_factory(
 	exclude = ('inscricao','slug'), 
 	widgets = {
 		'texto': forms.Textarea(attrs={'rows': 30}),
+		'nome': forms.Textarea(attrs={'rows': 2}),
 		},
 	help_texts = {
 		'img' : _('Tamanho máximo: 10MB') + ' %s JPG' % ('-' * random.randint(2,19)),	
@@ -174,6 +175,7 @@ SelecaoForm = forms.modelform_factory(
 		'ok': forms.RadioSelect(attrs={'class': 'tags',}),
 		'traducao': forms.RadioSelect(attrs={'class': 'tags',}),
 		'texto': forms.Textarea(attrs={'rows': 9}),
+		'titulo': forms.Textarea(attrs={'rows': 2}),
 		},
 	)
 

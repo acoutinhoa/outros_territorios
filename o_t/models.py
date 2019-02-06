@@ -217,6 +217,7 @@ class Inscricao(models.Model):
 	titulo = models.CharField(max_length=220, blank=True)
 	texto = models.TextField(blank=True)
 	media = models.FloatField(default=0)
+	s2 = models.PositiveSmallIntegerField(default=0)
 
 	def __str__(self):
 		return '%s - %s' % (self.nome, self.email)

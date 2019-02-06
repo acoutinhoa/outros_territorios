@@ -359,18 +359,37 @@ def galeria(request, codigo=None):
 					n.save()
 			if request.method == 'POST':
 				data = Avaliacao.objects.filter(juri=juri).values()[0]
-				juri_form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='')
+				data_juri = AvaliacaoJuri.objects.filter(inscricao=inscricao, juri=request.user).values()[0]
+				juri_form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='', initial=data_juri)
 				nota_form = AvaliacaoNotaForm(request.POST, instance=juri, prefix='nota', initial=data)
 				if juri_form.is_valid() and nota_form.is_valid():
 					juri = juri_form.save()
 					nota_form.save()
 					if nota_form.has_changed():
+						# media juri
 						media = 0
 						notas = juri.avaliacao_set.all()
 						for nota in notas:
 							media += int(nota.nota)
 						juri.media = media/len(notas)
 						juri.save()
+						# media projeto
+						media = 0
+						notas = AvaliacaoJuri.objects.filter(inscricao=inscricao)
+						n = len(notas)
+						for nota in notas:
+							if nota.media == 0:
+								n -= 1
+							else:
+								media += nota.media
+						if n != 0:
+							inscricao.media = media/n
+							inscricao.save()
+					# likes
+					if juri_form.has_changed():
+						if 's2' in juri_form.changed_data:
+							inscricao.s2 = len(dados.filter(s2=True))
+							inscricao.save()
 
 					if 'juri_proximo' in request.POST:
 						inscricao = proximo.order_by('?').first()
