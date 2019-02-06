@@ -53,3 +53,10 @@
 		<a href="{% url 'logout' %}" class="botao"><button type="button">sair</button></a>
 	</div>
 {% endif %}
+
+{% if edit and user.is_authenticated and not user|grupo:'juri' %}
+	<div class="linha menu">
+		<a href="{% url edit %}" class="botao"><button type="button">{{ edit_btn|default:'editar'}}</button></a>
+	</div>
+{% endif %}
+

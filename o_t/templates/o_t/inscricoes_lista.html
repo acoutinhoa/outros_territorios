@@ -11,7 +11,7 @@
 		<p class="titulo_">inscrições finalizadas ({{inscricoes_fechadas.count}})</p>
 		<ol class="titulo_lista">
 		{% for inscricao in inscricoes_fechadas|dictsort:"finalizada" %}
-			<li><a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}">{{ inscricao.codigo }}</a></li>
+			<li><a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}">{{ inscricao.codigo }} {{inscricao.projeto_set.first.nome}}</a></li>
 		{% empty %}
 			<p class="texto">nenhuma inscrição finalizada</p>
 		{% endfor %}

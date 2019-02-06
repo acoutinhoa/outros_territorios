@@ -4,7 +4,9 @@
 
     {% if inscricao.finalizada %}
         {% set projeto_form.instance as projeto %} 
+        {% espaco %}
         {% include 'o_t/projeto.html' with projeto=projeto %}
+        {% espaco borda='linha_'%}
     {% else %}
     {% espaco %}
         <div class="cartaz linha">

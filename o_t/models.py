@@ -211,6 +211,12 @@ class Inscricao(models.Model):
 	area = models.CharField(_('área'), choices=areas, max_length=20)
 	codigo = models.CharField(max_length=5, unique=True, blank=True, null=True)
 	finalizada = models.DateTimeField(blank=True, null=True)
+	# selecao
+	ok = models.CharField('pré-seleção', choices=[('-', '---'), ('ok','aprovado'),('no','reprovado')], max_length=2, default='-')
+	traducao = models.CharField('tradução', choices=[('-', '---'), ('pt','português'),('en','inglês')], max_length=2, default='-')
+	titulo = models.CharField(max_length=220, blank=True)
+	texto = models.TextField(blank=True)
+	media = models.FloatField(default=0)
 
 	def __str__(self):
 		return '%s - %s' % (self.nome, self.email)
@@ -292,3 +298,34 @@ class Projeto(models.Model):
 		return self.nome
 	def palafita_verbose(self):
 		return dict(Projeto.palafitas)[self.palafita]
+
+class Criterios(models.Model):
+	texto = models.CharField('pt', max_length=300)
+	texto_en = models.CharField('en', max_length=300, blank=True)
+	def __str__(self):
+		return self.texto
+	class Meta:
+		ordering = ['pk']
+
+class AvaliacaoJuri(models.Model):
+	inscricao = models.ForeignKey('Inscricao', on_delete=models.CASCADE)
+	juri = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+	s2 = models.BooleanField('♥', default=False)
+	texto = models.TextField(_('comentário'), blank=True, default='')
+	# media = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+	media = models.FloatField(default=0)
+	def __str__(self):
+		return '%s_%s' % (self.juri, self.inscricao.codigo)
+
+class Avaliacao(models.Model):
+	notas=[]
+	for i in range(11):
+		notas.append((str(i),str(i)),)
+	juri = models.ForeignKey(AvaliacaoJuri, on_delete=models.CASCADE)
+	criterio = models.ForeignKey(Criterios, on_delete=models.CASCADE)
+	nota = models.CharField('nota', choices=notas, max_length=2, default='0')
+	def __str__(self):
+		return '%s_%s' % (self.criterio.pk, self.nota)
+
+
+

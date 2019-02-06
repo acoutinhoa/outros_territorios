@@ -4,32 +4,30 @@
 
 {% espaco %}
 
-{% if user.is_authenticated %}
-	<div class="cartaz linha">
-		<p class="titulo">inscrições</p>
-	</div>
-	<table class="respostas form linha">
+<div class="cartaz linha">
+	<p class="titulo"><a href="{% url 'galeria' %}">{{ titulo }}</a> / dados</p>
+</div>
+<table class="respostas form linha">
+	<tr>
+		<td class="espaco"></td>
+	</tr>
+	<tr>
+		<th style="width:220px;">finalizadas<span style="font-weight: normal;"> {% hifen %} total</span></th>
+		<th style="width:40px;">{{ inscricoes_.count }}</th>
+		<td> {% hifen %} {{ inscricoes.count }}</td>
+	</tr>
+	{% for item,valores in dados %}
 		<tr>
-			<td class="espaco"></td>
+			<td>{{item}}</td>
 		</tr>
-		<tr>
-			<th style="width:220px;">finalizadas<span style="font-weight: normal;"> {% hifen %} total</span></th>
-			<th style="width:40px;">{{ inscricoes_.count }}</th>
-			<td> {% hifen %} {{ inscricoes.count }}</td>
-		</tr>
-		{% for item,valores in dados %}
+		{% for nome,finalizada,total in valores %}
 			<tr>
-				<td>{{item}}</td>
+				<th>{{forloop.counter}}. {% if item == 'palafitas' %}{{ nome|formatapalafita }}{% else %}{{ nome }}{% endif %}</th>
+				<th>{{ finalizada }}</th>
+				<td> {% hifen %} {{ total }}</td>
 			</tr>
-			{% for nome,finalizada,total in valores %}
-				<tr>
-					<th>{{forloop.counter}}. {% if item == 'palafitas' %}{{ nome|formatapalafita }}{% else %}{{ nome }}{% endif %}</th>
-					<th>{{ finalizada }}</th>
-					<td> {% hifen %} {{ total }}</td>
-				</tr>
-			{% endfor %}
 		{% endfor %}
-	</table>
+	{% endfor %}
+</table>
 
-	{% espaco borda='' %}
-{% endif %}
+{% espaco borda='' %}

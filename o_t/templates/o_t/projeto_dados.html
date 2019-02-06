@@ -1,0 +1,33 @@
+{% load i18n outras_tags %}
+
+{% get_current_language as lang %}
+
+{% query dados 'filter' s2=True as likes %}
+{% query dados 'exclude' texto='' as coments %}
+
+    <table class="form linha_" {% borda %}>
+        <tr>
+            <th style="width: 119px;">{% media dados %} {% hifen peso='normal' %}</th><td><span style="font-weight: bold;">média total</td>
+            <th>♥{{ likes.count }}</th>
+        </tr>
+        {% for criterio in criterios %}
+            <tr>
+                <th>{% media dados criterio=criterio %} {% hifen peso='normal' %}</span></th>
+                {% if lang == 'en' and criterio.texto_en %}
+                    <td colspan="2">{{ criterio.texto_en }}</td>
+                {% else %}
+                    <td colspan="2">{{ criterio }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        {% if coments %}
+            <tr><td class="espaco"></td></tr>
+            <tr><th>comentários</th></tr>
+            {% for comentario in coments %}
+                <tr>
+                    <th>{{ comentario.juri }}</th>
+                    <td colspan="3">{%hifen%} {{ comentario.texto }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>

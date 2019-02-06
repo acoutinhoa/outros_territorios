@@ -1,12 +1,5 @@
 {% extends 'o_t/base.html' %}
 
-{% block menu %}
-	<div class="linha menu">
-	<a href="{% url 'faq_edit' %}" class="botao"><button type="button">editar faq</button></a>
-	</div>
-{% endblock %}
-
-
 {% block c1 %}
 	{% include 'o_t/respostas_edit.html' %}
 {% endblock %}

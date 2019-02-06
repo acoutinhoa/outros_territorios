@@ -7,15 +7,6 @@
 	<script src="{% static 'js/infinite.min.js' %}"></script>
 {% endblock %}
 
-{% block menu %}
-	{% if user.is_authenticated %}
-		<div class="linha menu">
-			<a href="{% url 'nota_add' %}" class="botao"><button type="button">novo post</button></a>
-		</div>
-	{% endif %}
-{% endblock %}
-
-
 {% block c1 %}
 	{% if nota %}
 		{% espaco %}	

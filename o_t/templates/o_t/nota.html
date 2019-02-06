@@ -20,7 +20,7 @@
 
 
 <div class="post">
-	{% if user.is_authenticated %}
+	{% if user.is_authenticated and not user|grupo:'juri' %}
 		<div class="menu">
 			<a href="{% url 'nota_edit' pk=nota.pk %}" class="botao"><button type="button">editar</button></a>
 			<a href="{% url 'nota_remove' pk=nota.pk %}" class="botao"><button type="button">deletar</button></a>

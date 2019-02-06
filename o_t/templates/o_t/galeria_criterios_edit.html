@@ -1,0 +1,36 @@
+<div class="cartaz linha">
+	<p class="titulo titulo_" style="margin-bottom: 0;">critérios/edit</p>
+</div>
+
+<table class="form">
+	<form method="POST" >
+		{% csrf_token %}
+		{{ criterios_form.management_form }}
+		{% for form in criterios_form.extra_forms %}
+			<tr><td></td><th>novo critério</th></tr>
+			{{ form }}
+			<tr><td class="espaco"></td></tr>
+		{% endfor %}
+		<tr>
+			<td></td>
+			<td>
+				<button type="submit" name="criterios_submit">+</button>
+			</td>
+		</tr>
+		{% if criterios_form.initial_forms %}
+			<tr><td class="espaco"></td></tr>
+			<tr><td class="espaco"></td></tr>
+			{% for form in criterios_form.initial_forms %}
+				<tr><td></td><th>critério {{ forloop.counter }}</th></tr>
+				{{ form }}
+				<tr><td class="espaco"></td></tr>
+			{% endfor %}
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit" name="criterios_submit">salvar</button>
+				</td>
+			</tr>
+		{% endif %}
+	</form>
+</table>

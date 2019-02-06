@@ -14,6 +14,7 @@
 	<b>{% trans 'caso haja a necessidade de reenvio destas informações, favor utilizar o campo ao final da página.' %}</b></p>
 </div>
 
+{% comment %}
 <table class="form inscricao linha">
 	<form method="POST">
 		{% csrf_token %}
@@ -27,6 +28,7 @@
 		</tr>
 	</form>
 </table>
+{% endcomment %}
 
 <!-- reenviar email -->
 {% espaco %}

@@ -1,0 +1,35 @@
+{% load i18n outras_tags %}
+
+{% get_current_language as lang %}
+
+{% espaco %}
+
+<div class="post linha respostas">
+	<p class="titulo_">projetos</p>
+	<ol class="titulo_lista">
+	{% for inscricao in inscricoes|dictsort:"finalizada" %}
+		<li>
+			{% if lang == 'pt-br' and inscricao.traducao == 'pt' %}
+				{% set inscricao.titulo as titulo %}
+			{% elif lang == 'en' and inscricao.traducao == 'en' %}
+				{% set inscricao.titulo as titulo %}
+			{% else %}
+				{% set inscricao.projeto_set.first.nome as titulo %}
+			{% endif %}
+			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}">{{titulo}}</a>
+
+			{% set inscricao.ok as selecionado%}
+			{% if selecionado == 'no' %}
+				<span style="color: #ff00ff">X</span>
+			{% elif selecionado == '-' %}
+				<span style="color: #00ffff">O</span>
+			{% endif %}
+
+		</li>
+	{% empty %}
+		<p class="texto">nenhuma inscrição finalizada</p>
+	{% endfor %}
+	</ol>
+</div>
+
+{% espaco borda='' %}

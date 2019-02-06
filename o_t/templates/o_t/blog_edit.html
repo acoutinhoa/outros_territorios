@@ -1,14 +1,6 @@
 {% extends 'o_t/base.html' %}
 {% load outras_tags %}
 
-{% block menu %}
-	{% if user.is_authenticated %}
-		<div class="linha menu">
-			<a href="{% url 'nota_add' %}" class="botao"><button type="button">novo post</button></a>
-		</div>
-	{% endif %}
-{% endblock %}
-
 {% block c1 %}
 	{% include 'o_t/nota_edit.html' %}
 {% endblock %}

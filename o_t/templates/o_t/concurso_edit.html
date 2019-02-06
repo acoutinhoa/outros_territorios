@@ -1,13 +1,5 @@
 {% extends 'o_t/base.html' %}
 
-{% block menu %}
-	{% if user.is_authenticated %}
-		<div class="linha menu">
-			<a href="{% url 'concurso_edit' %}" class="botao"><button type="button">editar</button></a>
-		</div>
-	{% endif %}
-{% endblock %}
-
 {% block c1 %}
 	{% include 'o_t/cartaz_edit.html' %}
 {% endblock %}

@@ -64,6 +64,11 @@ li {
 	overflow-x: hidden;
 }
 
+iframe {
+	margin: 0;
+	width: 100%;
+}
+
 .coluna { border-right: solid var(--cor-borda) var(--borda); }
 .coluna_ { border-left: solid var(--cor-borda) var(--borda); }
 .linha { border-bottom: solid var(--cor-borda) var(--borda); }

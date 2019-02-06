@@ -7,14 +7,6 @@
 	<script src="{% static 'js/infinite.min.js' %}"></script>
 {% endblock %}
 
-{% block menu %}
-	{% if user.is_authenticated %}
-		<div class="linha menu">
-			<a href="{% url 'home_edit' %}" class="botao"><button type="button">editar</button></a>
-		</div>
-	{% endif %}
-{% endblock %}
-
 {% block c1 %}
 	{% include 'o_t/cartaz.html' %}
 {% endblock %}

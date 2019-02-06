@@ -48,6 +48,10 @@ def alien(txt):
 		txt = ' '.join(txt)
 	return txt
 
+@register.filter
+def grupo(user, group_name):
+    return user.groups.filter(name=group_name).exists() 
+
 @register.simple_tag
 def randint(min, max):
 	return str(random.randint(min, max))
@@ -71,8 +75,23 @@ def cor(cor='acp', nao=''):
 	return random.choice(cor_lista)
 
 @register.simple_tag
-def espaco(min=40, max=100, u='px', autoescape=True, borda='linha'):
-	return mark_safe('<div class="cartaz %s" style="height: %s%s;"></div>' % (borda, random.randint(min,max), u))
+def espaco(min=40, max=100, u='px', autoescape=True, borda='linha', tipo=''):
+	if tipo:
+		if tipo == 'random':
+			tipos = ['dotted', 'dashed', 'double', ]
+		else:
+			tipos = [tipo]
+		tipo = ''
+		for b in borda.split(' '):
+			if b == 'linha':
+				tipo += 'border-bottom-style: %s;' % random.choice(tipos)
+			elif b == 'linha_':
+				tipo += 'border-top-style: %s;' % random.choice(tipos)
+			elif b == 'coluna':
+				tipo += 'border-right-style: %s;' % random.choice(tipos)
+			elif b == 'coluna_':
+				tipo += 'border-left-style: %s;' % random.choice(tipos)
+	return mark_safe('<div class="cartaz %s" style="height: %s%s; %s"></div>' % (borda, random.randint(min,max), u, tipo))
 
 @register.simple_tag
 def query(qs, tp, get=False, **kwargs):
@@ -171,8 +190,40 @@ def post_format(nota, txt, link, crop=False):
 	return mark_safe(txt)
 
 @register.simple_tag
-def hifen():
-	return '-' * random.randint(2,19)
+def hifen(peso=None):
+	hifen = '-' * random.randint(2,19)
+	if peso:
+		return mark_safe('<span style="font-weight: %s;">%s</span>' % (peso, hifen))
+	else:
+		return hifen
+
+@register.simple_tag
+def borda():
+	borda = ['dotted', 'dashed', 'double', ] #'groove',
+	return mark_safe('style="border-top-style: dashed;"')
+	# return mark_safe('style="border-top-style: %s;"' % random.choice(borda))
+
+@register.simple_tag
+def media(qs, criterio=None):
+	media = 0
+	n = qs.count()
+	for nota in qs:
+		if criterio:
+			if nota.avaliacao_set.filter(criterio=criterio).exists():
+				nota = int(nota.avaliacao_set.get(criterio=criterio).nota)
+			else:
+				nota = 0
+		else:
+			nota = nota.media
+		if nota == 0:
+			n -= 1
+		else:
+			media += nota
+	if n == 0:
+		media = 0
+	else:
+		media = media / n
+	return str(round(media, 2))
 
 # @register.simple_tag
 # def django():

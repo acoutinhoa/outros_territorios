@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.urls import reverse, reverse_lazy
@@ -58,6 +58,13 @@ _
 Link para bloco de respostas:
 {link}''')
 
+# teste usuario nao é juri
+def not_juri(user):
+	if user.groups.filter(name='juri').exists():
+		return False
+	else:
+		return True
+
 
 def home(request):
 	titulo = _('início')
@@ -83,6 +90,7 @@ def home(request):
 		notas_pg = paginator.page(paginator.num_pages)
 
 	return render(request, 'o_t/home.html', {
+		'edit': 'home_edit',
 		'titulo': titulo, 
 		'menu': menu, 
 		'logos': logos,
@@ -91,6 +99,8 @@ def home(request):
 		'notas_pg': notas_pg,
 	})
 
+@login_required
+@user_passes_test(not_juri)
 def home_edit(request):
 	titulo = _('início')+'/edit'
 	cartaz = Cartaz.objects.get_or_create(pagina='home')[0]
@@ -178,6 +188,7 @@ def concurso(request, msg='',):
 		email_form = EmailForm(prefix='email', label_suffix='')
 
 	return render(request, 'o_t/concurso.html', {
+		'edit': 'concurso_edit',
 		'titulo': titulo, 
 		'menu': menu, 
 		'cartaz': cartaz,
@@ -189,6 +200,8 @@ def concurso(request, msg='',):
 		'confirmacao': msg,
 	})
 
+@login_required
+@user_passes_test(not_juri)
 def concurso_edit(request):
 	titulo = _('chamada de projetos')
 	cartaz = Cartaz.objects.get_or_create(pagina='concurso')[0]
@@ -265,11 +278,13 @@ def inscricoes(request, pk, erro=False,):
 				equipe_form.save()
 				equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 				return redirect('inscricoes', pk=pk)
+			projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
 		elif 'projeto_submit' in request.POST:
 			projeto_form = ProjetoForm(request.POST, request.FILES, instance=projeto, prefix='projeto')
 			if projeto_form.is_valid():
 				projeto_form.save()
 				return redirect('inscricoes', pk=pk)
+			equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 	else:
 		equipe_form = EquipeForm(instance=inscricao, prefix='equipe')
 		projeto_form = ProjetoForm(instance=projeto, prefix='projeto')
@@ -301,31 +316,122 @@ def inscricoes_submit(request, pk,):
 def galeria(request, codigo=None):
 	titulo = _('galeria')
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
+	form = None
+	juri_form = None
+	nota_form = None
+	proximo = None
+	dados = None
+	if not_juri(request.user):
+		inscricoes = Inscricao.objects.exclude(finalizada=None).order_by('finalizada')
+	else:
+		inscricoes = Inscricao.objects.filter(ok='ok').order_by('finalizada')
+	criterios = Criterios.objects.all()
+
+	if codigo:
+		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
+		projetos = Projeto.objects.filter(inscricao=inscricao)
+		dados = AvaliacaoJuri.objects.filter(inscricao=inscricao)
+
+		proximo = inscricoes.filter(ok='-').exclude(codigo=codigo)
+		if not not_juri(request.user):
+			proximo = inscricoes.exclude(avaliacaojuri__juri=request.user)
+
+		# avaliacao
+		# vazio
+		if not_juri(request.user):
+			if request.method == 'POST':
+				form = SelecaoForm(request.POST, instance=inscricao)
+				if form.is_valid():
+					form.save()
+					if 'proximo' in request.POST:
+						inscricao = proximo.order_by('?').first()
+						return redirect('galeria_projeto', codigo=inscricao.codigo)
+					else:
+						return redirect('galeria_projeto', codigo=codigo)
+			else:
+				form = SelecaoForm(instance=inscricao)
+		# juri
+		else:
+			juri = AvaliacaoJuri.objects.get_or_create(inscricao=inscricao, juri=request.user)[0]
+			for criterio in criterios:
+				if not juri.avaliacao_set.filter(criterio=criterio).exists():
+					n = Avaliacao(criterio=criterio, juri=juri)
+					n.save()
+			if request.method == 'POST':
+				juri_form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='')
+				nota_form = AvaliacaoNotaForm(request.POST, instance=juri, prefix='nota')
+				if juri_form.is_valid() and nota_form.is_valid():
+					juri = juri_form.save()
+					nota_form.save()
+					media = 0
+					# for nota in juri.avaliacao_set.all():
+					# 	media += int(nota.nota)
+					# juri.media = media/juri.avaliacao_set.count()
+					# juri.save()
+					if 'juri_proximo' in request.POST:
+						inscricao = proximo.order_by('?').first()
+						return redirect('galeria_projeto', codigo=inscricao.codigo)
+					else:
+						return redirect('galeria_projeto', codigo=codigo)
+			else:
+				juri_form = AvaliacaoForm(instance=juri, prefix='juri', label_suffix='')
+				nota_form = AvaliacaoNotaForm(instance=juri, prefix='nota')
+	else:
+		projetos = Projeto.objects.filter(inscricao__in=inscricoes)
+		dados =  AvaliacaoJuri.objects.all()
+	projetos = projetos.order_by('inscricao__finalizada')
+
+	# paginacao
+	page = request.GET.get('page', 1)
+	paginator = Paginator(projetos, 5)
+	try:
+		pg = paginator.page(page)
+	except PageNotAnInteger:
+		pg = paginator.page(1)
+	except EmptyPage:
+		pg = paginator.page(paginator.num_pages)
+
+	return render(request, 'o_t/galeria.html', {
+		'edit': 'galeria_edit',
+		'titulo': titulo, 
+		'menu': menu, 
+		'cartaz': cartaz,
+		'inscricoes': inscricoes,
+		'pg': pg,
+		'form': form,
+		'juri_form': juri_form,
+		'nota_form': nota_form,
+		'proximo': proximo,
+		'criterios': criterios,
+		'dados':dados,
+		})
+
+@login_required
+@user_passes_test(not_juri)
+def galeria_dados(request):
+	titulo = _('galeria')
+	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
 	inscricoes = Inscricao.objects.all()
 	inscricoes_ = Inscricao.objects.exclude(finalizada=None)
 	projeto = None
 	dados = []
-	if codigo:
-		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
-		projeto = Projeto.objects.get_or_create(inscricao=inscricao)[0]
-	else:
-		palafitas = []
-		for i, palafita in enumerate(Projeto.palafitas):
-			finalizadas = Projeto.objects.filter(palafita=palafita[0], inscricao__in=inscricoes_).count()
-			total = Projeto.objects.filter(palafita=palafita[0]).count()
-			palafitas.append([palafita[1], finalizadas, total])
-		paises = []
-		pais = None
-		for item in Dados.objects.all().order_by('pais'):
-			if item.select_verbose() != pais:
-				pais = item.select_verbose()
-				finalizadas = Dados.objects.filter(pais=item.pais, inscricao__in=inscricoes_).count()
-				total = Dados.objects.filter(pais=item.pais).count()
-				paises.append([pais, finalizadas, total])
-		dados.append(['paises', paises])
-		dados.append(['palafitas', palafitas])
+	palafitas = []
+	for i, palafita in enumerate(Projeto.palafitas):
+		finalizadas = Projeto.objects.filter(palafita=palafita[0], inscricao__in=inscricoes_).count()
+		total = Projeto.objects.filter(palafita=palafita[0]).count()
+		palafitas.append([palafita[1], finalizadas, total])
+	paises = []
+	pais = None
+	for item in Dados.objects.all().order_by('pais'):
+		if item.select_verbose() != pais:
+			pais = item.select_verbose()
+			finalizadas = Dados.objects.filter(pais=item.pais, inscricao__in=inscricoes_).count()
+			total = Dados.objects.filter(pais=item.pais).count()
+			paises.append([pais, finalizadas, total])
+	dados.append(['paises', paises])
+	dados.append(['palafitas', palafitas])
 
-	return render(request, 'o_t/galeria.html', {
+	return render(request, 'o_t/galeria_dados.html', {
 		'titulo': titulo, 
 		'menu': menu, 
 		'cartaz': cartaz,
@@ -334,26 +440,35 @@ def galeria(request, codigo=None):
 		'dados': dados,
 		})
 
-def galeria_edit(request, edit=True):
+@login_required
+@user_passes_test(not_juri)
+def galeria_edit(request):
 	titulo = _('galeria')
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
-	cartaz_form = None
 
 	if request.method == 'POST':
 		if 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
-			cartaz_form = CartazForm(request.POST, request.FILES, instance=cartaz)
+			cartaz_form = CartazForm(request.POST, request.FILES, instance=cartaz, prefix='cartaz')
 			if cartaz_form.is_valid():
 				cartaz_form.save()
-		return redirect('galeria')
+				return redirect('galeria')
+			criterios_form = CriteriosForm(prefix='criterios')
+		elif 'criterio_submit':
+			criterios_form = CriteriosForm(request.POST, prefix='criterios')
+			if criterios_form.is_valid():
+				criterios_form.save()
+				return redirect('galeria_edit')
+			cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
 	else:
-		cartaz_form = CartazForm(instance=cartaz)
+		cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
+		criterios_form = CriteriosForm(prefix='criterios')
 
-	return render(request, 'o_t/galeria.html', {
+	return render(request, 'o_t/galeria_edit.html', {
 		'titulo': titulo, 
 		'menu': menu, 
-		'edit': edit,
 		'cartaz': cartaz,
 		'cartaz_form': cartaz_form,
+		'criterios_form': criterios_form,
 		})
 
 def blog(request, pk=None, slug=None, tag=None):
@@ -378,7 +493,7 @@ def blog(request, pk=None, slug=None, tag=None):
 	# notas lista
 	# if rascunho:
 	# 	notas = Nota.objects.exclude(data1__lte=timezone.now())
-	if request.user.is_authenticated:
+	if request.user.is_authenticated and not_juri(request.user):
 		notas = Nota.objects.all().order_by(F('data1').desc(nulls_first=True))
 	else:
 		notas = Nota.objects.filter(data1__lte=timezone.now())
@@ -396,6 +511,8 @@ def blog(request, pk=None, slug=None, tag=None):
 		notas_pg = paginator.page(paginator.num_pages)
 
 	return render(request, 'o_t/blog.html', {
+		'edit': 'nota_add',
+		'edit_btn': 'novo post',
 		'titulo': titulo, 
 		'menu': menu, 
 		'notas': notas,
@@ -406,6 +523,8 @@ def blog(request, pk=None, slug=None, tag=None):
 		# 'rascunho': rascunho,
 		})
 
+@login_required
+@user_passes_test(not_juri)
 def blog_edit(request, pk=None):
 	titulo = 'blog'
 	nota = None
@@ -434,7 +553,7 @@ def blog_edit(request, pk=None):
 					imagem_form.save()
 					if 'nota_submit_home' in request.POST:
 						return redirect('blog_slug', slug=nota.slug)
-					imagem_form = ImagemForm(instance=nota, prefix='img')
+				imagem_form = ImagemForm(instance=nota, prefix='img')
 
 			else:
 				nota_form = NotaForm(request.POST, prefix='nota')
@@ -522,6 +641,7 @@ def faq(request, confirmacao=False, pk=None, slug=None):
 		consulta_form = PerguntaForm(label_suffix='')
 	
 	return render(request, 'o_t/faq.html', {
+		'edit': 'faq_edit',
 		'titulo': titulo, 
 		'menu': menu, 
 		'lang': lang,
@@ -532,6 +652,7 @@ def faq(request, confirmacao=False, pk=None, slug=None):
 		})
 
 @login_required
+@user_passes_test(not_juri)
 def faq_edit(request, pk=None,):
 	titulo = 'faq/edit'
 	respostas = None

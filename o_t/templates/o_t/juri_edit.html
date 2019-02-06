@@ -1,6 +1,5 @@
 <p class="titulo titulo_ linha">juri/edit</p>
 
-{% if user.is_authenticated %}
 	<table class="form">
 		<form method="POST">
 			{% csrf_token %}
@@ -31,4 +30,3 @@
 			{% endif %}
 		</form>
 	</table>
-{% endif %}

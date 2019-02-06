@@ -2,11 +2,26 @@
 
 {% get_current_language as lang %}
 
-{% espaco %}
 
-<div class="post linha">
+<div class="post">
 	{% if projeto.nome or projeto.palafita %}
-		<p class='titulo' style="text-align: left;">{{ projeto.nome }}<br><span class="titulo_" style="font-weight: normal;">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
+		{% if lang == 'pt-br' and projeto.inscricao.traducao == 'pt' %}
+			{% set projeto.inscricao.titulo as titulo %}
+			{% set projeto.inscricao.texto as texto %}
+		{% elif lang == 'en' and projeto.inscricao.traducao == 'en' %}
+			{% set projeto.inscricao.titulo as titulo %}
+			{% set projeto.inscricao.texto as texto %}
+		{% else %}
+			{% set projeto.nome as titulo %}
+			{% set projeto.texto as texto %}
+		{% endif %}
+		<p class='titulo' style="text-align: left;">
+			{% if link %}
+				<a href="{% url 'galeria_projeto' codigo=projeto.inscricao.codigo %}">{{ titulo }}</a>
+			{% else %}
+				{{ titulo }}
+			{% endif %}
+			<br><span class="titulo_" style="font-weight: normal;">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
 	{% endif %}
 	{% if projeto.img %}
 		<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post">
@@ -21,7 +36,7 @@
 			{% endif %}</b>
 	</p>
 	{% if projeto.texto %}
-		<p class="texto margem">{{ projeto.texto|linebreaksbr }}</p>
+		<p class="texto margem">{{ texto|linebreaksbr }}</p>
 	{% endif %}
 	
 	{% if projeto.arquivo %}
@@ -29,5 +44,3 @@
 	{% endif %}
 	
 </div>
-
-{% espaco borda='' %}
