@@ -8,48 +8,48 @@
 	<p class="titulo"><a href="{% url 'galeria' %}">{{ titulo }}</a>{% if not user|grupo:'juri' %}/ <a href="{% url 'galeria_dados' %}">dados</a>{% endif %}</p>
 </div>
 
-	<div class="infinite-container">
-		{% for projeto in pg %}
+<div class="infinite-container">
+	{% for projeto in pg %}
+		<div class="infinite-item">
+			{% if forloop.first %}
+				{% espaco 60 120 %}
+			{% else %}
+				{% espaco 80 180 borda='linha linha_' %}
+			{% endif %}
+			
+			{% if form or juri_form %}
+				{% include 'o_t/projeto.html' %}
+				{% include 'o_t/projeto_dados.html' %}
+				{% include 'o_t/galeria_form.html' %}
+			{% else %}
+				{% query dados 'filter' inscricao=projeto.inscricao as dados_projeto %}
+				{% include 'o_t/projeto.html' with link=True %}
+				{% include 'o_t/projeto_dados.html' with dados=dados_projeto %}
+			{% endif %}
 
-			<div class="infinite-item">
-				{% if forloop.first %}
-					{% espaco 60 120 %}
-				{% else %}
-					{% espaco 80 180 borda='linha linha_' %}
-				{% endif %}
-				
-				{% if form or juri_form %}
-					{% include 'o_t/projeto.html' %}
-					{% include 'o_t/projeto_dados.html' %}
-					{% include 'o_t/galeria_form.html' %}
-				{% else %}
-					{% query dados 'filter' inscricao=projeto.inscricao as dados_projeto %}
-					{% include 'o_t/projeto.html' with link=True %}
-					{% include 'o_t/projeto_dados.html' with dados=dados_projeto %}
-				{% endif %}
+			{% if forloop.last %}
+				{% espaco borda='linha_' %}
+			{% endif %}
+		</div>
+	{% endfor %}
+</div>
 
-				{% if forloop.last %}
-					{% espaco borda='linha_' %}
-				{% endif %}
-			</div>
-		{% endfor %}
-	</div>
+{% if pg.has_next %}
+	<a class="infinite-more-link" href="?page={{ pg.next_page_number }}">{% trans 'ver mais' %}</a>
+{% endif %}
 
-	{% if pg.has_next %}
-		<a class="infinite-more-link" href="?page={{ pg.next_page_number }}">{% trans 'ver mais' %}</a>
-	{% endif %}
+<div class="loading" style="display: none;">{% trans 'carregando...' %}</div>
 
-	<div class="loading" style="display: none;">{% trans 'carregando...' %}</div>
+<script>
+	var infinite = new Waypoint.Infinite({
+	  element: $('.infinite-container')[0],
+	  onBeforePageLoad: function () {
+	    $('.loading').show();
+	  },
+	  onAfterPageLoad: function ($items) {
+	    $('.loading').hide();
+	  }
+	});
+</script>
 
-	<script>
-		var infinite = new Waypoint.Infinite({
-		  element: $('.infinite-container')[0],
-		  onBeforePageLoad: function () {
-		    $('.loading').show();
-		  },
-		  onAfterPageLoad: function ($items) {
-		    $('.loading').hide();
-		  }
-		});
-	</script>
 
