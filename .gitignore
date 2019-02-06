@@ -6,4 +6,5 @@ db.sqlite3
 /static
 /media
 /outros_territorios/settings.py
+/o_t/migrations
 .DS_Store
