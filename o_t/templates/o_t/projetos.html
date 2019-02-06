@@ -5,7 +5,7 @@
 {% espaco %}
 
 <div class="cartaz linha">
-	<p class="titulo"><a href="{% url 'galeria' %}">{{ titulo }}</a>{% if not user|grupo:'juri' %}/ <a href="{% url 'galeria_dados' %}">dados</a>{% endif %}</p>
+	<p class="titulo"><a href="{% url 'galeria' %}">{{ titulo }}</a>{% if not user|grupo:'juri' %} / <a href="{% url 'galeria_dados' %}">dados</a>{% endif %}</p>
 </div>
 
 <div class="infinite-container">

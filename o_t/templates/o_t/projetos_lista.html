@@ -16,7 +16,7 @@
 			{% else %}
 				{% set inscricao.projeto_set.first.nome as titulo %}
 			{% endif %}
-			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}">{{titulo}}</a>
+			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}" style="line-height: 22px;">{{titulo}}</a>
 
 			{% set inscricao.ok as selecionado%}
 			{% if selecionado == 'no' %}
