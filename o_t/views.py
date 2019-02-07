@@ -464,22 +464,22 @@ def galeria_edit(request):
 				cartaz_form.save()
 				return redirect('galeria')
 			criterios_form = CriteriosForm(prefix='criterios')
-		elif 'criterio_submit':
-			criterios_form = CriteriosForm(request.POST, prefix='criterios')
-			if criterios_form.is_valid():
-				criterios_form.save()
-				return redirect('galeria_edit')
-			cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
+		# elif 'criterio_submit':
+		# 	criterios_form = CriteriosForm(request.POST, prefix='criterios')
+		# 	if criterios_form.is_valid():
+		# 		criterios_form.save()
+		# 		return redirect('galeria_edit')
+		# 	cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
 	else:
 		cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
-		criterios_form = CriteriosForm(prefix='criterios')
+		# criterios_form = CriteriosForm(prefix='criterios')
 
 	return render(request, 'o_t/galeria_edit.html', {
 		'titulo': titulo, 
 		'menu': menu, 
 		'cartaz': cartaz,
 		'cartaz_form': cartaz_form,
-		'criterios_form': criterios_form,
+		# 'criterios_form': criterios_form,
 		})
 
 def blog(request, pk=None, slug=None, tag=None):

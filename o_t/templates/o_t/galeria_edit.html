@@ -1,11 +1,13 @@
 {% extends 'o_t/base.html' %}
+{% load outras_tags %}
 
 {% block c1 %}
 	{% include 'o_t/cartaz_edit.html' %}
 {% endblock %}
 
 {% block c2 %}
-	{% include 'o_t/galeria_criterios_edit.html' %}
+	{% comment %}{% include 'o_t/galeria_criterios_edit.html' %}{% endcomment %}
+	<div class="linha" style="height: {% randint 10 90 %}vh;"></div>
 {% endblock %}
 
 

@@ -176,16 +176,16 @@ SelecaoForm = forms.modelform_factory(
 		},
 	)
 
-CriteriosForm = forms.modelformset_factory(
-	Criterios, 
-	extra=1,
-	fields=('texto', 'texto_en',), 
-	widgets = {
-		'texto': forms.Textarea(attrs={'rows': 3}),
-		'texto_en': forms.Textarea(attrs={'rows': 3}),
-		},
-	can_delete=True,
-	)
+# CriteriosForm = forms.modelformset_factory(
+# 	Criterios, 
+# 	extra=1,
+# 	fields=('texto', 'texto_en',), 
+# 	widgets = {
+# 		'texto': forms.Textarea(attrs={'rows': 3}),
+# 		'texto_en': forms.Textarea(attrs={'rows': 3}),
+# 		},
+# 	can_delete=True,
+# 	)
 
 AvaliacaoForm = forms.modelform_factory(
 	AvaliacaoJuri, 
