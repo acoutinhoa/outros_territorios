@@ -219,10 +219,13 @@ def media(projeto, criterio=None):
 		media = media / n
 	return str(floatformat(media))
 
-@register.filter()
+@register.filter
 def cmmt(projeto):
 	return AvaliacaoJuri.objects.filter(inscricao=projeto.inscricao).exclude(texto='')
 
+@register.filter
+def proximo(inscricoes, projeto):
+	return inscricoes.filter(finalizada__gt=projeto.finalizada).exists()
 
 # @register.simple_tag
 # def media(qs, criterio=None):

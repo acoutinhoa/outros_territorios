@@ -170,12 +170,9 @@ ProjetoForm = forms.modelform_factory(
 
 SelecaoForm = forms.modelform_factory(
 	Inscricao,
-	fields=('ok', 'traducao', 'titulo', 'texto',),
+	fields=('ok',),
 	widgets = {
 		'ok': forms.RadioSelect(attrs={'class': 'tags',}),
-		'traducao': forms.RadioSelect(attrs={'class': 'tags',}),
-		'texto': forms.Textarea(attrs={'rows': 9}),
-		'titulo': forms.Textarea(attrs={'rows': 2}),
 		},
 	)
 

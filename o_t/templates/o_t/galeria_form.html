@@ -34,14 +34,15 @@
 
             <tr><td></td><td>
                 <button type="submit" name='juri_save'>{% trans 'salvar' %}</button>
-                {% if proximo %}<button type="submit" name="juri_proximo">{% trans 'próximo' %}</button>{% endif %}
             </td></tr>
         
         {% else %}
  
             <tr><td></td><td>
                 <button type="submit">{% trans 'salvar' %}</button>
-                {% if proximo %}<button type="submit" name="proximo">{% trans 'próximo' %}</button>{% endif %}
+                {% if inscricoes|proximo:projeto.inscricao %}
+                    <button type="submit" name="proximo">{% trans 'próximo' %}</button>
+                {% endif %}
             </td></tr>
  
         {% endif %}

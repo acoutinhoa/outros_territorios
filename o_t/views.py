@@ -318,7 +318,6 @@ def galeria(request, codigo=None):
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
 	form = None
 	nota_form = None
-	proximo = None
 	if not_juri(request.user):
 		inscricoes = Inscricao.objects.exclude(finalizada=None).order_by('finalizada')
 	else:
@@ -329,10 +328,6 @@ def galeria(request, codigo=None):
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 		projetos = Projeto.objects.filter(inscricao=inscricao)
 
-		proximo = inscricoes.filter(ok='-').exclude(codigo=codigo)
-		if not not_juri(request.user):
-			proximo = inscricoes.exclude(avaliacaojuri__juri=request.user)
-
 		# avaliacao
 		# vazio
 		if not_juri(request.user):
@@ -341,8 +336,8 @@ def galeria(request, codigo=None):
 				if form.is_valid():
 					form.save()
 					if 'proximo' in request.POST:
-						inscricao = proximo.order_by('?').first()
-						return redirect('galeria_projeto', codigo=inscricao.codigo)
+						proximo = inscricoes.filter(finalizada__gt=inscricao.finalizada)[0]
+						return redirect('galeria_projeto', codigo=proximo.codigo)
 					else:
 						return redirect('galeria_projeto', codigo=codigo)
 			else:
@@ -419,7 +414,6 @@ def galeria(request, codigo=None):
 		'pg': pg,
 		'form': form,
 		'nota_form': nota_form,
-		'proximo': proximo,
 		'criterios': criterios,
 		})
 

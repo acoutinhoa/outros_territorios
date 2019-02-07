@@ -9,14 +9,7 @@
 	<ol class="titulo_lista">
 	{% for inscricao in inscricoes|dictsort:"finalizada" %}
 		<li>
-			{% if lang == 'pt-br' and inscricao.traducao == 'pt' %}
-				{% set inscricao.titulo as titulo %}
-			{% elif lang == 'en' and inscricao.traducao == 'en' %}
-				{% set inscricao.titulo as titulo %}
-			{% else %}
-				{% set inscricao.projeto_set.first.nome as titulo %}
-			{% endif %}
-			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}" style="line-height: 22px;">{{titulo}}</a>
+			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}" style="line-height: 22px;">{{inscricao.projeto_set.first.nome}}</a>
 
 			{% set inscricao.ok as selecionado%}
 			{% if selecionado == 'no' %}

@@ -213,9 +213,6 @@ class Inscricao(models.Model):
 	finalizada = models.DateTimeField(blank=True, null=True)
 	# selecao
 	ok = models.CharField('pré-seleção', choices=[('-', '---'), ('ok','aprovado'),('no','reprovado')], max_length=2, default='-')
-	traducao = models.CharField('tradução', choices=[('-', '---'), ('pt','português'),('en','inglês')], max_length=2, default='-')
-	titulo = models.CharField(max_length=220, blank=True)
-	texto = models.TextField(blank=True)
 	media = models.FloatField(default=0)
 	s2 = models.PositiveSmallIntegerField(default=0)
 
