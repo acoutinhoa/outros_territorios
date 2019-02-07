@@ -317,10 +317,8 @@ def galeria(request, codigo=None):
 	titulo = _('galeria')
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
 	form = None
-	juri_form = None
 	nota_form = None
 	proximo = None
-	dados = None
 	if not_juri(request.user):
 		inscricoes = Inscricao.objects.exclude(finalizada=None).order_by('finalizada')
 	else:
@@ -330,7 +328,6 @@ def galeria(request, codigo=None):
 	if codigo:
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 		projetos = Projeto.objects.filter(inscricao=inscricao)
-		dados = AvaliacaoJuri.objects.filter(inscricao=inscricao)
 
 		proximo = inscricoes.filter(ok='-').exclude(codigo=codigo)
 		if not not_juri(request.user):
@@ -360,10 +357,10 @@ def galeria(request, codigo=None):
 			if request.method == 'POST':
 				data = Avaliacao.objects.filter(juri=juri).values()[0]
 				data_juri = AvaliacaoJuri.objects.filter(inscricao=inscricao, juri=request.user).values()[0]
-				juri_form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='', initial=data_juri)
+				form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='', initial=data_juri)
 				nota_form = AvaliacaoNotaForm(request.POST, instance=juri, prefix='nota', initial=data)
-				if juri_form.is_valid() and nota_form.is_valid():
-					juri = juri_form.save()
+				if form.is_valid() and nota_form.is_valid():
+					juri = form.save()
 					nota_form.save()
 					if nota_form.has_changed():
 						# media juri
@@ -386,7 +383,7 @@ def galeria(request, codigo=None):
 							inscricao.media = media/n
 							inscricao.save()
 					# likes
-					if juri_form.has_changed():
+					if form.has_changed():
 						if 's2' in juri_form.changed_data:
 							inscricao.s2 = len(dados.filter(s2=True))
 							inscricao.save()
@@ -397,16 +394,15 @@ def galeria(request, codigo=None):
 					else:
 						return redirect('galeria_projeto', codigo=codigo)
 			else:
-				juri_form = AvaliacaoForm(instance=juri, prefix='juri', label_suffix='')
+				form = AvaliacaoForm(instance=juri, prefix='juri', label_suffix='')
 				nota_form = AvaliacaoNotaForm(instance=juri, prefix='nota')
 	else:
 		projetos = Projeto.objects.filter(inscricao__in=inscricoes)
-		dados =  AvaliacaoJuri.objects.all()
 	projetos = projetos.order_by('inscricao__finalizada')
 
 	# paginacao
 	page = request.GET.get('page', 1)
-	paginator = Paginator(projetos, 10)
+	paginator = Paginator(projetos, 5)
 	try:
 		pg = paginator.page(page)
 	except PageNotAnInteger:
@@ -422,11 +418,9 @@ def galeria(request, codigo=None):
 		'inscricoes': inscricoes,
 		'pg': pg,
 		'form': form,
-		'juri_form': juri_form,
 		'nota_form': nota_form,
 		'proximo': proximo,
 		'criterios': criterios,
-		'dados':dados,
 		})
 
 @login_required

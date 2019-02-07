@@ -2,31 +2,32 @@
 
 {% get_current_language as lang %}
 
-{% query dados 'exclude' texto='' as coments %}
-
-    <table class="form linha_" {% borda %}>
+<table class="form linha_" {% borda %}>
+    <tr>
+        <th style="width: 119px;">{{ projeto.inscricao.media|floatformat }} {% hifen peso='normal' %}</th>
+        <td><span style="font-weight: bold;">média total</span></td>
+        <th>♥{{ projeto.inscricao.s2 }}</th>
+    </tr>
+    {% for criterio in criterios %}
         <tr>
-            <th style="width: 119px;">{{ projeto.inscricao.media|floatformat }} {% hifen peso='normal' %}</th><td><span style="font-weight: bold;">média total</td>
-            <th>♥{{ projeto.inscricao.s2 }}</th>
+            <th>{% media projeto criterio=criterio %} {% hifen peso='normal' %}</th>
+            {% if lang == 'en' and criterio.texto_en %}
+                <td colspan="2">{{ criterio.texto_en }}</td>
+            {% else %}
+                <td colspan="2">{{ criterio }}</td>
+            {% endif %}
         </tr>
-        {% for criterio in criterios %}
+    {% endfor %}
+
+    {% set projeto|cmmt as cmmts %}
+    {% if cmmts %}
+        <tr><td class="espaco"></td></tr>
+        <tr><th>comentários</th></tr>
+        {% for comentario in cmmts %}
             <tr>
-                <th>{% media dados criterio=criterio %} {% hifen peso='normal' %}</span></th>
-                {% if lang == 'en' and criterio.texto_en %}
-                    <td colspan="2">{{ criterio.texto_en }}</td>
-                {% else %}
-                    <td colspan="2">{{ criterio }}</td>
-                {% endif %}
+                <th>{{ comentario.juri }}</th>
+                <td colspan="3">{%hifen%} {{ comentario.texto }}</td>
             </tr>
         {% endfor %}
-        {% if coments %}
-            <tr><td class="espaco"></td></tr>
-            <tr><th>comentários</th></tr>
-            {% for comentario in coments %}
-                <tr>
-                    <th>{{ comentario.juri }}</th>
-                    <td colspan="3">{%hifen%} {{ comentario.texto }}</td>
-                </tr>
-            {% endfor %}
-        {% endif %}
-    </table>
+    {% endif %}
+</table>

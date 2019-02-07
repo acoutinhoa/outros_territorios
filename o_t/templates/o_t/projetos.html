@@ -2,11 +2,18 @@
 
 {% get_current_language as lang %}
 
+{% if form %}
+	{% set False as link %}
+{% else %}
+	{% set True as link %}
+{% endif %}
+
 {% espaco %}
 
 <div class="cartaz linha">
 	<p class="titulo"><a href="{% url 'galeria' %}">{{ titulo }}</a>{% if not user|grupo:'juri' %} / <a href="{% url 'galeria_dados' %}">dados</a>{% endif %}</p>
 </div>
+
 
 <div class="infinite-container">
 	{% for projeto in pg %}
@@ -16,15 +23,11 @@
 			{% else %}
 				{% espaco 80 180 borda='linha linha_' %}
 			{% endif %}
+
+			{% include 'o_t/projeto.html' with link=link %}
 			
-			{% if form or juri_form %}
-				{% include 'o_t/projeto.html' %}
-				{% include 'o_t/projeto_dados.html' %}
+			{% if form %}
 				{% include 'o_t/galeria_form.html' %}
-			{% else %}
-				{% query dados 'filter' inscricao=projeto.inscricao as dados_projeto %}
-				{% include 'o_t/projeto.html' with link=True %}
-				{% include 'o_t/projeto_dados.html' with dados=dados_projeto %}
 			{% endif %}
 
 			{% if forloop.last %}
@@ -51,5 +54,3 @@
 	  }
 	});
 </script>
-
-

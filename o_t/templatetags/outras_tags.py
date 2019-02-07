@@ -4,6 +4,7 @@ from django.urls import resolve, translate_url
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from o_t.models import Avaliacao, AvaliacaoJuri
 import random
 import os
 
@@ -204,24 +205,45 @@ def borda():
 	# return mark_safe('style="border-top-style: %s;"' % random.choice(borda))
 
 @register.simple_tag
-def media(qs, criterio=None):
+def media(projeto, criterio=None):
 	media = 0
-	n = qs.count()
-	for nota in qs:
-		if criterio:
-			if nota.avaliacao_set.filter(criterio=criterio).exists():
-				nota = int(nota.avaliacao_set.get(criterio=criterio).nota)
-			else:
-				nota = 0
-		else:
-			nota = nota.media
-		if nota == 0:
-			n -= 1
-		else:
+	notas = Avaliacao.objects.filter(criterio=criterio, juri__inscricao=projeto.inscricao)
+	n = notas.count()
+	for nota in notas:
+		nota = int(nota.nota)
+		if nota != 0:
 			media += nota
+		else:
+			n -= 1
 	if n != 0:
 		media = media / n
 	return str(floatformat(media))
+
+@register.filter()
+def cmmt(projeto):
+	return AvaliacaoJuri.objects.filter(inscricao=projeto.inscricao).exclude(texto='')
+
+
+# @register.simple_tag
+# def media(qs, criterio=None):
+# def media(qs, criterio=None):
+# 	media = 0
+# 	n = qs.count()
+# 	for nota in qs:
+# 		if criterio:
+# 			if nota.avaliacao_set.filter(criterio=criterio).exists():
+# 				nota = int(nota.avaliacao_set.get(criterio=criterio).nota)
+# 			else:
+# 				nota = 0
+# 		else:
+# 			nota = nota.media
+# 		if nota == 0:
+# 			n -= 1
+# 		else:
+# 			media += nota
+# 	if n != 0:
+# 		media = media / n
+# 	return str(floatformat(media))
 
 # @register.simple_tag
 # def django():

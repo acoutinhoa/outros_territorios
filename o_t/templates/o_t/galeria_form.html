@@ -6,34 +6,19 @@
     <form method="POST" >
     	{% csrf_token %}
 
-        {% if form %}
-            {% for field in form %}
-                {% if field.name == 'traducao' %}
-                <tr><td class="espaco"></td></tr>
-                {% endif %}
-                <tr>
-                    <th style="width: 119px;">{{ field.label_tag }}</th>
-                    <td colspan="2">{{ field }}{{ field.errors }}{{ field.help_text }}</td>
-                </tr>
-            {% endfor %}
+        {% for field in form %}
+            {% if field.name == 'traducao' %}
             <tr><td class="espaco"></td></tr>
+            {% endif %}
             <tr>
-                <td></td>
-            	<td>
-                    <button type="submit">{% trans 'salvar' %}</button>
-                    {% if proximo %}<button type="submit" name="proximo">{% trans 'próximo' %}</button>{% endif %}
-                </td>
-           </tr>
+                <th style="width: 119px;">{{ field.label_tag }}</th>
+                <td colspan="2">{{ field }}{{ field.errors }}{{ field.help_text }}</td>
+            </tr>
+        {% endfor %}
+        <tr><td class="espaco"></td></tr>
 
-        {% elif juri_form and nota_form %}
-            {% for field in juri_form %}
-                <tr>
-                    <th style="width: 119px;">{{ field.label_tag }}</th>
-                    <td colspan="2">{{ field }}{{ field.errors }}{{ field.help_text }}</td>
-                </tr>
-            {% endfor %}
-            <tr><td class="espaco"></td></tr>
-
+        {% if nota_form %}
+ 
             {{ nota_form.management_form }}
             {% for form in nota_form %}
                 <tr><th>{{ forloop.counter }} {% hifen peso='normal' %}</th>
@@ -47,14 +32,19 @@
                 {% endfor %}
             {% endfor %}
 
-            <tr>
-                <td></td>
-                <td>
-                    <button type="submit" name='juri_save'>{% trans 'salvar' %}</button>
-                    {% if proximo %}<button type="submit" name="juri_proximo">{% trans 'próximo' %}</button>{% endif %}
-                </td>
-            </tr>
-
+            <tr><td></td><td>
+                <button type="submit" name='juri_save'>{% trans 'salvar' %}</button>
+                {% if proximo %}<button type="submit" name="juri_proximo">{% trans 'próximo' %}</button>{% endif %}
+            </td></tr>
+        
+        {% else %}
+ 
+            <tr><td></td><td>
+                <button type="submit">{% trans 'salvar' %}</button>
+                {% if proximo %}<button type="submit" name="proximo">{% trans 'próximo' %}</button>{% endif %}
+            </td></tr>
+ 
         {% endif %}
+
     </form>
 </table>

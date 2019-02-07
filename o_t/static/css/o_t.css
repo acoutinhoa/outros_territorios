@@ -134,6 +134,14 @@ img {
 	vertical-align: middle;
 }
 
+/*dados projeto*/
+.dados{
+	margin-left: -3vw;
+	margin-top: 130px;
+	margin-bottom: -70px;
+	width: calc(100% + 6vw);
+}
+
 /* blog */
 .post {
 	float: left;
