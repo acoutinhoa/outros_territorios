@@ -33,7 +33,7 @@
 		<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'arquivo' %}</a></p>
 	{% endif %}
 
-	{% if criterios %}
+	{% if not user|grupo:'juri' %}
 		<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
 	{% endif %}
 </div>

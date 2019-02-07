@@ -4,7 +4,7 @@ from django.urls import resolve, translate_url
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from o_t.models import Avaliacao, AvaliacaoJuri
+from o_t.models import AvaliacaoJuri
 import random
 import os
 
@@ -204,20 +204,20 @@ def borda():
 	return mark_safe('style="border-top-style: dashed;"')
 	# return mark_safe('style="border-top-style: %s;"' % random.choice(borda))
 
-@register.simple_tag
-def media(projeto, criterio=None):
-	media = 0
-	notas = Avaliacao.objects.filter(criterio=criterio, juri__inscricao=projeto.inscricao)
-	n = notas.count()
-	for nota in notas:
-		nota = int(nota.nota)
-		if nota != 0:
-			media += nota
-		else:
-			n -= 1
-	if n != 0:
-		media = media / n
-	return str(floatformat(media))
+# @register.simple_tag
+# def media(projeto):
+# 	media = 0
+# 	notas = Avaliacao.objects.filter(inscricao=projeto.inscricao)
+# 	n = notas.count()
+# 	for nota in notas:
+# 		nota = int(nota.nota)
+# 		if nota != 0:
+# 			media += nota
+# 		else:
+# 			n -= 1
+# 	if n != 0:
+# 		media = media / n
+# 	return str(floatformat(media))
 
 @register.filter
 def cmmt(projeto):

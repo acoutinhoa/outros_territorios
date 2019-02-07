@@ -317,80 +317,63 @@ def galeria(request, codigo=None):
 	titulo = _('galeria')
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
 	form = None
-	nota_form = None
 	if not_juri(request.user):
 		inscricoes = Inscricao.objects.exclude(finalizada=None).order_by('finalizada')
 	else:
 		inscricoes = Inscricao.objects.filter(ok='ok').order_by('finalizada')
-	criterios = Criterios.objects.all()
 
 	if codigo:
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 		projetos = Projeto.objects.filter(inscricao=inscricao)
 
-		# avaliacao
-		# vazio
-		if not_juri(request.user):
-			if request.method == 'POST':
+		if not not_juri(request.user):
+			juri = AvaliacaoJuri.objects.get_or_create(inscricao=inscricao, juri=request.user)[0]
+
+		if request.method == 'POST':
+			# vazio
+			if not_juri(request.user):
 				form = SelecaoForm(request.POST, instance=inscricao)
 				if form.is_valid():
 					form.save()
-					if 'proximo' in request.POST:
-						proximo = inscricoes.filter(finalizada__gt=inscricao.finalizada)[0]
-						return redirect('galeria_projeto', codigo=proximo.codigo)
-					else:
-						return redirect('galeria_projeto', codigo=codigo)
+			# juri
 			else:
-				form = SelecaoForm(instance=inscricao)
-		# juri
-		else:
-			juri = AvaliacaoJuri.objects.get_or_create(inscricao=inscricao, juri=request.user)[0]
-			for criterio in criterios:
-				if not juri.avaliacao_set.filter(criterio=criterio).exists():
-					n = Avaliacao(criterio=criterio, juri=juri)
-					n.save()
-			if request.method == 'POST':
-				data = Avaliacao.objects.filter(juri=juri).values()[0]
-				data_juri = AvaliacaoJuri.objects.filter(inscricao=inscricao, juri=request.user).values()[0]
-				form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='', initial=data_juri)
-				nota_form = AvaliacaoNotaForm(request.POST, instance=juri, prefix='nota', initial=data)
-				if form.is_valid() and nota_form.is_valid():
-					juri = form.save()
-					nota_form.save()
-					if nota_form.has_changed():
-						# media juri
-						media = 0
-						notas = juri.avaliacao_set.all()
-						for nota in notas:
-							media += int(nota.nota)
-						juri.media = media/len(notas)
-						juri.save()
-						# media projeto
-						media = 0
-						notas = AvaliacaoJuri.objects.filter(inscricao=inscricao)
-						n = len(notas)
-						for nota in notas:
-							if nota.media == 0:
-								n -= 1
-							else:
-								media += nota.media
-						if n != 0:
-							inscricao.media = media/n
-							inscricao.save()
-					# likes
+				data = AvaliacaoJuri.objects.filter(inscricao=inscricao, juri=request.user).values()[0]
+				form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='', initial=data)
+				if form.is_valid():
+					form.save()
 					if form.has_changed():
-						if 's2' in juri_form.changed_data:
-							inscricao.s2 = len(dados.filter(s2=True))
+						# likes
+						if 's2' in form.changed_data:
+							inscricao.s2 = len(AvaliacaoJuri.objects.filter(inscricao=inscricao, s2=True))
+							inscricao.save()
+						# media
+						if 'nota' in form.changed_data:
+							media = 0
+							notas = AvaliacaoJuri.objects.filter(inscricao=inscricao)
+							n = len(notas)
+							for nota in notas:
+								if nota.nota:
+									media += int(nota.nota)
+								else:
+									n -= 1
+							if n != 0:
+								media = media/n
+							inscricao.media = media
 							inscricao.save()
 
-					if 'juri_proximo' in request.POST:
-						inscricao = proximo.order_by('?').first()
-						return redirect('galeria_projeto', codigo=inscricao.codigo)
-					else:
-						return redirect('galeria_projeto', codigo=codigo)
+			if 'proximo' in request.POST:
+				proximo = inscricoes.filter(finalizada__gt=inscricao.finalizada)[0]
+				return redirect('galeria_projeto', codigo=proximo.codigo)
+			elif 'galeria' in request.POST:
+				return redirect('galeria')
+			else:
+				return redirect('galeria_projeto', codigo=codigo)
+
+		else:
+			if not_juri(request.user):
+				form = SelecaoForm(instance=inscricao)
 			else:
 				form = AvaliacaoForm(instance=juri, prefix='juri', label_suffix='')
-				nota_form = AvaliacaoNotaForm(instance=juri, prefix='nota')
 	else:
 		projetos = Projeto.objects.filter(inscricao__in=inscricoes)
 	projetos = projetos.order_by('inscricao__finalizada')
@@ -413,8 +396,6 @@ def galeria(request, codigo=None):
 		'inscricoes': inscricoes,
 		'pg': pg,
 		'form': form,
-		'nota_form': nota_form,
-		'criterios': criterios,
 		})
 
 @login_required
@@ -464,22 +445,14 @@ def galeria_edit(request):
 				cartaz_form.save()
 				return redirect('galeria')
 			criterios_form = CriteriosForm(prefix='criterios')
-		# elif 'criterio_submit':
-		# 	criterios_form = CriteriosForm(request.POST, prefix='criterios')
-		# 	if criterios_form.is_valid():
-		# 		criterios_form.save()
-		# 		return redirect('galeria_edit')
-		# 	cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
 	else:
 		cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
-		# criterios_form = CriteriosForm(prefix='criterios')
 
 	return render(request, 'o_t/galeria_edit.html', {
 		'titulo': titulo, 
 		'menu': menu, 
 		'cartaz': cartaz,
 		'cartaz_form': cartaz_form,
-		# 'criterios_form': criterios_form,
 		})
 
 def blog(request, pk=None, slug=None, tag=None):

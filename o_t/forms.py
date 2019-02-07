@@ -176,34 +176,13 @@ SelecaoForm = forms.modelform_factory(
 		},
 	)
 
-# CriteriosForm = forms.modelformset_factory(
-# 	Criterios, 
-# 	extra=1,
-# 	fields=('texto', 'texto_en',), 
-# 	widgets = {
-# 		'texto': forms.Textarea(attrs={'rows': 3}),
-# 		'texto_en': forms.Textarea(attrs={'rows': 3}),
-# 		},
-# 	can_delete=True,
-# 	)
-
 AvaliacaoForm = forms.modelform_factory(
 	AvaliacaoJuri, 
-	fields=('s2', 'texto', ), 
+	fields=('s2', 'texto', 'nota'), 
 	widgets = {
 		'texto': forms.Textarea(attrs={'rows': 3}),
+		'nota': forms.RadioSelect(attrs={'class': 'tags', }),
 		},
-	)
-
-AvaliacaoNotaForm = forms.inlineformset_factory(
-	AvaliacaoJuri,
-	Avaliacao, 
-	fields=('nota',), 
-	widgets = {
-		'nota': forms.RadioSelect(attrs={'class': 'tags',}),
-		},
-	can_delete=False,
-	extra=0,
 	)
 
 # from input_mask.widgets import InputMask

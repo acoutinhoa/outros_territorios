@@ -8,6 +8,8 @@
         <td><span style="font-weight: bold;">média total</span></td>
         <th>♥{{ projeto.inscricao.s2 }}</th>
     </tr>
+
+    {% comment %}
     {% for criterio in criterios %}
         <tr>
             <th>{% media projeto criterio=criterio %} {% hifen peso='normal' %}</th>
@@ -18,6 +20,7 @@
             {% endif %}
         </tr>
     {% endfor %}
+    {% endcomment %}
 
     {% set projeto|cmmt as cmmts %}
     {% if cmmts %}

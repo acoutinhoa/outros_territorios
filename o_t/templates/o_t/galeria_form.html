@@ -17,35 +17,13 @@
         {% endfor %}
         <tr><td class="espaco"></td></tr>
 
-        {% if nota_form %}
+        <tr><td></td><td>
+            <button type="submit">{% trans 'salvar' %}</button>
+            {% if inscricoes|proximo:projeto.inscricao %}
+                <button type="submit" name="proximo">{% trans 'próximo' %}</button>
+            {% endif %}
+            <button type="submit" name="galeria">{% trans 'galeria' %}</button>
+        </td></tr>
  
-            {{ nota_form.management_form }}
-            {% for form in nota_form %}
-                <tr><th>{{ forloop.counter }} {% hifen peso='normal' %}</th>
-                    {% if lang == 'en' and form.instance.criterio.texto_en %}
-                        <td>{{ form.instance.criterio.texto_en }}</td></tr>
-                    {% else %}
-                        <td>{{ form.instance.criterio }}</td></tr>
-                    {% endif %}
-                {% for field in form %}
-                    <tr><td></td><td>{{ field }}</td></tr>
-                {% endfor %}
-            {% endfor %}
-
-            <tr><td></td><td>
-                <button type="submit" name='juri_save'>{% trans 'salvar' %}</button>
-            </td></tr>
-        
-        {% else %}
- 
-            <tr><td></td><td>
-                <button type="submit">{% trans 'salvar' %}</button>
-                {% if inscricoes|proximo:projeto.inscricao %}
-                    <button type="submit" name="proximo">{% trans 'próximo' %}</button>
-                {% endif %}
-            </td></tr>
- 
-        {% endif %}
-
     </form>
 </table>

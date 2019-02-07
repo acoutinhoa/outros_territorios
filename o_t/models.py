@@ -297,32 +297,17 @@ class Projeto(models.Model):
 	def palafita_verbose(self):
 		return dict(Projeto.palafitas)[self.palafita]
 
-class Criterios(models.Model):
-	texto = models.CharField('pt', max_length=300)
-	texto_en = models.CharField('en', max_length=300, blank=True)
-	def __str__(self):
-		return self.texto
-	class Meta:
-		ordering = ['pk']
-
 class AvaliacaoJuri(models.Model):
+	notas=[]
+	for i in range(6):
+		notas.append((str(i),str(i)),)
 	inscricao = models.ForeignKey(Inscricao, on_delete=models.CASCADE)
 	juri = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 	s2 = models.BooleanField('♥', default=False)
 	texto = models.TextField(_('comentário'), blank=True, default='')
-	media = models.FloatField(default=0)
+	nota = models.CharField('nota', choices=notas, max_length=2, blank=True)
 	def __str__(self):
 		return '%s_%s' % (self.juri, self.inscricao.codigo)
-
-class Avaliacao(models.Model):
-	notas=[]
-	for i in range(11):
-		notas.append((str(i),str(i)),)
-	juri = models.ForeignKey(AvaliacaoJuri, on_delete=models.CASCADE)
-	criterio = models.ForeignKey(Criterios, on_delete=models.CASCADE)
-	nota = models.CharField('nota', choices=notas, max_length=2, default='0')
-	def __str__(self):
-		return '%s_%s' % (self.criterio.pk, self.nota)
 
 
 
