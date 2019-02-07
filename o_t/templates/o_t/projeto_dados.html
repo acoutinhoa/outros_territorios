@@ -9,18 +9,14 @@
         <th>♥{{ projeto.inscricao.s2 }}</th>
     </tr>
 
-    {% comment %}
-    {% for criterio in criterios %}
-        <tr>
-            <th>{% media projeto criterio=criterio %} {% hifen peso='normal' %}</th>
-            {% if lang == 'en' and criterio.texto_en %}
-                <td colspan="2">{{ criterio.texto_en }}</td>
-            {% else %}
-                <td colspan="2">{{ criterio }}</td>
-            {% endif %}
-        </tr>
+    {% for nota in projeto.inscricao.avaliacaojuri_set.all %}
+        {% if nota.nota %}
+            <tr>
+                <th>{{nota.nota}} {% hifen peso='normal' %}</th>
+                <td colspan="2">{{ nota.juri }}</td>
+            </tr>
+        {% endif %}
     {% endfor %}
-    {% endcomment %}
 
     {% set projeto|cmmt as cmmts %}
     {% if cmmts %}
