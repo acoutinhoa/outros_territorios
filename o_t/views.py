@@ -336,7 +336,7 @@ def galeria(request, codigo=None, ordem=''):
 	if ordem == 'media':
 		inscricoes = inscricoes.filter(media__gt=0).order_by('-media', '-s2')
 	elif ordem == 'nota' and not not_juri(request.user):
-		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user).order_by('-avaliacaojuri__nota').exclude(avaliacaojuri__nota='')
+		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota')
 
 	form = None
 	if codigo:
