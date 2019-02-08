@@ -43,7 +43,7 @@
 				{% else %}
 					{% set inscricao.avaliacaojuri_set.all as avaliacao %}
 					{% query avaliacao 'exclude' texto='' as texto %}
-					{% if inscricao.s2 != 0 %}<span style="color:#f0f;"> {{ inscricao.s2 }}♥</span>{% endif %}
+					{% if inscricao.s2 != 0 %}<span style="color:#f0f;"> {{ inscricao.s2 }}★</span>{% endif %}
 					{% if texto %}<span style="color:#00f;"> {{ texto.count }}☰</span>{% endif %}
 
 				{% endif %}
