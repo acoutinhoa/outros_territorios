@@ -18,14 +18,21 @@
 
 	<ol class="titulo_lista">
 	{% for inscricao in inscricoes %}
+
+		{% ifchanged inscricao.ok %}{% if ordem == 'data' and inscricao.ok == 'no' %}
+			</ol>
+			</div>
+			<div class="post linha respostas">
+			<p class="titulo_">reprovados</p>
+			<ol class="titulo_lista">
+		{% endif %}{% endifchanged %}
+
 		<li>
 			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo ordem=ordem %}" style="line-height: 22px;">{{inscricao.projeto_set.first.nome}}</a>
 			<span class="form">
 				{% if not user|grupo:'juri' %}
 					{% set inscricao.ok as selecionado %}
-					{% if selecionado == 'no' %}
-						<span style="color: #ff00ff">X</span>
-					{% elif selecionado == '-' %}
+					{% if selecionado == '-' %}
 						<span style="color: #00ffff">O</span>
 					{% endif %}
 				{% endif %}

@@ -329,7 +329,7 @@ def galeria(request, codigo=None, ordem=''):
 			ordem='data'
 
 	if not_juri(request.user):
-		inscricoes = Inscricao.objects.exclude(finalizada=None).order_by('finalizada')
+		inscricoes = Inscricao.objects.exclude(finalizada=None).order_by('finalizada','ok')
 	else:
 		inscricoes = Inscricao.objects.filter(ok='ok').order_by('finalizada')
 
