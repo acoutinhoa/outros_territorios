@@ -298,14 +298,14 @@ class Projeto(models.Model):
 		return dict(Projeto.palafitas)[self.palafita]
 
 class AvaliacaoJuri(models.Model):
-	notas=[]
+	notas=[('', '---'),]
 	for i in range(6):
-		notas.append((str(i),str(i)),)
+		notas.append((str(i), str(i)),)
 	inscricao = models.ForeignKey(Inscricao, on_delete=models.CASCADE)
 	juri = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-	s2 = models.BooleanField('♥', default=False)
+	s2 = models.BooleanField('★', default=False)
 	texto = models.TextField(_('comentário'), blank=True, default='')
-	nota = models.CharField('nota', choices=notas, max_length=2, blank=True)
+	nota = models.CharField('nota', choices=notas, max_length=2, blank=True,)
 	def __str__(self):
 		return '%s_%s' % (self.juri, self.inscricao.codigo)
 

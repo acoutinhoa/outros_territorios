@@ -2,6 +2,7 @@
 
 {% get_current_language as lang %}
 
+{% set inscricao|projeto as projeto %}
 
 <div class="post">
 	{% if projeto.nome or projeto.palafita %}
@@ -33,7 +34,7 @@
 		<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'arquivo' %}</a></p>
 	{% endif %}
 
-	{% if not user|grupo:'juri' %}
+	{% if titulo == 'galeria' and not user|grupo:'juri' %}
 		<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
 	{% endif %}
 </div>

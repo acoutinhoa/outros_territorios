@@ -2,14 +2,16 @@
 
 {% get_current_language as lang %}
 
+{% set inscricao.avaliacaojuri_set.all as avaliacao %}
+
 <table class="form linha_" {% borda %}>
     <tr>
-        <th style="width: 119px;">{{ projeto.inscricao.media|floatformat }} {% hifen peso='normal' %}</th>
+        <th style="width: 119px;">{{ inscricao.media|floatformat }} {% hifen peso='normal' %}</th>
         <td><span style="font-weight: bold;">média total</span></td>
-        <th>♥{{ projeto.inscricao.s2 }}</th>
+        <th>♥{{ inscricao.s2 }}</th>
     </tr>
 
-    {% for nota in projeto.inscricao.avaliacaojuri_set.all %}
+    {% for nota in avaliacao %}
         {% if nota.nota %}
             <tr>
                 <th>{{nota.nota}} {% hifen peso='normal' %}</th>
@@ -18,7 +20,7 @@
         {% endif %}
     {% endfor %}
 
-    {% set projeto|cmmt as cmmts %}
+    {% query avaliacao 'exclude' texto='' as cmmts %}
     {% if cmmts %}
         <tr><td class="espaco"></td></tr>
         <tr><th>comentários</th></tr>

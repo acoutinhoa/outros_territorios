@@ -7,7 +7,7 @@
     	{% csrf_token %}
 
         {% for field in form %}
-            {% if field.name == 'traducao' %}
+            {% if field.name == 'nota' %}
             <tr><td class="espaco"></td></tr>
             {% endif %}
             <tr>
@@ -19,7 +19,7 @@
 
         <tr><td></td><td>
             <button type="submit">{% trans 'salvar' %}</button>
-            {% if inscricoes|proximo:projeto.inscricao %}
+            {% if inscricoes|proximo:inscricao %}
                 <button type="submit" name="proximo">{% trans 'próximo' %}</button>
             {% endif %}
             <button type="submit" name="galeria">{% trans 'galeria' %}</button>

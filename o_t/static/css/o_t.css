@@ -190,6 +190,11 @@ img {
 	display: inline;
 	padding: 0 15px 0px 0;
 }
+.tags input[type=radio] {
+	width: auto;
+	margin: 4px 9px 0 19px;
+}
+
 .respostas {
 	padding-left: 60px;
 }
@@ -312,3 +317,10 @@ button:hover, .form button:hover {
 	/*.c1 { width: 68%; }*/
 	/*.c2 { display: none; }*/
 } 
+
+input[type=radio],
+	input.radio {
+	  float: left;
+	  clear: none;
+	  margin: 2px 0 0 2px;
+}

@@ -5,19 +5,55 @@
 {% espaco %}
 
 <div class="post linha respostas">
-	<p class="titulo_">projetos</p>
+	<p class="titulo_">projetos<br>
+		<span class="form">
+			{% if ordem == 'data' %}
+				inscrição
+			{% else %}
+				<a href="{% url 'galeria' %}" style="border-bottom:none;">inscrição</a>
+			{% endif %}
+			{% if user|grupo:'juri' %}
+				{% if ordem == 'nota' %}
+					 / nota
+				{% else %}
+					 / <a href="{% url 'galeria' ordem='nota' %}" style="border-bottom:none;">nota</a>
+				{% endif %}
+			{% endif %}
+			{% if not user|grupo:'juri' %}
+				{% if ordem == 'media' %}
+					 / média
+				{% else %}
+					 / <a href="{% url 'galeria' ordem='media' %}" style="border-bottom:none;">média</a>
+				{% endif %}
+			{% endif %}
+		</span>
+	</p>
+
 	<ol class="titulo_lista">
-	{% for inscricao in inscricoes|dictsort:"finalizada" %}
+	{% for inscricao in inscricoes %}
 		<li>
 			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo %}" style="line-height: 22px;">{{inscricao.projeto_set.first.nome}}</a>
+			<span class="form">
+			{% if not user|grupo:'juri' %}
+				{% set inscricao.ok as selecionado %}
+				{% if selecionado == 'no' %}
+					<span style="color: #ff00ff">X</span>
+				{% elif selecionado == '-' %}
+					<span style="color: #00ffff">O</span>
+				{% else %}
+					{% set inscricao.avaliacaojuri_set.all as avaliacao %}
+					{% query avaliacao 'exclude' texto='' as texto %}
+					{% if inscricao.s2 != 0 %}<span style="color:#f0f;"> {{ inscricao.s2 }}♥</span>{% endif %}
+					{% if texto %}<span style="color:#00f;"> {{ texto.count }}☰</span>{% endif %}
 
-			{% set inscricao.ok as selecionado%}
-			{% if selecionado == 'no' %}
-				<span style="color: #ff00ff">X</span>
-			{% elif selecionado == '-' %}
-				<span style="color: #00ffff">O</span>
+				{% endif %}
+			{% else %}
+				{% query inscricao.avaliacaojuri_set.all 'filter' get=True juri=request.user as avaliacao %}
+				{% if not avaliacao.nota %}<span style="color: #00ffff"> O</span>{% endif %}
+				{% if avaliacao.s2 %}<span style="color:#f0f;"> ★</span>{% endif %}
+				{% if avaliacao.texto %}<span style="color:#00f;"> ☰</span>{% endif %}
 			{% endif %}
-
+			</span>
 		</li>
 	{% endfor %}
 	</ol>

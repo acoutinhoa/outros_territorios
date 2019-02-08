@@ -313,7 +313,7 @@ def inscricoes_submit(request, pk,):
 	else:
 		return redirect('inscricoes_erro', pk=pk)
 
-def galeria(request, codigo=None):
+def galeria(request, codigo=None, ordem='data'):
 	titulo = _('galeria')
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
 	form = None
@@ -322,9 +322,13 @@ def galeria(request, codigo=None):
 	else:
 		inscricoes = Inscricao.objects.filter(ok='ok').order_by('finalizada')
 
+	if ordem == 'media' and not_juri(request.user):
+		inscricoes = inscricoes.order_by('-media', '-s2')
+	elif ordem == 'nota' and not not_juri(request.user):
+		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user).order_by('-avaliacaojuri__nota')
+
 	if codigo:
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
-		projetos = Projeto.objects.filter(inscricao=inscricao)
 
 		if not not_juri(request.user):
 			juri = AvaliacaoJuri.objects.get_or_create(inscricao=inscricao, juri=request.user)[0]
@@ -374,13 +378,13 @@ def galeria(request, codigo=None):
 				form = SelecaoForm(instance=inscricao)
 			else:
 				form = AvaliacaoForm(instance=juri, prefix='juri', label_suffix='')
-	else:
-		projetos = Projeto.objects.filter(inscricao__in=inscricoes)
-	projetos = projetos.order_by('inscricao__finalizada')
 
 	# paginacao
 	page = request.GET.get('page', 1)
-	paginator = Paginator(projetos, 5)
+	if codigo:
+		paginator = Paginator([inscricao], 5)
+	else:
+		paginator = Paginator(inscricoes, 5)
 	try:
 		pg = paginator.page(page)
 	except PageNotAnInteger:
@@ -396,6 +400,7 @@ def galeria(request, codigo=None):
 		'inscricoes': inscricoes,
 		'pg': pg,
 		'form': form,
+		'ordem': ordem,
 		})
 
 @login_required
