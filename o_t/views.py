@@ -313,7 +313,17 @@ def inscricoes_submit(request, pk,):
 	else:
 		return redirect('inscricoes_erro', pk=pk)
 
-def galeria(request, codigo=None, ordem='data'):
+def galeria(request, codigo=None, ordem=''):
+	ativo = 0
+	if Data.objects.filter(nome='juri').exists():
+		dt = Data.objects.get(nome='juri').fim
+		if timezone.now() > dt:
+			ativo = 1
+	if not ordem:
+		if ativo:
+			ordem='media'
+		else:
+			ordem='data'
 	titulo = _('galeria')
 	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
 	form = None
@@ -322,10 +332,10 @@ def galeria(request, codigo=None, ordem='data'):
 	else:
 		inscricoes = Inscricao.objects.filter(ok='ok').order_by('finalizada')
 
-	if ordem == 'media' and not_juri(request.user):
-		inscricoes = inscricoes.order_by('-media', '-s2')
+	if ordem == 'media':
+		inscricoes = inscricoes.filter(media__gt=0).order_by('-media', '-s2')
 	elif ordem == 'nota' and not not_juri(request.user):
-		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user).order_by('-avaliacaojuri__nota')
+		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user).exclude(avaliacaojuri__nota='').order_by('-avaliacaojuri__nota')
 
 	if codigo:
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
@@ -366,12 +376,16 @@ def galeria(request, codigo=None, ordem='data'):
 							inscricao.save()
 
 			if 'proximo' in request.POST:
-				proximo = inscricoes.filter(finalizada__gt=inscricao.finalizada)[0]
-				return redirect('galeria_projeto', codigo=proximo.codigo)
+				#proximo = inscricoes.filter(finalizada__gt=inscricao.finalizada)[0]
+				for i, j in enumerate(inscricoes):
+					if j == inscricao:
+						break
+				proximo = inscricoes[i+1]
+				return redirect('galeria_projeto', codigo=proximo.codigo, ordem=ordem)
 			elif 'galeria' in request.POST:
-				return redirect('galeria')
+				return redirect('galeria', ordem=ordem)
 			else:
-				return redirect('galeria_projeto', codigo=codigo)
+				return redirect('galeria_projeto', codigo=codigo, ordem=ordem)
 
 		else:
 			if not_juri(request.user):
@@ -401,6 +415,7 @@ def galeria(request, codigo=None, ordem='data'):
 		'pg': pg,
 		'form': form,
 		'ordem': ordem,
+		'ativo':ativo,
 		})
 
 @login_required

@@ -49,7 +49,8 @@ galeria_patterns = [
     path('edit/', views.galeria_edit, name='galeria_edit'),
     path('<int:codigo>/', views.galeria, name='galeria_projeto'),
     path('dados/', views.galeria_dados, name='galeria_dados'),
-    path('ordem/<slug:ordem>/', views.galeria, name='galeria'),
+    path('<slug:ordem>/', views.galeria, name='galeria'),
+    path('<slug:ordem>/<int:codigo>/', views.galeria, name='galeria_projeto'),
 ]
 
 urlpatterns = [

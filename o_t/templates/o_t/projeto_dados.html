@@ -8,7 +8,7 @@
     <tr>
         <th style="width: 119px;">{{ inscricao.media|floatformat }} {% hifen peso='normal' %}</th>
         <td><span style="font-weight: bold;">média total</span></td>
-        <th>♥{{ inscricao.s2 }}</th>
+        {% if inscricao.s2 %}<th>{{ inscricao.s2 }}★</th>{% endif %}
     </tr>
 
     {% for nota in avaliacao %}

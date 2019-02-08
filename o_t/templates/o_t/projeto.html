@@ -8,7 +8,7 @@
 	{% if projeto.nome or projeto.palafita %}
 		<p class='titulo' style="text-align: left;">
 			{% if link %}
-				<a href="{% url 'galeria_projeto' codigo=projeto.inscricao.codigo %}">{{ projeto.nome }}</a>
+				<a href="{% url 'galeria_projeto' codigo=projeto.inscricao.codigo ordem=ordem %}">{{ projeto.nome }}</a>
 			{% else %}
 				{{ projeto.nome }}
 			{% endif %}
@@ -19,12 +19,14 @@
 	{% endif %}
 	<p class="data_">
 		{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>
-		{% trans 'Enviado em' %} <b>
-			{% if projeto.inscricao.finalizada %}
-				{{ projeto.inscricao.finalizada }}
-			{% else %}
-				{% hifen %}
-			{% endif %}</b>
+		{% if not user|grupo:'juri' %}
+			{% trans 'Enviado em' %} <b>
+				{% if projeto.inscricao.finalizada %}
+					{{ projeto.inscricao.finalizada }}
+				{% else %}
+					{% hifen %}
+				{% endif %}</b>
+		{% endif %}
 	</p>
 	{% if projeto.texto %}
 		<p class="texto margem">{{ projeto.texto|linebreaksbr }}</p>
@@ -34,8 +36,10 @@
 		<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'arquivo' %}</a></p>
 	{% endif %}
 
-	{% if titulo == 'galeria' and not user|grupo:'juri' %}
-		<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
+	{% if titulo == 'galeria' %}
+		{% if ativo or not user|grupo:'juri'%}
+			<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
+		{% endif %}
 	{% endif %}
 </div>
 

@@ -4,7 +4,7 @@ from django.urls import resolve, translate_url
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from o_t.models import AvaliacaoJuri
+from o_t.models import AvaliacaoJuri, Data
 import random
 import os
 
@@ -225,7 +225,21 @@ def projeto(inscricao):
 
 @register.filter
 def proximo(inscricoes, inscricao):
-	return inscricoes.filter(finalizada__gt=inscricao.finalizada).exists()
+	for i, j in enumerate(inscricoes):
+		if j == inscricao:
+			break
+	return inscricoes[i+1:]
+
+@register.simple_tag
+def ordem(ordem, user, ativo):
+	tipos = ['data', 'nota', 'media']
+	tipos.remove(ordem)
+	if not ativo and grupo(user, 'juri'):
+		tipos.remove('media')
+	elif not grupo(user, 'juri'):
+		tipos.remove('nota')
+	return tipos
+
 
 # @register.simple_tag
 # def media(qs, criterio=None):

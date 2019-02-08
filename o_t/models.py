@@ -194,6 +194,7 @@ class Faq(models.Model):
 
 class Data(models.Model):
 	fim=models.DateTimeField()
+	nome = models.CharField(max_length=30, blank=True)
 
 class Inscricao(models.Model):
 	areas = [
@@ -304,7 +305,7 @@ class AvaliacaoJuri(models.Model):
 	inscricao = models.ForeignKey(Inscricao, on_delete=models.CASCADE)
 	juri = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 	s2 = models.BooleanField('★', default=False)
-	texto = models.TextField(_('comentário'), blank=True, default='')
+	texto = models.TextField(_('anotação'), blank=True, default='')
 	nota = models.CharField('nota', choices=notas, max_length=2, blank=True,)
 	def __str__(self):
 		return '%s_%s' % (self.juri, self.inscricao.codigo)
