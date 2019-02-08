@@ -314,6 +314,9 @@ def inscricoes_submit(request, pk,):
 		return redirect('inscricoes_erro', pk=pk)
 
 def galeria(request, codigo=None, ordem=''):
+	titulo = _('galeria')
+	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
+
 	ativo = 0
 	if Data.objects.filter(nome='juri').exists():
 		dt = Data.objects.get(nome='juri').fim
@@ -324,9 +327,7 @@ def galeria(request, codigo=None, ordem=''):
 			ordem='media'
 		else:
 			ordem='data'
-	titulo = _('galeria')
-	cartaz = Cartaz.objects.get_or_create(pagina='galeria')[0]
-	form = None
+
 	if not_juri(request.user):
 		inscricoes = Inscricao.objects.exclude(finalizada=None).order_by('finalizada')
 	else:
@@ -335,8 +336,9 @@ def galeria(request, codigo=None, ordem=''):
 	if ordem == 'media':
 		inscricoes = inscricoes.filter(media__gt=0).order_by('-media', '-s2')
 	elif ordem == 'nota' and not not_juri(request.user):
-		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user).exclude(avaliacaojuri__nota='').order_by('-avaliacaojuri__nota')
+		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user).order_by('-avaliacaojuri__nota')
 
+	form = None
 	if codigo:
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 
