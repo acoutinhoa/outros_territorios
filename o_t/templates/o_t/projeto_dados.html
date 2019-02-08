@@ -15,7 +15,7 @@
         {% if nota.nota %}
             <tr>
                 <th>{{nota.nota}} {% hifen peso='normal' %}</th>
-                <td colspan="2">{{ nota.juri }}</td>
+                <td colspan="2">{{ nota.juri.first_name }}</td>
             </tr>
         {% endif %}
     {% endfor %}
@@ -26,7 +26,7 @@
         <tr><th>comentários</th></tr>
         {% for comentario in cmmts %}
             <tr>
-                <th>{{ comentario.juri }}</th>
+                <th>{{ comentario.juri.first_name }}</th>
                 <td colspan="3">{%hifen%} {{ comentario.texto }}</td>
             </tr>
         {% endfor %}
