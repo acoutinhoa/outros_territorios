@@ -32,7 +32,9 @@
 			<span class="form">
 				{% if not user|grupo:'juri' %}
 					{% set inscricao.ok as selecionado %}
-					{% if selecionado == '-' %}
+					{% if selecionado == 'no' %}
+						<span style="color: #f00">X</span>
+					{% elif selecionado == '-' %}
 						<span style="color: #00ffff">O</span>
 					{% endif %}
 				{% endif %}
