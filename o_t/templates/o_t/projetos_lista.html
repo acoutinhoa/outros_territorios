@@ -16,18 +16,19 @@
 		</span><br>
 	</p>
 
-	<ol class="titulo_lista">
+	<ul class="titulo_lista">
 	{% for inscricao in inscricoes %}
 
 		{% ifchanged inscricao.ok %}{% if ordem == 'data' and inscricao.ok == 'no' %}
-			</ol>
+			</ul>
 			</div>
 			<div class="post linha respostas">
 			<p class="titulo_">reprovados</p>
-			<ol class="titulo_lista">
+			<ul class="titulo_lista">
 		{% endif %}{% endifchanged %}
 
 		<li>
+			{{ forloop.counter }} {% hifen %}
 			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo ordem=ordem %}" style="line-height: 22px;">{{inscricao.projeto_set.first.nome}}</a>
 			<span class="form">
 				{% if not user|grupo:'juri' %}
@@ -57,7 +58,7 @@
 			</span>
 		</li>
 	{% endfor %}
-	</ol>
+	</ul>
 </div>
 
 {% espaco borda='' %}

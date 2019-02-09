@@ -7,28 +7,20 @@
 <table class="form linha_" {% borda %}>
     <tr>
         <th style="width: 119px;">{{ inscricao.media|floatformat }} {% hifen peso='normal' %}</th>
-        <td><span style="font-weight: bold;">média total</span></td>
+        <td>Nota</td>
         {% if inscricao.s2 %}<th>{{ inscricao.s2 }}★</th>{% endif %}
     </tr>
 
     {% for nota in avaliacao %}
-        {% if nota.nota %}
+        <tr>
+            <th style="font-weight: normal;">{{nota.nota}} {% hifen %}</th>
+            <td colspan="2" style="font-weight: bold;">{{ nota.juri.first_name }}</td>
+        </tr>
+        {% if nota.texto %}
             <tr>
-                <th>{{nota.nota}} {% hifen peso='normal' %}</th>
-                <td colspan="2">{{ nota.juri.first_name }}</td>
+                <th></th>
+                <td colspan="3">{%hifen%} {{ nota.texto }}</td>
             </tr>
         {% endif %}
     {% endfor %}
-
-    {% query avaliacao 'exclude' texto='' as cmmts %}
-    {% if cmmts %}
-        <tr><td class="espaco"></td></tr>
-        <tr><th>comentários</th></tr>
-        {% for comentario in cmmts %}
-            <tr>
-                <th>{{ comentario.juri.first_name }}</th>
-                <td colspan="3">{%hifen%} {{ comentario.texto }}</td>
-            </tr>
-        {% endfor %}
-    {% endif %}
 </table>
