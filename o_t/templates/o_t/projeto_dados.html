@@ -13,7 +13,7 @@
 
     {% for nota in avaliacao %}
         <tr>
-            <th style="font-weight: normal;">{{nota.nota}} {% hifen %}</th>
+            <th style="font-weight: normal;">{% if nota.nota %}{{nota.nota}} {% hifen %}{% endif %}</th>
             <td colspan="2" style="font-weight: bold;">{{ nota.juri.first_name }}</td>
         </tr>
         {% if nota.texto %}

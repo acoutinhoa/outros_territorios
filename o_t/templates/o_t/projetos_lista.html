@@ -4,7 +4,7 @@
 
 {% espaco %}
 
-<div class="post linha respostas">
+<div class="post respostas">
 	<p class="titulo_">projetos<br>
 		<span class="menu">
 			<span style="font-weight: normal">ordem </span> 
@@ -22,7 +22,7 @@
 		{% ifchanged inscricao.ok %}{% if ordem == 'data' and inscricao.ok == 'no' %}
 			</ul>
 			</div>
-			<div class="post linha respostas">
+			<div class="post linha_ respostas" {% borda %}>
 			<p class="titulo_">reprovados</p>
 			<ul class="titulo_lista">
 		{% endif %}{% endifchanged %}
@@ -61,4 +61,5 @@
 	</ul>
 </div>
 
-{% espaco borda='' %}
+{% espaco borda='linha_' %}
+
