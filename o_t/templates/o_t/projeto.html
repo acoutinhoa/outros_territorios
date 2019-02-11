@@ -36,7 +36,7 @@
 		<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'arquivo' %}</a></p>
 	{% endif %}
 
-	{% if titulo == 'galeria' %}
+	{% if inscricoes %}
 		{% if ativo or not user|grupo:'juri'%}
 			<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
 		{% endif %}

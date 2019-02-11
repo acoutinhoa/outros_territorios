@@ -39,19 +39,15 @@
 						<span style="color: #00ffff">O</span>
 					{% endif %}
 				{% endif %}
-				{% if not user|grupo:'juri' %}
-						{% set inscricao.avaliacaojuri_set.all as avaliacao %}
-						{% query avaliacao 'exclude' texto='' as texto %}
-						{% if inscricao.s2 %}<span style="color:#f0f;"> {{ inscricao.s2 }}★</span>{% endif %}
-						{% if texto %}<span style="color:#00f;"> {{ texto.count }}☰</span>{% endif %}
-				{% elif ordem == 'media' %}
-						{% set inscricao.avaliacaojuri_set.all as avaliacao %}
-						{% query avaliacao 'exclude' texto='' as texto %}
+				{% if not user|grupo:'juri' or ordem == 'media' %}
+					[{{ inscricao.media|floatformat }}]
+						{% query inscricao.avaliacaojuri_set.all 'exclude' texto='' as texto %}
 						{% if inscricao.s2 %}<span style="color:#f0f;"> {{ inscricao.s2 }}★</span>{% endif %}
 						{% if texto %}<span style="color:#00f;"> {{ texto.count }}☰</span>{% endif %}
 				{% else %}
 					{% query inscricao.avaliacaojuri_set.all 'filter' get=True juri=request.user as avaliacao %}
-					{% if not avaliacao.nota %}<span style="color: #00ffff"> O</span>{% endif %}
+					{% if not avaliacao.nota %}<span style="color: #00ffff"> O</span>
+						{% else %}[{{ avaliacao.nota|floatformat }}]{% endif %}
 					{% if avaliacao.s2 %}<span style="color:#f0f;"> ★</span>{% endif %}
 					{% if avaliacao.texto %}<span style="color:#00f;"> ☰</span>{% endif %}
 				{% endif %}

@@ -334,9 +334,9 @@ def galeria(request, codigo=None, ordem=''):
 		inscricoes = Inscricao.objects.filter(ok='ok').order_by('finalizada')
 
 	if ordem == 'media':
-		inscricoes = inscricoes.filter(media__gt=0).order_by('-media', '-s2')
+		inscricoes = inscricoes.order_by('-media', '-s2', 'finalizada')
 	elif ordem == 'nota' and not not_juri(request.user):
-		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota')
+		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota','finalizada')
 
 	form = None
 	if codigo:
