@@ -29,7 +29,7 @@
 
 		<li>
 			<span style="font-weight: normal;">{{ forloop.counter }}.</span>
-			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo ordem=ordem %}" style="line-height: 22px;">{{inscricao.projeto_set.first.nome}}</a>
+			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo ordem=ordem %}">{{inscricao.projeto_set.first.nome}}</a>
 			<span class="form">
 				{% if not user|grupo:'juri' %}
 					{% set inscricao.ok as selecionado %}

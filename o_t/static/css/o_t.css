@@ -176,6 +176,9 @@ img {
 	font-weight: bold;
 	margin-bottom: 15px;
 }
+.titulo_lista a:link {
+	line-height: 22px;
+}
 .confirmacao {
 	text-align: center;
 	color: #ff00ff;
