@@ -11,7 +11,7 @@
         {% if inscricao.s2 %}<th>{{ inscricao.s2 }}★</th>{% endif %}
     </tr>
 
-    {% for nota in avaliacao %}
+    {% for nota in avaliacao|dictsort:"juri.first_name" %}
         <tr>
             <th style="font-weight: normal;">{% if nota.nota %}{{nota.nota}} {% hifen %}{% endif %}</th>
             <td colspan="2" style="font-weight: bold;">{{ nota.juri.first_name }}</td>
