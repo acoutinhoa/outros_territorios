@@ -19,7 +19,7 @@
         {% if nota.texto %}
             <tr>
                 <th></th>
-                <td colspan="3">{%hifen%} {{ nota.texto }}</td>
+                <td colspan="3">{%hifen%} {{ nota.texto|linebreaksbr }}</td>
             </tr>
         {% endif %}
     {% endfor %}
