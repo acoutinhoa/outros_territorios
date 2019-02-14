@@ -358,45 +358,45 @@ def galeria(request, codigo=None, ordem=''):
 		if not not_juri(request.user):
 			juri = AvaliacaoJuri.objects.get_or_create(inscricao=inscricao, juri=request.user)[0]
 
-		# if Ordem.objects.filter(inscricao=inscricao).exists():
-		# 	selecionado = Ordem.objects.get(inscricao=inscricao)
-		# else:
-		# 	selecionado = None
+		if Ordem.objects.filter(inscricao=inscricao).exists():
+			selecionado = Ordem.objects.get(inscricao=inscricao)
+		else:
+			selecionado = None
 
 		if request.method == 'POST':
 			# selecao
-		# 	if ativo or not_juri(request.user):
-		# 		if selecionado:
-		# 			ordem_data = Ordem.objects.filter(inscricao=inscricao).values()[0]
-		# 			ordem_form = OrdemForm(request.POST, instance=selecionado, label_suffix='', initial=ordem_data)
-		# 			if ordem_form.is_valid():
-		# 				if ordem_form.has_changed():
-		# 					novo = ordem_form.save(commit=False)
-		# 					lista = []
-		# 					for p in Ordem.objects.exclude(inscricao=inscricao):
-		# 						lista.append(p.inscricao)
-		# 					lista.insert(int(novo.ordem)-1, novo.inscricao)
-		# 					for i,p in enumerate(lista):
-		# 						p = Ordem.objects.get(inscricao=p)
-		# 						p.ordem = str(i+1)
-		# 						p.save()
+			if ativo or not_juri(request.user):
+				if selecionado:
+					ordem_data = Ordem.objects.filter(inscricao=inscricao).values()[0]
+					ordem_form = OrdemForm(request.POST, instance=selecionado, label_suffix='', initial=ordem_data)
+					if ordem_form.is_valid():
+						if ordem_form.has_changed():
+							novo = ordem_form.save(commit=False)
+							lista = []
+							for p in Ordem.objects.exclude(inscricao=inscricao):
+								lista.append(p.inscricao)
+							lista.insert(int(novo.ordem)-1, novo.inscricao)
+							for i,p in enumerate(lista):
+								p = Ordem.objects.get(inscricao=p)
+								p.ordem = str(i+1)
+								p.save()
 
-		# 		data = Inscricao.objects.filter(codigo=codigo).values('selecao')[0]
-		# 		selecao_form = SelecaoJuriForm(request.POST, instance=inscricao, label_suffix='', initial=data)
-		# 		if selecao_form.is_valid():
-		# 			selecao_form.save()
-		# 			if selecao_form.has_changed():
-		# 				if inscricao.selecao == 'ok':
-		# 					if not Ordem.objects.filter(inscricao=inscricao).exists():
-		# 						n = len(Ordem.objects.all())
-		# 						Ordem.objects.create(inscricao=inscricao, ordem=str(n+1))
-		# 				else:
-		# 					if selecionado:
-		# 						for p in Ordem.objects.filter(ordem__gt=selecionado.ordem):
-		# 							n = int(p.ordem)
-		# 							p.ordem = str(n-1)
-		# 							p.save()
-		# 						selecionado.delete()
+				data = Inscricao.objects.filter(codigo=codigo).values('selecao')[0]
+				selecao_form = SelecaoJuriForm(request.POST, instance=inscricao, label_suffix='', initial=data)
+				if selecao_form.is_valid():
+					selecao_form.save()
+					if selecao_form.has_changed():
+						if inscricao.selecao == 'ok':
+							if not Ordem.objects.filter(inscricao=inscricao).exists():
+								n = len(Ordem.objects.all())
+								Ordem.objects.create(inscricao=inscricao, ordem=str(n+1))
+						else:
+							if selecionado:
+								for p in Ordem.objects.filter(ordem__gt=selecionado.ordem):
+									n = int(p.ordem)
+									p.ordem = str(n-1)
+									p.save()
+								selecionado.delete()
 
 			# vazio
 			if not_juri(request.user):
@@ -438,10 +438,10 @@ def galeria(request, codigo=None, ordem=''):
 				return redirect('galeria_projeto', codigo=codigo, ordem=ordem)
 
 		else:
-			# if ativo or not_juri(request.user):
-			# 	selecao_form = SelecaoJuriForm(instance=inscricao, label_suffix='')
-			# 	if selecionado:
-			# 		ordem_form = OrdemForm(instance=selecionado, label_suffix='')
+			if ativo or not_juri(request.user):
+				selecao_form = SelecaoJuriForm(instance=inscricao, label_suffix='')
+				if selecionado:
+					ordem_form = OrdemForm(instance=selecionado, label_suffix='')
 			if not_juri(request.user):
 				form = SelecaoForm(instance=inscricao)
 			else:

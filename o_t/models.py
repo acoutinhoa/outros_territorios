@@ -316,7 +316,7 @@ class Ordem(models.Model):
 	for i in range(20):
 		i += 1
 		notas.append((str(i), str(i)),)
-	# inscricao = models.ForeignKey(Inscricao, on_delete=models.CASCADE)
+	inscricao = models.ForeignKey(Inscricao, on_delete=models.CASCADE)
 	ordem = models.CharField('ordem', choices=notas, max_length=2,)
 	def __str__(self):
 		return '%s_%s' % (self.ordem, self.inscricao.codigo)
