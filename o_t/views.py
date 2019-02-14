@@ -337,7 +337,7 @@ def galeria(request, codigo=None, ordem=''):
 		if ativo or not_juri(request.user):
 			inscricoes = inscricoes.filter(ok='ok').order_by('-selecao', 'ordem__ordem', '-media', '-s2', 'finalizada')
 	elif ordem == 'nota' and not not_juri(request.user):
-		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota','finalizada')
+		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota', '-s2', 'finalizada')
 	elif ordem == 'palafita':
 		if ativo or not_juri(request.user):
 			inscricoes = inscricoes.filter(ok='ok').order_by('projeto__palafita', '-media', '-s2', 'finalizada')
