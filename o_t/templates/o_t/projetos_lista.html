@@ -24,13 +24,14 @@
 					{% if not forloop.first %}
 						</ul>
 						</div>
+						<div class="post linha_ respostas" {% borda %}>
 						{% if inscricao.selecao == 'mh' %}
-							<div class="post linha_ respostas" {% borda %}>
 							<p class="titulo_">menção honrosa</p>
-							<ul class="titulo_lista">
-						{% else %}
-							<div class="post linha_ respostas" {% borda %}>
-							<ul class="titulo_lista">
+						{% endif %}
+						<ul class="titulo_lista">
+					{% else %}
+						{% if inscricao.selecao == 'mh' %}
+							<p class="titulo_">menção honrosa</p>
 						{% endif %}
 					{% endif %}
 				{% endifchanged %}
