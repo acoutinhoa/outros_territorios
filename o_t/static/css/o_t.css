@@ -160,6 +160,14 @@ img {
 	margin-top: 10px;
 	font-weight: bold;
 }
+.titulo__ {
+	color: var(--cor-titulo);
+	font-family: var(--fonte);
+	font-size: calc(var(--fonte-titulo_));
+	margin-bottom: 50px;
+	margin-top: 10px;
+	font-weight: normal;
+}
 .data_ {
 	font-family: var(--fonte_);
 	font-size: 12px;

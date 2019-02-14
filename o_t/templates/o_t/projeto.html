@@ -12,7 +12,7 @@
 			{% else %}
 				{{ projeto.nome }}
 			{% endif %}
-			<br><span class="titulo_" style="font-weight: normal;">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
+			<br><span class="titulo__"">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
 	{% endif %}
 	{% if projeto.img %}
 		<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post">

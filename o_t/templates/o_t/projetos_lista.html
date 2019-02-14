@@ -19,20 +19,36 @@
 	<ul class="titulo_lista">
 	{% for inscricao in inscricoes %}
 		{% if ativo or not user|grupo:'juri' %}
-			{% if ordem == 'media' and inscricao.selecao != 'ok' %}
+			{% if ordem == 'media'%}
 				{% ifchanged inscricao.selecao %}
 					{% if not forloop.first %}
 						</ul>
 						</div>
 						<div class="post linha_ respostas" {% borda %}>
-						{% if inscricao.selecao == 'mh' %}
-							<p class="titulo_">menção honrosa</p>
-						{% endif %}
+					{% endif %}
+
+					{% if inscricao.selecao == 'mh' %}
+						<p class="titulo__">menção honrosa</p>
+					{% elif inscricao.selecao == 'ok' %}
+						<p class="titulo__">selecionados</p>
+					{% endif %}
+
+					{% if not forloop.first %}
 						<ul class="titulo_lista">
-					{% else %}
-						{% if inscricao.selecao == 'mh' %}
-							<p class="titulo_">menção honrosa</p>
-						{% endif %}
+					{% endif %}
+				{% endifchanged %}
+			{% elif ordem == 'palafita' %}
+				{% ifchanged inscricao.projeto_set.first.palafita %}
+					{% if not forloop.first %}
+						</ul>
+						</div>
+						<div class="post linha_ respostas" {% borda %}>
+					{% endif %}
+
+					<p class="titulo__">{{ inscricao.projeto_set.first.palafita_verbose|formatapalafita }}</p>
+
+					{% if not forloop.first %}
+						<ul class="titulo_lista">
 					{% endif %}
 				{% endifchanged %}
 			{% endif %}
@@ -48,7 +64,13 @@
 
 		<li>
 			<span style="font-weight: normal;">{{ forloop.counter }}.</span>
-			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo ordem=ordem %}">{{inscricao.projeto_set.first.nome}}</a>
+			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo ordem=ordem %}"
+				{% if inscricao.selecao == 'ok' %}
+					style="border-bottom-color: #f0f;"
+				{% elif inscricao.selecao == 'mh' %}
+					style="border-bottom-color: #00f;"
+				{% endif %}
+			>{{inscricao.projeto_set.first.nome}}</a>
 			<span class="form">
 				{% if not user|grupo:'juri' %}
 					{% set inscricao.ok as selecionado %}
@@ -58,7 +80,7 @@
 						<span style="color: #00ffff">O</span>
 					{% endif %}
 				{% endif %}
-				{% if not user|grupo:'juri' or ordem == 'media' %}
+				{% if not user|grupo:'juri' or ordem == 'media' or ordem == 'palafita' %}
 					[{{ inscricao.media|floatformat }}]
 						{% query inscricao.avaliacaojuri_set.all 'exclude' texto='' as texto %}
 						{% if inscricao.s2 %}<span style="color:#f0f;"> {{ inscricao.s2 }}★</span>{% endif %}

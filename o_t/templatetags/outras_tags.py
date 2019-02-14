@@ -232,10 +232,11 @@ def proximo(inscricoes, inscricao):
 
 @register.simple_tag
 def ordem(ordem, user, ativo):
-	tipos = ['data', 'nota', 'media']
+	tipos = ['data', 'nota', 'media', 'palafita']
 	tipos.remove(ordem)
 	if not ativo and grupo(user, 'juri'):
 		tipos.remove('media')
+		tipos.remove('palafita')
 	elif not grupo(user, 'juri'):
 		tipos.remove('nota')
 	return tipos
