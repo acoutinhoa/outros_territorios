@@ -18,6 +18,24 @@
 
 	<ul class="titulo_lista">
 	{% for inscricao in inscricoes %}
+		{% if ativo or not user|grupo:'juri' %}
+			{% if ordem == 'media' and inscricao.selecao != 'ok' %}
+				{% ifchanged inscricao.selecao %}
+					{% if not forloop.first %}
+						</ul>
+						</div>
+						{% if inscricao.selecao == 'mh' %}
+							<div class="post linha_ respostas" {% borda %}>
+							<p class="titulo_">menção honrosa</p>
+							<ul class="titulo_lista">
+						{% else %}
+							<div class="post linha_ respostas" {% borda %}>
+							<ul class="titulo_lista">
+						{% endif %}
+					{% endif %}
+				{% endifchanged %}
+			{% endif %}
+		{% endif %}
 
 		{% ifchanged inscricao.ok %}{% if ordem == 'data' and inscricao.ok == 'no' %}
 			</ul>

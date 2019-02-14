@@ -216,6 +216,7 @@ class Inscricao(models.Model):
 	ok = models.CharField('pré-seleção', choices=[('-', '---'), ('ok','aprovado'),('no','reprovado')], max_length=2, default='-')
 	media = models.FloatField(default=0)
 	s2 = models.PositiveSmallIntegerField(default=0)
+	selecao = models.CharField('seleção', choices=[('', '---'), ('ok','projeto selecionado'),('mh','menção honrosa')], max_length=2, blank=True)
 
 	def __str__(self):
 		return '%s - %s' % (self.nome, self.email)
@@ -310,5 +311,15 @@ class AvaliacaoJuri(models.Model):
 	def __str__(self):
 		return '%s_%s' % (self.juri, self.inscricao.codigo)
 
-
+class Ordem(models.Model):
+	notas=[]
+	for i in range(20):
+		i += 1
+		notas.append((str(i), str(i)),)
+	# inscricao = models.ForeignKey(Inscricao, on_delete=models.CASCADE)
+	ordem = models.CharField('ordem', choices=notas, max_length=2,)
+	def __str__(self):
+		return '%s_%s' % (self.ordem, self.inscricao.codigo)
+	class Meta:
+		ordering = ['ordem']
 

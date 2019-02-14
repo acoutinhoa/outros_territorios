@@ -185,6 +185,29 @@ AvaliacaoForm = forms.modelform_factory(
 		},
 	)
 
+SelecaoJuriForm = forms.modelform_factory(
+	Inscricao,
+	fields=('selecao',),
+	widgets = {
+		'selecao': forms.RadioSelect(attrs={'class': 'tags',}),
+		},
+	)
+
+# def ordem_lista(qs):
+# 	lista=[]
+# 	for i in range(qs):
+# 		i += 1
+# 		lista.append((str(i), str(i)),)
+# 	return lista
+
+OrdemForm = forms.modelform_factory(
+	Ordem,
+	fields=('ordem',),
+	widgets = {
+		# 'ordem': forms.Select(choices=ordem_lista(Ordem.objects.all().count()),)
+		},
+	)
+
 # from input_mask.widgets import InputMask
 
 # class MyCustomInput(InputMask):
