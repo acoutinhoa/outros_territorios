@@ -25,17 +25,17 @@
 				{% espaco 80 180 borda='linha linha_' %}
 			{% endif %}
 
-			{% if ordem == 'media' or ordem == _('classificacao') and inscricao.selecao != feed %}
+			{% if ordem == 'media' or ordem == _('classificacao') %}
 				{% ifchanged inscricao.selecao %}
-					{% if inscricao.selecao == 'ok' %}
+					{% if inscricao.selecao == 'ok' and inscricao.selecao != feed %}
 						<div class="cartaz linha">
 							<p class="titulo normal">{% trans 'projetos selecionados' %}</p>
 						</div>
-					{% elif inscricao.selecao == 'mh' %}
+					{% elif inscricao.selecao == 'mh' and inscricao.selecao != feed %}
 						<div class="cartaz linha">
 							<p class="titulo normal">{% trans 'menções honrosas' %}</p>
 						</div>
-					{% elif inscricao.selecao == '' %}
+					{% elif inscricao.selecao == '' and inscricao.selecao != feed %}
 						<div class="cartaz linha">
 							<p class="titulo normal">{% trans 'outros projetos' %}</p>
 						</div>
