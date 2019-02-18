@@ -124,6 +124,9 @@ img {
 	text-align: center;	
 	padding: 6vh 0;
 }
+.normal {
+	font-weight: normal;
+}
 .data {
 	font-family: var(--fonte);
 	font-size: 21px;
@@ -164,8 +167,8 @@ img {
 	color: var(--cor-titulo);
 	font-family: var(--fonte);
 	font-size: calc(var(--fonte-titulo_));
-	margin-bottom: 50px;
-	margin-top: 10px;
+	margin-bottom: 31px;
+	margin-top: 19px;
 	font-weight: normal;
 }
 .data_ {

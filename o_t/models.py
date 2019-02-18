@@ -33,9 +33,12 @@ class Arquivo(models.Model):
 		('05',_('parceiro de mídia')),
 	]
 	pagina = models.ForeignKey(Cartaz, on_delete=models.CASCADE, blank=True)
+
 	nome = models.CharField(max_length=200, blank=True)
+
 	arquivo = models.FileField(upload_to = arquivos_filepath, blank=True, null=True)
 	en = models.BooleanField(default=False)
+
 	imagem = models.ImageField(upload_to = arquivos_filepath, blank=True, null=True)
 	tipo = models.CharField(max_length=20, choices=tipos, blank=True, null=True)
 	altura = models.CharField(max_length=4, default='100')
@@ -53,6 +56,20 @@ class Arquivo(models.Model):
 	        return dict(Arquivo.tipos)[self.tipo]
 	class Meta:
 		ordering = ['tipo']
+
+class Ata(models.Model):
+	nome = models.CharField(max_length=200, blank=True)
+	arquivo = models.FileField(upload_to = arquivos_filepath, blank=True)
+	nome_en = models.CharField(max_length=200, blank=True)
+	arquivo_en = models.FileField(upload_to = arquivos_filepath, blank=True)
+	def __str__(self):
+		return '%s_%s' % (self.pagina, self.nome)
+	def save(self, *args, **kwargs):
+		if self.arquivo and not self.nome:
+			self.nome = self.arquivo.name
+		if self.arquivo_en and not self.nome_en:
+			self.nome_en = self.arquivo_en.name
+		super().save(*args, **kwargs)
 
 class Tag(models.Model):
 	tag = models.SlugField(max_length=100, unique=True)
@@ -217,6 +234,8 @@ class Inscricao(models.Model):
 	media = models.FloatField(default=0)
 	s2 = models.PositiveSmallIntegerField(default=0)
 	selecao = models.CharField('seleção', choices=[('', '---'), ('ok','projeto selecionado'),('mh','menção honrosa')], max_length=2, blank=True)
+	texto = models.TextField(blank=True, default='')
+	texto_en = models.TextField(blank=True, default='')
 
 	def __str__(self):
 		return '%s - %s' % (self.nome, self.email)

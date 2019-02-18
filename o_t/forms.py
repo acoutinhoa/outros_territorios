@@ -193,18 +193,20 @@ SelecaoJuriForm = forms.modelform_factory(
 		},
 	)
 
-# def ordem_lista(qs):
-# 	lista=[]
-# 	for i in range(qs):
-# 		i += 1
-# 		lista.append((str(i), str(i)),)
-# 	return lista
-
 OrdemForm = forms.modelform_factory(
 	Ordem,
 	fields=('ordem',),
 	widgets = {
 		# 'ordem': forms.Select(choices=ordem_lista(Ordem.objects.all().count()),)
+		},
+	)
+
+TextoJuriForm = forms.modelform_factory(
+	Inscricao,
+	fields=('texto','texto_en',),
+	widgets = {
+		'texto': forms.Textarea(attrs={'rows': 9}),
+		'texto_en': forms.Textarea(attrs={'rows': 9}),
 		},
 	)
 

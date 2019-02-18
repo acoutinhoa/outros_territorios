@@ -231,15 +231,24 @@ def proximo(inscricoes, inscricao):
 	return inscricoes[i+1:]
 
 @register.simple_tag
-def ordem(ordem, user, ativo):
-	tipos = ['data', 'nota', 'media', 'palafita']
+def ordem(ordem, user):
+	tipos = ['data', 'nota', 'media', _('classificacao'), _('palafita'), _('pais'),]
 	tipos.remove(ordem)
-	if not ativo and grupo(user, 'juri'):
-		tipos.remove('media')
-		tipos.remove('palafita')
-	elif not grupo(user, 'juri'):
+	# if not ativo and grupo(user, 'juri'):
+	# 	tipos.remove('media')
+	# 	tipos.remove('palafita')
+	if not grupo(user, 'juri'):
 		tipos.remove('nota')
 	return tipos
+
+@register.filter
+def acento(ordem):
+	if ordem == 'classificacao':
+		return 'classificação'
+	if ordem == 'pais':
+		return 'país'
+	else:
+		return ordem
 
 
 # @register.simple_tag

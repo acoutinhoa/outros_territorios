@@ -18,11 +18,55 @@
 <div class="infinite-container">
 	{% for inscricao in pg %}
 		<div class="infinite-item">
+
 			{% if forloop.first %}
 				{% espaco 60 120 %}
 			{% else %}
 				{% espaco 80 180 borda='linha linha_' %}
 			{% endif %}
+
+			{% if ordem == 'media' or ordem == _('classificacao') %}
+				{% ifchanged inscricao.selecao %}
+					{% if inscricao.selecao == 'ok' %}
+						<div class="cartaz linha">
+							<p class="titulo normal">{% trans 'projetos selecionados' %}</p>
+						</div>
+					{% elif inscricao.selecao == 'mh' %}
+						<div class="cartaz linha">
+							<p class="titulo normal">{% trans 'menções honrosas' %}</p>
+						</div>
+					{% elif inscricao.selecao == '' %}
+						<div class="cartaz linha">
+							<p class="titulo normal">{% trans 'outros projetos' %}</p>
+						</div>
+					{% endif %}
+				{% endifchanged %}
+
+			{% elif ordem == _('palafita') %}
+				{% ifchanged inscricao.projeto_set.first.palafita %}
+					<div class="cartaz linha">
+						<p class="titulo normal">{{ inscricao.projeto_set.first.palafita_verbose|formatapalafita }}</p>
+					</div>
+				{% endifchanged %}
+
+			{% elif ordem == _('pais') %}
+				{% ifchanged inscricao.dados_set.first.pais %}
+					<div class="cartaz linha">
+						<p class="titulo normal">{{ inscricao.dados_set.first.select_verbose }}</p>
+					</div>
+				{% endifchanged %}
+			{% endif %}
+
+			{% ifchanged inscricao.ok %}
+				{% if ordem == 'data' and inscricao.ok == 'no' %}
+					<div class="cartaz linha">
+						<p class="titulo normal">reprovados</p>
+					</div>
+				{% endif %}
+			{% endifchanged %}
+
+
+
 
 			{% include 'o_t/projeto.html' with link=link %}
 			

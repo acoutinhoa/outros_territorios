@@ -7,6 +7,10 @@
 <div class="post">
 	{% if projeto.nome or projeto.palafita %}
 		<p class='titulo' style="text-align: left;">
+			{% if inscricao.ordem_set.all %}	
+				{{ inscricao.ordem_set.first.ordem }}
+			{% endif %}
+
 			{% if link %}
 				<a href="{% url 'galeria_projeto' codigo=projeto.inscricao.codigo ordem=ordem %}">{{ projeto.nome }}</a>
 			{% else %}
@@ -18,8 +22,8 @@
 		<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post">
 	{% endif %}
 	<p class="data_">
-		{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>
 		{% if not user|grupo:'juri' %}
+			{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>
 			{% trans 'Enviado em' %} <b>
 				{% if projeto.inscricao.finalizada %}
 					{{ projeto.inscricao.finalizada }}
@@ -37,9 +41,25 @@
 	{% endif %}
 
 	{% if inscricoes %}
-		{% if ativo or not user|grupo:'juri'%}
+
+		{% if lang == 'en' and inscricao.texto_en %}
+			{% set inscricao.texto_en as texto %}
+		{% elif inscricao.texto %}
+			{% set inscricao.texto as texto %}
+		{% endif %}
+		{% if texto %}
+			<div class="dados linha_" {% borda %}>
+				<p class="post texto" style="margin-bottom: -39px;">
+					<span class="data">{% trans 'comentários do júri' %}<br><br><br></span>
+					{{ texto|linebreaksbr }}
+				</p>
+			</div>
+		{% endif %}
+
+		{% if user.is_authenticated and ordem == 'media' %}
 			<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
 		{% endif %}
+
 	{% endif %}
 </div>
 

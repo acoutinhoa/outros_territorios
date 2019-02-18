@@ -6,91 +6,115 @@
 
 <div class="post respostas">
 	<p class="titulo_">projetos<br>
-		<span class="menu">
+		<span class="menu" style="margin-bottom: 31px;">
 			<span style="font-weight: normal">ordem </span> 
-			{{ ordem }}
-			{% ordem ordem request.user ativo as ordem_lista %}
+			{% trans ordem|acento %}
+			{% ordem ordem request.user as ordem_lista %}
 			{% for tipo in ordem_lista %}
-				 / <a href="{% url 'galeria' ordem=tipo %}" style="border-bottom:none;">{{ tipo }}</a>
+				 / <a href="{% url 'galeria' ordem=tipo %}" style="border-bottom:none;">{{ tipo|acento }}</a>
 			{% endfor %}
 		</span><br>
 	</p>
 
 	<ul class="titulo_lista">
 	{% for inscricao in inscricoes %}
-		{% if ativo or not user|grupo:'juri' %}
-			{% if ordem == 'media'%}
-				{% ifchanged inscricao.selecao %}
-					{% if not forloop.first %}
-						</ul>
-						</div>
-						<div class="post linha_ respostas" {% borda %}>
-					{% endif %}
+		{% if ordem == 'media' or ordem == _('classificacao') %}
+			{% ifchanged inscricao.selecao %}
+				{% if not forloop.first %}
+					</ul>
+					</div>
+					<div class="post linha_ respostas" {% borda %}>
+				{% endif %}
 
-					{% if inscricao.selecao == 'mh' %}
-						<p class="titulo__">menção honrosa</p>
-					{% elif inscricao.selecao == 'ok' %}
-						<p class="titulo__">selecionados</p>
-					{% endif %}
+				{% if inscricao.selecao == 'mh' %}
+					<p class="titulo__">{% trans 'menções honrosas' %}</p>
+				{% elif inscricao.selecao == 'ok' %}
+					<p class="titulo__">{% trans 'selecionados' %}</p>
+				{% endif %}
 
-					{% if not forloop.first %}
-						<ul class="titulo_lista">
-					{% endif %}
-				{% endifchanged %}
-			{% elif ordem == 'palafita' %}
-				{% ifchanged inscricao.projeto_set.first.palafita %}
-					{% if not forloop.first %}
-						</ul>
-						</div>
-						<div class="post linha_ respostas" {% borda %}>
-					{% endif %}
+				{% if not forloop.first %}
+					<ul class="titulo_lista">
+				{% endif %}
+			{% endifchanged %}
 
-					<p class="titulo__">{{ inscricao.projeto_set.first.palafita_verbose|formatapalafita }}</p>
+		{% elif ordem == _('palafita') %}
+			{% ifchanged inscricao.projeto_set.first.palafita %}
+				{% if not forloop.first %}
+					</ul>
+					</div>
+					<div class="post linha_ respostas" {% borda %}>
+				{% endif %}
 
-					{% if not forloop.first %}
-						<ul class="titulo_lista">
-					{% endif %}
-				{% endifchanged %}
-			{% endif %}
+				<p class="titulo__">{{ inscricao.projeto_set.first.palafita_verbose|formatapalafita }}</p>
+
+				{% if not forloop.first %}
+					<ul class="titulo_lista">
+				{% endif %}
+			{% endifchanged %}
+
+		{% elif ordem == _('pais') %}
+			{% ifchanged inscricao.dados_set.first.pais %}
+				{% if not forloop.first %}
+					</ul>
+					</div>
+					<div class="post linha_ respostas" {% borda %}>
+				{% endif %}
+
+				<p class="titulo__">{{ inscricao.dados_set.first.select_verbose }}</p>
+
+				{% if not forloop.first %}
+					<ul class="titulo_lista">
+				{% endif %}
+			{% endifchanged %}
 		{% endif %}
 
-		{% ifchanged inscricao.ok %}{% if ordem == 'data' and inscricao.ok == 'no' %}
-			</ul>
-			</div>
-			<div class="post linha_ respostas" {% borda %}>
-			<p class="titulo_">reprovados</p>
-			<ul class="titulo_lista">
-		{% endif %}{% endifchanged %}
+		{% ifchanged inscricao.ok %}
+			{% if ordem == 'data' and inscricao.ok == 'no' %}
+				</ul>
+				</div>
+				<div class="post linha_ respostas" {% borda %}>
+				<p class="titulo_">reprovados</p>
+				<ul class="titulo_lista">
+			{% endif %}
+		{% endifchanged %}
 
 		<li>
-			<span style="font-weight: normal;">{{ forloop.counter }}.</span>
+			{% if inscricao.ordem_set.all %}	
+				{{ inscricao.ordem_set.first.ordem }}
+			{% else %}
+				<span style="font-weight: normal;">{% hifen %}</span>
+			{% endif %}
+			
 			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo ordem=ordem %}"
-				{% if inscricao.selecao == 'ok' %}
-					style="border-bottom-color: #f0f;"
-				{% elif inscricao.selecao == 'mh' %}
-					style="border-bottom-color: #00f;"
+				{% if ordem == 'media' %}
+					{% if inscricao.selecao == 'ok' %}
+						style="border-bottom-color: #f0f;"
+					{% elif inscricao.selecao == 'mh' %}
+						style="border-bottom-color: #00f;"
+					{% endif %}
 				{% endif %}
 			>{{inscricao.projeto_set.first.nome}}</a>
 			<span class="form">
-				{% if not user|grupo:'juri' %}
-					{% set inscricao.ok as selecionado %}
-					{% if selecionado == 'no' %}
-						<span style="color: #f00">X</span>
-					{% elif selecionado == '-' %}
-						<span style="color: #00ffff">O</span>
-					{% endif %}
+				{% if inscricao.ok == 'no' %}
+					<span style="color: #f00">X</span>
 				{% endif %}
-				{% if not user|grupo:'juri' or ordem == 'media' or ordem == 'palafita' %}
+				{% if ordem == 'media' %}
 					[{{ inscricao.media|floatformat }}]
 						{% query inscricao.avaliacaojuri_set.all 'exclude' texto='' as texto %}
 						{% if inscricao.s2 %}<span style="color:#f0f;"> {{ inscricao.s2 }}★</span>{% endif %}
 						{% if texto %}<span style="color:#00f;"> {{ texto.count }}☰</span>{% endif %}
-				{% else %}
+				{% elif ordem == 'nota' %}
 					{% query inscricao.avaliacaojuri_set.all 'filter' get=True juri=request.user as avaliacao %}
 					{% if not avaliacao.nota %}<span style="color: #00ffff"> O</span>
 						{% else %}[{{ avaliacao.nota|floatformat }}]{% endif %}
 					{% if avaliacao.s2 %}<span style="color:#f0f;"> ★</span>{% endif %}
 					{% if avaliacao.texto %}<span style="color:#00f;"> ☰</span>{% endif %}
+				{% else %}
+					{% if inscricao.selecao == 'ok' %}
+						<span style="color:#f0f;"> ★</span>
+					{% elif inscricao.selecao == 'mh' %}
+						<span style="color:#00f;"> ★</span>
+					{% endif %}
 				{% endif %}
 			</span>
 		</li>

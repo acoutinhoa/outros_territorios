@@ -20,21 +20,18 @@
             <tr>
                 <th class="espaco" style="font-weight: normal;">{% hifen %}</th>
             </tr>
-            {% for field in selecao_form %}
-                <tr>
-                    <th style="width: 119px;">{{ field.label_tag }}</th>
-                    <td colspan="2">{{ field }}{{ field.errors }}{{ field.help_text }}</td>
-                </tr>
-            {% endfor %}
+            {{ selecao_form }}
         {% endif %}
 
         {% if ordem_form %}
-            {% for field in ordem_form %}
-                <tr>
-                    <th style="width: 119px;">{{ field.label_tag }}</th>
-                    <td colspan="2">{{ field }}{{ field.errors }}{{ field.help_text }}</td>
-                </tr>
-            {% endfor %}
+            {{ ordem_form }}
+        {% endif %}
+
+        {% if texto_form %}
+            <tr>
+                <th class="espaco" style="font-weight: normal;">{% hifen %}</th>
+            </tr>
+            {{ texto_form }}
         {% endif %}
 
         <tr><td class="espaco"></td></tr>
