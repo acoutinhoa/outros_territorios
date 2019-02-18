@@ -26,7 +26,7 @@
 			{% endif %}
 
 			{% if ordem == 'media' or ordem == _('classificacao') %}
-				{% ifchanged inscricao.selecao %}
+				{% ifchanged inscricao.selecao and inscricao.selecao != feed %}
 					{% if inscricao.selecao == 'ok' %}
 						<div class="cartaz linha">
 							<p class="titulo normal">{% trans 'projetos selecionados' %}</p>
@@ -40,20 +40,23 @@
 							<p class="titulo normal">{% trans 'outros projetos' %}</p>
 						</div>
 					{% endif %}
+					{% set inscricao.selecao as feed %}
 				{% endifchanged %}
 
 			{% elif ordem == _('palafita') %}
-				{% ifchanged inscricao.projeto_set.first.palafita %}
+				{% ifchanged inscricao.projeto_set.first.palafita and inscricao.projeto_set.first.palafita != feed %}
 					<div class="cartaz linha">
 						<p class="titulo normal">{{ inscricao.projeto_set.first.palafita_verbose|formatapalafita }}</p>
 					</div>
+					{% set inscricao.projeto_set.first.palafita as feed %}
 				{% endifchanged %}
 
 			{% elif ordem == _('pais') %}
-				{% ifchanged inscricao.dados_set.first.pais %}
+				{% ifchanged inscricao.dados_set.first.pais and inscricao.dados_set.first.pais != feed %}
 					<div class="cartaz linha">
 						<p class="titulo normal">{{ inscricao.dados_set.first.select_verbose }}</p>
 					</div>
+					{% set inscricao.dados_set.first.pais as feed %}
 				{% endifchanged %}
 			{% endif %}
 
@@ -64,8 +67,6 @@
 					</div>
 				{% endif %}
 			{% endifchanged %}
-
-
 
 
 			{% include 'o_t/projeto.html' with link=link %}

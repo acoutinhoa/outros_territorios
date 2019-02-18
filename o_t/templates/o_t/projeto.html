@@ -7,8 +7,12 @@
 <div class="post">
 	{% if projeto.nome or projeto.palafita %}
 		<p class='titulo' style="text-align: left;">
-			{% if inscricao.ordem_set.all %}	
-				{{ inscricao.ordem_set.first.ordem }}
+			{% if inscricao.ordem_set.all %}
+				{% if link %}
+					{{ inscricao.ordem_set.first.ordem }}
+				{% else %}
+					<span class="normal">{{ inscricao.ordem_set.first.ordem }}</span>
+				{% endif %}
 			{% endif %}
 
 			{% if link %}
