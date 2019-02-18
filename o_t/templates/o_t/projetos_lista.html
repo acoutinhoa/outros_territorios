@@ -81,8 +81,6 @@
 		<li>
 			{% if inscricao.ordem_set.all %}	
 				{{ inscricao.ordem_set.first.ordem }}
-			{% else %}
-				<span style="font-weight: normal;">{% hifen %}</span>
 			{% endif %}
 			
 			<a href="{% url 'galeria_projeto' codigo=inscricao.codigo ordem=ordem %}"
