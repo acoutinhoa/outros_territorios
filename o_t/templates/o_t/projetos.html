@@ -25,8 +25,8 @@
 				{% espaco 80 180 borda='linha linha_' %}
 			{% endif %}
 
-			{% if ordem == 'media' or ordem == _('classificacao') %}
-				{% ifchanged inscricao.selecao and inscricao.selecao != feed %}
+			{% if ordem == 'media' or ordem == _('classificacao') and inscricao.selecao != feed %}
+				{% ifchanged inscricao.selecao %}
 					{% if inscricao.selecao == 'ok' %}
 						<div class="cartaz linha">
 							<p class="titulo normal">{% trans 'projetos selecionados' %}</p>
@@ -43,16 +43,16 @@
 					{% set inscricao.selecao as feed %}
 				{% endifchanged %}
 
-			{% elif ordem == _('palafita') %}
-				{% ifchanged inscricao.projeto_set.first.palafita and inscricao.projeto_set.first.palafita != feed %}
+			{% elif ordem == _('palafita') and inscricao.projeto_set.first.palafita != feed %}
+				{% ifchanged inscricao.projeto_set.first.palafita %}
 					<div class="cartaz linha">
 						<p class="titulo normal">{{ inscricao.projeto_set.first.palafita_verbose|formatapalafita }}</p>
 					</div>
 					{% set inscricao.projeto_set.first.palafita as feed %}
 				{% endifchanged %}
 
-			{% elif ordem == _('pais') %}
-				{% ifchanged inscricao.dados_set.first.pais and inscricao.dados_set.first.pais != feed %}
+			{% elif ordem == _('pais') and inscricao.dados_set.first.pais != feed %}
+				{% ifchanged inscricao.dados_set.first.pais %}
 					<div class="cartaz linha">
 						<p class="titulo normal">{{ inscricao.dados_set.first.select_verbose }}</p>
 					</div>
