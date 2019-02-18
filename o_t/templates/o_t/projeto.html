@@ -22,6 +22,12 @@
 		<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post">
 	{% endif %}
 	<p class="data_">
+		{% trans 'Autor' %} <b>{{ inscricao.nome|title }} {{ inscricao.sobrenome|title }}</b><br>
+		{% if inscricao.equipe_set.all %}
+		{% trans 'Equipe' %} <b>
+			{% for pessoa in inscricao.equipe_set.all %}{{ pessoa.nome|title }} {{ pessoa.sobrenome|title }}{% if not forloop.last %}</b>, <b>{% endif %}{% endfor %}</b><br>
+		{% endif %}
+
 		{% if not user|grupo:'juri' %}
 			{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>
 			{% trans 'Enviado em' %} <b>
