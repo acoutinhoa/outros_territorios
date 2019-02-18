@@ -324,7 +324,7 @@ def galeria(request, codigo=None, ordem=''):
 	# 		ativo = 1
 
 	if not ordem:
-		ordem = 'classificacao'
+		ordem = _('classificacao')
 
 	if not_juri(request.user) and ordem == 'data':
 		inscricoes = Inscricao.objects.exclude(finalizada=None)
@@ -338,11 +338,11 @@ def galeria(request, codigo=None, ordem=''):
 	elif ordem == 'nota' and not not_juri(request.user):
 		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota', '-s2', 'finalizada')
 
-	elif ordem == 'palafita':
+	elif ordem == _('palafita'):
 		inscricoes = inscricoes.order_by('projeto__palafita', 'projeto__nome')
-	elif ordem == 'classificacao':
+	elif ordem == _('classificacao'):
 		inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', 'projeto__nome')
-	elif ordem == 'pais':
+	elif ordem == _('pais'):
 		inscricoes = inscricoes.order_by('dados__pais', 'projeto__nome')
 
 	form = None
