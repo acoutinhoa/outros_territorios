@@ -23,7 +23,7 @@
 			<br><span class="titulo__"">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
 	{% endif %}
 	{% if projeto.img %}
-		<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post">
+		<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post" width="calc(100% + 6vw)" height="auto">
 	{% endif %}
 	<p class="data_">
 		{% trans 'Autor' %} <b>{{ inscricao.nome|title }} {{ inscricao.sobrenome|title }}</b><br>

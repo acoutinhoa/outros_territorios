@@ -490,7 +490,7 @@ def galeria(request, codigo=None, ordem=''):
 	if codigo:
 		paginator = Paginator([inscricao], 1)
 	else:
-		paginator = Paginator(inscricoes, 5)
+		paginator = Paginator(inscricoes, 10)
 	try:
 		pg = paginator.page(page)
 	except PageNotAnInteger:
