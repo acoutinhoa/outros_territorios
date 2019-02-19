@@ -62,20 +62,20 @@
 
 <div class="cartaz" style="width: 40%;">
 
-	{% if ata.ata or ata.ata_en %}
 		<div class="linha post" id="{% trans 'ata' %}">
 			<p class="titulo_">{% trans 'ata de julgamento' %}</p>
-			{% if lang == 'en' and ata.ata_en %}
-				{% set ata.ata_en.url as ata %}
-			{% elif ata.ata %}
-				{% set ata.ata.url as ata %}
+			{% if ata.ata or ata.ata_en %}
+					{% if lang == 'en' and ata.ata_en %}
+						{% set ata.ata_en.url as ata %}
+					{% elif ata.ata %}
+						{% set ata.ata.url as ata %}
+					{% endif %}
+					<ul>
+						<li><a href="{{ ata }}" target="_blank">{% trans 'arquivo' %}</a></li>
+					</ul>
 			{% endif %}
-			<ul>
-				<li><a href="{{ ata }}" target="_blank">{% trans 'arquivo' %}</a></li>
-			</ul>
 		</div>
 		{% espaco %}
-	{% endif %}
 	
 	<div class="linha post" id="{% trans 'arquivos' %}">
 		<p class="titulo_">{% trans 'arquivos adicionais' %}</p>
