@@ -335,27 +335,28 @@ def galeria(request, codigo=None, ordem=''):
 	# 	if timezone.now() > dt:
 	# 		ativo = 1
 
-	if not ordem:
-		ordem = _('classificacao')
+	if request.user.is_authenticated:
+		if not ordem:
+			ordem = _('classificacao')
 
-	if not_juri(request.user) and ordem == 'data':
-		inscricoes = Inscricao.objects.exclude(finalizada=None)
-	else:
-		inscricoes = Inscricao.objects.filter(ok='ok')
+		if not_juri(request.user) and ordem == 'data':
+			inscricoes = Inscricao.objects.exclude(finalizada=None)
+		else:
+			inscricoes = Inscricao.objects.filter(ok='ok')
 
-	if ordem == 'data':
-		inscricoes = inscricoes.order_by('-ok', 'finalizada',)
-	elif ordem == 'media':
-		inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', '-media', '-s2', 'finalizada')
-	elif ordem == 'nota' and not not_juri(request.user):
-		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota', '-s2', 'finalizada')
+		if ordem == 'data':
+			inscricoes = inscricoes.order_by('-ok', 'finalizada',)
+		elif ordem == 'media':
+			inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', '-media', '-s2', 'finalizada')
+		elif ordem == 'nota' and not not_juri(request.user):
+			inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota', '-s2', 'finalizada')
 
-	elif ordem == _('palafita'):
-		inscricoes = inscricoes.order_by('projeto__palafita', 'projeto__nome')
-	elif ordem == _('classificacao'):
-		inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', 'projeto__nome')
-	elif ordem == _('pais'):
-		inscricoes = inscricoes.order_by('dados__pais', 'projeto__nome')
+		elif ordem == _('palafita'):
+			inscricoes = inscricoes.order_by('projeto__palafita', 'projeto__nome')
+		elif ordem == _('classificacao'):
+			inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', 'projeto__nome')
+		elif ordem == _('pais'):
+			inscricoes = inscricoes.order_by('dados__pais', 'projeto__nome')
 
 	form = None
 	selecao_form = None
@@ -381,7 +382,7 @@ def galeria(request, codigo=None, ordem=''):
 			selecionado = None
 
 		if request.method == 'POST':
-			if not_juri(request.user):
+			if request.user.is_authenticated and not_juri(request.user):
 				# pre selecao
 				form = SelecaoForm(request.POST, instance=inscricao)
 				if form.is_valid():
