@@ -335,35 +335,38 @@ def galeria(request, codigo=None, ordem=''):
 	# 	if timezone.now() > dt:
 	# 		ativo = 1
 
-	inscricoes = None
-	if request.user.is_authenticated:
-		if not ordem:
-			ordem = _('classificacao')
 
-		if not_juri(request.user) and ordem == 'data':
-			inscricoes = Inscricao.objects.exclude(finalizada=None)
-		else:
-			inscricoes = Inscricao.objects.filter(ok='ok')
+	if not ordem:
+		ordem = _('classificacao')
 
-		if ordem == 'data':
-			inscricoes = inscricoes.order_by('-ok', 'finalizada',)
-		elif ordem == 'media':
-			inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', '-media', '-s2', 'finalizada')
-		elif ordem == 'nota' and not not_juri(request.user):
-			inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota', '-s2', 'finalizada')
+	if not_juri(request.user) and ordem == 'data':
+		inscricoes = Inscricao.objects.exclude(finalizada=None)
+	else:
+		inscricoes = Inscricao.objects.filter(ok='ok')
 
-		elif ordem == _('palafita'):
-			inscricoes = inscricoes.order_by('projeto__palafita', 'projeto__nome')
-		elif ordem == _('classificacao'):
-			inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', 'projeto__nome')
-		elif ordem == _('pais'):
-			inscricoes = inscricoes.order_by('dados__pais', 'projeto__nome')
+	if ordem == 'data':
+		inscricoes = inscricoes.order_by('-ok', 'finalizada',)
+	elif ordem == 'media':
+		inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', '-media', '-s2', 'finalizada')
+	elif ordem == 'nota' and not not_juri(request.user):
+		inscricoes = inscricoes.filter(avaliacaojuri__juri=request.user, avaliacaojuri__nota__gte='0').order_by('-avaliacaojuri__nota', '-s2', 'finalizada')
+
+	elif ordem == _('palafita'):
+		inscricoes = inscricoes.order_by('projeto__palafita', 'projeto__nome')
+	elif ordem == _('classificacao'):
+		inscricoes = inscricoes.order_by('-selecao', 'ordem__ordem', 'projeto__nome')
+	elif ordem == _('pais'):
+		inscricoes = inscricoes.order_by('dados__pais', 'projeto__nome')
+	else:
+		redirect('galeria')
+
 
 	form = None
 	selecao_form = None
 	ordem_form = None
 	texto_form = None
 	proximo = None
+	
 	if codigo:
 		inscricao =  get_object_or_404(Inscricao, codigo=codigo)
 		# calcula proximo
@@ -382,118 +385,116 @@ def galeria(request, codigo=None, ordem=''):
 		else:
 			selecionado = None
 
-		if request.method == 'POST':
-			if request.user.is_authenticated and not_juri(request.user):
-				# pre selecao
-				form = SelecaoForm(request.POST, instance=inscricao)
-				if form.is_valid():
-					form.save()
-				# texto
-				if inscricao.selecao:
-					texto_form = TextoJuriForm(request.POST, prefix='texto', instance=inscricao, label_suffix='')
-					if texto_form.is_valid():
-						texto_form.save()
-				# ordem
-				if selecionado:
-					ordem_data = Ordem.objects.filter(inscricao=inscricao).values()[0]
-					ordem_form = OrdemForm(request.POST, instance=selecionado, label_suffix='', initial=ordem_data)
-					if ordem_form.is_valid():
-						if ordem_form.has_changed():
-							novo = ordem_form.save(commit=False)
-							lista = []
-							for p in Ordem.objects.exclude(inscricao=inscricao):
-								lista.append(p.inscricao)
-							lista.insert(int(novo.ordem)-1, novo.inscricao)
-							for i,p in enumerate(lista):
-								p = Ordem.objects.get(inscricao=p)
-								p.ordem = str(i+1)
-								p.save()
-				# selecao
-				data = Inscricao.objects.filter(codigo=codigo).values('selecao')[0]
-				selecao_form = SelecaoJuriForm(request.POST, instance=inscricao, label_suffix='', initial=data)
-				if selecao_form.is_valid():
-					selecao_form.save()
-					if selecao_form.has_changed():
-						if inscricao.selecao == 'ok':
-							if not Ordem.objects.filter(inscricao=inscricao).exists():
-								n = len(Ordem.objects.all())
-								Ordem.objects.create(inscricao=inscricao, ordem=str(n+1))
-						else:
-							if selecionado:
-								for p in Ordem.objects.filter(ordem__gt=selecionado.ordem):
-									n = int(p.ordem)
-									p.ordem = str(n-1)
+		if request.user.is_authenticated:
+			if request.method == 'POST':
+				if request.user.is_authenticated and not_juri(request.user):
+					# pre selecao
+					form = SelecaoForm(request.POST, instance=inscricao)
+					if form.is_valid():
+						form.save()
+					# texto
+					if inscricao.selecao:
+						texto_form = TextoJuriForm(request.POST, prefix='texto', instance=inscricao, label_suffix='')
+						if texto_form.is_valid():
+							texto_form.save()
+					# ordem
+					if selecionado:
+						ordem_data = Ordem.objects.filter(inscricao=inscricao).values()[0]
+						ordem_form = OrdemForm(request.POST, instance=selecionado, label_suffix='', initial=ordem_data)
+						if ordem_form.is_valid():
+							if ordem_form.has_changed():
+								novo = ordem_form.save(commit=False)
+								lista = []
+								for p in Ordem.objects.exclude(inscricao=inscricao):
+									lista.append(p.inscricao)
+								lista.insert(int(novo.ordem)-1, novo.inscricao)
+								for i,p in enumerate(lista):
+									p = Ordem.objects.get(inscricao=p)
+									p.ordem = str(i+1)
 									p.save()
-								selecionado.delete()
+					# selecao
+					data = Inscricao.objects.filter(codigo=codigo).values('selecao')[0]
+					selecao_form = SelecaoJuriForm(request.POST, instance=inscricao, label_suffix='', initial=data)
+					if selecao_form.is_valid():
+						selecao_form.save()
+						if selecao_form.has_changed():
+							if inscricao.selecao == 'ok':
+								if not Ordem.objects.filter(inscricao=inscricao).exists():
+									n = len(Ordem.objects.all())
+									Ordem.objects.create(inscricao=inscricao, ordem=str(n+1))
+							else:
+								if selecionado:
+									for p in Ordem.objects.filter(ordem__gt=selecionado.ordem):
+										n = int(p.ordem)
+										p.ordem = str(n-1)
+										p.save()
+									selecionado.delete()
 
-			# # vazio
-			# if not_juri(request.user):
-			# 	form = SelecaoForm(request.POST, instance=inscricao)
-			# 	if form.is_valid():
-			# 		form.save()
+				# # vazio
+				# if not_juri(request.user):
+				# 	form = SelecaoForm(request.POST, instance=inscricao)
+				# 	if form.is_valid():
+				# 		form.save()
 
-			# 	texto_form = TextoJuriForm(request.POST, prefix='texto', instance=inscricao)
-			# 	if texto_form.is_valid():
-			# 		texto_form.save()
-			# # juri
-			# else:
-			# 	data = AvaliacaoJuri.objects.filter(inscricao=inscricao, juri=request.user).values()[0]
-			# 	form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='', initial=data)
-			# 	if form.is_valid():
-			# 		form.save()
-			# 		if form.has_changed():
-			# 			# likes
-			# 			if 's2' in form.changed_data:
-			# 				inscricao.s2 = len(AvaliacaoJuri.objects.filter(inscricao=inscricao, s2=True))
-			# 				inscricao.save()
-			# 			# media
-			# 			if 'nota' in form.changed_data:
-			# 				media = 0
-			# 				notas = AvaliacaoJuri.objects.filter(inscricao=inscricao)
-			# 				n = len(notas)
-			# 				for nota in notas:
-			# 					if nota.nota:
-			# 						media += int(nota.nota)
-			# 					else:
-			# 						n -= 1
-			# 				if n != 0:
-			# 					media = media/n
-			# 				inscricao.media = media
-			# 				inscricao.save()
+				# 	texto_form = TextoJuriForm(request.POST, prefix='texto', instance=inscricao)
+				# 	if texto_form.is_valid():
+				# 		texto_form.save()
+				# # juri
+				# else:
+				# 	data = AvaliacaoJuri.objects.filter(inscricao=inscricao, juri=request.user).values()[0]
+				# 	form = AvaliacaoForm(request.POST, instance=juri, prefix='juri', label_suffix='', initial=data)
+				# 	if form.is_valid():
+				# 		form.save()
+				# 		if form.has_changed():
+				# 			# likes
+				# 			if 's2' in form.changed_data:
+				# 				inscricao.s2 = len(AvaliacaoJuri.objects.filter(inscricao=inscricao, s2=True))
+				# 				inscricao.save()
+				# 			# media
+				# 			if 'nota' in form.changed_data:
+				# 				media = 0
+				# 				notas = AvaliacaoJuri.objects.filter(inscricao=inscricao)
+				# 				n = len(notas)
+				# 				for nota in notas:
+				# 					if nota.nota:
+				# 						media += int(nota.nota)
+				# 					else:
+				# 						n -= 1
+				# 				if n != 0:
+				# 					media = media/n
+				# 				inscricao.media = media
+				# 				inscricao.save()
 
-			if 'proximo' in request.POST:
-				return redirect('galeria_projeto', codigo=proximo.codigo, ordem=ordem)
-			elif 'galeria' in request.POST:
-				return redirect('galeria', ordem=ordem)
+				if 'proximo' in request.POST:
+					return redirect('galeria_projeto', codigo=proximo.codigo, ordem=ordem)
+				elif 'galeria' in request.POST:
+					return redirect('galeria', ordem=ordem)
+				else:
+					return redirect('galeria_projeto', codigo=codigo, ordem=ordem)
+
 			else:
-				return redirect('galeria_projeto', codigo=codigo, ordem=ordem)
+				if not_juri(request.user):
+					form = SelecaoForm(instance=inscricao)
+					selecao_form = SelecaoJuriForm(instance=inscricao, label_suffix='')
+					if inscricao.selecao:
+						texto_form = TextoJuriForm(prefix='texto', instance=inscricao, label_suffix='')
+					if selecionado:
+						ordem_form = OrdemForm(instance=selecionado, label_suffix='')
+				# else:
+				# 	form = AvaliacaoForm(instance=juri, prefix='juri', label_suffix='')
 
-		else:
-			if not_juri(request.user):
-				form = SelecaoForm(instance=inscricao)
-				selecao_form = SelecaoJuriForm(instance=inscricao, label_suffix='')
-				if inscricao.selecao:
-					texto_form = TextoJuriForm(prefix='texto', instance=inscricao, label_suffix='')
-				if selecionado:
-					ordem_form = OrdemForm(instance=selecionado, label_suffix='')
-			# else:
-			# 	form = AvaliacaoForm(instance=juri, prefix='juri', label_suffix='')
-
-	if inscricoes:
-		# paginacao
-		page = request.GET.get('page', 1)
-		if codigo:
-			paginator = Paginator([inscricao], 1)
-		else:
-			paginator = Paginator(inscricoes, 10)
-		try:
-			pg = paginator.page(page)
-		except PageNotAnInteger:
-			pg = paginator.page(1)
-		except EmptyPage:
-			pg = paginator.page(paginator.num_pages)
+	# paginacao
+	page = request.GET.get('page', 1)
+	if codigo:
+		paginator = Paginator([inscricao], 1)
 	else:
-		pg=None
+		paginator = Paginator(inscricoes, 10)
+	try:
+		pg = paginator.page(page)
+	except PageNotAnInteger:
+		pg = paginator.page(1)
+	except EmptyPage:
+		pg = paginator.page(paginator.num_pages)
 
 	return render(request, 'o_t/galeria.html', {
 		'edit': 'galeria_edit',

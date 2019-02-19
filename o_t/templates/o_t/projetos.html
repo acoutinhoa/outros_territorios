@@ -2,7 +2,7 @@
 
 {% get_current_language as lang %}
 
-{% if form %}
+{% if proximo %}
 	{% set False as link %}
 {% else %}
 	{% set True as link %}
@@ -73,6 +73,12 @@
 			
 			{% if form %}
 				{% include 'o_t/galeria_form.html' %}
+			{% elif proximo %}
+				<div class="linha_ menu" {% borda %}>
+					<br>
+					<a href="{% url 'galeria_projeto' codigo=proximo.codigo ordem=ordem %}" class="botao"><button type="button">{% trans 'próximo' %}</button></a>
+					<a href="{% url 'galeria' ordem=ordem %}" class="botao"><button type="button">{% trans 'galeria' %}</button></a>
+				</div>
 			{% endif %}
 
 			{% if forloop.last %}

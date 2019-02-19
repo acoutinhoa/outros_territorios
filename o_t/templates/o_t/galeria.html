@@ -8,25 +8,25 @@
 {% endblock %}
 
 {% block c1 %}
-	{% comment %}
 	{% include 'o_t/projetos.html' %}
-	{% endcomment %}
+	{% comment %}
 		{% if user.is_authenticated %}
 			{% include 'o_t/projetos.html' %}
 		{% else %}
 			{% include 'o_t/galeria_cartaz.html' %}
 		{% endif %}
+	{% endcomment %}
 {% endblock %}
 
 {% block c2 %}
-	{% comment %}
 	{% include 'o_t/projetos_lista.html' %}
-	{% endcomment %}
+	{% comment %}
 		{% if user.is_authenticated %}
 			{% include 'o_t/projetos_lista.html' %}
 		{% else %}
 			<div class="linha" style="height: {% randint 10 90 %}vh;"></div>
 		{% endif %}
+	{% endcomment %}
 {% endblock %}
 
 
