@@ -111,6 +111,9 @@ img {
 	height: auto;
 	margin-bottom: -6px;
 }
+.fundocinza {
+	background-color: var(--cinza);
+}
 .cartaz {
 	float: left;
 	height: auto;
