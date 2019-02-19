@@ -210,6 +210,13 @@ TextoJuriForm = forms.modelform_factory(
 		},
 	)
 
+AtaForm = forms.modelform_factory(
+	Ata,
+	fields=('ata', 'ata_en', ),
+	widgets = {
+		},
+	)
+
 # from input_mask.widgets import InputMask
 
 # class MyCustomInput(InputMask):

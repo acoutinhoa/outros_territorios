@@ -1,8 +1,20 @@
 <p class="titulo titulo_ linha">juri/edit</p>
 
 	<table class="form">
-		<form method="POST">
+		<form method="POST" enctype="multipart/form-data" >
 			{% csrf_token %}
+			{% if ata_form %}
+				<tr><td></td></tr>
+				{{ ata_form }}
+				<tr><td class="espaco"></td></tr>
+				<tr>
+					<td></td><td>
+						<button type="submit" name="juri_submit">salvar</button>
+					</td>
+				</tr>
+				<tr><td class="espaco"></td></tr>
+				<tr><td class="espaco"></td></tr>
+			{% endif %}
 			{{ juri_form.management_form }}
 			{% for form in juri_form.extra_forms %}
 				{{ form }}

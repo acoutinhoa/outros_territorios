@@ -16,6 +16,7 @@ menu = [
 	[_('início'), reverse_lazy('home'), []],
 	[_('chamada de projetos'), reverse_lazy('concurso'), [
 		(_('inscrições'), _('inscricoes')),
+		(_('ata de julgamento'), _('ata')),
 		(_('arquivos adicionais'), _('arquivos')), 
 		(_('cronograma'), _('cronograma')), 
 		(_('júri'), _('juri')),
@@ -148,6 +149,11 @@ def concurso(request, msg='',):
 		arquivos = cartaz.arquivo_set.all()
 	jurados = Juri.objects.all()
 
+	# ata
+	ata = None
+	if Ata.objects.filter(pagina=cartaz).exists():
+		ata = Ata.objects.filter(pagina=cartaz).first()
+
 	msg = msg.replace('-', ' ')
 	if 'Inscricao' in msg:
 		msg = msg.replace('Inscricao', 'Inscrição')
@@ -198,6 +204,7 @@ def concurso(request, msg='',):
 		'dados_form': dados_form,
 		'email_form': email_form,
 		'confirmacao': msg,
+		'ata': ata,
 	})
 
 @login_required
@@ -205,15 +212,19 @@ def concurso(request, msg='',):
 def concurso_edit(request):
 	titulo = _('chamada de projetos')
 	cartaz = Cartaz.objects.get_or_create(pagina='concurso')[0]
+	ata = Ata.objects.get_or_create(pagina=cartaz)[0]
 
 	if request.method == 'POST':
 		if 'juri_submit' in request.POST or 'juri_submit_home' in request.POST:
 			juri_form = JuriForm(request.POST, prefix='juri')
-			if juri_form.is_valid():
+			ata_form = AtaForm(request.POST, request.FILES, instance=ata, prefix='ata')
+			if juri_form.is_valid() and ata_form.is_valid():
 				juri_form.save()
+				ata_form.save()
 				if 'juri_submit_home' in request.POST:
 					return redirect('concurso')
 				juri_form = JuriForm(prefix='juri')
+				ata_form = AtaForm(instance=ata, prefix='ata')
 			cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
 			arquivos_form = ArquivoForm(instance=cartaz, prefix='arquivo')
 		elif 'cartaz_submit' in request.POST or 'cartaz_submit_home' in request.POST:
@@ -226,9 +237,11 @@ def concurso_edit(request):
 					return redirect('concurso')
 				arquivos_form = ArquivoForm(instance=cartaz, prefix='arquivo')
 			juri_form = JuriForm(prefix='juri')
+			ata_form = AtaForm(instance=ata, prefix='ata')
 	else:
 		cartaz_form = CartazForm(instance=cartaz, prefix='cartaz')
 		arquivos_form = ArquivoForm(instance=cartaz, prefix='arquivo')
+		ata_form = AtaForm(instance=ata, prefix='ata')
 		juri_form = JuriForm(prefix='juri')
 
 	return render(request, 'o_t/concurso_edit.html', {
@@ -236,6 +249,7 @@ def concurso_edit(request):
 		'menu': menu, 
 		'cartaz_form': cartaz_form,
 		'arquivos_form': arquivos_form,
+		'ata_form': ata_form,
 		'juri_form': juri_form,
 	})
 

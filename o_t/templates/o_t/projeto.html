@@ -31,6 +31,7 @@
 		{% trans 'Equipe' %} <b>
 			{% for pessoa in inscricao.equipe_set.all %}{{ pessoa.nome|title }} {{ pessoa.sobrenome|title }}{% if not forloop.last %}</b>, <b>{% endif %}{% endfor %}</b><br>
 		{% endif %}
+		{% trans 'País' %} <b>{{ inscricao.dados_set.first.select_verbose }}</b><br>
 
 		{% if not user|grupo:'juri' %}
 			{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>

@@ -233,7 +233,8 @@ def proximo(inscricoes, inscricao):
 @register.simple_tag
 def ordem(ordem, user):
 	tipos = ['data', 'nota', 'media', _('classificacao'), _('palafita'), _('pais'),]
-	tipos.remove(ordem)
+	if ordem in tipos:
+		tipos.remove(ordem)
 	# if not ativo and grupo(user, 'juri'):
 	# 	tipos.remove('media')
 	# 	tipos.remove('palafita')

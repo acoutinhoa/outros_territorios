@@ -58,18 +58,11 @@ class Arquivo(models.Model):
 		ordering = ['tipo']
 
 class Ata(models.Model):
-	nome = models.CharField(max_length=200, blank=True)
-	arquivo = models.FileField(upload_to = arquivos_filepath, blank=True)
-	nome_en = models.CharField(max_length=200, blank=True)
-	arquivo_en = models.FileField(upload_to = arquivos_filepath, blank=True)
+	pagina = models.ForeignKey(Cartaz, on_delete=models.CASCADE, blank=True)
+	ata = models.FileField(upload_to = arquivos_filepath, blank=True)
+	ata_en = models.FileField(upload_to = arquivos_filepath, blank=True)
 	def __str__(self):
-		return '%s_%s' % (self.pagina, self.nome)
-	def save(self, *args, **kwargs):
-		if self.arquivo and not self.nome:
-			self.nome = self.arquivo.name
-		if self.arquivo_en and not self.nome_en:
-			self.nome_en = self.arquivo_en.name
-		super().save(*args, **kwargs)
+		return '%s_%s' % (self.pagina, ata)
 
 class Tag(models.Model):
 	tag = models.SlugField(max_length=100, unique=True)
@@ -325,7 +318,7 @@ class AvaliacaoJuri(models.Model):
 	inscricao = models.ForeignKey(Inscricao, on_delete=models.CASCADE)
 	juri = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 	s2 = models.BooleanField('★', default=False)
-	texto = models.TextField(_('anotação'), blank=True, default='')
+	texto = models.TextField('anotação', blank=True, default='')
 	nota = models.CharField('nota', choices=notas, max_length=2, blank=True,)
 	def __str__(self):
 		return '%s_%s' % (self.juri, self.inscricao.codigo)
