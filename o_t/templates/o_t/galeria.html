@@ -8,19 +8,25 @@
 {% endblock %}
 
 {% block c1 %}
-	{% if user.is_authenticated %}
-		{% include 'o_t/projetos.html' %}
-	{% else %}
-		{% include 'o_t/galeria_cartaz.html' %}
-	{% endif %}
+	{% include 'o_t/projetos.html' %}
+	{% comment %}
+		{% if user.is_authenticated %}
+			{% include 'o_t/projetos.html' %}
+		{% else %}
+			{% include 'o_t/galeria_cartaz.html' %}
+		{% endif %}
+	{% endcomment %}
 {% endblock %}
 
 {% block c2 %}
-	{% if user.is_authenticated %}
-		{% include 'o_t/projetos_lista.html' %}
-	{% else %}
-		<div class="linha" style="height: {% randint 10 90 %}vh;"></div>
-	{% endif %}
+	{% include 'o_t/projetos_lista.html' %}
+	{% comment %}
+		{% if user.is_authenticated %}
+			{% include 'o_t/projetos_lista.html' %}
+		{% else %}
+			<div class="linha" style="height: {% randint 10 90 %}vh;"></div>
+		{% endif %}
+	{% endcomment %}
 {% endblock %}
 
 

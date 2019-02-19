@@ -238,7 +238,11 @@ def ordem(ordem, user):
 	# if not ativo and grupo(user, 'juri'):
 	# 	tipos.remove('media')
 	# 	tipos.remove('palafita')
-	if not grupo(user, 'juri'):
+	if not user.is_authenticated:
+		tipos.remove('nota')
+		tipos.remove('data')
+		tipos.remove('media')
+	elif not grupo(user, 'juri'):
 		tipos.remove('nota')
 	return tipos
 
