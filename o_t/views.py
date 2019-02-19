@@ -335,6 +335,7 @@ def galeria(request, codigo=None, ordem=''):
 	# 	if timezone.now() > dt:
 	# 		ativo = 1
 
+	inscricoes = None
 	if request.user.is_authenticated:
 		if not ordem:
 			ordem = _('classificacao')
@@ -478,18 +479,21 @@ def galeria(request, codigo=None, ordem=''):
 			# else:
 			# 	form = AvaliacaoForm(instance=juri, prefix='juri', label_suffix='')
 
-	# paginacao
-	page = request.GET.get('page', 1)
-	if codigo:
-		paginator = Paginator([inscricao], 1)
+	if inscricoes:
+		# paginacao
+		page = request.GET.get('page', 1)
+		if codigo:
+			paginator = Paginator([inscricao], 1)
+		else:
+			paginator = Paginator(inscricoes, 10)
+		try:
+			pg = paginator.page(page)
+		except PageNotAnInteger:
+			pg = paginator.page(1)
+		except EmptyPage:
+			pg = paginator.page(paginator.num_pages)
 	else:
-		paginator = Paginator(inscricoes, 10)
-	try:
-		pg = paginator.page(page)
-	except PageNotAnInteger:
-		pg = paginator.page(1)
-	except EmptyPage:
-		pg = paginator.page(paginator.num_pages)
+		pg=None
 
 	return render(request, 'o_t/galeria.html', {
 		'edit': 'galeria_edit',
