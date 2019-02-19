@@ -33,7 +33,7 @@
 		{% endif %}
 		{% trans 'País' %} <b>{{ inscricao.dados_set.first.select_verbose }}</b><br>
 
-		{% if not user|grupo:'juri' %}
+		{% if user.is_authenticated and not user|grupo:'juri' %}
 			{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>
 			{% trans 'Enviado em' %} <b>
 				{% if projeto.inscricao.finalizada %}

@@ -126,6 +126,7 @@ img {
 }
 .normal {
 	font-weight: normal;
+	font-size: var(--fonte-titulo_);
 }
 .data {
 	font-family: var(--fonte);
