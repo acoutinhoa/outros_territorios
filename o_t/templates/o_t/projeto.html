@@ -48,6 +48,10 @@
 	{% endif %}
 	
 	{% if projeto.arquivo %}
+	{% comment %}
+		<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank" class="botao"><button type="button">{% trans 'arquivo' %}</button></a></p>
+	{% endcomment %}
+
 		<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'arquivo' %}</a></p>
 	{% endif %}
 

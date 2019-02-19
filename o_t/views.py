@@ -376,6 +376,8 @@ def galeria(request, codigo=None, ordem=''):
 		i += 1
 		if i < len(inscricoes):
 			proximo = inscricoes[i]
+		else:
+			proximo = 'ultimo'
 
 		if not not_juri(request.user):
 			juri = AvaliacaoJuri.objects.get_or_create(inscricao=inscricao, juri=request.user)[0]

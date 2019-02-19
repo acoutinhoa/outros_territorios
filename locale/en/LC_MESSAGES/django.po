@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-19 13:13-0300\n"
+"POT-Creation-Date: 2019-02-19 15:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,7 +162,7 @@ msgstr "10. Maria Heilbuth Surete 1295: giant-stilts-II"
 #: o_t/templates/o_t/projetos_lista.html:40 o_t/templatetags/outras_tags.py:235
 #: o_t/views.py:354
 msgid "palafita"
-msgstr "palafitte"
+msgstr "stilt"
 
 #: o_t/models.py:305
 msgid "título"
@@ -419,24 +419,28 @@ msgstr "ranking"
 
 #: o_t/templates/o_t/projetos.html:32
 msgid "projetos selecionados"
-msgstr "finalists proposals"
+msgstr "finalist proposals"
 
 #: o_t/templates/o_t/projetos.html:36 o_t/templates/o_t/projetos_lista.html:30
 msgid "menções honrosas"
-msgstr "honorable mention"
+msgstr "honorable mentions"
 
 #: o_t/templates/o_t/projetos.html:40
-msgid "outros projetos"
-msgstr "all submissions"
+msgid "demais projetos"
+msgstr "other submissions"
 
 #: o_t/templates/o_t/projetos.html:54 o_t/templates/o_t/projetos_lista.html:55
 #: o_t/templatetags/outras_tags.py:235 o_t/views.py:358
 msgid "pais"
 msgstr "country"
 
+#: o_t/templates/o_t/projetos_lista.html:8
+msgid "projetos"
+msgstr "proposals"
+
 #: o_t/templates/o_t/projetos_lista.html:10
-msgid "ordem"
-msgstr "order"
+msgid "ordem por"
+msgstr "order by"
 
 #: o_t/templates/o_t/projetos_lista.html:32
 msgid "selecionados"
@@ -1755,10 +1759,10 @@ msgid "Connect, get help, or contribute"
 msgstr ""
 
 #~ msgid "palafita/"
-#~ msgstr "palafitte/"
+#~ msgstr "stilt/"
 
 #~ msgid "palafita/<int:codigo>/"
-#~ msgstr "palafitte/<int:codigo>/"
+#~ msgstr "stilt/<int:codigo>/"
 
 #~ msgid "classificacao/"
 #~ msgstr "ranking/"

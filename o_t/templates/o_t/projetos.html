@@ -11,7 +11,7 @@
 {% espaco %}
 
 <div class="cartaz linha">
-	<p class="titulo">{{ titulo }}{% if not user|grupo:'juri' %} / <a href="{% url 'galeria_dados' %}">dados</a>{% endif %}</p>
+	<p class="titulo">{{ titulo }}{% if user.is_authenticated and not user|grupo:'juri' %} / <a href="{% url 'galeria_dados' %}">dados</a>{% endif %}</p>
 </div>
 
 
@@ -37,7 +37,7 @@
 						</div>
 					{% elif inscricao.selecao == '' and inscricao.selecao != feed %}
 						<div class="cartaz linha">
-							<p class="titulo normal">{% trans 'outros projetos' %}</p>
+							<p class="titulo normal">{% trans 'demais projetos' %}</p>
 						</div>
 					{% endif %}
 					{% set inscricao.selecao as feed %}
@@ -76,7 +76,9 @@
 			{% elif proximo %}
 				<div class="linha_ menu" {% borda %}>
 					<br>
-					<a href="{% url 'galeria_projeto' codigo=proximo.codigo ordem=ordem %}" class="botao"><button type="button">{% trans 'próximo' %}</button></a>
+					{% if proximo != 'ultimo' %}
+						<a href="{% url 'galeria_projeto' codigo=proximo.codigo ordem=ordem %}" class="botao"><button type="button">{% trans 'próximo' %}</button></a>
+					{% endif %}
 					<a href="{% url 'galeria' ordem=ordem %}" class="botao"><button type="button">{% trans 'galeria' %}</button></a>
 				</div>
 			{% endif %}

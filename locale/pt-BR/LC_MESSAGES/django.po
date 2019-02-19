@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-19 13:13-0300\n"
+"POT-Creation-Date: 2019-02-19 15:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -414,7 +414,7 @@ msgid "menções honrosas"
 msgstr ""
 
 #: o_t/templates/o_t/projetos.html:40
-msgid "outros projetos"
+msgid "demais projetos"
 msgstr ""
 
 #: o_t/templates/o_t/projetos.html:54 o_t/templates/o_t/projetos_lista.html:55
@@ -422,8 +422,12 @@ msgstr ""
 msgid "pais"
 msgstr ""
 
+#: o_t/templates/o_t/projetos_lista.html:8
+msgid "projetos"
+msgstr ""
+
 #: o_t/templates/o_t/projetos_lista.html:10
-msgid "ordem"
+msgid "ordem por"
 msgstr ""
 
 #: o_t/templates/o_t/projetos_lista.html:32
