@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-19 00:07-0300\n"
+"POT-Creation-Date: 2019-02-19 00:37-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -420,10 +420,6 @@ msgstr ""
 #: o_t/templates/o_t/projetos.html:54 o_t/templates/o_t/projetos_lista.html:55
 #: o_t/templatetags/outras_tags.py:235 o_t/views.py:359
 msgid "pais"
-msgstr ""
-
-#: o_t/templates/o_t/projetos_lista.html:10
-msgid "ordem"
 msgstr ""
 
 #: o_t/templates/o_t/projetos_lista.html:32
