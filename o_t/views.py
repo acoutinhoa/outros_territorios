@@ -482,9 +482,9 @@ def galeria(request, codigo=None, ordem=''):
 	# paginacao
 	page = request.GET.get('page', 1)
 	if codigo:
-		paginator = Paginator([inscricao], 5)
+		paginator = Paginator([inscricao], 1)
 	else:
-		paginator = Paginator(inscricoes, 5)
+		paginator = Paginator(inscricoes, 10)
 	try:
 		pg = paginator.page(page)
 	except PageNotAnInteger:
