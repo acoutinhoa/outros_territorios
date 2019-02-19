@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-19 00:37-0300\n"
+"POT-Creation-Date: 2019-02-19 13:13-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,7 +160,7 @@ msgstr "10. Maria Heilbuth Surete 1295: giant-stilts-II"
 
 #: o_t/models.py:304 o_t/templates/o_t/projetos.html:46
 #: o_t/templates/o_t/projetos_lista.html:40 o_t/templatetags/outras_tags.py:235
-#: o_t/views.py:355
+#: o_t/views.py:354
 msgid "palafita"
 msgstr "palafitte"
 
@@ -218,11 +218,11 @@ msgstr "jury"
 msgid "Em Breve."
 msgstr "Soon."
 
-#: o_t/templates/o_t/documentacao.html:66 o_t/views.py:19
+#: o_t/templates/o_t/documentacao.html:65 o_t/views.py:19
 msgid "ata"
 msgstr "minutes"
 
-#: o_t/templates/o_t/documentacao.html:67 o_t/views.py:19
+#: o_t/templates/o_t/documentacao.html:66 o_t/views.py:19
 msgid "ata de julgamento"
 msgstr "judgment minutes"
 
@@ -258,12 +258,12 @@ msgstr "send"
 msgid "salvar"
 msgstr "save"
 
-#: o_t/templates/o_t/galeria_form.html:41
+#: o_t/templates/o_t/galeria_form.html:41 o_t/templates/o_t/projetos.html:79
 msgid "próximo"
-msgstr ""
+msgstr "next"
 
-#: o_t/templates/o_t/galeria_form.html:43 o_t/views.py:24 o_t/views.py:331
-#: o_t/views.py:514 o_t/views.py:548
+#: o_t/templates/o_t/galeria_form.html:43 o_t/templates/o_t/projetos.html:80
+#: o_t/views.py:24 o_t/views.py:329 o_t/views.py:518 o_t/views.py:552
 msgid "galeria"
 msgstr "gallery"
 
@@ -343,12 +343,12 @@ msgstr "save project"
 msgid "publicado em"
 msgstr "published in"
 
-#: o_t/templates/o_t/notas.html:28 o_t/templates/o_t/projetos.html:86
+#: o_t/templates/o_t/notas.html:28 o_t/templates/o_t/projetos.html:92
 #: o_t/templatetags/outras_tags.py:189
 msgid "ver mais"
 msgstr "read more"
 
-#: o_t/templates/o_t/notas.html:31 o_t/templates/o_t/projetos.html:89
+#: o_t/templates/o_t/notas.html:31 o_t/templates/o_t/projetos.html:95
 msgid "carregando..."
 msgstr "loading..."
 
@@ -356,7 +356,7 @@ msgstr "loading..."
 msgid "consulta enviada"
 msgstr "your question was sent"
 
-#: o_t/templates/o_t/pre_inscricoes.html:10 o_t/views.py:18 o_t/views.py:271
+#: o_t/templates/o_t/pre_inscricoes.html:10 o_t/views.py:18 o_t/views.py:269
 msgid "inscrições"
 msgstr "registration"
 
@@ -413,7 +413,7 @@ msgid "comentários do júri"
 msgstr "jury comments"
 
 #: o_t/templates/o_t/projetos.html:28 o_t/templates/o_t/projetos_lista.html:21
-#: o_t/templatetags/outras_tags.py:235 o_t/views.py:341 o_t/views.py:357
+#: o_t/templatetags/outras_tags.py:235 o_t/views.py:340 o_t/views.py:356
 msgid "classificacao"
 msgstr "ranking"
 
@@ -430,9 +430,13 @@ msgid "outros projetos"
 msgstr "all submissions"
 
 #: o_t/templates/o_t/projetos.html:54 o_t/templates/o_t/projetos_lista.html:55
-#: o_t/templatetags/outras_tags.py:235 o_t/views.py:359
+#: o_t/templatetags/outras_tags.py:235 o_t/views.py:358
 msgid "pais"
 msgstr "country"
+
+#: o_t/templates/o_t/projetos_lista.html:10
+msgid "ordem"
+msgstr "order"
 
 #: o_t/templates/o_t/projetos_lista.html:32
 msgid "selecionados"
@@ -470,7 +474,7 @@ msgstr "Q&A/"
 msgid "início"
 msgstr "home"
 
-#: o_t/views.py:17 o_t/views.py:145 o_t/views.py:213
+#: o_t/views.py:17 o_t/views.py:145 o_t/views.py:211
 msgid "chamada de projetos"
 msgstr "call for projects"
 
@@ -478,7 +482,7 @@ msgstr "call for projects"
 msgid "blog"
 msgstr "blog"
 
-#: o_t/views.py:26 o_t/views.py:706
+#: o_t/views.py:26 o_t/views.py:710
 msgid "perguntas frequentes"
 msgstr "Q&A"
 
@@ -557,37 +561,37 @@ msgid ""
 "{link}"
 msgstr ""
 
-#: o_t/views.py:172
+#: o_t/views.py:170
 msgid "Outros Territórios_confirmação de inscrição"
 msgstr "Other Territories_registration confirmation"
 
-#: o_t/views.py:175
+#: o_t/views.py:173
 msgid "Inscricao-realizada"
 msgstr "Registration-was-succesfull"
 
-#: o_t/views.py:185
+#: o_t/views.py:183
 msgid "Outros Territórios_reenvio de link"
 msgstr "Subject: Other Territories_submission link"
 
-#: o_t/views.py:188
+#: o_t/views.py:186
 msgid "Email-enviado"
 msgstr "Email-sent"
 
-#: o_t/views.py:258
+#: o_t/views.py:256
 msgid "email"
 msgstr ""
 
-#: o_t/views.py:286
+#: o_t/views.py:284
 msgid ""
 "Você precisa preencher todos os campos do projeto para finalizar sua "
 "inscrição"
 msgstr "You must complete all project fields to finalize your registration"
 
-#: o_t/views.py:730
+#: o_t/views.py:734
 msgid "Outros Territórios_consulta"
 msgstr "Other Territories_queries"
 
-#: o_t/views.py:816
+#: o_t/views.py:820
 msgid "Outros Territórios_resposta à consulta"
 msgstr "Other Territories"
 

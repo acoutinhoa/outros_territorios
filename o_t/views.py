@@ -358,7 +358,7 @@ def galeria(request, codigo=None, ordem=''):
 	elif ordem == _('pais'):
 		inscricoes = inscricoes.order_by('dados__pais', 'projeto__nome')
 	else:
-		redirect('galeria')
+		return redirect('galeria')
 
 
 	form = None

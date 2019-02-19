@@ -7,7 +7,7 @@
 <div class="post respostas">
 	<p class="titulo_">projetos<br>
 		<span class="menu" style="margin-bottom: 31px;">
-			<span style="font-weight: normal">ordem </span> 
+			<span style="font-weight: normal">{% trans 'ordem' %} </span> 
 			{% trans ordem|acento %}
 			{% ordem ordem request.user as ordem_lista %}
 			{% for tipo in ordem_lista %}
