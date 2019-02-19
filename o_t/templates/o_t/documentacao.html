@@ -62,12 +62,12 @@
 
 <div class="cartaz" style="width: 40%;">
 
-	{% if ata %}
+	{% if ata.ata or ata.ata_en %}
 		<div class="linha post" id="{% trans 'ata' %}">
 			<p class="titulo_">{% trans 'ata de julgamento' %}</p>
 			{% if lang == 'en' and ata.ata_en %}
 				{% set ata.ata_en.url as ata %}
-			{% else %}
+			{% elif ata.ata %}
 				{% set ata.ata.url as ata %}
 			{% endif %}
 			<ul>

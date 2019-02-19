@@ -150,9 +150,7 @@ def concurso(request, msg='',):
 	jurados = Juri.objects.all()
 
 	# ata
-	ata = None
-	if Ata.objects.filter(pagina=cartaz).exists():
-		ata = Ata.objects.filter(pagina=cartaz).first()
+	ata = Ata.objects.get_or_create(pagina=cartaz)[0]
 
 	msg = msg.replace('-', ' ')
 	if 'Inscricao' in msg:
