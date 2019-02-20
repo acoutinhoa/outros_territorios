@@ -255,6 +255,49 @@ def acento(ordem):
 	else:
 		return ordem
 
+@register.simple_tag
+def galeria_feed(ordem, inscricoes, inscricao):
+	feed = None
+	txt = '''
+			<div class="cartaz linha">
+				<p class="titulo normal">%s</p>
+			</div>'''
+
+	if ordem == 'media' or ordem == _('classificacao'):
+		for item in inscricoes:
+			if item.selecao != feed:
+				feed = item.selecao
+				if item == inscricao:
+					if item.selecao == 'ok':
+						t = _('projetos selecionados')
+					elif item.selecao == 'mh':
+						t = _('menções honrosas')
+					elif item.selecao == '':
+						t = _('demais projetos')
+					return mark_safe(txt % (t))
+	
+	elif ordem == _('palafita'):
+		for item in inscricoes:
+			if item.projeto_set.first().palafita != feed:
+				feed = item.projeto_set.first().palafita
+				if item == inscricao:
+					return mark_safe(txt % ( formatapalafita(item.projeto_set.first().palafita_verbose()) ))
+
+	elif ordem == _('pais'):
+		for item in inscricoes:
+			if item.dados_set.first().pais != feed:
+				feed = item.dados_set.first().pais
+				if item == inscricao:
+					return mark_safe(txt % ( item.dados_set.first().select_verbose() ))
+
+	elif ordem == _('data'):
+		for item in inscricoes:
+			if item.ok == 'no' and item.ok != feed:
+				feed = item.ok
+				if item == inscricao:
+					return mark_safe(txt % ( 'reprovados' ))
+
+	return ''
 
 # @register.simple_tag
 # def media(qs, criterio=None):

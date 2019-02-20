@@ -18,56 +18,13 @@
 <div class="infinite-container">
 	{% for inscricao in pg %}
 		<div class="infinite-item">
-
 			{% if forloop.first %}
-				{% espaco 60 120 %}
+				{% espaco 51 91 %}
 			{% else %}
-				{% espaco 80 180 borda='linha linha_' %}
+				{% espaco 80 160 borda='linha linha_' %}
 			{% endif %}
 
-			{% if ordem == 'media' or ordem == _('classificacao') %}
-				{% ifchanged inscricao.selecao %}
-					{% if inscricao.selecao == 'ok' and inscricao.selecao != feed %}
-						<div class="cartaz linha">
-							<p class="titulo normal">{% trans 'projetos selecionados' %}</p>
-						</div>
-					{% elif inscricao.selecao == 'mh' and inscricao.selecao != feed %}
-						<div class="cartaz linha">
-							<p class="titulo normal">{% trans 'menções honrosas' %}</p>
-						</div>
-					{% elif inscricao.selecao == '' and inscricao.selecao != feed %}
-						<div class="cartaz linha">
-							<p class="titulo normal">{% trans 'demais projetos' %}</p>
-						</div>
-					{% endif %}
-					{% set inscricao.selecao as feed %}
-				{% endifchanged %}
-
-			{% elif ordem == _('palafita') and inscricao.projeto_set.first.palafita != feed %}
-				{% ifchanged inscricao.projeto_set.first.palafita %}
-					<div class="cartaz linha">
-						<p class="titulo normal">{{ inscricao.projeto_set.first.palafita_verbose|formatapalafita }}</p>
-					</div>
-					{% set inscricao.projeto_set.first.palafita as feed %}
-				{% endifchanged %}
-
-			{% elif ordem == _('pais') and inscricao.dados_set.first.pais != feed %}
-				{% ifchanged inscricao.dados_set.first.pais %}
-					<div class="cartaz linha">
-						<p class="titulo normal">{{ inscricao.dados_set.first.select_verbose }}</p>
-					</div>
-					{% set inscricao.dados_set.first.pais as feed %}
-				{% endifchanged %}
-			{% endif %}
-
-			{% ifchanged inscricao.ok %}
-				{% if ordem == 'data' and inscricao.ok == 'no' %}
-					<div class="cartaz linha">
-						<p class="titulo normal">reprovados</p>
-					</div>
-				{% endif %}
-			{% endifchanged %}
-
+			{% galeria_feed ordem inscricoes inscricao %}
 
 			{% include 'o_t/projeto.html' with link=link %}
 			
@@ -84,7 +41,7 @@
 			{% endif %}
 
 			{% if forloop.last %}
-				{% espaco borda='linha_' %}
+				{% espaco 51 91 borda='linha_' %}
 			{% endif %}
 		</div>
 	{% endfor %}
