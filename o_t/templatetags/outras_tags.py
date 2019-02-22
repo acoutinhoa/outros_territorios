@@ -299,6 +299,34 @@ def galeria_feed(ordem, inscricoes, inscricao):
 
 	return ''
 
+@register.filter
+def info(inscricao):
+	lista = [ 
+	('Nome', inscricao.nome.title() + ' ' + inscricao.sobrenome.title() ), 
+		('E-mail', inscricao.email ), 
+		('Área', inscricao.select_verbose() ),
+		('', ''),
+	]
+	for i, pessoa in enumerate(inscricao.equipe_set.all()):
+		lista.append( ('equipe_%s' % (str(i+1)), '%s %s' % (pessoa.nome, pessoa.sobrenome)) )
+		lista.append( ('e-mail', pessoa.email) )
+		if i == inscricao.equipe_set.all().count()-1:
+			lista.append( ('', '') )
+
+	for i in inscricao.dados_set.values():
+		for j in i:
+			if j != 'id':
+				if j == 'pais':
+					lista.append( (j, inscricao.dados_set.first().select_verbose() ) )
+				elif j == 'inscricao_id':
+					lista.append( ('código', inscricao.codigo) )
+					lista.append( ('id', i[j]) )
+				else:
+					lista.append( (j, i[j]) )
+				if j in ['inscricao_id', 'celular']:
+					lista.append( ('', '') )
+	return lista
+
 # @register.simple_tag
 # def media(qs, criterio=None):
 # def media(qs, criterio=None):

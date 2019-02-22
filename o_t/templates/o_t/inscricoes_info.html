@@ -1,0 +1,24 @@
+{% load i18n outras_tags %}
+
+{% get_current_language as lang %}
+
+{% set inscricao.avaliacaojuri_set.all as avaliacao %}
+
+<table class="form linha_" {% borda %}>
+    {% for nome, info in inscricao|info %}
+        {% if nome %}
+            <tr>
+                <th style="width: 191px;">{% trans nome|title %} <span style="font-weight: normal;">{%hifen%}</span></th>
+                <td>{{ info }}</td>
+            </tr>
+        {% else %}
+             <tr>
+                <th class="espaco"></th>
+            </tr>
+       {% endif %}
+    {% endfor %}
+</table>
+
+
+
+

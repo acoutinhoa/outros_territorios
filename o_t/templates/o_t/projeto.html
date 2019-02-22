@@ -5,6 +5,7 @@
 {% set inscricao|projeto as projeto %}
 
 <div class="post">
+
 	{% if projeto.nome or projeto.palafita %}
 		<p class='titulo' style="text-align: left;">
 			{% if inscricao.ordem_set.all %}
@@ -22,6 +23,7 @@
 			{% endif %}
 			<br><span class="titulo__"">{{ projeto.palafita_verbose|formatapalafita }}</span></p>
 	{% endif %}
+
 	{% if projeto.img %}
 		<img src="{{ projeto.img.url }}" alt="{{ projeto.nome }}" class="img_post" width="calc(100% + 6vw)" height="auto">
 	{% endif %}
@@ -34,45 +36,50 @@
 		{% trans 'País' %} <b>{{ inscricao.dados_set.first.select_verbose }}</b><br>
 
 		{% if user.is_authenticated and not user|grupo:'juri' %}
-			{% trans 'Código de identificação' %} <b>{{ projeto.inscricao.codigo }}</b><br>
+			{% trans 'Código de identificação' %} <b>{{ inscricao.codigo }}</b><br>
 			{% trans 'Enviado em' %} <b>
-				{% if projeto.inscricao.finalizada %}
-					{{ projeto.inscricao.finalizada }}
+				{% if inscricao.finalizada %}
+					{{ inscricao.finalizada }}
 				{% else %}
 					{% hifen %}
 				{% endif %}</b>
 		{% endif %}
 	</p>
+
 	{% if projeto.texto %}
 		<p class="texto margem">{{ projeto.texto|linebreaksbr }}</p>
 	{% endif %}
 	
 	{% if projeto.arquivo %}
-	{% comment %}
-		<p class="menu margem"><a href="{{ projeto.arquivo.url }}" target="_blank" class="botao"><button type="button">{% trans 'arquivo' %}</button></a></p>
-	{% endcomment %}
-
 		<p class="menu margem texto" style="margin-top: 31px;"><a href="{{ projeto.arquivo.url }}" target="_blank">{% trans 'arquivo' %}</a></p>
 	{% endif %}
 
 	{% if inscricoes %}
-
 		{% if lang == 'en' and inscricao.texto_en %}
 			{% set inscricao.texto_en as texto %}
 		{% elif inscricao.texto %}
 			{% set inscricao.texto as texto %}
 		{% endif %}
 		{% if texto %}
-			<div class="dados linha_" {% borda %}>
-				<p class="post texto" style="margin-bottom: -39px;">
+			<div style="height: 151px;"><p></p></div>
+		
+			<div class="dados linha_" {%borda%}>
+				<p class="post texto" {% if not user.is_authenticated %}style="margin-bottom: -51px;"{% endif %}>
 					<span class="data">{% trans 'comentários do júri' %}<br><br><br></span>
 					{{ texto|linebreaksbr }}
 				</p>
 			</div>
 		{% endif %}
 
-		{% if user.is_authenticated and ordem == 'media' %}
-			<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
+		{% if user.is_authenticated %}
+			{% if not texto %}
+				<div style="height: 151px;"><p></p></div>
+			{% endif %}
+			{% if ordem == 'media' %}
+				<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
+			{% endif %}
+
+			<div class="dados" style="margin-bottom: -51px;">{% include 'o_t/inscricoes_info.html' %}</div>
 		{% endif %}
 
 	{% endif %}
