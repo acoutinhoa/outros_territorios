@@ -76,10 +76,11 @@
 				<div style="height: 151px;"><p></p></div>
 			{% endif %}
 			{% if ordem == 'media' %}
-				<div class="dados">{% include 'o_t/projeto_dados.html' %}</div>
+				<div class="dados" {% if user|grupo:'juri' %}style="margin-bottom: -51px;"{% endif %}>{% include 'o_t/projeto_dados.html' %}</div>
 			{% endif %}
-
+			{% if not user|grupo:'juri' %}
 			<div class="dados" style="margin-bottom: -51px;">{% include 'o_t/inscricoes_info.html' %}</div>
+			{% endif %}
 		{% endif %}
 
 	{% endif %}
