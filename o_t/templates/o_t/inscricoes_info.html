@@ -5,7 +5,7 @@
 {% set inscricao.avaliacaojuri_set.all as avaliacao %}
 
 <table class="form linha_" {% borda %}>
-    {% for nome, info in inscricao|info %}
+    {% for nome, info in inscricao|info:request %}
         {% if nome %}
             <tr>
                 <th style="width: 191px;">{% trans nome|title %} <span style="font-weight: normal;">{%hifen%}</span></th>

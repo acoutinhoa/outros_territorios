@@ -1,6 +1,6 @@
 from django import template, get_version
 from django.template.defaultfilters import stringfilter, linebreaksbr, floatformat
-from django.urls import resolve, translate_url
+from django.urls import resolve, translate_url, reverse
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -300,7 +300,7 @@ def galeria_feed(ordem, inscricoes, inscricao):
 	return ''
 
 @register.filter
-def info(inscricao):
+def info(inscricao, request):
 	lista = [ 
 	('Nome', inscricao.nome.title() + ' ' + inscricao.sobrenome.title() ), 
 		('E-mail', inscricao.email ), 
@@ -319,8 +319,9 @@ def info(inscricao):
 				if j == 'pais':
 					lista.append( (j, inscricao.dados_set.first().select_verbose() ) )
 				elif j == 'inscricao_id':
+					link = request.build_absolute_uri(reverse('inscricoes', kwargs={'pk': inscricao.pk}))
 					lista.append( ('código', inscricao.codigo) )
-					lista.append( ('id', i[j]) )
+					lista.append( ('link', mark_safe('<a href="%s" target=_blank>%s</a>' % ( link, i[j]) )) )
 				else:
 					lista.append( (j, i[j]) )
 				if j in ['inscricao_id', 'celular']:
